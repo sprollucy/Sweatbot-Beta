@@ -8,6 +8,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using TwitchLib.Api.Helix;
 
 
 /* TODO **
@@ -221,6 +222,7 @@ namespace UiBot
             }
         }
 
+
         //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
@@ -277,9 +279,7 @@ namespace UiBot
                         chatCommandMethods.lastStatCommandTimer = DateTime.Now; // Update the last execution time
                         client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times today, escaped {chatCommandMethods.survivalCount} times, and killed {chatCommandMethods.killCount} players");
                     }
-                    else
-                    {
-                    }
+
                     break;
 
                 case "mybits":
@@ -400,26 +400,435 @@ namespace UiBot
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled)
                     {
-                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingDropBagCooldown();
-                        if (remainingCooldown.TotalSeconds > 0)
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
-                            client.SendMessage(channelId, $"Drop Bag command is on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.DropBagCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    // Execute the command
+                                    chatCommandMethods.BagDrop();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
                         }
                         else
                         {
-                            chatCommandMethods.lastdropbagTime = DateTime.Now;
-                            chatCommandMethods.BagDrop();
-                            remainingCooldown = chatCommandMethods.GetRemainingDropBagCooldown();
-                            client.SendMessage(channelId, $"Bag dropped! Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
                     else
                     {
+                        // Send message indicating the command is disabled
                         client.SendMessage(channelId, "Drop Bag command is currently disabled.");
                     }
                     break;
 
+
+
                 case "goose":
+                    if (!Properties.Settings.Default.IsGooseEnabled)
+                    {
+                        client.SendMessage(channelId, "Goose command is currently disabled.");
+                    }
+                    else if (gname.Length > 0)
+                    {
+                        client.SendMessage(channelId, "Goose is already running!");
+                    }
+                    else
+                    {
+                        // Parse the cooldown time from the gooseCooldownTextBox
+                        if (int.TryParse(controlMenu.GooseCooldownTextBox.Text, out int cooldownSeconds))
+                        {
+                            TimeSpan gooseCooldown = TimeSpan.FromSeconds(cooldownSeconds);
+
+                            if (DateTime.Now - chatCommandMethods.lastGooseCommandTime < gooseCooldown)
+                            {
+                                TimeSpan remainingCooldown = gooseCooldown - (DateTime.Now - chatCommandMethods.lastGooseCommandTime);
+                                client.SendMessage(channelId, $"Goose command is on cooldown. You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
+                            }
+                            else
+                            {
+                                // Get the directory where the executable is located
+                                string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                                // Combine the directory with the "Goose" folder and the filename to get the full path to GooseDesktop.exe
+                                string gooseExePath = Path.Combine(exeDirectory, "Goose", "GooseDesktop.exe");
+
+                                if (File.Exists(gooseExePath))
+                                {
+                                    // Generate a random runtime between 2 and 5 minutes.
+                                    Random random = new Random();
+                                    int runtimeMinutes = random.Next(2, 6); // Adjust the range as needed
+                                    TimeSpan runtime = TimeSpan.FromMinutes(runtimeMinutes);
+
+                                    // Start the Goose process and store it in the gooseProcess variable.
+                                    chatCommandMethods.gooseProcess = Process.Start(gooseExePath);
+                                    chatCommandMethods.lastGooseCommandTime = DateTime.Now;
+
+                                    // Send a message indicating how long the Goose will run
+                                    client.SendMessage(channelId, $"Goose is running for {runtimeMinutes} minutes!");
+
+                                    // Schedule a task to stop the Goose process after the random runtime.
+                                    Task.Run(() =>
+                                    {
+                                        Thread.Sleep(runtime);
+                                        if (!chatCommandMethods.gooseProcess.HasExited)
+                                        {
+                                            chatCommandMethods.gooseProcess.Kill(); // Terminate the Goose process.
+                                            client.SendMessage(channelId, "Goose has been terminated.");
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "GooseDesktop.exe not found in the 'Goose' folder. Please make sure it's in the correct location.");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid cooldown time. Please enter a valid number of minutes in the Goose cooldown textbox.");
+                        }
+                    }
+                    break;
+
+                case "killgoose":
+                    if (gname.Length > 0)
+                    {
+                        client.SendMessage(channelId, "Goose is DEAD");
+                        foreach (Process process in Process.GetProcessesByName("GooseDesktop"))
+                        {
+                            process.Kill();
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Goose is already DEAD");
+                    }
+
+                    break;
+
+                case "wiggle":
+                    if (Properties.Settings.Default.IsWiggleEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.WiggleCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    // Execute the command
+                                    chatCommandMethods.WiggleMouse(4, 30, 50); //format is turns, distance in px, delay between move
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Wiggle command is currently disabled.");
+                    }
+                    break;
+
+
+                case "turn":
+                    if (Properties.Settings.Default.IsTurnEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.TurnCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    // Randomly decide whether to move the mouse to the right or left
+                                    bool moveRight = (new Random()).Next(2) == 0;
+
+                                    chatCommandMethods.TurnRandom(2000);
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Turn command is currently disabled.");
+                    }
+                    break;
+
+                case "randomkeys":
+                    if (Properties.Settings.Default.IsKeyEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.RandomKeyCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.SimulateButtonPressAndMouseMovement();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Random Keys command is currently disabled.");
+                    }
+                    break;
+
+                case "drop":
+                    if (Properties.Settings.Default.IsDropEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.DropCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.SimulateButtonPressAndMouseMovement();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Drop command is currently disabled.");
+                    }
+                    break;
+
+                case "pop":
+                    if (Properties.Settings.Default.IsPopEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.OneClickCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.PopShot();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Pop command is currently disabled.");
+                    }
+                    break;
+
+                case "grenade":
+                    if (Properties.Settings.Default.isGrenadeEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.GrenadeSound();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Grenade command is currently disabled.");
+                    }
+                    break;
+
+
+                    /*
+                     *                 case "goose":
                     if (!Properties.Settings.Default.IsGooseEnabled)
                     {
                         client.SendMessage(channelId, "Goose command is currently disabled.");
@@ -647,7 +1056,7 @@ namespace UiBot
                     {
                         client.SendMessage(channelId, "Grenade command is currently disabled.");
                     }
-                    break;
+                    break;*/
             }
 
             //Mod Commands
