@@ -1,5 +1,4 @@
-﻿
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using TwitchLib.Client.Events;
 using TwitchLib.PubSub;
@@ -8,12 +7,13 @@ using TwitchLib.Client;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
 /* TODO **
  * Move commands to seperate script. Its slightly overwhelming.
  * - Moved methods to ChatCommandMethods
- * 
+ * Remove all cooldowns and convert to "bit" usage
  */
 
 namespace UiBot
@@ -27,10 +27,11 @@ namespace UiBot
         ControlMenu controlMenu = new ControlMenu();
 
         //dictionary 
-        private static Dictionary<string, int> userBits = new Dictionary<string, int>();
+        public static Dictionary<string, int> userBits = new Dictionary<string, int>();
+
         public Dictionary<string, string> commandConfigData;
 
-      
+        //Console import/kill
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
 
@@ -49,6 +50,7 @@ namespace UiBot
         internal MainBot()
         {
             LoadCredentialsFromJSON();
+            LoadUserBitsFromJson("user_bits.json"); 
         }
 
         public void Dispose()
@@ -56,39 +58,6 @@ namespace UiBot
             // Dispose of any resources here
             Disconnect();
         }
-
-
-        public void LoadCredentialsFromJSON()
-        {
-            string jsonFilePath = "Logon.json";
-
-            if (File.Exists(jsonFilePath))
-            {
-                string json = File.ReadAllText(jsonFilePath);
-                CounterData data = JsonConvert.DeserializeObject<CounterData>(json);
-
-                if (data != null && !string.IsNullOrEmpty(data.ChannelName))
-                {
-                    creds = new ConnectionCredentials(data.ChannelName, data.BotToken);
-                    channelId = data.ChannelName;
-                }
-                else
-                {
-                    // Handle the case where the ChannelName is empty or invalid.
-                    // You can show a message to the user or take appropriate action.
-                }
-            }
-            else
-            {
-                // Handle the absence of the JSON file as needed.
-            }
-        }
-        public class CounterData
-        {
-            public string ChannelName { get; set; }
-            public string BotToken { get; set; }
-        }
-
 
         public void Disconnect()
         {
@@ -114,7 +83,6 @@ namespace UiBot
                 Console.WriteLine("[Bot]: Connecting...");
                 InitializeTwitchClient();
                 InitializePubSub();
-                chatCommandMethods.StartTraderResetTimer();
                 StartAutoMessage();
 
             }
@@ -164,34 +132,62 @@ namespace UiBot
         {
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
             Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {e.ChatMessage.Message}");
-        
+
+            if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
+            {
+                // User is chatting for the first time, give them 100 bits
+                userBits.Add(e.ChatMessage.DisplayName, 100);
+                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the chat! Here is 100 bits on the house, use !help for more info");
+                WriteUserBitsToJson("user_bits.json");
+            }
+
             if (e.ChatMessage.Bits > 0)
             {
-                string username = e.ChatMessage.DisplayName;
-                int bits = e.ChatMessage.Bits;
-
-                // Log the cheer to a general log file (append)
-                string logMessage = $"{DateTime.Now}: {username} cheered {bits} bits.";
-                File.AppendAllText("cheer_log.txt", logMessage + Environment.NewLine);
-                Console.WriteLine(logMessage);
-
-                // Update the user's total bits in the dictionary
-                if (userBits.ContainsKey(username))
-                {
-                    userBits[username] += bits;
-                }
-                else
-                {
-                    userBits[username] = bits;
-                }
-
-                // Log the user's total bits to a separate file (overwrite)
-                foreach (var kvp in userBits)
-                {
-                    File.WriteAllText($"{kvp.Key}_bits.txt", $"{kvp.Key}: {kvp.Value} bits");
-                }
+                int bitsGiven = e.ChatMessage.Bits;
+                UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
             }
         }
+
+
+        private static void UpdateUserBits(string username, int bitsGiven)
+        {
+            if (userBits.ContainsKey(username))
+            {
+                userBits[username] += bitsGiven;
+            }
+            else
+            {
+                userBits.Add(username, bitsGiven);
+            }
+
+            WriteUserBitsToJson("user_bits.json");
+        }
+
+        static void LoadUserBitsFromJson(string filePath)
+        {
+            // Check if JSON file exists
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("User bits JSON file not found.");
+                userBits = new Dictionary<string, int>();
+                return;
+            }
+
+            // Deserialize JSON file to dictionary
+            string json = File.ReadAllText(filePath);
+            userBits = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
+        }
+
+        // Write user bits to JSON file
+        static void WriteUserBitsToJson(string filePath)
+        {
+            // Serialize dictionary to JSON
+            string json = JsonConvert.SerializeObject(userBits, Formatting.Indented);
+
+            // Write JSON to file
+            File.WriteAllText(filePath, json);
+        }
+
 
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
         {
@@ -251,7 +247,7 @@ namespace UiBot
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
-                        client.SendMessage(channelId, "!about, !traders, !drop, !goose, !help, !killgoose, !randomkeys, !roll, !stats, !wipestats, !turn, !wiggle, !pop, !grenade, !dropbag");
+                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !killgoose, !randomkeys, !roll, !stats, !wipestats, !turn, !wiggle, !pop, !grenade, !dropbag");
                     }
                     else
                     {
@@ -285,6 +281,20 @@ namespace UiBot
                     {
                     }
                     break;
+
+                case "mybits":
+                    LoadUserBitsFromJson("user_bits.json");
+                    string requester = e.Command.ChatMessage.DisplayName;
+                    if (userBits.ContainsKey(requester))
+                    {
+                        client.SendMessage(channelId, $"{requester}, you have {userBits[requester]} bits");
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, $"{requester}, you have no bits");
+                    }
+                    break;
+
 
                 case "wipestats":
                     // Calculate the time elapsed since the last execution
@@ -723,7 +733,68 @@ namespace UiBot
                         counter.ResetSurvivalCount();
                         chatCommandMethods.deathCount = 0;
                         break;
+
+                    case "addbits":
+                        string[] args = e.Command.ArgumentsAsString.Split(' ');
+                        if (args.Length == 2)
+                        {
+                            string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
+                            int bitsToAdd;
+                            if (int.TryParse(args[1], out bitsToAdd))
+                            {
+                                // Update user's bits
+                                if (userBits.ContainsKey(username))
+                                {
+                                    userBits[username] += bitsToAdd;
+                                }
+                                else
+                                {
+                                    userBits[username] = bitsToAdd;
+                                }
+                                WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+
+                                // Notify about successful update
+                                client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid number of bits specified.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !addbits [username] [bits]");
+                        }
+                        break;
+
+
                 }
+            }
+        }
+
+        public void LoadCredentialsFromJSON()
+        {
+            string jsonFilePath = "Logon.json";
+
+            if (File.Exists(jsonFilePath))
+            {
+                string json = File.ReadAllText(jsonFilePath);
+                CounterData data = JsonConvert.DeserializeObject<CounterData>(json);
+
+                if (data != null && !string.IsNullOrEmpty(data.ChannelName))
+                {
+                    creds = new ConnectionCredentials(data.ChannelName, data.BotToken);
+                    channelId = data.ChannelName;
+                }
+                else
+                {
+                    // Handle the case where the ChannelName is empty or invalid.
+                    // You can show a message to the user or take appropriate action.
+                }
+            }
+            else
+            {
+                // Handle the absence of the JSON file as needed.
             }
         }
 

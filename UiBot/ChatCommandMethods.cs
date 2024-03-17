@@ -1,5 +1,4 @@
-﻿
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using TwitchLib.Client;
 using System.Diagnostics;
@@ -174,7 +173,6 @@ namespace UiBot
             }
         }
 
-
         public void WiggleMouse(int numWiggles, int wiggleDistance, int delayBetweenWiggles)
         {
             for (int i = 0; i < numWiggles; i++)
@@ -207,9 +205,6 @@ namespace UiBot
                 Thread.Sleep(random.Next(10));
             }
         }
-
-
-
 
         public void SimulateButtonPressAndMouseMovement()
         {
@@ -461,111 +456,5 @@ namespace UiBot
                 return TimeSpan.Zero; // You can return a default value or handle the error as needed
             }
         }
-
-        public void StartTraderResetTimer()
-        {
-            if (Properties.Settings.Default.isAutoTraderEnabled)
-            {
-                // Create a Timer object to run the method every 5 minutes
-                System.Threading.Timer timer = new System.Threading.Timer(CheckTraderResetTimes, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
-            }
-        }
-
-        public void CheckTraderResetTimes(object state)
-        {
-            var traderResetInfoService = new TraderResetInfoService();
-
-            // Update the resetTime.json file with the latest reset info
-            traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
-
-            // Read the reset time data from resetTime.json
-            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
-
-            if (!string.IsNullOrEmpty(resetTimeData))
-            {
-                // Deserialize the JSON data
-                var traderResetResponse = JsonConvert.DeserializeObject<TraderResetInfoService.TraderResetResponse>(resetTimeData);
-
-                if (traderResetResponse != null && traderResetResponse.Data != null && traderResetResponse.Data.Traders != null)
-                {
-                    foreach (var trader in traderResetResponse.Data.Traders)
-                    {
-                        string traderName = trader.Name;
-
-                        // Check if the trader is enabled in the settings
-                        bool isTraderEnabled = false;
-
-                        switch (traderName)
-                        {
-                            case "Prapor":
-                                isTraderEnabled = Properties.Settings.Default.isTraderPraporEnabled;
-                                break;
-                            case "Therapist":
-                                isTraderEnabled = Properties.Settings.Default.isTraderTherapistEnabled;
-                                break;
-                            case "Peacekeeper":
-                                isTraderEnabled = Properties.Settings.Default.isTraderPeacekeeperEnabled;
-                                break;
-                            case "Mechanic":
-                                isTraderEnabled = Properties.Settings.Default.isTraderMechanicEnabled;
-                                break;
-                            case "Fence":
-                                isTraderEnabled = Properties.Settings.Default.isTraderFenceEnabled;
-                                break;
-                            case "Ragman":
-                                isTraderEnabled = Properties.Settings.Default.isTraderRagmanEnabled;
-                                break;
-                            case "Skier":
-                                isTraderEnabled = Properties.Settings.Default.isTraderSkierEnabled;
-                                break;
-                            case "Jaeger":
-                                isTraderEnabled = Properties.Settings.Default.isTraderJaegerEnabled;
-                                break;
-                            case "Lightkeeper":
-                                isTraderEnabled = Properties.Settings.Default.isTraderLightkeeperEnabled;
-                                break;
-                                // Add more cases for other traders here...
-                        }
-                        // Process the trader if isTwitchTradersEnabled is off or if the trader is enabled individually
-                        if (Properties.Settings.Default.isTwitchTradersEnabled || isTraderEnabled)
-                        {
-                            string resetTime = trader.ResetTime;
-
-                            // Parse the reset time as a DateTime
-                            if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
-                            {
-                                // Get the local time zone
-                                TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
-
-                                // Convert the reset time from UTC to local time
-                                DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
-
-                                // Calculate the time remaining until the reset time
-                                TimeSpan timeRemaining = localResetTime - DateTime.Now;
-
-                                // Check if the time remaining is negative
-                                if (timeRemaining < TimeSpan.Zero)
-                                {
-                                    // The reset time has passed; set the time remaining to zero
-                                    timeRemaining = TimeSpan.Zero;
-                                }
-
-                                // Check if the time remaining is less than 5 minutes
-                                if (timeRemaining <= TimeSpan.FromMinutes(5) && timeRemaining > TimeSpan.Zero)
-                                {
-                                    // Format the time difference as hours and minutes
-                                    string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
-
-                                    // Send a message indicating less than 5 minutes remaining
-                                    client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
-                                    Console.WriteLine($"{traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
-

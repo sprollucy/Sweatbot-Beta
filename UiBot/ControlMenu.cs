@@ -5,11 +5,10 @@ using System.IO;
 using System.Windows.Forms;
 
 /* TODO **
- * Finish writing bits cost and saving system
  * Add extra customization into commands like how long the action goes on for
  * Custom scripting for custom commands?
  * Add multiple messages that can be sent at different times
- * Finish adding cost boxes 
+ * rename all cooldown boxes to cost boxes 
 */
 namespace UiBot
 {
