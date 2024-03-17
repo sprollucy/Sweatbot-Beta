@@ -42,8 +42,7 @@ namespace UiBot
             crouchBox.Checked = Properties.Settings.Default.isCrouchEnabled;
             enableMagDump.Checked = Properties.Settings.Default.isMagDumpEnabled;
             enableHoldAim.Checked = Properties.Settings.Default.isHoldAimEnabled;
-            enableHoldAim.Checked = Properties.Settings.Default.isChatBonusEnabled;
-
+            enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
 
         }
 
@@ -287,7 +286,7 @@ namespace UiBot
 
         private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isTwitchTradersEnabled = enableTradersCommand.Checked;
+            Properties.Settings.Default.isTradersEnabled = enableTradersCommand.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -319,6 +318,11 @@ namespace UiBot
         {
             Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void oneClickCooldownTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

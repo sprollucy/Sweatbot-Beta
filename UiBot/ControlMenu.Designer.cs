@@ -130,6 +130,7 @@
             oneClickCooldownTextBox.Size = new Size(100, 23);
             oneClickCooldownTextBox.TabIndex = 5;
             oneClickCooldownTextBox.Text = "300";
+            oneClickCooldownTextBox.TextChanged += oneClickCooldownTextBox_TextChanged;
             // 
             // saveButton
             // 
