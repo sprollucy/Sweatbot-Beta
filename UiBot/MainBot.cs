@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿
 using System.Runtime.InteropServices;
-using System.Threading;
 using Newtonsoft.Json;
 using TwitchLib.Client.Events;
 using TwitchLib.PubSub;
@@ -10,54 +8,31 @@ using TwitchLib.Client;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using System.Diagnostics;
-using TwitchLib.Client.Extensions;
-using System.Windows.Forms;
-using System.Media;
+
 
 /* TODO **
- * Move commands to seperate script. Its slightly overwhelming
- * Add bitgrenade sound and volume control
- * update help
+ * Move commands to seperate script. Its slightly overwhelming.
+ * - Moved methods to ChatCommandMethods
  * 
  */
 
 namespace UiBot
 {
-    public class ConfigData
-    {
-        public string RandomKeyInputs { get; set; }
-        public string DropKey { get; set; }
-        public Point[] MouseCursorPositions { get; set; }
-    }
+
     internal class MainBot : IDisposable
     {
-        //bit dictionary 
+        //References
+        Counter counter = new Counter();
+        ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
+        ControlMenu controlMenu = new ControlMenu();
+
+        //dictionary 
         private static Dictionary<string, int> userBits = new Dictionary<string, int>();
-        //command dictionary
-        private Dictionary<string, string> commandConfigData;
+        public Dictionary<string, string> commandConfigData;
 
-        public int autoSendMessageCD;
-
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
-
+      
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
-
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        [DllImport("user32.dll", SetLastError = true)]
-
-        [return: MarshalAs(UnmanagedType.Bool)]
-
-        private static extern bool BlockInput([MarshalAs(UnmanagedType.Bool)] bool fBlockIt);
-
-        // Mouse event constants
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-        private const int MOUSEEVENTF_MOVE = 0x0001;
-        ControlMenu controlMenu = new ControlMenu();
 
         // Handles connection
         private ConnectionCredentials creds;
@@ -66,45 +41,10 @@ namespace UiBot
         private static TwitchPubSub pubSub;
         private static string channelId;
 
-
-        //wiggle
-        private Random random = new Random();
-        private DateTime lastWiggleTime = DateTime.MinValue;
-        private DateTime lastTurnTime = DateTime.MinValue;
-
-        //random key press
-        private DateTime lastRandomKeyPressesTime = DateTime.MinValue;
-
-        //drop
-        private DateTime lastDropCommandTime = DateTime.MinValue;
-
-        //death counter
-        private int deathCount = 0;
-        private int killCount = 0;
-        private int survivalCount = 0;
-        Counter counter = new Counter();
-
-        //pop
-        private DateTime lastPopCommandTime = DateTime.MinValue;
-
-        //goose
-        private DateTime lastGooseCommandTime = DateTime.MinValue;
-        private Process gooseProcess; // Declare a Process variable to store the Goose process.
-
-        //grenade
-        private DateTime lastnadeCommandTime = DateTime.MinValue;
-        string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string soundFileName = Path.Combine("Sounds", "grenade.wav");
-
-        //dropbag
-        private DateTime lastdropbagTime = DateTime.MinValue;
-
         //spam command
-        private DateTime lastStatCommandTimer = DateTime.MinValue;
-        private DateTime lastWipeStatCommandTimer = DateTime.MinValue;
-        private DateTime lastHelpCommandTimer = DateTime.MinValue;
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
-        private DateTime lastAboutCommandTimer = DateTime.MinValue;
+
+        public int autoSendMessageCD;
 
         internal MainBot()
         {
@@ -116,6 +56,7 @@ namespace UiBot
             // Dispose of any resources here
             Disconnect();
         }
+
 
         public void LoadCredentialsFromJSON()
         {
@@ -142,11 +83,12 @@ namespace UiBot
                 // Handle the absence of the JSON file as needed.
             }
         }
-        private class CounterData
+        public class CounterData
         {
             public string ChannelName { get; set; }
             public string BotToken { get; set; }
         }
+
 
         public void Disconnect()
         {
@@ -172,7 +114,7 @@ namespace UiBot
                 Console.WriteLine("[Bot]: Connecting...");
                 InitializeTwitchClient();
                 InitializePubSub();
-                StartTraderResetTimer();
+                chatCommandMethods.StartTraderResetTimer();
                 StartAutoMessage();
 
             }
@@ -223,7 +165,6 @@ namespace UiBot
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
             Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {e.ChatMessage.Message}");
         
-
             if (e.ChatMessage.Bits > 0)
             {
                 string username = e.ChatMessage.DisplayName;
@@ -250,8 +191,6 @@ namespace UiBot
                     File.WriteAllText($"{kvp.Key}_bits.txt", $"{kvp.Key}: {kvp.Value} bits");
                 }
             }
-
-
         }
 
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
@@ -260,7 +199,6 @@ namespace UiBot
             Console.WriteLine($"New follower: {followerUsername}");
             client.SendMessage(channelId, $"{followerUsername} Thank you for following. Sprollucy look!");
         }
-
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
         {
@@ -287,7 +225,6 @@ namespace UiBot
             }
         }
 
-
         //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
@@ -303,18 +240,18 @@ namespace UiBot
             int aboutCooldownDuration = 10;
             int tradersCooldownDuration = 60;
 
-            TimeSpan timeSinceLastExecution = DateTime.Now - lastStatCommandTimer;
+            TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
             {
                 case "help":
                     // Calculate the time elapsed since the last "help" command execution
-                    timeSinceLastExecution = DateTime.Now - lastHelpCommandTimer;
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHelpCommandTimer;
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
-                        lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
-                        client.SendMessage(channelId, "!about, !traders, !drop, !goose, !help, !killgoose, !randomkeys, !roll, !stats, !turn, !wiggle, !pop, !grenade, !dropbag");
+                        chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        client.SendMessage(channelId, "!about, !traders, !drop, !goose, !help, !killgoose, !randomkeys, !roll, !stats, !wipestats, !turn, !wiggle, !pop, !grenade, !dropbag");
                     }
                     else
                     {
@@ -322,11 +259,11 @@ namespace UiBot
                     break;
 
                 case "about":
-                    timeSinceLastExecution = DateTime.Now - lastAboutCommandTimer;
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastAboutCommandTimer;
 
                     if (timeSinceLastExecution.TotalSeconds >= aboutCooldownDuration)
                     {
-                        lastAboutCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        chatCommandMethods.lastAboutCommandTimer = DateTime.Now; // Update the last "help" execution time
                         client.SendMessage(channelId, $"I am a bot created by Sprollucy. This is a small project that was inspired by bitbot and to help practice my coding. Many features may be incomplete or missing at this time.");
                         client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Tarkov-Twitch-Bot-Working for more information, bug reporting, and suggestions");
                     }
@@ -335,20 +272,14 @@ namespace UiBot
                     }
                     break;
 
-                case "roll":
-                    string msg = $"{e.Command.ChatMessage.DisplayName} Rolled {RndInt(1, 6)}";
-                    client.SendMessage(channelId, msg);
-                    Console.WriteLine($"[Bot]: {msg}");
-                    break;
-
                 case "stats":
                     // Calculate the time elapsed since the last execution
-                    timeSinceLastExecution = DateTime.Now - lastStatCommandTimer;
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
 
                     if (timeSinceLastExecution.TotalSeconds >= wipecooldownDuration)
                     {
-                        lastStatCommandTimer = DateTime.Now; // Update the last execution time
-                        client.SendMessage(channelId, $"@{channelId} has died {deathCount} times today, escaped {survivalCount} times, and killed {killCount} players");
+                        chatCommandMethods.lastStatCommandTimer = DateTime.Now; // Update the last execution time
+                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times today, escaped {chatCommandMethods.survivalCount} times, and killed {chatCommandMethods.killCount} players");
                     }
                     else
                     {
@@ -357,11 +288,11 @@ namespace UiBot
 
                 case "wipestats":
                     // Calculate the time elapsed since the last execution
-                    timeSinceLastExecution = DateTime.Now - lastWipeStatCommandTimer;
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastWipeStatCommandTimer;
 
                     if (timeSinceLastExecution.TotalSeconds >= wipestatcooldownDuration)
                     {
-                        lastWipeStatCommandTimer = DateTime.Now; // Update the last execution time
+                        chatCommandMethods.lastWipeStatCommandTimer = DateTime.Now; // Update the last execution time
                         client.SendMessage(channelId, $"@{channelId} has died {counter.AllDeath} times, killed {counter.AllKillCount} players, and escaped {counter.SurvivalCount} raids this wipe.");
                     }
                     else
@@ -459,16 +390,16 @@ namespace UiBot
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingDropBagCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingDropBagCooldown();
                         if (remainingCooldown.TotalSeconds > 0)
                         {
                             client.SendMessage(channelId, $"Drop Bag command is on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                         else
                         {
-                            lastdropbagTime = DateTime.Now; 
-                            BagDrop();
-                            remainingCooldown = GetRemainingDropBagCooldown();
+                            chatCommandMethods.lastdropbagTime = DateTime.Now;
+                            chatCommandMethods.BagDrop();
+                            remainingCooldown = chatCommandMethods.GetRemainingDropBagCooldown();
                             client.SendMessage(channelId, $"Bag dropped! Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                     }
@@ -494,9 +425,9 @@ namespace UiBot
                         {
                             TimeSpan gooseCooldown = TimeSpan.FromSeconds(cooldownSeconds);
 
-                            if (DateTime.Now - lastGooseCommandTime < gooseCooldown)
+                            if (DateTime.Now - chatCommandMethods.lastGooseCommandTime < gooseCooldown)
                             {
-                                TimeSpan remainingCooldown = gooseCooldown - (DateTime.Now - lastGooseCommandTime);
+                                TimeSpan remainingCooldown = gooseCooldown - (DateTime.Now - chatCommandMethods.lastGooseCommandTime);
                                 client.SendMessage(channelId, $"Goose command is on cooldown. You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
                             }
                             else
@@ -515,8 +446,8 @@ namespace UiBot
                                     TimeSpan runtime = TimeSpan.FromMinutes(runtimeMinutes);
 
                                     // Start the Goose process and store it in the gooseProcess variable.
-                                    gooseProcess = Process.Start(gooseExePath);
-                                    lastGooseCommandTime = DateTime.Now;
+                                    chatCommandMethods.gooseProcess = Process.Start(gooseExePath);
+                                    chatCommandMethods.lastGooseCommandTime = DateTime.Now;
 
                                     // Send a message indicating how long the Goose will run
                                     client.SendMessage(channelId, $"Goose is running for {runtimeMinutes} minutes!");
@@ -525,9 +456,9 @@ namespace UiBot
                                     Task.Run(() =>
                                     {
                                         Thread.Sleep(runtime);
-                                        if (!gooseProcess.HasExited)
+                                        if (!chatCommandMethods.gooseProcess.HasExited)
                                         {
-                                            gooseProcess.Kill(); // Terminate the Goose process.
+                                            chatCommandMethods.gooseProcess.Kill(); // Terminate the Goose process.
                                             client.SendMessage(channelId, "Goose has been terminated.");
                                         }
                                     });
@@ -544,7 +475,6 @@ namespace UiBot
                         }
                     }
                     break;
-
 
                 case "killgoose":
                     if (gname.Length > 0)
@@ -567,16 +497,16 @@ namespace UiBot
                     if (Properties.Settings.Default.IsWiggleEnabled)
                     {
                         // Continue with the Wiggle command execution
-                        TimeSpan remainingCooldown = GetRemainingWiggleCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingWiggleCooldown();
                         if (remainingCooldown.TotalSeconds > 0)
                         {
                             client.SendMessage(channelId, $"Wiggle command is on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                         else
                         {
-                            lastWiggleTime = DateTime.Now; // Record the start time before wiggling
-                            WiggleMouse(4, 30, 50); //format is turns, distance in px, delay between move
-                            remainingCooldown = GetRemainingWiggleCooldown(); // Recalculate remaining cooldown
+                            chatCommandMethods.lastWiggleTime = DateTime.Now; // Record the start time before wiggling
+                            chatCommandMethods.WiggleMouse(4, 30, 50); //format is turns, distance in px, delay between move
+                            remainingCooldown = chatCommandMethods.GetRemainingWiggleCooldown(); // Recalculate remaining cooldown
                             client.SendMessage(channelId, $"Wiggle command is now on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
 
                         }
@@ -590,21 +520,21 @@ namespace UiBot
                 case "turn":
                     if (Properties.Settings.Default.IsTurnEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingTurnCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingTurnCooldown();
                         if (remainingCooldown.TotalSeconds > 0)
                         {
                             client.SendMessage(channelId, $"Turn command is on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                         else
                         {
-                            lastTurnTime = DateTime.Now; // Record the start time before wiggling
+                            chatCommandMethods.lastTurnTime = DateTime.Now; // Record the start time before wiggling
 
                             // Randomly decide whether to move the mouse to the right or left
                             bool moveRight = (new Random()).Next(2) == 0;
 
-                            TurnRandom(2000);
+                            chatCommandMethods.TurnRandom(2000);
 
-                            remainingCooldown = GetRemainingTurnCooldown(); // Recalculate remaining cooldown
+                            remainingCooldown = chatCommandMethods.GetRemainingTurnCooldown(); // Recalculate remaining cooldown
                             client.SendMessage(channelId, $"Turn is on cooldown for {remainingCooldown.TotalSeconds:F0} seconds");
                         }
                     }
@@ -618,16 +548,16 @@ namespace UiBot
                     // Check if the command is enabled
                     if (Properties.Settings.Default.IsKeyEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingRandomKeyPressesCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingRandomKeyPressesCooldown();
                         if (remainingCooldown.TotalSeconds > 0)
                         {
                             client.SendMessage(channelId, $"Random Keys command is on cooldown. Remaining time: {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                         else
                         {
-                            lastRandomKeyPressesTime = DateTime.Now; // Record the start time before wiggling
-                            SimulateButtonPressAndMouseMovement();
-                            remainingCooldown = GetRemainingRandomKeyPressesCooldown(); // Recalculate remaining cooldown
+                            chatCommandMethods.lastRandomKeyPressesTime = DateTime.Now; // Record the start time before wiggling
+                            chatCommandMethods.SimulateButtonPressAndMouseMovement();
+                            remainingCooldown = chatCommandMethods.GetRemainingRandomKeyPressesCooldown(); // Recalculate remaining cooldown
                             client.SendMessage(channelId, $"Random keys is on cooldown for {remainingCooldown.TotalSeconds:F0} seconds");
                         }
                     }
@@ -640,7 +570,7 @@ namespace UiBot
                 case "drop":
                     if (Properties.Settings.Default.IsDropEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingDropKitCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingDropKitCooldown();
 
                         if (remainingCooldown.TotalSeconds > 0)
                         {
@@ -649,9 +579,9 @@ namespace UiBot
                         }
                         else
                         {
-                            lastDropCommandTime = DateTime.Now;
-                            SimulateButtonPressAndMouseMovement();
-                            remainingCooldown = GetRemainingDropKitCooldown();
+                            chatCommandMethods.lastDropCommandTime = DateTime.Now;
+                            chatCommandMethods.SimulateButtonPressAndMouseMovement();
+                            remainingCooldown = chatCommandMethods.GetRemainingDropKitCooldown();
                             client.SendMessage(channelId, $"Kit dropped! You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                     }
@@ -664,7 +594,7 @@ namespace UiBot
                 case "pop":
                     if (Properties.Settings.Default.IsPopEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingPopCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingPopCooldown();
 
                         if (remainingCooldown.TotalSeconds > 0)
                         {
@@ -673,9 +603,9 @@ namespace UiBot
                         }
                         else
                         {
-                            lastPopCommandTime = DateTime.Now;
-                            PopShot();
-                            remainingCooldown = GetRemainingPopCooldown();
+                            chatCommandMethods.lastPopCommandTime = DateTime.Now;
+                            chatCommandMethods.PopShot();
+                            remainingCooldown = chatCommandMethods.GetRemainingPopCooldown();
                             client.SendMessage(channelId, $"Pop! You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                     }
@@ -688,7 +618,7 @@ namespace UiBot
                 case "grenade":
                     if (Properties.Settings.Default.isGrenadeEnabled)
                     {
-                        TimeSpan remainingCooldown = GetRemainingGrenadeCooldown();
+                        TimeSpan remainingCooldown = chatCommandMethods.GetRemainingGrenadeCooldown();
 
                         if (remainingCooldown.TotalSeconds > 0)
                         {
@@ -697,9 +627,9 @@ namespace UiBot
                         }
                         else
                         {
-                            lastnadeCommandTime = DateTime.Now;
-                            GrenadeSound();
-                            remainingCooldown = GetRemainingGrenadeCooldown();
+                            chatCommandMethods.lastnadeCommandTime = DateTime.Now;
+                            chatCommandMethods.GrenadeSound();
+                            remainingCooldown = chatCommandMethods.GetRemainingGrenadeCooldown();
                             client.SendMessage(channelId, $"Grenade! You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
                         }
                     }
@@ -708,14 +638,11 @@ namespace UiBot
                         client.SendMessage(channelId, "Grenade command is currently disabled.");
                     }
                     break;
-
             }
-
 
             //Mod Commands
             if (e.Command.ChatMessage.IsModerator)
             {
-
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
@@ -723,19 +650,19 @@ namespace UiBot
                         break;
 
                     case "death":
-                        deathCount = deathCount + 1;
+                        chatCommandMethods.deathCount = chatCommandMethods.deathCount + 1;
                         counter.IncrementAllDeath();
-                        client.SendMessage(channelId, $"@{channelId} has died {deathCount} times");
+                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times");
                         break;
 
                     case "kill":
-                        killCount = killCount + 1;
+                        chatCommandMethods.killCount = chatCommandMethods.killCount + 1;
                         counter.IncrementKillCount();
-                        client.SendMessage(channelId, $"You got a kill! thats {killCount} kills today!");
+                        client.SendMessage(channelId, $"You got a kill! thats {chatCommandMethods.killCount} kills today!");
                         break;
 
                     case "escape":
-                        survivalCount = survivalCount + 1;
+                        chatCommandMethods.survivalCount = chatCommandMethods.survivalCount + 1;
                         counter.IncrementSurvivalCount();
                         client.SendMessage(channelId, $"@{channelId} has escaped {counter.SurvivalCount} times");
                         break;
@@ -745,8 +672,6 @@ namespace UiBot
             //Channel owner chat
             if (e.Command.ChatMessage.IsBroadcaster)
             {
-
-
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
@@ -767,19 +692,18 @@ namespace UiBot
                             notePad.StartInfo.FileName = "notepad.exe";
                             notePad.Start();
                         }
-
                         break;
 
                     case "death":
-                        deathCount = deathCount + 1;
+                        chatCommandMethods.deathCount = chatCommandMethods.deathCount + 1;
                         counter.IncrementAllDeath();
-                        client.SendMessage(channelId, $"@{channelId} has died {deathCount} times");
+                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times");
                         break;
 
                     case "resettoday":
                         client.SendMessage(channelId, $"Stream stats reset!");
-                        deathCount = 0;
-                        killCount = 0;
+                        chatCommandMethods.deathCount = 0;
+                        chatCommandMethods.killCount = 0;
                         break;
 
                     case "escape":
@@ -788,477 +712,20 @@ namespace UiBot
                         break;
 
                     case "kill":
-                        killCount = killCount + 1;
+                        chatCommandMethods.killCount = chatCommandMethods.killCount + 1;
                         counter.IncrementKillCount();
-                        client.SendMessage(channelId, $"You got a kill! thats {killCount} kills today!");
+                        client.SendMessage(channelId, $"You got a kill! thats {chatCommandMethods.killCount} kills today!");
                         break;
 
                     case "resetallstats":
                         client.SendMessage(channelId, "All stats reset!");
                         counter.ResetAllDeath();
                         counter.ResetSurvivalCount();
-                        deathCount = 0;
+                        chatCommandMethods.deathCount = 0;
                         break;
-
                 }
             }
         }
-
-        private TimeSpan GetRemainingRandomKeyPressesCooldown()
-        {
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox randomCooldownTextBox = controlMenu.RandomKeyCooldownTextBox;
-
-
-            if (int.TryParse(randomCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastRandomKeyPressesTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        private static void SendRandomKeyPresses()
-        {
-            // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
-            string keysInput;
-
-            try
-            {
-                // Read the JSON file and parse it to extract the keys
-                string json = File.ReadAllText(configFilePath);
-                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                keysInput = configData?.RandomKeyInputs;
-            }
-            catch (Exception ex)
-            {
-                // Handle any errors, such as file not found or JSON parsing issues
-                Console.WriteLine($"Error reading JSON file: {ex.Message}");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(keysInput))
-            {
-                Console.WriteLine("No keys to send.");
-                return;
-            }
-
-            Random random = new Random();
-            string[] keys = keysInput.Split(',');
-
-            foreach (string key in keys)
-            {
-                string cleanedKey = key.Trim(); // Remove any leading/trailing spaces
-                SendKeys.SendWait(cleanedKey);
-
-                // Apply a random hold duration between 250ms and 1000ms
-                int holdDuration = random.Next(250, 1001);
-                Thread.Sleep(holdDuration);
-            }
-        }
-
-
-        public static void WiggleMouse(int numWiggles, int wiggleDistance, int delayBetweenWiggles)
-        {
-            for (int i = 0; i < numWiggles; i++)
-            {
-                // Move the mouse to the right
-                mouse_event(MOUSEEVENTF_MOVE, wiggleDistance, 0, 0, 0);
-                Thread.Sleep(delayBetweenWiggles);
-
-                // Move the mouse back to the left (negative distance)
-                mouse_event(MOUSEEVENTF_MOVE, -wiggleDistance, 0, 0, 0);
-                Thread.Sleep(delayBetweenWiggles);
-            }
-        }
-
-        public static void TurnRandom(int durationMilliseconds)
-        {
-            Random random = new Random();
-            int direction = random.Next(2) * 2 - 1; // -1 for left, 1 for right
-            DateTime endTime = DateTime.Now.AddMilliseconds(durationMilliseconds);
-
-            while (DateTime.Now < endTime)
-            {
-                // Generate a random distance to move (e.g., between 5 and 20 pixels)
-                int distance = random.Next(5, 21) * direction;
-
-                // Move the mouse
-                mouse_event(MOUSEEVENTF_MOVE, distance, 0, 0, 0);
-
-                // Sleep for a short duration before the next movement (e.g., 100-300ms)
-                Thread.Sleep(random.Next(10));
-            }
-        }
-
-
-
-
-        private void SimulateButtonPressAndMouseMovement()
-        {
-            // Disable keyboard and mouse inputs
-            BlockInput(true);
-
-            string configFilePath = "DropPositionData.json"; // Adjust the file path as needed
-            string dropKey;
-
-            System.Threading.Timer timer = new System.Threading.Timer(state =>
-            {
-                // Enable keyboard and mouse inputs after 5 seconds
-                BlockInput(false);
-                Console.WriteLine("Input is now unblocked.");
-            }, null, 5000, Timeout.Infinite);
-
-            try
-            {
-                // Read the JSON file and parse it to extract the keys and mouse positions
-                string json = File.ReadAllText(configFilePath);
-                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                dropKey = configData?.DropKey;
-
-                // Load the recorded mouse positions
-                Point[] mousePositions = configData?.MouseCursorPositions;
-
-                if (mousePositions == null)
-                {
-                    Console.WriteLine("Invalid or missing mouse positions data in the configuration.");
-                    return;
-                }
-
-                // Simulate button presses
-                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}", "{DELETE}" };
-                int[] sleepDurations = new int[] { 150, 200, 0, 300 }; // Corresponding sleep durations in milliseconds
-
-                for (int i = 0; i < keyPresses.Length; i++)
-                {
-                    SendKeys.SendWait(keyPresses[i]);
-
-                    // Sleep only if necessary
-                    if (sleepDurations[i] > 0)
-                        Thread.Sleep(sleepDurations[i]);
-                }
-
-                foreach (Point newPosition in mousePositions)
-                {
-                    // Store the original mouse position
-                    Point originalMousePosition = Cursor.Position;
-
-                    // Move the mouse to the new position
-                    Cursor.Position = newPosition;
-
-                    // Simulate a mouse click (DELETE key in this case)
-                    SendKeys.SendWait(dropKey);
-
-                    // Sleep for a short duration
-                    Thread.Sleep(300);
-
-                    // Restore the original mouse position
-                    Cursor.Position = originalMousePosition;
-                }
-            }
-            finally
-            {
-                // Ensure that input is re-enabled in case of exceptions
-                BlockInput(false);
-            }
-        }
-
-
-        private void BagDrop()
-        {
-            // Simulate button presses
-            string[] keyPresses = new string[] { "{Z}", "{Z}" };
-            int[] sleepDurations = new int[] { 150, 150 }; // Corresponding sleep durations in milliseconds
-
-            for (int i = 0; i < keyPresses.Length; i++)
-            {
-                SendKeys.SendWait(keyPresses[i]);
-
-                // Sleep only if necessary
-                if (sleepDurations[i] > 0)
-                    Thread.Sleep(sleepDurations[i]);
-            }
-        }
-
-        public static void PopShot()
-        {
-            // Simulate a left mouse button click
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        }
-
-        public void GrenadeSound()
-        {
-            // Create a SoundPlayer and specify the notification sound file path
-            string notificationSoundFilePath = Path.Combine(appDirectory, soundFileName);
-            SoundPlayer player = new SoundPlayer(notificationSoundFilePath);
-
-            // Play the notification sound
-            Thread.Sleep(1000);        
-                player.Play();
-
-        }
-
-        private int RndInt(int min, int max)
-        {
-            int value;
-
-            Random rnd = new Random();
-
-            value = rnd.Next(min, max + 1);
-
-            return value;
-        }
-
-        private TimeSpan GetRemainingWiggleCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox wiggleCooldownTextBox = controlMenu.WiggleCooldownTextBox;
-
-
-            if (int.TryParse(wiggleCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastWiggleTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        private TimeSpan GetRemainingPopCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox popCooldownTextBox = controlMenu.OneClickCooldownTextBox;
-
-
-            if (int.TryParse(popCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastPopCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        private TimeSpan GetRemainingGrenadeCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox grenadeCooldownTextBox = controlMenu.GrenadeCooldownTextBox;
-
-
-            if (int.TryParse(grenadeCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastnadeCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-
-
-        private TimeSpan GetRemainingDropBagCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox dropbagCooldownTextBox = controlMenu.DropBagCooldownTextBox;
-
-
-            if (int.TryParse(dropbagCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastdropbagTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        private TimeSpan GetRemainingDropKitCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox dropCooldownTextBox = controlMenu.DropCooldownTextBox;
-
-
-            if (int.TryParse(dropCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastDropCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        private TimeSpan GetRemainingTurnCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            ControlMenu controlMenu = new ControlMenu(); // You may need to initialize it accordingly
-            TextBox turnCooldownTextBox = controlMenu.TurnCooldownTextBox;
-
-
-            if (int.TryParse(turnCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastTurnTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        public void StartTraderResetTimer()
-        {
-            if (Properties.Settings.Default.isAutoTraderEnabled)
-            {
-                // Create a Timer object to run the method every 5 minutes
-                System.Threading.Timer timer = new System.Threading.Timer(CheckTraderResetTimes, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
-            }
-        }
-
-        public void CheckTraderResetTimes(object state)
-        {
-            var traderResetInfoService = new TraderResetInfoService();
-
-            // Update the resetTime.json file with the latest reset info
-            traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
-
-            // Read the reset time data from resetTime.json
-            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
-
-            if (!string.IsNullOrEmpty(resetTimeData))
-            {
-                // Deserialize the JSON data
-                var traderResetResponse = JsonConvert.DeserializeObject<TraderResetInfoService.TraderResetResponse>(resetTimeData);
-
-                if (traderResetResponse != null && traderResetResponse.Data != null && traderResetResponse.Data.Traders != null)
-                {
-                    foreach (var trader in traderResetResponse.Data.Traders)
-                    {
-                        string traderName = trader.Name;
-
-                        // Check if the trader is enabled in the settings
-                        bool isTraderEnabled = false;
-
-                        switch (traderName)
-                        {
-                            case "Prapor":
-                                isTraderEnabled = Properties.Settings.Default.isTraderPraporEnabled;
-                                break;
-                            case "Therapist":
-                                isTraderEnabled = Properties.Settings.Default.isTraderTherapistEnabled;
-                                break;
-                            case "Peacekeeper":
-                                isTraderEnabled = Properties.Settings.Default.isTraderPeacekeeperEnabled;
-                                break;
-                            case "Mechanic":
-                                isTraderEnabled = Properties.Settings.Default.isTraderMechanicEnabled;
-                                break;
-                            case "Fence":
-                                isTraderEnabled = Properties.Settings.Default.isTraderFenceEnabled;
-                                break;
-                            case "Ragman":
-                                isTraderEnabled = Properties.Settings.Default.isTraderRagmanEnabled;
-                                break;
-                            case "Skier":
-                                isTraderEnabled = Properties.Settings.Default.isTraderSkierEnabled;
-                                break;
-                            case "Jaeger":
-                                isTraderEnabled = Properties.Settings.Default.isTraderJaegerEnabled;
-                                break;
-                            case "Lightkeeper":
-                                isTraderEnabled = Properties.Settings.Default.isTraderLightkeeperEnabled;
-                                break;
-                                // Add more cases for other traders here...
-                        }
-                        // Process the trader if isTwitchTradersEnabled is off or if the trader is enabled individually
-                        if (Properties.Settings.Default.isTwitchTradersEnabled || isTraderEnabled)
-                        {
-                            string resetTime = trader.ResetTime;
-
-                            // Parse the reset time as a DateTime
-                            if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
-                            {
-                                // Get the local time zone
-                                TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
-
-                                // Convert the reset time from UTC to local time
-                                DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
-
-                                // Calculate the time remaining until the reset time
-                                TimeSpan timeRemaining = localResetTime - DateTime.Now;
-
-                                // Check if the time remaining is negative
-                                if (timeRemaining < TimeSpan.Zero)
-                                {
-                                    // The reset time has passed; set the time remaining to zero
-                                    timeRemaining = TimeSpan.Zero;
-                                }
-
-                                // Check if the time remaining is less than 5 minutes
-                                if (timeRemaining <= TimeSpan.FromMinutes(5) && timeRemaining > TimeSpan.Zero)
-                                {
-                                    // Format the time difference as hours and minutes
-                                    string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
-
-                                    // Send a message indicating less than 5 minutes remaining
-                                    client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
-                                    Console.WriteLine($"{traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
 
         public void LoadAutoMessageData()
         {
@@ -1338,7 +805,7 @@ namespace UiBot
             {
                 Console.WriteLine($"Error in AutoMessageSender: {ex.Message}");
             }
-        }
+        } 
     }
 
 }
