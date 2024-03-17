@@ -1,4 +1,4 @@
-# Tarkov-Twitch-Bot 1.0.0.62alpha
+# Tarkov-Twitch-Bot 1.0.0.64alpha
 
 This is my simple to use and open source twitch bot designed to be used with tarkov for now  
 It features chat commands to interact with you as you play. Only a few right now but more are coming. It also includes a trader reset screen for the true sweats to track exactly when traders reset and twitch chat reminders for it also!  
@@ -26,7 +26,7 @@ Feel free to report issues on here or directly contact me on discord if you have
 -Follower services  
 
 ### Download Latest Here
-[1.0.0.062a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.62a)
+[1.0.0.064a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.64a)
 
 ## How To Use
 1. First step is to create a account on Twitch.tv that you want to use as the bot account. I use this site but twitch also offers their own  
@@ -63,66 +63,24 @@ https://samperson.itch.io/desktop-goose
 
 
 ## Commands
-Normal Commands:  
-
-!mybits  
-
-!about: About the app.  
-
-
-!traders: Displays the remaining time till traders reset.  
-
-!drop: Opens your menu and drops all your items. Has a 20-minute cooldown.  
-
-!goose: Spawns a goose to walk around your screen for 2 to 6 minutes. Has a 10-minute cooldown.  
-
-!killgoose: Kills the goose if it gets out of hand.  
-
-!help: Displays help commands.  
-
-!randomkeys: Inputs Selected keys
-
-!roll: Rolls a number between 1-6 and posts it in chat.  
-
-!stats: Posts stats for deaths, escapes, kills, and deaths this wipe.  
-
-!turn: Turns left or right for 2 seconds. Has a cooldown ranging from 30 seconds to 5 minutes.  
-
-!wiggle: Wiggles the mouse back and forth a few times. Has a cooldown ranging from 30 seconds to 5 minutes.  
-
-!grenade: plays grenade sound.  
-
-!dropbag: drops your bag.  
-
-!pop: Shoots your gun once by left-clicking.  
-
-Mod Commands:  
-
-!death: Records a death.  
-
-!escape: Records an escape.  
-
-!kill: Counts player kills and saves them.  
-
-
-Broadcaster Commands:  
-
-!hi: Says hi to the bot.  
-
-!death: Records a death.  
-
-!escape: Records an escape.  
-
-!resettoday: Resets the death, kills, and escapes for the day.  
-
-!escape: Records an escape.  
-
-!resetallstats: Resets all stats, even saved death stats.  
-
-!kill: Counts player kills and saves them.  
+Soon to be written. use !help while running
 
 
 ## Changelog
+1.0.0.64-alpha  
+Rewrote how commands are handled again. I have opted to remove the cooldown and switch fully to a seudo bit system. Now if a user cheers bits in the chat this should pick that up and add it to a file to be used as point payment for commands. Channel owners can add points manually as well from the !addbits command or by editing the user_bits.json file. 
+-Fixed error on !randomkey where it actually didnt include the correct method  
+-Added a Quest menu for future potential future updates. For now enjoy the blank screen  
+-Updated background color to be a little easier on the eyes and minor layout tweaks  
+-Removed help button because it just showed the changelog  
+-Added !grenadetoss which spins you then throws a grenade  
+-Added !crouch  
+-Added !magdump  
+-Added !holdaim  
+-Added first time chat bonus
+-Added !addbits  
+-Added !mybits  
+
 1.0.0.62-alpha 10-20-23  
 -All timer systems are now under a unified system and use less cpu  
 -Corrected !drop timer  
