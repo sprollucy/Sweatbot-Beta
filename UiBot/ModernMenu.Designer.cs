@@ -34,7 +34,7 @@
             connectButton = new PictureBox();
             commandMenu = new PictureBox();
             pictureBox5 = new PictureBox();
-            pictureBox6 = new PictureBox();
+            questTracker = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox8 = new PictureBox();
             closeBox = new PictureBox();
@@ -55,7 +55,7 @@
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)questTracker).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).BeginInit();
@@ -122,14 +122,15 @@
             pictureBox5.TabStop = false;
             pictureBox5.Click += pictureBox5_Click;
             // 
-            // pictureBox6
+            // questTracker
             // 
-            pictureBox6.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox6.Location = new Point(0, 236);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(47, 50);
-            pictureBox6.TabIndex = 5;
-            pictureBox6.TabStop = false;
+            questTracker.BackColor = Color.FromArgb(63, 78, 79);
+            questTracker.Location = new Point(0, 236);
+            questTracker.Name = "questTracker";
+            questTracker.Size = new Size(47, 50);
+            questTracker.TabIndex = 5;
+            questTracker.TabStop = false;
+            questTracker.Click += questTracker_Click;
             // 
             // pictureBox7
             // 
@@ -313,7 +314,7 @@
             Controls.Add(settingsButton);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
-            Controls.Add(pictureBox6);
+            Controls.Add(questTracker);
             Controls.Add(pictureBox5);
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
@@ -336,7 +337,7 @@
             ((System.ComponentModel.ISupportInitialize)connectButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)questTracker).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).EndInit();
@@ -354,7 +355,7 @@
         private PictureBox connectButton;
         private PictureBox commandMenu;
         private PictureBox pictureBox5;
-        private PictureBox pictureBox6;
+        private PictureBox questTracker;
         private PictureBox pictureBox7;
         private PictureBox pictureBox8;
         private PictureBox closeBox;

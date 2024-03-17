@@ -35,7 +35,6 @@ namespace UiBot
             enableKitDrop.Checked = Properties.Settings.Default.IsDropEnabled;
             randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
             oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
-            enableBits.Checked = Properties.Settings.Default.isBitEnabled;
             enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
             enableTraderCheck.Checked = Properties.Settings.Default.isAutoTraderEnabled;
             enableGrenade.Checked = Properties.Settings.Default.isGrenadeEnabled;
@@ -62,14 +61,6 @@ namespace UiBot
             textBoxes["grenadeCooldown"] = grenadeCooldownTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
             textBoxes["dropKey"] = dropKeyTextBox;
-
-            // Add cost text boxes to the dictionary with unique keys
-            textBoxes["wiggleCost"] = wiggleCostBox;
-            textBoxes["dropCost"] = dropCostBox;
-            textBoxes["turnCost"] = turnCostBox;
-            textBoxes["gooseCost"] = gooseCostBox;
-            textBoxes["randomKeyCost"] = randomKeyCostBox;
-            textBoxes["oneClickCost"] = oneClickCostBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -122,37 +113,6 @@ namespace UiBot
             set { dropKeyTextBox = value; }
         }
 
-        // Bit Cost Boxes
-        public TextBox WiggleCostBox
-        {
-            get { return wiggleCostBox; }
-            set { wiggleCostBox = value; }
-        }
-        public TextBox DropCostBox
-        {
-            get { return dropCostBox; }
-            set { dropCostBox = value; }
-        }
-        public TextBox TurnCostBox
-        {
-            get { return turnCostBox; }
-            set { turnCooldownTextBox = value; }
-        }
-        public TextBox GooseCostBox
-        {
-            get { return gooseCostBox; }
-            set { gooseCostBox = value; }
-        }
-        public TextBox RandomKeyCostBox
-        {
-            get { return randomKeyCostBox; }
-            set { randomKeyCostBox = value; }
-        }
-        public TextBox OneClickCostBox
-        {
-            get { return oneClickCostBox; }
-            set { oneClickCostBox = value; }
-        }
         public TextBox AutoMessageBox
         {
             get { return autoMessageBox; }

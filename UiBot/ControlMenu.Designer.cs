@@ -36,13 +36,6 @@
             turnCooldownTextBox = new TextBox();
             oneClickCooldownTextBox = new TextBox();
             saveButton = new Button();
-            enableBits = new CheckBox();
-            wiggleCostBox = new TextBox();
-            dropCostBox = new TextBox();
-            gooseCostBox = new TextBox();
-            randomKeyCostBox = new TextBox();
-            turnCostBox = new TextBox();
-            oneClickCostBox = new TextBox();
             oneClickCheck = new CheckBox();
             randomTurn = new CheckBox();
             enableRandomKey = new CheckBox();
@@ -57,11 +50,9 @@
             label2 = new Label();
             pictureBox12 = new PictureBox();
             enableBagDrop = new CheckBox();
-            dropbagCostBox = new TextBox();
             dropbagCooldownTextBox = new TextBox();
             pictureBox11 = new PictureBox();
             enableGrenade = new CheckBox();
-            grenadeCostBox = new TextBox();
             grenadeCooldownTextBox = new TextBox();
             randomKeyInputs = new TextBox();
             pictureBox9 = new PictureBox();
@@ -71,6 +62,7 @@
             pictureBox5 = new PictureBox();
             pictureBox4 = new PictureBox();
             enableTraderCheck = new CheckBox();
+            pictureBox2 = new PictureBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
             pictureBox10 = new PictureBox();
@@ -79,7 +71,6 @@
             autoMessageLabel = new Label();
             enableAutoMessageCheck = new CheckBox();
             pictureBox3 = new PictureBox();
-            pictureBox2 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
@@ -89,10 +80,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // wiggleCooldownTextBox
@@ -152,60 +143,6 @@
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
-            // 
-            // enableBits
-            // 
-            enableBits.AutoSize = true;
-            enableBits.BackColor = Color.FromArgb(181, 176, 163);
-            enableBits.Location = new Point(296, 47);
-            enableBits.Name = "enableBits";
-            enableBits.Size = new Size(83, 19);
-            enableBits.TabIndex = 7;
-            enableBits.Text = "Enable Bits";
-            enableBits.UseVisualStyleBackColor = false;
-            enableBits.CheckedChanged += enableBits_CheckedChanged;
-            // 
-            // wiggleCostBox
-            // 
-            wiggleCostBox.Location = new Point(296, 72);
-            wiggleCostBox.Name = "wiggleCostBox";
-            wiggleCostBox.Size = new Size(100, 23);
-            wiggleCostBox.TabIndex = 8;
-            // 
-            // dropCostBox
-            // 
-            dropCostBox.Location = new Point(296, 101);
-            dropCostBox.Name = "dropCostBox";
-            dropCostBox.Size = new Size(100, 23);
-            dropCostBox.TabIndex = 9;
-            // 
-            // gooseCostBox
-            // 
-            gooseCostBox.Location = new Point(296, 159);
-            gooseCostBox.Name = "gooseCostBox";
-            gooseCostBox.Size = new Size(100, 23);
-            gooseCostBox.TabIndex = 10;
-            // 
-            // randomKeyCostBox
-            // 
-            randomKeyCostBox.Location = new Point(296, 188);
-            randomKeyCostBox.Name = "randomKeyCostBox";
-            randomKeyCostBox.Size = new Size(100, 23);
-            randomKeyCostBox.TabIndex = 11;
-            // 
-            // turnCostBox
-            // 
-            turnCostBox.Location = new Point(296, 247);
-            turnCostBox.Name = "turnCostBox";
-            turnCostBox.Size = new Size(100, 23);
-            turnCostBox.TabIndex = 12;
-            // 
-            // oneClickCostBox
-            // 
-            oneClickCostBox.Location = new Point(296, 276);
-            oneClickCostBox.Name = "oneClickCostBox";
-            oneClickCostBox.Size = new Size(100, 23);
-            oneClickCostBox.TabIndex = 13;
             // 
             // oneClickCheck
             // 
@@ -288,11 +225,9 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(pictureBox12);
             panel1.Controls.Add(enableBagDrop);
-            panel1.Controls.Add(dropbagCostBox);
             panel1.Controls.Add(dropbagCooldownTextBox);
             panel1.Controls.Add(pictureBox11);
             panel1.Controls.Add(enableGrenade);
-            panel1.Controls.Add(grenadeCostBox);
             panel1.Controls.Add(grenadeCooldownTextBox);
             panel1.Controls.Add(randomKeyInputs);
             panel1.Controls.Add(pictureBox9);
@@ -310,17 +245,10 @@
             panel1.Controls.Add(enableWiggle);
             panel1.Controls.Add(wiggleCooldownTextBox);
             panel1.Controls.Add(dropCooldownTextBox);
-            panel1.Controls.Add(oneClickCostBox);
             panel1.Controls.Add(gooseCooldownTextBox);
-            panel1.Controls.Add(turnCostBox);
             panel1.Controls.Add(randomKeyCooldownTextBox);
-            panel1.Controls.Add(randomKeyCostBox);
             panel1.Controls.Add(turnCooldownTextBox);
-            panel1.Controls.Add(gooseCostBox);
             panel1.Controls.Add(oneClickCooldownTextBox);
-            panel1.Controls.Add(dropCostBox);
-            panel1.Controls.Add(enableBits);
-            panel1.Controls.Add(wiggleCostBox);
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(51, 23);
             panel1.Name = "panel1";
@@ -403,13 +331,6 @@
             enableBagDrop.UseVisualStyleBackColor = false;
             enableBagDrop.CheckedChanged += enableBagDrop_CheckedChanged;
             // 
-            // dropbagCostBox
-            // 
-            dropbagCostBox.Location = new Point(295, 333);
-            dropbagCostBox.Name = "dropbagCostBox";
-            dropbagCostBox.Size = new Size(100, 23);
-            dropbagCostBox.TabIndex = 41;
-            // 
             // dropbagCooldownTextBox
             // 
             dropbagCooldownTextBox.Location = new Point(189, 333);
@@ -440,13 +361,6 @@
             enableGrenade.Text = "Enable Grenade";
             enableGrenade.UseVisualStyleBackColor = false;
             enableGrenade.CheckedChanged += enableGrenade_CheckedChanged;
-            // 
-            // grenadeCostBox
-            // 
-            grenadeCostBox.Location = new Point(296, 304);
-            grenadeCostBox.Name = "grenadeCostBox";
-            grenadeCostBox.Size = new Size(100, 23);
-            grenadeCostBox.TabIndex = 37;
             // 
             // grenadeCooldownTextBox
             // 
@@ -542,6 +456,16 @@
             enableTraderCheck.UseVisualStyleBackColor = false;
             enableTraderCheck.CheckedChanged += enableTraderCheck_CheckedChanged;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(0, 0);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(409, 412);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 21;
+            pictureBox2.TabStop = false;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -620,16 +544,6 @@
             pictureBox3.TabIndex = 27;
             pictureBox3.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(0, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(409, 412);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 21;
-            pictureBox2.TabStop = false;
-            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -660,10 +574,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -677,13 +591,6 @@
         private TextBox turnCooldownTextBox;
         private TextBox oneClickCooldownTextBox;
         private Button saveButton;
-        private CheckBox enableBits;
-        private TextBox wiggleCostBox;
-        private TextBox dropCostBox;
-        private TextBox gooseCostBox;
-        private TextBox randomKeyCostBox;
-        private TextBox turnCostBox;
-        private TextBox oneClickCostBox;
         private CheckBox oneClickCheck;
         private CheckBox randomTurn;
         private CheckBox enableRandomKey;
@@ -709,11 +616,9 @@
         private TextBox randomKeyInputs;
         private PictureBox pictureBox11;
         private CheckBox enableGrenade;
-        private TextBox grenadeCostBox;
         private TextBox grenadeCooldownTextBox;
         private PictureBox pictureBox12;
         private CheckBox enableBagDrop;
-        private TextBox dropbagCostBox;
         private TextBox dropbagCooldownTextBox;
         private Label label2;
         private TextBox textBox1;

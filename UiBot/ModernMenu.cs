@@ -22,10 +22,12 @@ namespace UiBot
         private SettingMenu settingMenu;
         private ControlMenu controlMenu;
         private TraderMenu traderMenu;
+        private QuestMenu questMenu;
         private bool isConnectMenuVisible = false;
         private bool isSettingMenuVisible = false;
         private bool isControlMenuVisible = false;
         private bool isTraderMenuVisible = false;
+        private bool isQuestMenuVisible = false;
         private bool isLabelsSlidOut = false;
         private int labelsOriginalLeft;
         private int labelsTargetLeft;
@@ -101,7 +103,7 @@ namespace UiBot
             setMouseEvents(connectButton);
             setMouseEvents(commandMenu);
             setMouseEvents(pictureBox5);
-            //setMouseEvents(pictureBox6);
+            setMouseEvents(questTracker);
             //setMouseEvents(pictureBox7);
             //setMouseEvents(pictureBox8);
             setMouseEvents(settingsButton);
@@ -309,6 +311,7 @@ namespace UiBot
                 isTraderMenuVisible = false;
             }
         }
+
         private void ShowControlMenu()
         {
             if (!isControlMenuVisible)
@@ -336,6 +339,33 @@ namespace UiBot
                 isControlMenuVisible = false;
             }
         }
+        private void ShowQuestMenu()
+        {
+            if (!isQuestMenuVisible)
+            {
+                if (questMenu == null || questMenu.IsDisposed)
+                {
+                    questMenu = new QuestMenu();
+                    questMenu.Dock = DockStyle.Fill;
+                    questMenu.Location = new Point(-questMenu.Width, 0);
+                }
+                this.Controls.Add(questMenu);
+                questMenu.Show();
+                isQuestMenuVisible = true;
+                currentTab.Text = "Quest Menu";
+
+            }
+        }
+
+        private void HideQuestMenu()
+        {
+            if (isQuestMenuVisible)
+            {
+                this.Controls.Remove(questMenu); // Change 'commandMenu' to 'controlMenu'
+                questMenu.Hide(); // Change 'commandMenu' to 'controlMenu'
+                isQuestMenuVisible = false;
+            }
+        }
 
         // Method to hide the currently open menu
         private void HideOpenMenu()
@@ -356,6 +386,11 @@ namespace UiBot
             {
                 HideTraderMenu();
             }
+            else if (isQuestMenuVisible)
+            {
+                HideQuestMenu();
+            }
+
         }
 
         private void commandMenu_Click(object sender, EventArgs e)
@@ -383,6 +418,12 @@ namespace UiBot
 
             HideOpenMenu();
             ShowTraderMenu();
+        }
+
+        private void questTracker_Click(object sender, EventArgs e)
+        {
+            HideOpenMenu();
+            ShowQuestMenu();
         }
     }
 }
