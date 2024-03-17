@@ -16,6 +16,7 @@ namespace UiBot
         public string RandomKeyInputs { get; set; }
         public string DropKey { get; set; }
         public Point[] MouseCursorPositions { get; set; }
+        public string grenadeTossKey { get; set; }
     }
     internal class ChatCommandMethods
     {
@@ -51,14 +52,10 @@ namespace UiBot
 
         //wiggle
         public Random random = new Random();
-        public DateTime lastWiggleTime = DateTime.MinValue;
-        public DateTime lastTurnTime = DateTime.MinValue;
 
         //random key press
         public DateTime lastRandomKeyPressesTime = DateTime.MinValue;
 
-        //drop
-        public DateTime lastDropCommandTime = DateTime.MinValue;
         Counter counter = new Counter();
 
         //death counter
@@ -66,20 +63,16 @@ namespace UiBot
         public int killCount = 0;
         public int survivalCount = 0;
 
-        //pop
-        public DateTime lastPopCommandTime = DateTime.MinValue;
+
 
         //goose
         public DateTime lastGooseCommandTime = DateTime.MinValue;
         public Process gooseProcess; // Declare a Process variable to store the Goose process.
 
         //grenade
-        public DateTime lastnadeCommandTime = DateTime.MinValue;
         string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string soundFileName = Path.Combine("Sounds", "grenade.wav");
 
-        //dropbag
-        public DateTime lastdropbagTime = DateTime.MinValue;
 
         //spam command
         public DateTime lastStatCommandTimer = DateTime.MinValue;
@@ -133,7 +126,7 @@ namespace UiBot
             }
         }
 
-        public static void SendRandomKeyPresses()
+        public void SendRandomKeyPresses()
         {
             // Load the keys from CommandConfigData.json
             string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
@@ -196,7 +189,7 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random distance to move (e.g., between 5 and 20 pixels)
-                int distance = random.Next(5, 21) * direction;
+                int distance = random.Next(5, 100) * direction;
 
                 // Move the mouse
                 mouse_event(MOUSEEVENTF_MOVE, distance, 0, 0, 0);
@@ -205,6 +198,61 @@ namespace UiBot
                 Thread.Sleep(random.Next(10));
             }
         }
+
+        public void GrenadeToss(int durationMilliseconds)
+        {
+            // Load the keys from CommandConfigData.json
+            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+            string grenadeKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                grenadeKeyBox = configData?.grenadeTossKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(grenadeKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            // Start a new thread for pulling out the grenade
+            Thread grenadeThread = new Thread(() =>
+            {
+                SendKeys.SendWait(grenadeKeyBox);
+            });
+
+            // Start a new thread for spinning
+            Thread spinThread = new Thread(() =>
+            {
+                TurnRandom(durationMilliseconds);
+            });
+
+            // Start both threads
+            grenadeThread.Start();
+            spinThread.Start();
+
+            // Wait for the grenadeThread to complete
+            grenadeThread.Join();
+
+            // Wait for 2 seconds after pulling the grenade
+            Thread.Sleep(2000);
+
+            // After 2 seconds, simulate left-click to throw the grenade
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+
+
 
         public void SimulateButtonPressAndMouseMovement()
         {
@@ -322,139 +370,5 @@ namespace UiBot
             return value;
         }
 
-        public TimeSpan GetRemainingWiggleCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox wiggleCooldownTextBox = controlMenu.WiggleCooldownTextBox;
-
-
-            if (int.TryParse(wiggleCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastWiggleTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        public TimeSpan GetRemainingPopCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox popCooldownTextBox = controlMenu.OneClickCooldownTextBox;
-
-
-            if (int.TryParse(popCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastPopCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        public TimeSpan GetRemainingGrenadeCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox grenadeCooldownTextBox = controlMenu.GrenadeCooldownTextBox;
-
-
-            if (int.TryParse(grenadeCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastnadeCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-
-
-        public TimeSpan GetRemainingDropBagCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox dropbagCooldownTextBox = controlMenu.DropBagCooldownTextBox;
-
-
-            if (int.TryParse(dropbagCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastdropbagTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        public TimeSpan GetRemainingDropKitCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            TextBox dropCooldownTextBox = controlMenu.DropCooldownTextBox;
-
-
-            if (int.TryParse(dropCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastDropCommandTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
-
-        public TimeSpan GetRemainingTurnCooldown()
-        {
-
-            // Instantiate ControlMenu class to access the text box's text
-            ControlMenu controlMenu = new ControlMenu(); // You may need to initialize it accordingly
-            TextBox turnCooldownTextBox = controlMenu.TurnCooldownTextBox;
-
-
-            if (int.TryParse(turnCooldownTextBox.Text, out int cooldownSeconds))
-            {
-                TimeSpan cooldownDuration = TimeSpan.FromSeconds(cooldownSeconds);
-                DateTime cooldownEndTime = lastTurnTime.Add(cooldownDuration);
-                TimeSpan remainingCooldown = cooldownEndTime - DateTime.Now;
-
-                return (remainingCooldown.TotalSeconds > 0) ? remainingCooldown : TimeSpan.Zero;
-            }
-            else
-            {
-                // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
-            }
-        }
     }
 }

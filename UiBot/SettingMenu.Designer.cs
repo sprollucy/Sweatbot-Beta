@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingMenu));
             groupBox1 = new GroupBox();
             accessBox = new TextBox();
             label1 = new Label();
@@ -39,10 +40,20 @@
             channelBox2 = new TextBox();
             pictureBox10 = new PictureBox();
             pictureBox1 = new PictureBox();
-            helpButton = new Button();
+            channelOpen = new Button();
+            textBox3 = new TextBox();
+            label5 = new Label();
+            githubLink = new LinkLabel();
+            versionNumber = new Label();
+            label7 = new Label();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            changelogLabel = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -58,7 +69,7 @@
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(54, 25);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(293, 140);
+            groupBox1.Size = new Size(417, 140);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
             groupBox1.Text = "Login Info";
@@ -104,7 +115,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox1.Location = new Point(101, 81);
+            checkBox1.Location = new Point(288, 25);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(121, 19);
             checkBox1.TabIndex = 11;
@@ -157,27 +168,126 @@
             pictureBox1.TabIndex = 23;
             pictureBox1.TabStop = false;
             // 
-            // helpButton
+            // channelOpen
             // 
-            helpButton.Location = new Point(155, 212);
-            helpButton.Name = "helpButton";
-            helpButton.Size = new Size(75, 23);
-            helpButton.TabIndex = 25;
-            helpButton.Text = "Help";
-            helpButton.UseVisualStyleBackColor = true;
-            helpButton.Click += helpButton_Click;
+            channelOpen.Location = new Point(342, 77);
+            channelOpen.Name = "channelOpen";
+            channelOpen.Size = new Size(90, 23);
+            channelOpen.TabIndex = 13;
+            channelOpen.Text = "Open Twitch";
+            channelOpen.UseVisualStyleBackColor = true;
+            channelOpen.Click += channelOpen_Click;
+            // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.FromArgb(222, 208, 182);
+            textBox3.BorderStyle = BorderStyle.None;
+            textBox3.Location = new Point(685, 76);
+            textBox3.Multiline = true;
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
+            textBox3.ScrollBars = ScrollBars.Vertical;
+            textBox3.Size = new Size(348, 306);
+            textBox3.TabIndex = 1;
+            textBox3.Text = resources.GetString("textBox3.Text");
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(156, 155, 151);
+            label5.Location = new Point(77, 398);
+            label5.Name = "label5";
+            label5.Size = new Size(251, 15);
+            label5.TabIndex = 30;
+            label5.Text = "Created by Sprollucy with the help of ChatGPT";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // githubLink
+            // 
+            githubLink.AutoSize = true;
+            githubLink.BackColor = Color.FromArgb(156, 155, 151);
+            githubLink.Location = new Point(334, 398);
+            githubLink.Name = "githubLink";
+            githubLink.Size = new Size(43, 15);
+            githubLink.TabIndex = 29;
+            githubLink.TabStop = true;
+            githubLink.Text = "Github";
+            githubLink.TextAlign = ContentAlignment.MiddleCenter;
+            githubLink.LinkClicked += linkLabel1_LinkClicked;
+            // 
+            // versionNumber
+            // 
+            versionNumber.AutoSize = true;
+            versionNumber.Location = new Point(911, 421);
+            versionNumber.Name = "versionNumber";
+            versionNumber.Size = new Size(89, 15);
+            versionNumber.TabIndex = 28;
+            versionNumber.Text = "versionNumber";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(156, 155, 151);
+            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(75, 413);
+            label7.Name = "label7";
+            label7.Size = new Size(551, 25);
+            label7.TabIndex = 27;
+            label7.Text = "Don't forget to check for updates and report any bugs you find";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.FromArgb(156, 155, 151);
+            pictureBox2.BackgroundImageLayout = ImageLayout.None;
+            pictureBox2.Location = new Point(0, 390);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(629, 63);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 31;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.FromArgb(201, 198, 189);
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(675, 28);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(430, 385);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 32;
+            pictureBox3.TabStop = false;
+            // 
+            // changelogLabel
+            // 
+            changelogLabel.AutoSize = true;
+            changelogLabel.BackColor = Color.FromArgb(162, 123, 92);
+            changelogLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            changelogLabel.Location = new Point(685, 40);
+            changelogLabel.Name = "changelogLabel";
+            changelogLabel.Size = new Size(105, 25);
+            changelogLabel.TabIndex = 34;
+            changelogLabel.Text = "Changelog";
             // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(220, 215, 201);
+            BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 487);
             ControlBox = false;
-            Controls.Add(helpButton);
+            Controls.Add(changelogLabel);
+            Controls.Add(textBox3);
+            Controls.Add(pictureBox3);
+            Controls.Add(label5);
+            Controls.Add(githubLink);
+            Controls.Add(versionNumber);
+            Controls.Add(label7);
+            Controls.Add(channelOpen);
             Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
             Controls.Add(groupBox1);
+            Controls.Add(pictureBox2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SettingMenu";
             Text = "SettingMenu";
@@ -185,7 +295,10 @@
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -202,5 +315,14 @@
         private PictureBox pictureBox1;
         private Button helpButton;
         private TextBox accessBox;
+        private Button channelOpen;
+        private TextBox textBox3;
+        private Label label5;
+        private LinkLabel githubLink;
+        private Label versionNumber;
+        private Label label7;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private Label changelogLabel;
     }
 }

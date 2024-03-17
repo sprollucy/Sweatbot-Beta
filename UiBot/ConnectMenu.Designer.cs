@@ -35,6 +35,8 @@
             disconnectButton = new Button();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            enableBagDrop = new CheckBox();
+            enableGrenade = new CheckBox();
             toggleAll = new Button();
             oneClickCheck = new CheckBox();
             stopGoose = new Button();
@@ -101,6 +103,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(enableBagDrop);
+            panel1.Controls.Add(enableGrenade);
             panel1.Controls.Add(toggleAll);
             panel1.Controls.Add(oneClickCheck);
             panel1.Controls.Add(stopGoose);
@@ -115,6 +119,30 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(301, 329);
             panel1.TabIndex = 12;
+            // 
+            // enableBagDrop
+            // 
+            enableBagDrop.AutoSize = true;
+            enableBagDrop.BackColor = Color.FromArgb(181, 176, 163);
+            enableBagDrop.Location = new Point(9, 249);
+            enableBagDrop.Name = "enableBagDrop";
+            enableBagDrop.Size = new Size(113, 19);
+            enableBagDrop.TabIndex = 28;
+            enableBagDrop.Text = "Enable Bag Drop";
+            enableBagDrop.UseVisualStyleBackColor = false;
+            enableBagDrop.CheckedChanged += enableBagDrop_CheckedChanged;
+            // 
+            // enableGrenade
+            // 
+            enableGrenade.AutoSize = true;
+            enableGrenade.BackColor = Color.FromArgb(181, 176, 163);
+            enableGrenade.Location = new Point(9, 224);
+            enableGrenade.Name = "enableGrenade";
+            enableGrenade.Size = new Size(108, 19);
+            enableGrenade.TabIndex = 27;
+            enableGrenade.Text = "Enable Grenade";
+            enableGrenade.UseVisualStyleBackColor = false;
+            enableGrenade.CheckedChanged += enableGrenade_CheckedChanged;
             // 
             // toggleAll
             // 
@@ -132,9 +160,9 @@
             oneClickCheck.BackColor = Color.FromArgb(181, 176, 163);
             oneClickCheck.Location = new Point(9, 199);
             oneClickCheck.Name = "oneClickCheck";
-            oneClickCheck.Size = new Size(105, 19);
+            oneClickCheck.Size = new Size(129, 19);
             oneClickCheck.TabIndex = 20;
-            oneClickCheck.Text = "oneClickCheck";
+            oneClickCheck.Text = "One Left Click(pop)";
             oneClickCheck.UseVisualStyleBackColor = false;
             oneClickCheck.CheckedChanged += oneClickCheck_CheckedChanged;
             // 
@@ -153,9 +181,9 @@
             randomTurn.BackColor = Color.FromArgb(181, 176, 163);
             randomTurn.Location = new Point(9, 170);
             randomTurn.Name = "randomTurn";
-            randomTurn.Size = new Size(85, 19);
+            randomTurn.Size = new Size(88, 19);
             randomTurn.TabIndex = 21;
-            randomTurn.Text = "EnableTurn";
+            randomTurn.Text = "Enable Turn";
             randomTurn.UseVisualStyleBackColor = false;
             randomTurn.CheckedChanged += randomTurn_CheckedChanged;
             // 
@@ -176,9 +204,9 @@
             enableRandomKey.BackColor = Color.FromArgb(181, 176, 163);
             enableRandomKey.Location = new Point(9, 139);
             enableRandomKey.Name = "enableRandomKey";
-            enableRandomKey.Size = new Size(125, 19);
+            enableRandomKey.Size = new Size(131, 19);
             enableRandomKey.TabIndex = 22;
-            enableRandomKey.Text = "enableRandomKey";
+            enableRandomKey.Text = "Enable Random Key";
             enableRandomKey.UseVisualStyleBackColor = false;
             enableRandomKey.CheckedChanged += enableRandomKey_CheckedChanged;
             // 
@@ -188,9 +216,9 @@
             chkEnableGoose.BackColor = Color.FromArgb(181, 176, 163);
             chkEnableGoose.Location = new Point(9, 112);
             chkEnableGoose.Name = "chkEnableGoose";
-            chkEnableGoose.Size = new Size(113, 19);
+            chkEnableGoose.Size = new Size(97, 19);
             chkEnableGoose.TabIndex = 23;
-            chkEnableGoose.Text = "chkEnableGoose";
+            chkEnableGoose.Text = "Enable Goose";
             chkEnableGoose.UseVisualStyleBackColor = false;
             chkEnableGoose.CheckedChanged += chkEnableGoose_CheckedChanged;
             // 
@@ -200,9 +228,9 @@
             enableKitDrop.BackColor = Color.FromArgb(181, 176, 163);
             enableKitDrop.Location = new Point(9, 83);
             enableKitDrop.Name = "enableKitDrop";
-            enableKitDrop.Size = new Size(101, 19);
+            enableKitDrop.Size = new Size(107, 19);
             enableKitDrop.TabIndex = 24;
-            enableKitDrop.Text = "enableKitDrop";
+            enableKitDrop.Text = "Enable Kit Drop";
             enableKitDrop.UseVisualStyleBackColor = false;
             enableKitDrop.CheckedChanged += enableKitDrop_CheckedChanged;
             // 
@@ -212,9 +240,9 @@
             enableWiggle.BackColor = Color.FromArgb(181, 176, 163);
             enableWiggle.Location = new Point(9, 54);
             enableWiggle.Name = "enableWiggle";
-            enableWiggle.Size = new Size(98, 19);
+            enableWiggle.Size = new Size(101, 19);
             enableWiggle.TabIndex = 25;
-            enableWiggle.Text = "enableWiggle";
+            enableWiggle.Text = "Enable Wiggle";
             enableWiggle.UseVisualStyleBackColor = false;
             enableWiggle.CheckedChanged += enableWiggle_CheckedChanged;
             // 
@@ -222,7 +250,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(220, 215, 201);
+            BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 487);
             ControlBox = false;
             Controls.Add(panel1);
@@ -258,5 +286,7 @@
         private CheckBox enableKitDrop;
         private CheckBox enableWiggle;
         private Button toggleAll;
+        private CheckBox enableBagDrop;
+        private CheckBox enableGrenade;
     }
 }

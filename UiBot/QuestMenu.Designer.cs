@@ -43,7 +43,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(220, 215, 201);
+            BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1042, 448);
             ControlBox = false;
             Controls.Add(flowLayoutPanel1);

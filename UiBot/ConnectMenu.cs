@@ -26,6 +26,8 @@ namespace UiBot
             enableKitDrop.Checked = Properties.Settings.Default.IsDropEnabled;
             randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
             oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
+            enableGrenade.Checked = Properties.Settings.Default.isGrenadeEnabled;
+            enableBagDrop.Checked = Properties.Settings.Default.isDropBagEnabled;
         }
 
         private void InitializeConsole()
@@ -178,8 +180,22 @@ namespace UiBot
             enableKitDrop.Checked = false;
             randomTurn.Checked = false;
             oneClickCheck.Checked = false;
+            enableBagDrop.Checked = false;
+            enableGrenade.Checked = false;
             Properties.Settings.Default.Save();
 
+        }
+
+        private void enableBagDrop_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isDropBagEnabled = enableBagDrop.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableGrenade_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isGrenadeEnabled = enableGrenade.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

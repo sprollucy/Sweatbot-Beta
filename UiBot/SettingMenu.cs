@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
-
-
+using System.Reflection;
 namespace UiBot
 {
+
     public partial class SettingMenu : Form
     {
         Process[] gname = Process.GetProcessesByName("GooseDesktop");
         private MainBot bot;
         public SettingMenu()
         {
+            string packageVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
             bot = new MainBot(); // Initialize the bot instance
 
             InitializeComponent();
             this.TopLevel = false;
             accessBox.UseSystemPasswordChar = true;
-            channelBox2.UseSystemPasswordChar = true;
 
             // Load existing data from the JSON file
             CounterData existingData = LoadCounterData();
@@ -23,6 +24,7 @@ namespace UiBot
             // Set the textBox1 and textBox2 controls with the loaded data
             accessBox.Text = existingData.BotToken;
             channelBox2.Text = existingData.ChannelName;
+            versionNumber.Text = "Version: " + packageVersion;
         }
 
 
@@ -116,12 +118,10 @@ namespace UiBot
             if (checkBox1.Checked)
             {
                 accessBox.UseSystemPasswordChar = false;
-                channelBox2.UseSystemPasswordChar = false;
             }
             else
             {
                 accessBox.UseSystemPasswordChar = true;
-                channelBox2.UseSystemPasswordChar = true;
             }
         }
 
@@ -135,5 +135,32 @@ namespace UiBot
             aboutForm.ShowDialog();
         }
 
+        private void channelOpen_Click(object sender, EventArgs e)
+        {
+            // Get the channel name from channelBox2
+            string channelName = channelBox2.Text;
+
+            // Construct the Twitch URL with the channel name
+            string twitchUrl = $"https://www.twitch.tv/{channelName}";
+
+            // Open the Twitch URL in the default web browser
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = twitchUrl,
+                UseShellExecute = true
+            });
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Specify the URL you want to open
+            string url = "https://github.com/sprollucy/Tarkov-Twitch-Bot-Working";
+
+            // Open the URL in the default web browser
+            System.Diagnostics.Process.Start(new ProcessStartInfo(url)
+            {
+                UseShellExecute = true
+            });
+        }
     }
 }

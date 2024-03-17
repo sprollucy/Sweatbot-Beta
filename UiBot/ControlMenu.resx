@@ -1028,7 +1028,7 @@
 </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Bits are not fully incorporated yet and do not work
+    <value>Bits are untested. Please let me know if they dont work
 
 Drop kit only works if you run the "Drop Config.exe" to configure where the items
  are based on your screen resolution

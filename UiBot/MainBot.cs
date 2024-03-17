@@ -249,10 +249,7 @@ namespace UiBot
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
-                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !killgoose, !randomkeys, !roll, !stats, !wipestats, !turn, !wiggle, !pop, !grenade, !dropbag");
-                    }
-                    else
-                    {
+                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenade, !dropbag");
                     }
                     break;
 
@@ -264,9 +261,6 @@ namespace UiBot
                         chatCommandMethods.lastAboutCommandTimer = DateTime.Now; // Update the last "help" execution time
                         client.SendMessage(channelId, $"I am a bot created by Sprollucy. This is a small project that was inspired by bitbot and to help practice my coding. Many features may be incomplete or missing at this time.");
                         client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Tarkov-Twitch-Bot-Working for more information, bug reporting, and suggestions");
-                    }
-                    else
-                    {
                     }
                     break;
 
@@ -311,91 +305,97 @@ namespace UiBot
                     break;
 
                 case "traders":
-                    timeSinceLastExecution = DateTime.Now - lastTradersCommandTimer;
-
-                    if (timeSinceLastExecution.TotalSeconds >= tradersCooldownDuration)
+                    if (Properties.Settings.Default.isTradersEnabled)
                     {
-                        // Update the resetTime.json file with the latest reset info
-                        await traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
+                        timeSinceLastExecution = DateTime.Now - lastTradersCommandTimer;
 
-                        // Read the reset time data from resetTime.json
-                        var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
-
-                        if (!string.IsNullOrEmpty(resetTimeData))
+                        if (timeSinceLastExecution.TotalSeconds >= tradersCooldownDuration)
                         {
-                            // Deserialize the JSON data
-                            var traderResetResponse = JsonConvert.DeserializeObject<TraderResetInfoService.TraderResetResponse>(resetTimeData);
+                            // Update the resetTime.json file with the latest reset info
+                            await traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
 
-                            if (traderResetResponse != null && traderResetResponse.Data != null && traderResetResponse.Data.Traders != null)
+                            // Read the reset time data from resetTime.json
+                            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
+
+                            if (!string.IsNullOrEmpty(resetTimeData))
                             {
-                                foreach (var trader in traderResetResponse.Data.Traders)
+                                // Deserialize the JSON data
+                                var traderResetResponse = JsonConvert.DeserializeObject<TraderResetInfoService.TraderResetResponse>(resetTimeData);
+
+                                if (traderResetResponse != null && traderResetResponse.Data != null && traderResetResponse.Data.Traders != null)
                                 {
-                                    string traderName = trader.Name;
-                                    string resetTime = trader.ResetTime;
-
-                                    // Parse the reset time as a DateTime
-                                    if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
+                                    foreach (var trader in traderResetResponse.Data.Traders)
                                     {
-                                        // Get the local time zone
-                                        TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+                                        string traderName = trader.Name;
+                                        string resetTime = trader.ResetTime;
 
-                                        // Convert the reset time from UTC to local time
-                                        DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
-
-                                        // Calculate the time remaining until the reset time
-                                        TimeSpan timeRemaining = localResetTime - DateTime.Now;
-
-                                        // Check if the time remaining is negative
-                                        if (timeRemaining < TimeSpan.Zero)
+                                        // Parse the reset time as a DateTime
+                                        if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
                                         {
-                                            // The reset time has passed; set the time remaining to zero
-                                            timeRemaining = TimeSpan.Zero;
-                                        }
+                                            // Get the local time zone
+                                            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
 
-                                        // Debugging: Print resetTime and timeRemaining
-                                        Console.WriteLine($"Trader Name: {traderName}, Reset Time: {resetTime}");
-                                        Console.WriteLine($"Time Remaining: {timeRemaining}");
+                                            // Convert the reset time from UTC to local time
+                                            DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
 
-                                        // Format the time difference as hours and minutes
-                                        string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
+                                            // Calculate the time remaining until the reset time
+                                            TimeSpan timeRemaining = localResetTime - DateTime.Now;
 
-                                        // Send a separate alert if there are 5 minutes or less remaining
-                                        if (timeRemaining <= TimeSpan.FromMinutes(5))
-                                        {
-                                            client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
+                                            // Check if the time remaining is negative
+                                            if (timeRemaining < TimeSpan.Zero)
+                                            {
+                                                // The reset time has passed; set the time remaining to zero
+                                                timeRemaining = TimeSpan.Zero;
+                                            }
+
+                                            // Debugging: Print resetTime and timeRemaining
+                                            Console.WriteLine($"Trader Name: {traderName}, Reset Time: {resetTime}");
+                                            Console.WriteLine($"Time Remaining: {timeRemaining}");
+
+                                            // Format the time difference as hours and minutes
+                                            string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
+
+                                            // Send a separate alert if there are 5 minutes or less remaining
+                                            if (timeRemaining <= TimeSpan.FromMinutes(5))
+                                            {
+                                                client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
+                                            }
+                                            else
+                                            {
+                                                // Send the regular countdown message
+                                                client.SendMessage(channelId, $"Trader Name: {traderName}, Countdown: {formattedTimeRemaining}");
+                                            }
                                         }
                                         else
                                         {
-                                            // Send the regular countdown message
-                                            client.SendMessage(channelId, $"Trader Name: {traderName}, Countdown: {formattedTimeRemaining}");
+                                            // Handle the case where the reset time cannot be parsed
+                                            client.SendMessage(channelId, $"Failed to parse reset time for trader '{traderName}'.");
                                         }
                                     }
-                                    else
-                                    {
-                                        // Handle the case where the reset time cannot be parsed
-                                        client.SendMessage(channelId, $"Failed to parse reset time for trader '{traderName}'.");
-                                    }
+                                }
+                                else
+                                {
+                                    // Handle the case where the JSON data is not as expected
+                                    client.SendMessage(channelId, "Failed to fetch trader reset info.");
                                 }
                             }
                             else
                             {
-                                // Handle the case where the JSON data is not as expected
-                                client.SendMessage(channelId, "Failed to fetch trader reset info.");
+                                // Handle the case where resetTime.json is empty or not found
+                                client.SendMessage(channelId, "Reset time data not available.");
                             }
-                        }
-                        else
-                        {
-                            // Handle the case where resetTime.json is empty or not found
-                            client.SendMessage(channelId, "Reset time data not available.");
-                        }
 
-                        // Update the last execution time for the "traders" command
-                        lastTradersCommandTimer = DateTime.Now;
+                            // Update the last execution time for the "traders" command
+                            lastTradersCommandTimer = DateTime.Now;
+                        }
                     }
                     else
                     {
+                        // Send message indicating the command is disabled
+                        client.SendMessage(channelId, "Traders command is currently disabled.");
                     }
                     break;
+
 
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled)
@@ -653,6 +653,55 @@ namespace UiBot
                                     userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
 
                                     chatCommandMethods.SimulateButtonPressAndMouseMovement();
+                                    chatCommandMethods.SendRandomKeyPresses();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cooldown value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Random Keys command is currently disabled.");
+                    }
+                    break;
+
+                case "grenadetoss":
+                    if (Properties.Settings.Default.isGrenadeTossEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.GrenadeCostBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.GrenadeToss(5000);
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");

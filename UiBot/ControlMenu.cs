@@ -35,9 +35,10 @@ namespace UiBot
             randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
             oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
             enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
-            enableTraderCheck.Checked = Properties.Settings.Default.isAutoTraderEnabled;
             enableGrenade.Checked = Properties.Settings.Default.isGrenadeEnabled;
             enableBagDrop.Checked = Properties.Settings.Default.isDropBagEnabled;
+            enableTradersCommand.Checked = Properties.Settings.Default.isTradersEnabled;
+            enableGrenadeToss.Checked = Properties.Settings.Default.isGrenadeTossEnabled;
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -60,6 +61,8 @@ namespace UiBot
             textBoxes["grenadeCooldown"] = grenadeCooldownTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
             textBoxes["dropKey"] = dropKeyTextBox;
+            textBoxes["granadeToss"] = grenadeCostBox;
+            textBoxes["grenadeTossKey"] = grenadeKeyBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -123,6 +126,16 @@ namespace UiBot
             set { autoSendMessageCD = value; }
         }
 
+        public TextBox GrenadeCostBox
+        {
+            get { return grenadeCostBox; }
+            set { grenadeCostBox = value; }
+        }
+        public TextBox GrenadeKeyBox
+        {
+            get { return grenadeKeyBox; }
+            set { grenadeKeyBox = value; }
+        }
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
         {
@@ -231,11 +244,6 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-        private void enableTraderCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isAutoTraderEnabled = enableTraderCheck.Checked;
-            Properties.Settings.Default.Save();
-        }
         private void enableGrenade_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isGrenadeEnabled = enableGrenade.Checked;
@@ -249,6 +257,23 @@ namespace UiBot
         }
 
         private void dropKeyBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isTwitchTradersEnabled = enableTradersCommand.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableGrenadeToss_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isGrenadeTossEnabled = enableGrenadeToss.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void grenadeKeyBox_TextChanged(object sender, EventArgs e)
         {
 
         }

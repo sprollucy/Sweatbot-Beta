@@ -334,5 +334,29 @@ namespace UiBot.Properties {
                 this["isDropBagEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isTradersEnabled {
+            get {
+                return ((bool)(this["isTradersEnabled"]));
+            }
+            set {
+                this["isTradersEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isGrenadeTossEnabled {
+            get {
+                return ((bool)(this["isGrenadeTossEnabled"]));
+            }
+            set {
+                this["isGrenadeTossEnabled"] = value;
+            }
+        }
     }
 }

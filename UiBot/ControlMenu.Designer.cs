@@ -43,6 +43,10 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            grenadeKeyBox = new TextBox();
+            grenadeCostBox = new TextBox();
+            enableGrenadeToss = new CheckBox();
+            enableTradersCommand = new CheckBox();
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             dropKeyTextBox = new TextBox();
@@ -61,7 +65,6 @@
             pictureBox6 = new PictureBox();
             pictureBox5 = new PictureBox();
             pictureBox4 = new PictureBox();
-            enableTraderCheck = new CheckBox();
             pictureBox2 = new PictureBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
@@ -88,7 +91,7 @@
             // 
             // wiggleCooldownTextBox
             // 
-            wiggleCooldownTextBox.Location = new Point(190, 72);
+            wiggleCooldownTextBox.Location = new Point(190, 70);
             wiggleCooldownTextBox.Name = "wiggleCooldownTextBox";
             wiggleCooldownTextBox.Size = new Size(100, 23);
             wiggleCooldownTextBox.TabIndex = 0;
@@ -136,7 +139,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(713, 415);
+            saveButton.Location = new Point(820, 415);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 23);
             saveButton.TabIndex = 6;
@@ -218,6 +221,10 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(grenadeKeyBox);
+            panel1.Controls.Add(grenadeCostBox);
+            panel1.Controls.Add(enableGrenadeToss);
+            panel1.Controls.Add(enableTradersCommand);
             panel1.Controls.Add(textBox3);
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(dropKeyTextBox);
@@ -236,7 +243,6 @@
             panel1.Controls.Add(pictureBox6);
             panel1.Controls.Add(pictureBox5);
             panel1.Controls.Add(pictureBox4);
-            panel1.Controls.Add(enableTraderCheck);
             panel1.Controls.Add(oneClickCheck);
             panel1.Controls.Add(randomTurn);
             panel1.Controls.Add(enableRandomKey);
@@ -252,8 +258,49 @@
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(51, 23);
             panel1.Name = "panel1";
-            panel1.Size = new Size(409, 415);
+            panel1.Size = new Size(539, 577);
             panel1.TabIndex = 20;
+            // 
+            // grenadeKeyBox
+            // 
+            grenadeKeyBox.Location = new Point(190, 393);
+            grenadeKeyBox.Name = "grenadeKeyBox";
+            grenadeKeyBox.Size = new Size(31, 23);
+            grenadeKeyBox.TabIndex = 51;
+            grenadeKeyBox.Text = "G";
+            grenadeKeyBox.TextChanged += grenadeKeyBox_TextChanged;
+            // 
+            // grenadeCostBox
+            // 
+            grenadeCostBox.Location = new Point(189, 362);
+            grenadeCostBox.Name = "grenadeCostBox";
+            grenadeCostBox.Size = new Size(100, 23);
+            grenadeCostBox.TabIndex = 50;
+            grenadeCostBox.Text = "300";
+            // 
+            // enableGrenadeToss
+            // 
+            enableGrenadeToss.AutoSize = true;
+            enableGrenadeToss.BackColor = Color.FromArgb(181, 176, 163);
+            enableGrenadeToss.Location = new Point(14, 366);
+            enableGrenadeToss.Name = "enableGrenadeToss";
+            enableGrenadeToss.Size = new Size(127, 19);
+            enableGrenadeToss.TabIndex = 49;
+            enableGrenadeToss.Text = "enableGrenadeToss";
+            enableGrenadeToss.UseVisualStyleBackColor = false;
+            enableGrenadeToss.CheckedChanged += enableGrenadeToss_CheckedChanged;
+            // 
+            // enableTradersCommand
+            // 
+            enableTradersCommand.AutoSize = true;
+            enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
+            enableTradersCommand.Location = new Point(324, 72);
+            enableTradersCommand.Name = "enableTradersCommand";
+            enableTradersCommand.Size = new Size(155, 19);
+            enableTradersCommand.TabIndex = 48;
+            enableTradersCommand.Text = "enableTradersCommand";
+            enableTradersCommand.UseVisualStyleBackColor = false;
+            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
             // textBox3
             // 
@@ -283,7 +330,7 @@
             dropKeyTextBox.Name = "dropKeyTextBox";
             dropKeyTextBox.Size = new Size(100, 23);
             dropKeyTextBox.TabIndex = 45;
-            dropKeyTextBox.Text = "/";
+            dropKeyTextBox.Text = "{DELETE}";
             dropKeyTextBox.TextChanged += dropKeyBox_TextChanged;
             // 
             // textBox1
@@ -294,7 +341,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 16);
             textBox1.TabIndex = 44;
-            textBox1.Text = "Cooldown Timer";
+            textBox1.Text = "Cost";
             textBox1.TextAlign = HorizontalAlignment.Center;
             // 
             // label2
@@ -444,24 +491,12 @@
             pictureBox4.TabIndex = 29;
             pictureBox4.TabStop = false;
             // 
-            // enableTraderCheck
-            // 
-            enableTraderCheck.AutoSize = true;
-            enableTraderCheck.BackColor = Color.FromArgb(181, 176, 163);
-            enableTraderCheck.Location = new Point(9, 369);
-            enableTraderCheck.Name = "enableTraderCheck";
-            enableTraderCheck.Size = new Size(175, 19);
-            enableTraderCheck.TabIndex = 20;
-            enableTraderCheck.Text = "Enable Trader Timer Updates";
-            enableTraderCheck.UseVisualStyleBackColor = false;
-            enableTraderCheck.CheckedChanged += enableTraderCheck_CheckedChanged;
-            // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(409, 412);
+            pictureBox2.Size = new Size(513, 429);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
@@ -469,7 +504,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(479, 270);
+            label1.Location = new Point(586, 311);
             label1.Name = "label1";
             label1.Size = new Size(437, 90);
             label1.TabIndex = 28;
@@ -496,7 +531,7 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.Location = new Point(627, 99);
+            autoMessageBox.Location = new Point(734, 99);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
             autoMessageBox.Size = new Size(228, 106);
@@ -505,7 +540,7 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.Location = new Point(550, 70);
+            autoSendMessageCD.Location = new Point(657, 70);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(54, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -516,7 +551,7 @@
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
             autoMessageLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            autoMessageLabel.Location = new Point(489, 31);
+            autoMessageLabel.Location = new Point(596, 31);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
             autoMessageLabel.TabIndex = 25;
@@ -526,7 +561,7 @@
             // 
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(181, 176, 163);
-            enableAutoMessageCheck.Location = new Point(628, 70);
+            enableAutoMessageCheck.Location = new Point(735, 70);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -537,9 +572,9 @@
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(479, 23);
+            pictureBox3.Location = new Point(586, 23);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(402, 211);
+            pictureBox3.Size = new Size(402, 236);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 27;
             pictureBox3.TabStop = false;
@@ -548,8 +583,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(220, 215, 201);
-            ClientSize = new Size(1058, 487);
+            AutoScroll = true;
+            BackColor = Color.FromArgb(201, 198, 189);
+            ClientSize = new Size(1058, 700);
             ControlBox = false;
             Controls.Add(enableAutoMessageCheck);
             Controls.Add(autoMessageLabel);
@@ -600,7 +636,6 @@
         private Panel panel1;
         private PictureBox pictureBox1;
         private PictureBox pictureBox10;
-        private CheckBox enableTraderCheck;
         private TextBox autoMessageBox;
         private TextBox autoSendMessageCD;
         private Label autoMessageLabel;
@@ -626,5 +661,10 @@
         private TextBox textBox2;
         private TextBox textBox3;
         private PictureBox pictureBox2;
+        private CheckBox enableTradersCommand;
+        private CheckBox checkBox1;
+        private TextBox grenadeCostBox;
+        private CheckBox enableGrenadeToss;
+        private TextBox grenadeKeyBox;
     }
 }
