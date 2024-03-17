@@ -134,12 +134,15 @@ namespace UiBot
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
             Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {e.ChatMessage.Message}");
 
-            if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
+            if (Properties.Settings.Default.isChatBonusEnabled)
             {
-                // User is chatting for the first time, give them 100 bits
-                userBits.Add(e.ChatMessage.DisplayName, 100);
-                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the chat! Here is 100 bits on the house, use !help for more info");
-                WriteUserBitsToJson("user_bits.json");
+                if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
+                {
+                    // User is chatting for the first time, give them 100 bits
+                    userBits.Add(e.ChatMessage.DisplayName, 100);
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the chat! Here is 100 bits on the house, use !help for more info");
+                    WriteUserBitsToJson("user_bits.json");
+                }
             }
 
             if (e.ChatMessage.Bits > 0)
@@ -249,7 +252,7 @@ namespace UiBot
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
-                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenade, !dropbag");
+                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenade, !dropbag, !grenadetoss, !magdump, !holdaim");
                     }
                     break;
 
@@ -431,7 +434,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -511,7 +514,7 @@ namespace UiBot
                         }
                         else
                         {
-                            client.SendMessage(channelId, "Invalid cooldown time. Please enter a valid number of minutes in the Goose cooldown textbox.");
+                            client.SendMessage(channelId, "Invalid cost time");
                         }
                     }
                     break;
@@ -567,7 +570,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -619,7 +622,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -764,7 +767,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -812,7 +815,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -860,7 +863,7 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -871,7 +874,148 @@ namespace UiBot
                     }
                     else
                     {
-                        client.SendMessage(channelId, "Grenade command is currently disabled.");
+                        client.SendMessage(channelId, "Grenade Toss command is currently disabled.");
+                    }
+                    break;
+
+                case "crouch":
+                    if (Properties.Settings.Default.isCrouchEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.CrouchorStand();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Crouch command is currently disabled.");
+                    }
+                    break;
+
+                case "magdump":
+                    if (Properties.Settings.Default.isMagDumpEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.MagDump();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Magdump command is currently disabled.");
+                    }
+                    break;
+
+                case "holdaim":
+                    if (Properties.Settings.Default.isHoldAimEnabled)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.HoldAim();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command!");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Holdaim command is currently disabled.");
                     }
                     break;
 

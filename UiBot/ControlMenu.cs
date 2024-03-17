@@ -39,6 +39,12 @@ namespace UiBot
             enableBagDrop.Checked = Properties.Settings.Default.isDropBagEnabled;
             enableTradersCommand.Checked = Properties.Settings.Default.isTradersEnabled;
             enableGrenadeToss.Checked = Properties.Settings.Default.isGrenadeTossEnabled;
+            crouchBox.Checked = Properties.Settings.Default.isCrouchEnabled;
+            enableMagDump.Checked = Properties.Settings.Default.isMagDumpEnabled;
+            enableHoldAim.Checked = Properties.Settings.Default.isHoldAimEnabled;
+            enableHoldAim.Checked = Properties.Settings.Default.isChatBonusEnabled;
+
+
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -63,6 +69,9 @@ namespace UiBot
             textBoxes["dropKey"] = dropKeyTextBox;
             textBoxes["granadeToss"] = grenadeCostBox;
             textBoxes["grenadeTossKey"] = grenadeKeyBox;
+            textBoxes["crouchKey"] = CrouchKeyBox;
+            textBoxes["magDumpCost"] = MagDumpBox;
+            textBoxes["holdAimCost"] = HoldAimCost;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -135,6 +144,21 @@ namespace UiBot
         {
             get { return grenadeKeyBox; }
             set { grenadeKeyBox = value; }
+        }
+        public TextBox CrouchKeyBox
+        {
+            get { return crouchBoxKey; }
+            set { crouchBoxKey = value; }
+        }
+        public TextBox MagDumpBox
+        {
+            get { return magDumpCost; }
+            set { magDumpCost = value; }
+        }
+        public TextBox HoldAimCost
+        {
+            get { return holdAimCost; }
+            set { holdAimCost = value; }
         }
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
@@ -273,9 +297,28 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-        private void grenadeKeyBox_TextChanged(object sender, EventArgs e)
+        private void crouchBox_CheckedChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default.isCrouchEnabled = crouchBox.Checked;
+            Properties.Settings.Default.Save();
+        }
 
+        private void enableMagDump_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isMagDumpEnabled = enableMagDump.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableHoldAim_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isHoldAimEnabled = enableHoldAim.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableChatBonus_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

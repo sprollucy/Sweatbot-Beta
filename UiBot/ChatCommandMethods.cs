@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 using TwitchLib.Client;
 using System.Diagnostics;
 using System.Media;
+/* TODO **
+ * Add reload, lean, 360 mag dump
+ */
 
 namespace UiBot
 {
@@ -17,6 +20,7 @@ namespace UiBot
         public string DropKey { get; set; }
         public Point[] MouseCursorPositions { get; set; }
         public string grenadeTossKey { get; set; }
+        public string crouchKey { get; set; }
     }
     internal class ChatCommandMethods
     {
@@ -27,8 +31,6 @@ namespace UiBot
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
-
-
 
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -43,6 +45,8 @@ namespace UiBot
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         public const int MOUSEEVENTF_MOVE = 0x0001;
+        public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
+        public const int MOUSEEVENTF_RIGHTUP = 0x0010;
         ControlMenu controlMenu = new ControlMenu();
 
         // Handles connection
@@ -252,7 +256,37 @@ namespace UiBot
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }
 
+        public void CrouchorStand()
+        {
+            // Load the keys from CommandConfigData.json
+            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+            string crouchKeyBox;
 
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                crouchKeyBox = configData?.crouchKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(crouchKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+
+                SendKeys.SendWait(crouchKeyBox);
+
+
+        }
 
         public void SimulateButtonPressAndMouseMovement()
         {
@@ -347,6 +381,30 @@ namespace UiBot
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }
 
+        public void MagDump()
+        {
+            // Simulate pressing the left mouse button
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+
+            // Wait for the specified duration
+            Thread.Sleep(2500);
+
+            // Simulate releasing the left mouse button
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+        public void HoldAim()
+        {
+                // Simulate pressing the right mouse button
+                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+
+                // Wait for the specified duration
+                Thread.Sleep(2500);
+
+                // Simulate releasing the right mouse button
+                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);    
+        }
+
+
         public void GrenadeSound()
         {
             // Create a SoundPlayer and specify the notification sound file path
@@ -357,17 +415,6 @@ namespace UiBot
             Thread.Sleep(1000);
             player.Play();
 
-        }
-
-        public int RndInt(int min, int max)
-        {
-            int value;
-
-            Random rnd = new Random();
-
-            value = rnd.Next(min, max + 1);
-
-            return value;
         }
 
     }

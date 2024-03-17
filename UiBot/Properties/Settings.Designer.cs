@@ -358,5 +358,53 @@ namespace UiBot.Properties {
                 this["isGrenadeTossEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isCrouchEnabled {
+            get {
+                return ((bool)(this["isCrouchEnabled"]));
+            }
+            set {
+                this["isCrouchEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isMagDumpEnabled {
+            get {
+                return ((bool)(this["isMagDumpEnabled"]));
+            }
+            set {
+                this["isMagDumpEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isHoldAimEnabled {
+            get {
+                return ((bool)(this["isHoldAimEnabled"]));
+            }
+            set {
+                this["isHoldAimEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isChatBonusEnabled {
+            get {
+                return ((bool)(this["isChatBonusEnabled"]));
+            }
+            set {
+                this["isChatBonusEnabled"] = value;
+            }
+        }
     }
 }
