@@ -44,7 +44,7 @@
             enableWiggle = new CheckBox();
             panel1 = new Panel();
             label4 = new Label();
-            textBox4 = new TextBox();
+            bonusTextBox = new TextBox();
             enableChatBonus = new CheckBox();
             holdAimCost = new TextBox();
             enableHoldAim = new CheckBox();
@@ -218,7 +218,7 @@
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox4);
+            panel1.Controls.Add(bonusTextBox);
             panel1.Controls.Add(enableChatBonus);
             panel1.Controls.Add(holdAimCost);
             panel1.Controls.Add(enableHoldAim);
@@ -268,13 +268,13 @@
             label4.TabIndex = 61;
             label4.Text = "How many for first chat?";
             // 
-            // textBox4
+            // bonusTextBox
             // 
-            textBox4.Location = new Point(280, 159);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 60;
-            textBox4.Text = "100";
+            bonusTextBox.Location = new Point(280, 159);
+            bonusTextBox.Name = "bonusTextBox";
+            bonusTextBox.Size = new Size(100, 23);
+            bonusTextBox.TabIndex = 60;
+            bonusTextBox.Text = "100";
             // 
             // enableChatBonus
             // 
@@ -302,9 +302,9 @@
             enableHoldAim.BackColor = Color.FromArgb(181, 176, 163);
             enableHoldAim.Location = new Point(14, 453);
             enableHoldAim.Name = "enableHoldAim";
-            enableHoldAim.Size = new Size(109, 19);
+            enableHoldAim.Size = new Size(115, 19);
             enableHoldAim.TabIndex = 57;
-            enableHoldAim.Text = "enableHoldAim";
+            enableHoldAim.Text = "Enable Hold Aim";
             enableHoldAim.UseVisualStyleBackColor = false;
             enableHoldAim.CheckedChanged += enableHoldAim_CheckedChanged;
             // 
@@ -322,9 +322,9 @@
             enableMagDump.BackColor = Color.FromArgb(181, 176, 163);
             enableMagDump.Location = new Point(14, 424);
             enableMagDump.Name = "enableMagDump";
-            enableMagDump.Size = new Size(118, 19);
+            enableMagDump.Size = new Size(124, 19);
             enableMagDump.TabIndex = 55;
-            enableMagDump.Text = "enableMagDump";
+            enableMagDump.Text = "Enable Mag Dump";
             enableMagDump.UseVisualStyleBackColor = false;
             enableMagDump.CheckedChanged += enableMagDump_CheckedChanged;
             // 
@@ -343,6 +343,7 @@
             crouchBoxCost.Size = new Size(100, 23);
             crouchBoxCost.TabIndex = 53;
             crouchBoxCost.Text = "300";
+            crouchBoxCost.TextChanged += crouchBoxCost_TextChanged;
             // 
             // crouchBox
             // 
@@ -350,9 +351,9 @@
             crouchBox.BackColor = Color.FromArgb(181, 176, 163);
             crouchBox.Location = new Point(14, 395);
             crouchBox.Name = "crouchBox";
-            crouchBox.Size = new Size(83, 19);
+            crouchBox.Size = new Size(65, 19);
             crouchBox.TabIndex = 52;
-            crouchBox.Text = "crouchBox";
+            crouchBox.Text = "Crouch";
             crouchBox.UseVisualStyleBackColor = false;
             crouchBox.CheckedChanged += crouchBox_CheckedChanged;
             // 
@@ -378,9 +379,9 @@
             enableGrenadeToss.BackColor = Color.FromArgb(181, 176, 163);
             enableGrenadeToss.Location = new Point(14, 366);
             enableGrenadeToss.Name = "enableGrenadeToss";
-            enableGrenadeToss.Size = new Size(127, 19);
+            enableGrenadeToss.Size = new Size(159, 19);
             enableGrenadeToss.TabIndex = 49;
-            enableGrenadeToss.Text = "enableGrenadeToss";
+            enableGrenadeToss.Text = "Enable Grenade Toss(360)";
             enableGrenadeToss.UseVisualStyleBackColor = false;
             enableGrenadeToss.CheckedChanged += enableGrenadeToss_CheckedChanged;
             // 
@@ -663,7 +664,7 @@
         private CheckBox enableHoldAim;
         private TextBox magDumpCost;
         private CheckBox enableChatBonus;
-        private TextBox textBox4;
+        private TextBox bonusTextBox;
         private Label label4;
     }
 }

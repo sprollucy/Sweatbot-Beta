@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using TwitchLib.Client.Models;
+using UiBot.Properties;
 
 namespace UiBot
 {
@@ -12,6 +13,7 @@ namespace UiBot
         public ConnectMenu()
         {
             ControlMenu controlMenu = new ControlMenu();
+            SettingMenu settingMenu = new SettingMenu();
             bot = new MainBot();
             InitializeComponent();
             InitializeConsole();
@@ -20,14 +22,8 @@ namespace UiBot
 
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
-            chkEnableGoose.Checked = Properties.Settings.Default.IsGooseEnabled;
-            enableWiggle.Checked = Properties.Settings.Default.IsWiggleEnabled;
-            enableRandomKey.Checked = Properties.Settings.Default.IsKeyEnabled;
-            enableKitDrop.Checked = Properties.Settings.Default.IsDropEnabled;
-            randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
-            oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
-            enableGrenade.Checked = Properties.Settings.Default.isGrenadeEnabled;
-            enableBagDrop.Checked = Properties.Settings.Default.isDropBagEnabled;
+            pauseCommands.Checked = Properties.Settings.Default.IsCommandsPaused;
+
         }
 
         private void InitializeConsole()
@@ -131,71 +127,27 @@ namespace UiBot
             }
         }
 
-        private void messageTextBox_TextChanged(object sender, EventArgs e)
+        private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void enableWiggle_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsWiggleEnabled = enableWiggle.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void enableKitDrop_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsDropEnabled = enableKitDrop.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void chkEnableGoose_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsGooseEnabled = chkEnableGoose.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void enableRandomKey_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsKeyEnabled = enableRandomKey.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void randomTurn_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsTurnEnabled = randomTurn.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void oneClickCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsPopEnabled = oneClickCheck.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void toggleAll_Click(object sender, EventArgs e)
-        {
-            chkEnableGoose.Checked = false;
-            enableWiggle.Checked = false;
-            enableRandomKey.Checked = false;
-            enableKitDrop.Checked = false;
-            randomTurn.Checked = false;
-            oneClickCheck.Checked = false;
-            enableBagDrop.Checked = false;
-            enableGrenade.Checked = false;
+            Properties.Settings.Default.IsCommandsPaused = pauseCommands.Checked;
             Properties.Settings.Default.Save();
 
         }
 
-        private void enableBagDrop_CheckedChanged(object sender, EventArgs e)
+        private void twitchOpen_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isDropBagEnabled = enableBagDrop.Checked;
-            Properties.Settings.Default.Save();
-        }
+            // Get the channel name from channelBox2
+            string channelName = Properties.Settings.Default.ChannelName;
 
-        private void enableGrenade_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isGrenadeEnabled = enableGrenade.Checked;
-            Properties.Settings.Default.Save();
+            // Construct the Twitch URL with the channel name
+            string twitchUrl = $"https://www.twitch.tv/{channelName}";
+
+            // Open the Twitch URL in the default web browser
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = twitchUrl,
+                UseShellExecute = true
+            });
         }
     }
 }

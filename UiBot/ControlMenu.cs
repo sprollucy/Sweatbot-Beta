@@ -71,6 +71,8 @@ namespace UiBot
             textBoxes["crouchKey"] = CrouchKeyBox;
             textBoxes["magDumpCost"] = MagDumpBox;
             textBoxes["holdAimCost"] = HoldAimCost;
+            textBoxes["bonusTextBox"] = BonusTextBox;
+            textBoxes["crouchBoxCost"] = CrouchBoxCost;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -149,6 +151,11 @@ namespace UiBot
             get { return crouchBoxKey; }
             set { crouchBoxKey = value; }
         }
+        public TextBox CrouchBoxCost
+        {
+            get { return crouchBoxCost; }
+            set { crouchBoxCost = value; }
+        }
         public TextBox MagDumpBox
         {
             get { return magDumpCost; }
@@ -158,6 +165,11 @@ namespace UiBot
         {
             get { return holdAimCost; }
             set { holdAimCost = value; }
+        }
+        public TextBox BonusTextBox
+        {
+            get { return bonusTextBox; }
+            set { bonusTextBox = value; }
         }
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
@@ -249,18 +261,6 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-
-        private void enableBits_CheckedChanged(object sender, EventArgs e)
-        {
-
-            // Update the isBitEnabled setting
-            //  Properties.Settings.Default.isBitEnabled = enableBits.Checked;
-
-            // Save the updated settings
-            // Properties.Settings.Default.Save();
-
-        }
-
         private void enableAutoMessageCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isAutoMessageEnabled = enableAutoMessageCheck.Checked;
@@ -321,6 +321,11 @@ namespace UiBot
         }
 
         private void oneClickCooldownTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void crouchBoxCost_TextChanged(object sender, EventArgs e)
         {
 
         }
