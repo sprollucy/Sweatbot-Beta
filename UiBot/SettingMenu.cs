@@ -40,7 +40,7 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-        private void channelBox2_TextChanged(object sender, EventArgs e)
+        public void channelBox2_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.ChannelName = channelBox2.Text;
             Properties.Settings.Default.Save();
@@ -135,7 +135,7 @@ namespace UiBot
             aboutForm.ShowDialog();
         }
 
-        private void channelOpen_Click(object sender, EventArgs e)
+        public void channelOpen_Click(object sender, EventArgs e)
         {
             // Get the channel name from channelBox2
             string channelName = channelBox2.Text;
@@ -151,7 +151,7 @@ namespace UiBot
             });
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        public void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Specify the URL you want to open
             string url = "https://github.com/sprollucy/Tarkov-Twitch-Bot-Working";

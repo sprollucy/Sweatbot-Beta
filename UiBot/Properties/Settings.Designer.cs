@@ -406,5 +406,17 @@ namespace UiBot.Properties {
                 this["isChatBonusEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsCommandsPaused {
+            get {
+                return ((bool)(this["IsCommandsPaused"]));
+            }
+            set {
+                this["IsCommandsPaused"] = value;
+            }
+        }
     }
 }
