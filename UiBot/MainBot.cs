@@ -693,7 +693,7 @@ namespace UiBot
                                     chatCommandMethods.SendRandomKeyPresses();
 
                                     // Save the updated bit data
-                                    WriteUserBitsToJson("user_bits.json");3
+                                    WriteUserBitsToJson("user_bits.json");
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
