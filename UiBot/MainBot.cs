@@ -267,6 +267,7 @@ namespace UiBot
                 case "how2use":
                     client.SendMessage(channelId, "To use bits, just cheer them in the chat. The bot will keep track of how many you use. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat.");
                     break;
+
                 case "about":
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastAboutCommandTimer;
 
@@ -317,7 +318,7 @@ namespace UiBot
         { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
         { "GrenadeCostBox", ("360grenadetoss", () => Properties.Settings.Default.isGrenadeTossEnabled) },
         { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
-        { "MagDumpBox", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+        { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
         { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
         { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) }
         // Note: Add any other mappings you need here
@@ -349,7 +350,6 @@ namespace UiBot
                         client.SendMessage(channelId, message);
                     }
                     break;
-
 
                 case "wipestats":
                     // Calculate the time elapsed since the last execution

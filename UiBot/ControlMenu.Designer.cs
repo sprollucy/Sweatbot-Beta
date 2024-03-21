@@ -43,6 +43,8 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            mag360Cost = new TextBox();
+            enable360MagDump = new CheckBox();
             label4 = new Label();
             bonusTextBox = new TextBox();
             enableChatBonus = new CheckBox();
@@ -77,8 +79,6 @@
             enableAutoMessageCheck = new CheckBox();
             pictureBox3 = new PictureBox();
             restart_AppButton = new Button();
-            mag360Cost = new TextBox();
-            enable360MagDump = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -133,11 +133,10 @@
             oneClickCooldownTextBox.Size = new Size(100, 23);
             oneClickCooldownTextBox.TabIndex = 5;
             oneClickCooldownTextBox.Text = "300";
-            oneClickCooldownTextBox.TextChanged += oneClickCooldownTextBox_TextChanged;
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(820, 415);
+            saveButton.Location = new Point(710, 386);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 23);
             saveButton.TabIndex = 6;
@@ -264,6 +263,26 @@
             panel1.Size = new Size(514, 657);
             panel1.TabIndex = 20;
             // 
+            // mag360Cost
+            // 
+            mag360Cost.Location = new Point(173, 479);
+            mag360Cost.Name = "mag360Cost";
+            mag360Cost.Size = new Size(100, 23);
+            mag360Cost.TabIndex = 63;
+            mag360Cost.Text = "300";
+            // 
+            // enable360MagDump
+            // 
+            enable360MagDump.AutoSize = true;
+            enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
+            enable360MagDump.Location = new Point(14, 482);
+            enable360MagDump.Name = "enable360MagDump";
+            enable360MagDump.Size = new Size(153, 19);
+            enable360MagDump.TabIndex = 62;
+            enable360MagDump.Text = "Enable Mag Dump (360)";
+            enable360MagDump.UseVisualStyleBackColor = false;
+            enable360MagDump.CheckedChanged += enable360MagDump_CheckedChanged;
+            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -348,7 +367,6 @@
             crouchBoxCost.Size = new Size(100, 23);
             crouchBoxCost.TabIndex = 53;
             crouchBoxCost.Text = "300";
-            crouchBoxCost.TextChanged += crouchBoxCost_TextChanged;
             // 
             // crouchBox
             // 
@@ -431,7 +449,6 @@
             dropKeyTextBox.Size = new Size(100, 23);
             dropKeyTextBox.TabIndex = 45;
             dropKeyTextBox.Text = "{DELETE}";
-            dropKeyTextBox.TextChanged += dropKeyBox_TextChanged;
             // 
             // textBox1
             // 
@@ -516,9 +533,9 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(586, 311);
+            label1.Location = new Point(569, 311);
             label1.Name = "label1";
-            label1.Size = new Size(437, 90);
+            label1.Size = new Size(478, 60);
             label1.TabIndex = 28;
             label1.Text = resources.GetString("label1.Text");
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -593,33 +610,13 @@
             // 
             // restart_AppButton
             // 
-            restart_AppButton.Location = new Point(710, 415);
+            restart_AppButton.Location = new Point(827, 386);
             restart_AppButton.Name = "restart_AppButton";
             restart_AppButton.Size = new Size(75, 23);
             restart_AppButton.TabIndex = 29;
             restart_AppButton.Text = "Restart App";
             restart_AppButton.UseVisualStyleBackColor = true;
             restart_AppButton.Click += button1_Click;
-            // 
-            // mag360Cost
-            // 
-            mag360Cost.Location = new Point(173, 479);
-            mag360Cost.Name = "mag360Cost";
-            mag360Cost.Size = new Size(100, 23);
-            mag360Cost.TabIndex = 63;
-            mag360Cost.Text = "300";
-            // 
-            // enable360MagDump
-            // 
-            enable360MagDump.AutoSize = true;
-            enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
-            enable360MagDump.Location = new Point(14, 482);
-            enable360MagDump.Name = "enable360MagDump";
-            enable360MagDump.Size = new Size(153, 19);
-            enable360MagDump.TabIndex = 62;
-            enable360MagDump.Text = "Enable Mag Dump (360)";
-            enable360MagDump.UseVisualStyleBackColor = false;
-            enable360MagDump.CheckedChanged += enable360MagDump_CheckedChanged;
             // 
             // ControlMenu
             // 

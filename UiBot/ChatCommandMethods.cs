@@ -4,7 +4,7 @@ using TwitchLib.Client;
 using System.Diagnostics;
 using System.Media;
 /* TODO **
- * Add reload, lean, 360 mag dump, change fire mode, drop mag, look up or down, voice line, swap weapon fire and ADS?
+ * Add reload, lean, change fire mode, drop mag, look up or down, voice line, swap weapon fire and ADS?
  * Dropbag needs the keys to be rebindable and the same for drop kit
  */
 
@@ -201,53 +201,39 @@ namespace UiBot
 
         public void GrenadeToss(int durationMilliseconds)
         {
-            // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
-            string grenadeKeyBox;
+            // Assuming CommandConfigData.json contains the correct key mapping
+            string configFilePath = "CommandConfigData.json";
+            string grenadeKey;
 
             try
             {
-                // Read the JSON file and parse it to extract the keys
                 string json = File.ReadAllText(configFilePath);
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                grenadeKeyBox = configData?.grenadeTossKey;
+                grenadeKey = configData?.grenadeTossKey;
             }
             catch (Exception ex)
             {
-                // Handle any errors, such as file not found or JSON parsing issues
                 Console.WriteLine($"Error reading JSON file: {ex.Message}");
                 return;
             }
 
-            if (string.IsNullOrEmpty(grenadeKeyBox))
+            if (string.IsNullOrEmpty(grenadeKey))
             {
-                Console.WriteLine("No keys to send.");
+                Console.WriteLine("Grenade key not configured.");
                 return;
             }
 
-            // Start a new thread for pulling out the grenade
-            Thread grenadeThread = new Thread(() =>
-            {
-                SendKeys.SendWait(grenadeKeyBox);
-            });
-
-            // Start a new thread for spinning
-            Thread spinThread = new Thread(() =>
-            {
-                TurnRandom(durationMilliseconds);
-            });
-
-            // Start both threads
-            grenadeThread.Start();
+            // Start spinning
+            Thread spinThread = new Thread(() => TurnRandom(durationMilliseconds));
             spinThread.Start();
 
-            // Wait for the grenadeThread to complete
-            grenadeThread.Join();
+            // Equip grenade
+            SendKeys.SendWait(grenadeKey);
 
-            // Wait for 2 seconds after pulling the grenade
-            Thread.Sleep(2000);
+            // Wait 1.5 seconds before throwing the grenade
+            Thread.Sleep(3000);
 
-            // After 2 seconds, simulate left-click to throw the grenade
+            // Simulate mouse left click to throw the grenade
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }

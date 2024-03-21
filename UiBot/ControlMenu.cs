@@ -44,7 +44,6 @@ namespace UiBot
             enableHoldAim.Checked = Properties.Settings.Default.isHoldAimEnabled;
             enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
             enable360MagDump.Checked = Properties.Settings.Default.isMagDump360Enabled;
-
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -260,8 +259,6 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-
-
         private void oneClickCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.IsPopEnabled = oneClickCheck.Checked;
@@ -284,11 +281,6 @@ namespace UiBot
         {
             Properties.Settings.Default.isDropBagEnabled = enableBagDrop.Checked;
             Properties.Settings.Default.Save();
-        }
-
-        private void dropKeyBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
@@ -325,16 +317,6 @@ namespace UiBot
         {
             Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
             Properties.Settings.Default.Save();
-        }
-
-        private void oneClickCooldownTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void crouchBoxCost_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
