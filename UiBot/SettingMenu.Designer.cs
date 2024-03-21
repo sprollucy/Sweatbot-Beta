@@ -218,7 +218,7 @@
             // versionNumber
             // 
             versionNumber.AutoSize = true;
-            versionNumber.Location = new Point(911, 421);
+            versionNumber.Location = new Point(906, 426);
             versionNumber.Name = "versionNumber";
             versionNumber.Size = new Size(89, 15);
             versionNumber.TabIndex = 28;

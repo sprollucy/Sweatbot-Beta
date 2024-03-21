@@ -53,7 +53,7 @@
             // 
             // consoleTextBox
             // 
-            consoleTextBox.BackColor = Color.FromArgb(181, 176, 163);
+            consoleTextBox.BackColor = Color.FromArgb(156, 154, 151);
             consoleTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
             consoleTextBox.Location = new Point(63, 28);
             consoleTextBox.Multiline = true;
@@ -141,7 +141,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(162, 123, 92);
             label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(0, 6);
+            label1.Location = new Point(5, 8);
             label1.Name = "label1";
             label1.Size = new Size(175, 23);
             label1.TabIndex = 12;

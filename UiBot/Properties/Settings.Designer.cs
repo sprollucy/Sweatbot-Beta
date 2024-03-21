@@ -410,12 +410,12 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsCommandsPaused {
+        public bool isCommandsPaused {
             get {
-                return ((bool)(this["IsCommandsPaused"]));
+                return ((bool)(this["isCommandsPaused"]));
             }
             set {
-                this["IsCommandsPaused"] = value;
+                this["isCommandsPaused"] = value;
             }
         }
     }

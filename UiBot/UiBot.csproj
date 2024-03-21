@@ -10,7 +10,7 @@
     <Configurations>Debug;Release;Deploy</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <AssemblyName>Tarkov Sweat Bot</AssemblyName>
+    <AssemblyName>Sweat Bot</AssemblyName>
     <Version>1.0.0.6401-alpha</Version>
     <AssemblyVersion>1.0.0.6401</AssemblyVersion>
 	  <PublishSingleFile>true</PublishSingleFile>

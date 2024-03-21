@@ -22,7 +22,7 @@ namespace UiBot
 
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
-            pauseCommands.Checked = Properties.Settings.Default.IsCommandsPaused;
+            pauseCommands.Checked = Properties.Settings.Default.isCommandsPaused;
 
         }
 
@@ -129,7 +129,7 @@ namespace UiBot
 
         private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.IsCommandsPaused = pauseCommands.Checked;
+            Properties.Settings.Default.isCommandsPaused = pauseCommands.Checked;
             Properties.Settings.Default.Save();
 
         }

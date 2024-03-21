@@ -29,8 +29,9 @@ namespace UiBot
 
         //dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
-
         public Dictionary<string, string> commandConfigData;
+
+        public string channelName = Properties.Settings.Default.ChannelName;
 
         //Console import/kill
         [DllImport("kernel32.dll")]
@@ -65,6 +66,8 @@ namespace UiBot
             if (isBotConnected)
             {
                 // Disconnect and clean up resources here
+                Console.WriteLine("[Sweat Bot]: Disconnected");
+
                 client.Disconnect();
                 pubSub.Disconnect();
 
@@ -81,7 +84,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                Console.WriteLine("[Bot]: Connecting...");
+                Console.WriteLine($"[Sweat Bot]: Connecting to {channelName}...");
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
@@ -94,10 +97,10 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(Properties.Settings.Default.ChannelName))
+                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelName))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
-                    Console.WriteLine("[Bot]: Disconnected");
+                    Console.WriteLine("[Sweat Bot]: Disconnected");
                     return; // Don't proceed further
                 }
 
@@ -219,12 +222,12 @@ namespace UiBot
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            Console.WriteLine("[Bot]: Connected");
+            Console.WriteLine("[Sweat Bot]: Connected");
         }
 
         public void SendMessage(string message)
         {
-            if (client.IsConnected)
+            if (client != null && client.IsConnected)
             {
                 string channelName = channelId;
 
@@ -236,6 +239,7 @@ namespace UiBot
                 Console.WriteLine("Bot is not connected to Twitch. Cannot send message.");
             }
         }
+
 
 
         //Chat 
@@ -305,19 +309,38 @@ namespace UiBot
                     break;
 
                 case "bitcost":
-                    string wigCost = controlMenu.WiggleCooldownTextBox.Text;
-                    string kitdropCost = controlMenu.DropCooldownTextBox.Text;
-                    string gooseCost = controlMenu.GooseCooldownTextBox.Text;
-                    string randomkeyCost = controlMenu.RandomKeyCooldownTextBox.Text;
-                    string turnCost = controlMenu.TurnCooldownTextBox.Text;
-                    string popCost = controlMenu.OneClickCooldownTextBox.Text;
-                    string grenadeCost = controlMenu.GrenadeCooldownTextBox.Text;
-                    string dropbagCost = controlMenu.DropBagCooldownTextBox.Text;
-                    string grenadeTossCost = controlMenu.GrenadeCostBox.Text;  
-                    string crouchCost = controlMenu.CrouchBoxCost.Text;
-                    string magCost = controlMenu.MagDumpBox.Text;
-                    string aimCost = controlMenu.HoldAimCost.Text;
-                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, These are the cost of each command !randomkeys - {randomkeyCost},  !turn - {turnCost}, !wiggle - {wigCost}, !pop - {popCost}, !grenade - {grenadeCost}, !dropbag - {dropbagCost}, !grenadetoss - {grenadeTossCost}, !magdump - {magCost}, !holdaim - {aimCost}, !crouch - {crouchCost}, !dropkit - {kitdropCost}, !goose - {gooseCost} ");
+                    // Define the mappings of textbox names to their corresponding labels
+                    Dictionary<string, string> textBoxLabels = new Dictionary<string, string>
+                    {
+                        { "WiggleCooldownTextBox", "wiggle" },
+                        { "DropCooldownTextBox", "dropkit" },
+                        { "GooseCooldownTextBox", "goose" },
+                        { "RandomKeyCooldownTextBox", "randomkeys" },
+                        { "TurnCooldownTextBox", "turn" },
+                        { "OneClickCooldownTextBox", "pop" },
+                        { "GrenadeCooldownTextBox", "grenade" },
+                        { "DropBagCooldownTextBox", "dropbag" },
+                        { "GrenadeCostBox", "grenadetoss" },
+                        { "CrouchBoxCost", "crouch" },
+                        { "MagDumpBox", "magdump" },
+                        { "HoldAimCost", "holdaim" }
+                    };
+
+                    // Construct the message dynamically
+                    List<string> commandCosts = new List<string>();
+                    foreach (var textBoxName in textBoxLabels.Keys)
+                    {
+                        string cost = controlMenu.Controls.Find(textBoxName, true).FirstOrDefault()?.Text;
+                        if (cost != null)
+                        {
+                            string label = textBoxLabels[textBoxName];
+                            commandCosts.Add($"!{label} - {cost}");
+                        }
+                    }
+
+                    // Join the command costs into a single string
+                    string message = $"{e.Command.ChatMessage.DisplayName}, These are the costs of each command: {string.Join(", ", commandCosts)}";
+                    client.SendMessage(channelId, message);
                     break;
 
 
@@ -429,14 +452,14 @@ namespace UiBot
 
                     //Bit Commands
 
-                    if(Properties.Settings.Default.IsCommandsPaused = true)
+                    if(Properties.Settings.Default.isCommandsPaused = true)
                     {
 
                     }
 
 
                 case "dropbag":
-                    if (Properties.Settings.Default.isDropBagEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isDropBagEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -488,7 +511,7 @@ namespace UiBot
 
 
                 case "goose":
-                    if (!Properties.Settings.Default.IsGooseEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (!Properties.Settings.Default.IsGooseEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         client.SendMessage(channelId, "Goose command is currently disabled.");
                     }
@@ -572,7 +595,7 @@ namespace UiBot
                     break;
 
                 case "wiggle":
-                    if (Properties.Settings.Default.IsWiggleEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.IsWiggleEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -622,7 +645,7 @@ namespace UiBot
 
 
                 case "turn":
-                    if (Properties.Settings.Default.IsTurnEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.IsTurnEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -673,7 +696,7 @@ namespace UiBot
                     break;
 
                 case "randomkeys":
-                    if (Properties.Settings.Default.IsKeyEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.IsKeyEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -721,7 +744,7 @@ namespace UiBot
                     break;
 
                 case "grenadetoss":
-                    if (Properties.Settings.Default.isGrenadeTossEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isGrenadeTossEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -769,7 +792,7 @@ namespace UiBot
                     break;
 
                 case "dropkit":
-                    if (Properties.Settings.Default.IsDropEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.IsDropEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -817,7 +840,7 @@ namespace UiBot
                     break;
 
                 case "pop":
-                    if (Properties.Settings.Default.IsPopEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.IsPopEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -865,7 +888,7 @@ namespace UiBot
                     break;
 
                 case "grenade":
-                    if (Properties.Settings.Default.isGrenadeEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isGrenadeEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -913,7 +936,7 @@ namespace UiBot
                     break;
 
                 case "crouch":
-                    if (Properties.Settings.Default.isCrouchEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isCrouchEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -960,7 +983,7 @@ namespace UiBot
                     break;
 
                 case "magdump":
-                    if (Properties.Settings.Default.isMagDumpEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isMagDumpEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");
@@ -1007,7 +1030,7 @@ namespace UiBot
                     break;
 
                 case "holdaim":
-                    if (Properties.Settings.Default.isHoldAimEnabled && !Properties.Settings.Default.IsCommandsPaused)
+                    if (Properties.Settings.Default.isHoldAimEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
                         LoadUserBitsFromJson("user_bits.json");

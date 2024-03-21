@@ -4,7 +4,8 @@ using TwitchLib.Client;
 using System.Diagnostics;
 using System.Media;
 /* TODO **
- * Add reload, lean, 360 mag dump
+ * Add reload, lean, 360 mag dump, change fire mode, drop mag, look up or down, voice line, swap weapon fire and ADS?
+ * Dropbag needs the keys to be rebindable and the same for drop kit
  */
 
 namespace UiBot
@@ -53,8 +54,6 @@ namespace UiBot
         TwitchClient client;
         public static string channelId;
 
-
-        //wiggle
         public Random random = new Random();
 
         //random key press
@@ -67,8 +66,6 @@ namespace UiBot
         public int killCount = 0;
         public int survivalCount = 0;
 
-
-
         //goose
         public DateTime lastGooseCommandTime = DateTime.MinValue;
         public Process gooseProcess; // Declare a Process variable to store the Goose process.
@@ -76,7 +73,6 @@ namespace UiBot
         //grenade
         string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string soundFileName = Path.Combine("Sounds", "grenade.wav");
-
 
         //spam command
         public DateTime lastStatCommandTimer = DateTime.MinValue;
