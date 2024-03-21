@@ -76,6 +76,7 @@
             autoMessageLabel = new Label();
             enableAutoMessageCheck = new CheckBox();
             pictureBox3 = new PictureBox();
+            restart_AppButton = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -85,7 +86,7 @@
             // 
             // wiggleCooldownTextBox
             // 
-            wiggleCooldownTextBox.Location = new Point(155, 70);
+            wiggleCooldownTextBox.Location = new Point(174, 71);
             wiggleCooldownTextBox.Name = "wiggleCooldownTextBox";
             wiggleCooldownTextBox.Size = new Size(100, 23);
             wiggleCooldownTextBox.TabIndex = 0;
@@ -93,7 +94,7 @@
             // 
             // dropCooldownTextBox
             // 
-            dropCooldownTextBox.Location = new Point(155, 101);
+            dropCooldownTextBox.Location = new Point(174, 102);
             dropCooldownTextBox.Name = "dropCooldownTextBox";
             dropCooldownTextBox.Size = new Size(100, 23);
             dropCooldownTextBox.TabIndex = 1;
@@ -101,7 +102,7 @@
             // 
             // gooseCooldownTextBox
             // 
-            gooseCooldownTextBox.Location = new Point(155, 159);
+            gooseCooldownTextBox.Location = new Point(174, 160);
             gooseCooldownTextBox.Name = "gooseCooldownTextBox";
             gooseCooldownTextBox.Size = new Size(100, 23);
             gooseCooldownTextBox.TabIndex = 2;
@@ -109,7 +110,7 @@
             // 
             // randomKeyCooldownTextBox
             // 
-            randomKeyCooldownTextBox.Location = new Point(155, 188);
+            randomKeyCooldownTextBox.Location = new Point(174, 189);
             randomKeyCooldownTextBox.Name = "randomKeyCooldownTextBox";
             randomKeyCooldownTextBox.Size = new Size(100, 23);
             randomKeyCooldownTextBox.TabIndex = 3;
@@ -117,7 +118,7 @@
             // 
             // turnCooldownTextBox
             // 
-            turnCooldownTextBox.Location = new Point(155, 247);
+            turnCooldownTextBox.Location = new Point(174, 248);
             turnCooldownTextBox.Name = "turnCooldownTextBox";
             turnCooldownTextBox.Size = new Size(100, 23);
             turnCooldownTextBox.TabIndex = 4;
@@ -125,7 +126,7 @@
             // 
             // oneClickCooldownTextBox
             // 
-            oneClickCooldownTextBox.Location = new Point(155, 276);
+            oneClickCooldownTextBox.Location = new Point(174, 277);
             oneClickCooldownTextBox.Name = "oneClickCooldownTextBox";
             oneClickCooldownTextBox.Size = new Size(100, 23);
             oneClickCooldownTextBox.TabIndex = 5;
@@ -262,7 +263,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(279, 141);
+            label4.Location = new Point(298, 142);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -270,7 +271,7 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.Location = new Point(280, 159);
+            bonusTextBox.Location = new Point(299, 160);
             bonusTextBox.Name = "bonusTextBox";
             bonusTextBox.Size = new Size(100, 23);
             bonusTextBox.TabIndex = 60;
@@ -280,7 +281,7 @@
             // 
             enableChatBonus.AutoSize = true;
             enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
-            enableChatBonus.Location = new Point(280, 119);
+            enableChatBonus.Location = new Point(299, 120);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
             enableChatBonus.TabIndex = 59;
@@ -290,7 +291,7 @@
             // 
             // holdAimCost
             // 
-            holdAimCost.Location = new Point(154, 449);
+            holdAimCost.Location = new Point(173, 450);
             holdAimCost.Name = "holdAimCost";
             holdAimCost.Size = new Size(100, 23);
             holdAimCost.TabIndex = 58;
@@ -310,7 +311,7 @@
             // 
             // magDumpCost
             // 
-            magDumpCost.Location = new Point(154, 420);
+            magDumpCost.Location = new Point(173, 421);
             magDumpCost.Name = "magDumpCost";
             magDumpCost.Size = new Size(100, 23);
             magDumpCost.TabIndex = 56;
@@ -330,7 +331,7 @@
             // 
             // crouchBoxKey
             // 
-            crouchBoxKey.Location = new Point(260, 391);
+            crouchBoxKey.Location = new Point(279, 392);
             crouchBoxKey.Name = "crouchBoxKey";
             crouchBoxKey.Size = new Size(31, 23);
             crouchBoxKey.TabIndex = 54;
@@ -338,7 +339,7 @@
             // 
             // crouchBoxCost
             // 
-            crouchBoxCost.Location = new Point(154, 391);
+            crouchBoxCost.Location = new Point(173, 392);
             crouchBoxCost.Name = "crouchBoxCost";
             crouchBoxCost.Size = new Size(100, 23);
             crouchBoxCost.TabIndex = 53;
@@ -359,7 +360,7 @@
             // 
             // grenadeKeyBox
             // 
-            grenadeKeyBox.Location = new Point(260, 362);
+            grenadeKeyBox.Location = new Point(279, 363);
             grenadeKeyBox.Name = "grenadeKeyBox";
             grenadeKeyBox.Size = new Size(31, 23);
             grenadeKeyBox.TabIndex = 51;
@@ -367,7 +368,7 @@
             // 
             // grenadeCostBox
             // 
-            grenadeCostBox.Location = new Point(154, 362);
+            grenadeCostBox.Location = new Point(173, 363);
             grenadeCostBox.Name = "grenadeCostBox";
             grenadeCostBox.Size = new Size(100, 23);
             grenadeCostBox.TabIndex = 50;
@@ -389,7 +390,7 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
-            enableTradersCommand.Location = new Point(279, 72);
+            enableTradersCommand.Location = new Point(298, 73);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(155, 19);
             enableTradersCommand.TabIndex = 48;
@@ -401,7 +402,7 @@
             // 
             textBox3.BackColor = Color.FromArgb(181, 176, 163);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(16, 220);
+            textBox3.Location = new Point(35, 221);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(133, 16);
             textBox3.TabIndex = 47;
@@ -412,7 +413,7 @@
             // 
             textBox2.BackColor = Color.FromArgb(181, 176, 163);
             textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Location = new Point(49, 133);
+            textBox2.Location = new Point(68, 134);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 16);
             textBox2.TabIndex = 46;
@@ -421,7 +422,7 @@
             // 
             // dropKeyTextBox
             // 
-            dropKeyTextBox.Location = new Point(154, 130);
+            dropKeyTextBox.Location = new Point(173, 131);
             dropKeyTextBox.Name = "dropKeyTextBox";
             dropKeyTextBox.Size = new Size(100, 23);
             dropKeyTextBox.TabIndex = 45;
@@ -432,7 +433,7 @@
             // 
             textBox1.BackColor = Color.FromArgb(181, 176, 163);
             textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Location = new Point(154, 49);
+            textBox1.Location = new Point(173, 50);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 16);
             textBox1.TabIndex = 44;
@@ -464,7 +465,7 @@
             // 
             // dropbagCooldownTextBox
             // 
-            dropbagCooldownTextBox.Location = new Point(154, 333);
+            dropbagCooldownTextBox.Location = new Point(173, 334);
             dropbagCooldownTextBox.Name = "dropbagCooldownTextBox";
             dropbagCooldownTextBox.Size = new Size(100, 23);
             dropbagCooldownTextBox.TabIndex = 40;
@@ -476,15 +477,15 @@
             enableGrenade.BackColor = Color.FromArgb(181, 176, 163);
             enableGrenade.Location = new Point(15, 308);
             enableGrenade.Name = "enableGrenade";
-            enableGrenade.Size = new Size(108, 19);
+            enableGrenade.Size = new Size(145, 19);
             enableGrenade.TabIndex = 38;
-            enableGrenade.Text = "Enable Grenade";
+            enableGrenade.Text = "Enable Grenade Sound";
             enableGrenade.UseVisualStyleBackColor = false;
             enableGrenade.CheckedChanged += enableGrenade_CheckedChanged;
             // 
             // grenadeCooldownTextBox
             // 
-            grenadeCooldownTextBox.Location = new Point(155, 304);
+            grenadeCooldownTextBox.Location = new Point(174, 305);
             grenadeCooldownTextBox.Name = "grenadeCooldownTextBox";
             grenadeCooldownTextBox.Size = new Size(100, 23);
             grenadeCooldownTextBox.TabIndex = 36;
@@ -492,7 +493,7 @@
             // 
             // randomKeyInputs
             // 
-            randomKeyInputs.Location = new Point(155, 217);
+            randomKeyInputs.Location = new Point(174, 218);
             randomKeyInputs.Name = "randomKeyInputs";
             randomKeyInputs.Size = new Size(206, 23);
             randomKeyInputs.TabIndex = 35;
@@ -586,6 +587,16 @@
             pictureBox3.TabIndex = 27;
             pictureBox3.TabStop = false;
             // 
+            // restart_AppButton
+            // 
+            restart_AppButton.Location = new Point(710, 415);
+            restart_AppButton.Name = "restart_AppButton";
+            restart_AppButton.Size = new Size(75, 23);
+            restart_AppButton.TabIndex = 29;
+            restart_AppButton.Text = "Restart App";
+            restart_AppButton.UseVisualStyleBackColor = true;
+            restart_AppButton.Click += button1_Click;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -594,6 +605,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 700);
             ControlBox = false;
+            Controls.Add(restart_AppButton);
             Controls.Add(enableAutoMessageCheck);
             Controls.Add(autoMessageLabel);
             Controls.Add(autoSendMessageCD);
@@ -666,5 +678,6 @@
         private CheckBox enableChatBonus;
         private TextBox bonusTextBox;
         private Label label4;
+        private Button restart_AppButton;
     }
 }

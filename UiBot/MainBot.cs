@@ -12,9 +12,7 @@ using TwitchLib.Api.Helix;
 
 
 /* TODO **
- * Move commands to seperate script. Its slightly overwhelming.
- * - Moved methods to ChatCommandMethods
- * Remove all cooldowns and convert to "bit" usage
+ * 
  */
 
 namespace UiBot
@@ -31,7 +29,7 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         public Dictionary<string, string> commandConfigData;
 
-        public string channelName = Properties.Settings.Default.ChannelName;
+        public string streamName = Properties.Settings.Default.ChannelName;
 
         //Console import/kill
         [DllImport("kernel32.dll")]
@@ -84,7 +82,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                Console.WriteLine($"[Sweat Bot]: Connecting to {channelName}...");
+                Console.WriteLine($"[Sweat Bot]: Connecting to {streamName}...");
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
@@ -92,12 +90,11 @@ namespace UiBot
             }
         }
 
-
         private void InitializeTwitchClient()
         {
             if (!isBotConnected)
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelName))
+                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(streamName))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
                     Console.WriteLine("[Sweat Bot]: Disconnected");
@@ -123,7 +120,6 @@ namespace UiBot
             }
         }
 
-
         private void InitializePubSub()
         {
             pubSub = new TwitchPubSub();
@@ -146,7 +142,7 @@ namespace UiBot
                     {
                         // User is chatting for the first time, give them the specified bonus amount
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
-                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the chat! Here is {bonusAmount} bits on the house, use !help for more info");
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
                         WriteUserBitsToJson("user_bits.json");
                     }
                     else
@@ -166,7 +162,6 @@ namespace UiBot
                 UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
             }
         }
-
 
         private static void UpdateUserBits(string username, int bitsGiven)
         {
@@ -207,7 +202,6 @@ namespace UiBot
             File.WriteAllText(filePath, json);
         }
 
-
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
         {
             string followerUsername = e.DisplayName;
@@ -229,20 +223,16 @@ namespace UiBot
         {
             if (client != null && client.IsConnected)
             {
-                string channelName = channelId;
-
                 // Send the message to the specified channel
-                client.SendMessage(channelName, message);
+                client.SendMessage(channelId, message);
             }
             else
             {
-                Console.WriteLine("Bot is not connected to Twitch. Cannot send message.");
+                Console.WriteLine("Sweat Bot is not connected to Twitch. Cannot send message.");
             }
         }
 
-
-
-        //Chat 
+//Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             var traderResetInfoService = new TraderResetInfoService();
@@ -259,16 +249,18 @@ namespace UiBot
 
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
 
-            //Normal Commands
+//Normal Commands
             switch (e.Command.CommandText.ToLower())
             {
                 case "help":
                     // Calculate the time elapsed since the last "help" command execution
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHelpCommandTimer;
+
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
-                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenade, !dropbag, !grenadetoss, !magdump, !holdaim, !crouch, !dropkit,  use !bitprice to check the cost!");
+
+                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenadesound, !dropbag, !grenadetoss, !magdump, !holdaim, !crouch, !dropkit,  use !bitprice to check the cost!");
                     }
                     break;
 
@@ -318,7 +310,7 @@ namespace UiBot
                         { "RandomKeyCooldownTextBox", "randomkeys" },
                         { "TurnCooldownTextBox", "turn" },
                         { "OneClickCooldownTextBox", "pop" },
-                        { "GrenadeCooldownTextBox", "grenade" },
+                        { "GrenadeCooldownTextBox", "grenadesound" },
                         { "DropBagCooldownTextBox", "dropbag" },
                         { "GrenadeCostBox", "grenadetoss" },
                         { "CrouchBoxCost", "crouch" },
@@ -342,7 +334,6 @@ namespace UiBot
                     string message = $"{e.Command.ChatMessage.DisplayName}, These are the costs of each command: {string.Join(", ", commandCosts)}";
                     client.SendMessage(channelId, message);
                     break;
-
 
                 case "wipestats":
                     // Calculate the time elapsed since the last execution
@@ -457,7 +448,7 @@ namespace UiBot
 
                     }
 
-
+//Bit Commands
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
@@ -508,8 +499,6 @@ namespace UiBot
                     }
                     break;
 
-
-
                 case "goose":
                     if (!Properties.Settings.Default.IsGooseEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
@@ -521,77 +510,124 @@ namespace UiBot
                     }
                     else
                     {
-                        // Parse the cooldown time from the gooseCooldownTextBox
-                        if (int.TryParse(controlMenu.GooseCooldownTextBox.Text, out int cooldownSeconds))
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
-                            TimeSpan gooseCooldown = TimeSpan.FromSeconds(cooldownSeconds);
-
-                            if (DateTime.Now - chatCommandMethods.lastGooseCommandTime < gooseCooldown)
+                            // Convert the cost textbox value to an integer
+                            if (int.TryParse(controlMenu.GooseCooldownTextBox.Text, out int gooseCost))
                             {
-                                TimeSpan remainingCooldown = gooseCooldown - (DateTime.Now - chatCommandMethods.lastGooseCommandTime);
-                                client.SendMessage(channelId, $"Goose command is on cooldown. You can use it again in {remainingCooldown.TotalSeconds:F0} seconds.");
-                            }
-                            else
-                            {
-                                // Get the directory where the executable is located
-                                string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                                // Combine the directory with the "Goose" folder and the filename to get the full path to GooseDesktop.exe
-                                string gooseExePath = Path.Combine(exeDirectory, "Goose", "GooseDesktop.exe");
-
-                                if (File.Exists(gooseExePath))
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= gooseCost)
                                 {
-                                    // Generate a random runtime between 2 and 5 minutes.
-                                    Random random = new Random();
-                                    int runtimeMinutes = random.Next(2, 6); // Adjust the range as needed
-                                    TimeSpan runtime = TimeSpan.FromMinutes(runtimeMinutes);
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= gooseCost;
 
-                                    // Start the Goose process and store it in the gooseProcess variable.
-                                    chatCommandMethods.gooseProcess = Process.Start(gooseExePath);
-                                    chatCommandMethods.lastGooseCommandTime = DateTime.Now;
+                                    // Get the directory where the executable is located
+                                    string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                                    // Send a message indicating how long the Goose will run
-                                    client.SendMessage(channelId, $"Goose is running for {runtimeMinutes} minutes!");
+                                    // Combine the directory with the "Goose" folder and the filename to get the full path to GooseDesktop.exe
+                                    string gooseExePath = Path.Combine(exeDirectory, "Goose", "GooseDesktop.exe");
 
-                                    // Schedule a task to stop the Goose process after the random runtime.
-                                    Task.Run(() =>
+                                    if (File.Exists(gooseExePath))
                                     {
-                                        Thread.Sleep(runtime);
-                                        if (!chatCommandMethods.gooseProcess.HasExited)
+                                        // Generate a random runtime between 2 and 5 minutes.
+                                        Random random = new Random();
+                                        int runtimeMinutes = random.Next(2, 6); // Adjust the range as needed
+                                        TimeSpan runtime = TimeSpan.FromMinutes(runtimeMinutes);
+
+                                        // Start the Goose process and store it in the gooseProcess variable.
+                                        chatCommandMethods.gooseProcess = Process.Start(gooseExePath);
+                                        chatCommandMethods.lastGooseCommandTime = DateTime.Now;
+
+                                        // Send a message indicating how long the Goose will run
+                                        client.SendMessage(channelId, $"Goose is running for {runtimeMinutes} minutes!");
+
+                                        // Save the updated bit data
+                                        WriteUserBitsToJson("user_bits.json");
+
+                                        // Schedule a task to stop the Goose process after the random runtime.
+                                        Task.Run(() =>
                                         {
-                                            chatCommandMethods.gooseProcess.Kill(); // Terminate the Goose process.
-                                            client.SendMessage(channelId, "Goose has been terminated.");
-                                        }
-                                    });
+                                            Thread.Sleep(runtime);
+                                            if (!chatCommandMethods.gooseProcess.HasExited)
+                                            {
+                                                chatCommandMethods.gooseProcess.Kill(); // Terminate the Goose process.
+                                                client.SendMessage(channelId, "Goose has been terminated.");
+                                            }
+                                        });
+                                    }
+                                    else
+                                    {
+                                        client.SendMessage(channelId, "GooseDesktop.exe not found in the 'Goose' folder. Please make sure it's in the correct location.");
+                                    }
                                 }
                                 else
                                 {
-                                    client.SendMessage(channelId, "GooseDesktop.exe not found in the 'Goose' folder. Please make sure it's in the correct location.");
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {gooseCost} bits.");
                                 }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cost value
+                                client.SendMessage(channelId, "Invalid cost value");
                             }
                         }
                         else
                         {
-                            client.SendMessage(channelId, "Invalid cost time");
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
                     break;
 
                 case "killgoose":
+                    // Load user bits data
+                    LoadUserBitsFromJson("user_bits.json");
+
                     if (gname.Length > 0)
                     {
-                        client.SendMessage(channelId, "Goose is DEAD");
-                        foreach (Process process in Process.GetProcessesByName("GooseDesktop"))
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
-                            process.Kill();
+                            // Convert the cost textbox value to an integer
+                            if (int.TryParse(controlMenu.GooseCooldownTextBox.Text, out int killGooseCost))
+                            {
+                                // Deduct the cost of the command
+                                userBits[e.Command.ChatMessage.DisplayName] -= killGooseCost;
+
+                                // Send a message indicating that the Goose is dead
+                                client.SendMessage(channelId, "Goose is DEAD");
+
+                                // Terminate the Goose process
+                                foreach (Process process in Process.GetProcessesByName("GooseDesktop"))
+                                {
+                                    process.Kill();
+                                }
+
+                                // Save the updated bit data
+                                WriteUserBitsToJson("user_bits.json");
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cost value
+                                client.SendMessage(channelId, "Invalid cost value");
+                            }
                         }
-                        break;
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
                     }
                     else
                     {
+                        // Send message indicating that the Goose is already dead
                         client.SendMessage(channelId, "Goose is already DEAD");
                     }
-
                     break;
 
                 case "wiggle":
@@ -643,7 +679,6 @@ namespace UiBot
                     }
                     break;
 
-
                 case "turn":
                     if (Properties.Settings.Default.IsTurnEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
@@ -674,7 +709,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is  {cooldownCost}  bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -722,13 +757,13 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is  {cooldownCost}  bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -770,13 +805,13 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is  {cooldownCost}  bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
                             {
                                 // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cooldown value.");
+                                client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
@@ -818,7 +853,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -866,7 +901,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -887,7 +922,7 @@ namespace UiBot
                     }
                     break;
 
-                case "grenade":
+                case "grenadesound":
                     if (Properties.Settings.Default.isGrenadeEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
@@ -914,7 +949,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -962,7 +997,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -1009,7 +1044,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
                                 }
                             }
                             else
@@ -1077,7 +1112,7 @@ namespace UiBot
                     break;
             }
 
-            //Mod Commands
+//Mod Commands
             if (e.Command.ChatMessage.IsModerator)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1106,7 +1141,7 @@ namespace UiBot
                 }
             }
 
-            //Channel owner chat
+//Channel owner chat
             if (e.Command.ChatMessage.IsBroadcaster)
             {
                 switch (e.Command.CommandText.ToLower())
