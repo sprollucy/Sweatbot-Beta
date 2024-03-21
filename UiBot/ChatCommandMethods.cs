@@ -79,6 +79,7 @@ namespace UiBot
         public DateTime lastWipeStatCommandTimer = DateTime.MinValue;
         public DateTime lastHelpCommandTimer = DateTime.MinValue;
         public DateTime lastAboutCommandTimer = DateTime.MinValue;
+        public DateTime lastBitcostCommandTimer = DateTime.MinValue;
 
         public void LoadCredentialsFromJSON()
         {

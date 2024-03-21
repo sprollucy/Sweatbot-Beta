@@ -241,12 +241,12 @@ namespace UiBot
             Process[] gname = Process.GetProcessesByName("GooseDesktop");
 
             //antispam cooldowns
-            int wipecooldownDuration = 10;
-            int wipestatcooldownDuration = 10;
-            int helpCooldownDuration = 10;
+            int wipecooldownDuration = 30;
+            int wipestatcooldownDuration = 30;
+            int helpCooldownDuration = 30;
             int aboutCooldownDuration = 10;
-            int tradersCooldownDuration = 60;
-
+            int tradersCooldownDuration = 90;
+            int bitcostCooldownDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
 
 //Normal Commands
@@ -305,8 +305,14 @@ namespace UiBot
                     break;
 
                 case "bitcost":
-                    // Define the mappings of textbox names to their corresponding labels and enabled states
-                    var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastBitcostCommandTimer;
+
+                    if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
+                    {
+                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "help" execution time
+
+                        // Define the mappings of textbox names to their corresponding labels and enabled states
+                        var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
     {
         { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
         { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
@@ -324,30 +330,31 @@ namespace UiBot
         // Note: Add any other mappings you need here
     };
 
-                    // Construct the message dynamically with only enabled commands
-                    List<string> enabledCommandCosts = new List<string>();
-                    foreach (var detail in textBoxDetails)
-                    {
-                        if (detail.Value.IsEnabled())
+                        // Construct the message dynamically with only enabled commands
+                        List<string> enabledCommandCosts = new List<string>();
+                        foreach (var detail in textBoxDetails)
                         {
-                            var textBox = controlMenu.Controls.Find(detail.Key, true).FirstOrDefault() as TextBox;
-                            if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+                            if (detail.Value.IsEnabled())
                             {
-                                string label = detail.Value.Label;
-                                enabledCommandCosts.Add($"!{label} - {textBox.Text}");
+                                var textBox = controlMenu.Controls.Find(detail.Key, true).FirstOrDefault() as TextBox;
+                                if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+                                {
+                                    string label = detail.Value.Label;
+                                    enabledCommandCosts.Add($"!{label} - {textBox.Text}");
+                                }
                             }
                         }
-                    }
 
-                    if (enabledCommandCosts.Count > 0)
-                    {
-                        string message = $"{e.Command.ChatMessage.DisplayName}, these are the costs of the enabled commands: {string.Join(", ", enabledCommandCosts)}";
-                        client.SendMessage(channelId, message);
-                    }
-                    else
-                    {
-                        string message = $"{e.Command.ChatMessage.DisplayName}, there are no enabled commands with costs.";
-                        client.SendMessage(channelId, message);
+                        if (enabledCommandCosts.Count > 0)
+                        {
+                            string message = $"{e.Command.ChatMessage.DisplayName}, these are the costs of the enabled commands: {string.Join(", ", enabledCommandCosts)}";
+                            client.SendMessage(channelId, message);
+                        }
+                        else
+                        {
+                            string message = $"{e.Command.ChatMessage.DisplayName}, there are no enabled commands with costs.";
+                            client.SendMessage(channelId, message);
+                        }
                     }
                     break;
 
