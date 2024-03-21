@@ -189,7 +189,7 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random distance to move (e.g., between 5 and 20 pixels)
-                int distance = random.Next(5, 100) * direction;
+                int distance = random.Next(100) * direction;
 
                 // Move the mouse
                 mouse_event(MOUSEEVENTF_MOVE, distance, 0, 0, 0);
@@ -250,6 +250,30 @@ namespace UiBot
             // After 2 seconds, simulate left-click to throw the grenade
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+
+        public void MagDump360(int durationMilliseconds)
+        {
+
+            // Start a new thread for pulling out the grenade
+            Thread magThread = new Thread(() =>
+            {
+                MagDump();
+            });
+
+            // Start a new thread for spinning
+            Thread spinThread = new Thread(() =>
+            {
+                TurnRandom(durationMilliseconds);
+            });
+
+            // Start both threads
+            magThread.Start();
+            spinThread.Start();
+
+            // Wait for the grenadeThread to complete
+            magThread.Join();
+
         }
 
         public void CrouchorStand()
@@ -383,7 +407,7 @@ namespace UiBot
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
 
             // Wait for the specified duration
-            Thread.Sleep(2500);
+            Thread.Sleep(3000);
 
             // Simulate releasing the left mouse button
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);

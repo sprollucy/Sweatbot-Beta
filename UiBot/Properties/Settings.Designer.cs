@@ -418,5 +418,17 @@ namespace UiBot.Properties {
                 this["isCommandsPaused"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isMagDump360Enabled {
+            get {
+                return ((bool)(this["isMagDump360Enabled"]));
+            }
+            set {
+                this["isMagDump360Enabled"] = value;
+            }
+        }
     }
 }

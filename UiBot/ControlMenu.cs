@@ -43,6 +43,7 @@ namespace UiBot
             enableMagDump.Checked = Properties.Settings.Default.isMagDumpEnabled;
             enableHoldAim.Checked = Properties.Settings.Default.isHoldAimEnabled;
             enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
+            enable360MagDump.Checked = Properties.Settings.Default.isMagDump360Enabled;
 
         }
 
@@ -73,6 +74,7 @@ namespace UiBot
             textBoxes["holdAimCost"] = HoldAimCost;
             textBoxes["bonusTextBox"] = BonusTextBox;
             textBoxes["crouchBoxCost"] = CrouchBoxCost;
+            textBoxes["mag360Cost"] = Mag360Cost;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -170,6 +172,11 @@ namespace UiBot
         {
             get { return bonusTextBox; }
             set { bonusTextBox = value; }
+        }
+        public TextBox Mag360Cost
+        {
+            get { return mag360Cost; }
+            set { mag360Cost = value; }
         }
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
@@ -334,6 +341,12 @@ namespace UiBot
         {
             Application.Restart();
 
+        }
+
+        private void enable360MagDump_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isMagDump360Enabled = enable360MagDump.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

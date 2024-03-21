@@ -260,10 +260,13 @@ namespace UiBot
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
 
-                        client.SendMessage(channelId, "!about, !traders, !mybits, !drop, !goose, !help, !stats, !wipestats. These Commands cost bits to use !killgoose, !randomkeys,  !turn, !wiggle, !pop, !grenadesound, !dropbag, !grenadetoss, !magdump, !holdaim, !crouch, !dropkit,  use !bitprice to check the cost!");
+                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits, !drop, !stats, !wipestats. Use !bitcost to check which commands are available and to see the prices");
                     }
                     break;
 
+                case "how2use":
+                    client.SendMessage(channelId, "To use bits, just cheer them in the chat. The bot will keep track of how many you use. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat.");
+                    break;
                 case "about":
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastAboutCommandTimer;
 
@@ -301,39 +304,52 @@ namespace UiBot
                     break;
 
                 case "bitcost":
-                    // Define the mappings of textbox names to their corresponding labels
-                    Dictionary<string, string> textBoxLabels = new Dictionary<string, string>
-                    {
-                        { "WiggleCooldownTextBox", "wiggle" },
-                        { "DropCooldownTextBox", "dropkit" },
-                        { "GooseCooldownTextBox", "goose" },
-                        { "RandomKeyCooldownTextBox", "randomkeys" },
-                        { "TurnCooldownTextBox", "turn" },
-                        { "OneClickCooldownTextBox", "pop" },
-                        { "GrenadeCooldownTextBox", "grenadesound" },
-                        { "DropBagCooldownTextBox", "dropbag" },
-                        { "GrenadeCostBox", "grenadetoss" },
-                        { "CrouchBoxCost", "crouch" },
-                        { "MagDumpBox", "magdump" },
-                        { "HoldAimCost", "holdaim" }
-                    };
+                    // Define the mappings of textbox names to their corresponding labels and enabled states
+                    var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
+    {
+        { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
+        { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
+        { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
+        { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
+        { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
+        { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
+        { "GrenadeCooldownTextBox", ("grenadesound", () => Properties.Settings.Default.isGrenadeEnabled) },
+        { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
+        { "GrenadeCostBox", ("360grenadetoss", () => Properties.Settings.Default.isGrenadeTossEnabled) },
+        { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
+        { "MagDumpBox", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+        { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
+        { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) }
+        // Note: Add any other mappings you need here
+    };
 
-                    // Construct the message dynamically
-                    List<string> commandCosts = new List<string>();
-                    foreach (var textBoxName in textBoxLabels.Keys)
+                    // Construct the message dynamically with only enabled commands
+                    List<string> enabledCommandCosts = new List<string>();
+                    foreach (var detail in textBoxDetails)
                     {
-                        string cost = controlMenu.Controls.Find(textBoxName, true).FirstOrDefault()?.Text;
-                        if (cost != null)
+                        if (detail.Value.IsEnabled())
                         {
-                            string label = textBoxLabels[textBoxName];
-                            commandCosts.Add($"!{label} - {cost}");
+                            var textBox = controlMenu.Controls.Find(detail.Key, true).FirstOrDefault() as TextBox;
+                            if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+                            {
+                                string label = detail.Value.Label;
+                                enabledCommandCosts.Add($"!{label} - {textBox.Text}");
+                            }
                         }
                     }
 
-                    // Join the command costs into a single string
-                    string message = $"{e.Command.ChatMessage.DisplayName}, These are the costs of each command: {string.Join(", ", commandCosts)}";
-                    client.SendMessage(channelId, message);
+                    if (enabledCommandCosts.Count > 0)
+                    {
+                        string message = $"{e.Command.ChatMessage.DisplayName}, these are the costs of the enabled commands: {string.Join(", ", enabledCommandCosts)}";
+                        client.SendMessage(channelId, message);
+                    }
+                    else
+                    {
+                        string message = $"{e.Command.ChatMessage.DisplayName}, there are no enabled commands with costs.";
+                        client.SendMessage(channelId, message);
+                    }
                     break;
+
 
                 case "wipestats":
                     // Calculate the time elapsed since the last execution
@@ -778,7 +794,7 @@ namespace UiBot
                     }
                     break;
 
-                case "grenadetoss":
+                case "360grenadetoss":
                     if (Properties.Settings.Default.isGrenadeTossEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
@@ -822,7 +838,55 @@ namespace UiBot
                     }
                     else
                     {
-                        client.SendMessage(channelId, "Random Keys command is currently disabled.");
+                        client.SendMessage(channelId, "360grenadetoss command is currently disabled.");
+                    }
+                    break;
+
+                case "360magdump":
+                    if (Properties.Settings.Default.isMagDump360Enabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.Mag360Cost.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.MagDump360(3000);
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cooldown value
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "360magdump command is currently disabled.");
                     }
                     break;
 

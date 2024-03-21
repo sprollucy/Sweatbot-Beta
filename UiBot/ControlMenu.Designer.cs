@@ -77,6 +77,8 @@
             enableAutoMessageCheck = new CheckBox();
             pictureBox3 = new PictureBox();
             restart_AppButton = new Button();
+            mag360Cost = new TextBox();
+            enable360MagDump = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -218,6 +220,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(mag360Cost);
+            panel1.Controls.Add(enable360MagDump);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(bonusTextBox);
             panel1.Controls.Add(enableChatBonus);
@@ -597,6 +601,26 @@
             restart_AppButton.UseVisualStyleBackColor = true;
             restart_AppButton.Click += button1_Click;
             // 
+            // mag360Cost
+            // 
+            mag360Cost.Location = new Point(173, 479);
+            mag360Cost.Name = "mag360Cost";
+            mag360Cost.Size = new Size(100, 23);
+            mag360Cost.TabIndex = 63;
+            mag360Cost.Text = "300";
+            // 
+            // enable360MagDump
+            // 
+            enable360MagDump.AutoSize = true;
+            enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
+            enable360MagDump.Location = new Point(14, 482);
+            enable360MagDump.Name = "enable360MagDump";
+            enable360MagDump.Size = new Size(153, 19);
+            enable360MagDump.TabIndex = 62;
+            enable360MagDump.Text = "Enable Mag Dump (360)";
+            enable360MagDump.UseVisualStyleBackColor = false;
+            enable360MagDump.CheckedChanged += enable360MagDump_CheckedChanged;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -679,5 +703,7 @@
         private TextBox bonusTextBox;
         private Label label4;
         private Button restart_AppButton;
+        private TextBox mag360Cost;
+        private CheckBox enable360MagDump;
     }
 }
