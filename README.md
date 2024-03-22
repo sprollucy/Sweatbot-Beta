@@ -1,4 +1,4 @@
-# Tarkov-Twitch-Bot 1.0.0.64alpha
+# Tarkov-Twitch-Bot 1.0.0.65alpha
 
 This is my simple to use and open source twitch bot designed to be used with tarkov for now  
 It features chat commands to interact with you as you play. Only a few right now but more are coming. It also includes a trader reset screen for the true sweats to track exactly when traders reset and twitch chat reminders for it also!  
@@ -11,11 +11,10 @@ Feel free to report issues on here or directly contact me on discord if you have
 -Some bitbot cloned features  
 -A trader reset timer that tracks when items are restocked for the real sweats  
 -Twitch chat incorporation  
--Twitch Bits for commands(not fully working)  
+-Twitch Bits for commands 
 -Easy to use UI(WIP)  
 -Fun and easy commands(WIP)  
--Customizable cooldowns for commands  
--Togglable commands to pick what commands you want(incomplete)  
+-Togglable commands to pick what commands you want
 
 ## Upcoming Features(Not promised) 
 -Bot moderation  
@@ -26,7 +25,7 @@ Feel free to report issues on here or directly contact me on discord if you have
 -Follower services  
 
 ### Download Latest Here
-[1.0.0.064a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.64a)
+[1.0.0.065a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.65a)
 
 ## How To Use
 1. First step is to create a account on Twitch.tv that you want to use as the bot account. I use this site but twitch also offers their own  
@@ -67,6 +66,21 @@ Soon to be written. use !help while running
 
 
 ## Changelog
+1.0.0.65-alpha 3-22-24  
+-Added !addbits to streamer commands just in case the bot misses a cheer or you feel like giving them out usage is !mybits @username amount  
+-Added !voiceline - will need feedback on this. its currently just f1  
+-Added !prone  
+-Added !reload  
+-Added restart button to commands menu  
+-Changed !bitcost to print out only which commands are active  
+-Added spam protection for bitcost  
+-Added !how2use to tell how to add bits and use commands  
+-Added !magdump  
+-Added !360magdump  
+-Changed !grenade to !grenadesound  
+-Changed !grenadetoss to !360grenadetoss  
+-Changed !bitcost so it will only list the active commands  
+
 1.0.0.64-alpha  
 Rewrote how commands are handled again. I have opted to remove the cooldown and switch fully to a seudo bit system. Now if a user cheers bits in the chat this should pick that up and add it to a file to be used as point payment for commands. Channel owners can add points manually as well from the !addbits command or by editing the user_bits.json file. 
 -Fixed error on !randomkey where it actually didnt include the correct method  
