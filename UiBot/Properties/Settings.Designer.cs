@@ -169,7 +169,7 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool isTraderMuted {
             get {
                 return ((bool)(this["isTraderMuted"]));
@@ -428,6 +428,42 @@ namespace UiBot.Properties {
             }
             set {
                 this["isMagDump360Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isProneEnabled {
+            get {
+                return ((bool)(this["isProneEnabled"]));
+            }
+            set {
+                this["isProneEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isVoiceLineEnabled {
+            get {
+                return ((bool)(this["isVoiceLineEnabled"]));
+            }
+            set {
+                this["isVoiceLineEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isReloadEnabled {
+            get {
+                return ((bool)(this["isReloadEnabled"]));
+            }
+            set {
+                this["isReloadEnabled"] = value;
             }
         }
     }

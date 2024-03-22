@@ -131,7 +131,10 @@ namespace UiBot
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
-            Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {e.ChatMessage.Message}");
+            if (e.ChatMessage.Message.StartsWith("!"))
+            {
+                Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {e.ChatMessage.Message}");
+            }
 
             if (Properties.Settings.Default.isChatBonusEnabled)
             {
@@ -313,22 +316,26 @@ namespace UiBot
 
                         // Define the mappings of textbox names to their corresponding labels and enabled states
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
-    {
-        { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
-        { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
-        { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
-        { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
-        { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
-        { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
-        { "GrenadeCooldownTextBox", ("grenadesound", () => Properties.Settings.Default.isGrenadeEnabled) },
-        { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
-        { "GrenadeCostBox", ("360grenadetoss", () => Properties.Settings.Default.isGrenadeTossEnabled) },
-        { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
-        { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
-        { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
-        { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) }
+            {
+                { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
+                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
+                { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
+                { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
+                { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
+                { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
+                { "GrenadeCooldownTextBox", ("grenadesound", () => Properties.Settings.Default.isGrenadeEnabled) },
+                { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
+                { "GrenadeCostBox", ("360grenadetoss", () => Properties.Settings.Default.isGrenadeTossEnabled) },
+                { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
+                { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+                { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
+                { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
+                { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
+                { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
+                { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) }
+
         // Note: Add any other mappings you need here
-    };
+            };
 
                         // Construct the message dynamically with only enabled commands
                         List<string> enabledCommandCosts = new List<string>();
@@ -1085,6 +1092,147 @@ namespace UiBot
                     else
                     {
                         client.SendMessage(channelId, "Crouch command is currently disabled.");
+                    }
+                    break;
+
+                case "voiceline":
+                    if (Properties.Settings.Default.isVoiceLineEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.VoicelineCostBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.VoiceLine();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "VoiceLine command is currently disabled.");
+                    }
+                    break;
+
+                case "reload":
+                    if (Properties.Settings.Default.isReloadEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.ReloadCostBox.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.Reload();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Reload command is currently disabled.");
+                    }
+                    break;
+
+                case "prone":
+                    if (Properties.Settings.Default.isProneEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.ProneCost.Text, out int cooldownCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+
+                                    chatCommandMethods.Prone();
+
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Prone command is currently disabled.");
                     }
                     break;
 

@@ -4,7 +4,7 @@ using TwitchLib.Client;
 using System.Diagnostics;
 using System.Media;
 /* TODO **
- * Add reload, lean, change fire mode, drop mag, look up or down, voice line, swap weapon fire and ADS?
+ * Add lean, change fire mode, drop mag, look up or down, swap weapon fire
  * Dropbag needs the keys to be rebindable and the same for drop kit
  */
 
@@ -18,10 +18,13 @@ namespace UiBot
     public class ConfigData
     {
         public string RandomKeyInputs { get; set; }
-        public string DropKey { get; set; }
+        public string dropKey { get; set; }
         public Point[] MouseCursorPositions { get; set; }
         public string grenadeTossKey { get; set; }
         public string crouchKey { get; set; }
+        public string proneKey { get; set; }
+        public string reloadKey { get; set; }
+
     }
     internal class ChatCommandMethods
     {
@@ -289,10 +292,70 @@ namespace UiBot
                 return;
             }
 
+            SendKeys.SendWait(crouchKeyBox);
+        }
 
-                SendKeys.SendWait(crouchKeyBox);
+        public void Prone()
+        {
+            // Load the keys from CommandConfigData.json
+            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+            string proneKey;
 
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                proneKey = configData?.proneKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
 
+            if (string.IsNullOrEmpty(proneKey))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            SendKeys.SendWait(proneKey);
+        }
+
+        public void Reload()
+        {
+            // Load the keys from CommandConfigData.json
+            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+            string reloadKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                reloadKeyBox = configData?.reloadKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(reloadKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            SendKeys.SendWait(reloadKeyBox);
+        }
+
+        public void VoiceLine()
+        {
+            SendKeys.SendWait("{F1}");
         }
 
         public void SimulateButtonPressAndMouseMovement()
@@ -315,7 +378,7 @@ namespace UiBot
                 // Read the JSON file and parse it to extract the keys and mouse positions
                 string json = File.ReadAllText(configFilePath);
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                dropKey = configData?.DropKey;
+                dropKey = configData?.dropKey;
 
                 // Load the recorded mouse positions
                 Point[] mousePositions = configData?.MouseCursorPositions;
@@ -327,7 +390,7 @@ namespace UiBot
                 }
 
                 // Simulate button presses
-                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}", "{DELETE}" };
+                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}", dropKey };
                 int[] sleepDurations = new int[] { 150, 200, 0, 300 }; // Corresponding sleep durations in milliseconds
 
                 for (int i = 0; i < keyPresses.Length; i++)

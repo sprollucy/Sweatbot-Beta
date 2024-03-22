@@ -118,7 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>1.0.0.64-alpha
+    <value>1.0.0.65-alpha 3-22-24
+-Added !addbits to streamer commands just in case the bot misses a cheer or you feel like giving them out usage is !mybits @username amount
+-Added !voiceline - will need feedback on this. its currently just f1
+-Added !prone
+-Added !reload
+-Added restart button to commands menu
+-Changed !bitcost to print out only which commands are active
+-Added spam protection for bitcost
+-Added !how2use to tell how to add bits and use commands
+-Added !magdump
+-Added !360magdump
+-Changed !grenade to !grenadesound
+-Changed !grenadetoss to !360grenadetoss
+-Changed !bitcost so it will only list the active commands
+
+1.0.0.64-alpha
 Rewrote how commands are handled again. I have opted to remove the cooldown and switch fully to a seudo bit system. Now if a user cheers bits in the chat this should pick that up and add it to a file to be used as point payment for commands. Channel owners can add points manually as well from the !addbits command or by editing the user_bits.json file. 
 -Fixed error on !randomkey where it actually didnt include the correct method
 -Added a Quest menu for future potential future updates. For now enjoy the blank screen

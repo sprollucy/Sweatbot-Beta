@@ -182,12 +182,12 @@
             // 
             textBox3.BackColor = Color.FromArgb(222, 208, 182);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(685, 76);
+            textBox3.Location = new Point(647, 76);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
             textBox3.ScrollBars = ScrollBars.Vertical;
-            textBox3.Size = new Size(348, 306);
+            textBox3.Size = new Size(386, 306);
             textBox3.TabIndex = 1;
             textBox3.Text = resources.GetString("textBox3.Text");
             // 
@@ -251,9 +251,9 @@
             // 
             pictureBox3.BackColor = Color.FromArgb(201, 198, 189);
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(675, 28);
+            pictureBox3.Location = new Point(635, 28);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(430, 385);
+            pictureBox3.Size = new Size(470, 385);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 32;
             pictureBox3.TabStop = false;
@@ -263,7 +263,7 @@
             changelogLabel.AutoSize = true;
             changelogLabel.BackColor = Color.FromArgb(162, 123, 92);
             changelogLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            changelogLabel.Location = new Point(685, 40);
+            changelogLabel.Location = new Point(647, 40);
             changelogLabel.Name = "changelogLabel";
             changelogLabel.Size = new Size(105, 25);
             changelogLabel.TabIndex = 34;

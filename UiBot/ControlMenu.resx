@@ -188,10 +188,12 @@
 </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Drop kit only works if you run the "Drop Config.exe" to configure where the items
- are based on your screen resolution
+    <value>Drop kit only works if you run the "Drop Config.exe" 
+to configure where the items
+are based on your screen resolution
 
-Currently you need to save and restart the app after changing the cost of the commands. </value>
+Currently you need to save and restart the app after changing the cost
+of the commands. </value>
   </data>
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

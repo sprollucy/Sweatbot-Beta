@@ -44,6 +44,11 @@ namespace UiBot
             enableHoldAim.Checked = Properties.Settings.Default.isHoldAimEnabled;
             enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
             enable360MagDump.Checked = Properties.Settings.Default.isMagDump360Enabled;
+            enableProne.Checked = Properties.Settings.Default.isProneEnabled;
+            enableVoiceLine.Checked = Properties.Settings.Default.isVoiceLineEnabled;
+            enableReload.Checked = Properties.Settings.Default.isReloadEnabled;
+
+
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -54,26 +59,31 @@ namespace UiBot
         public void InitializeTextBoxes()
         {
             // Add your TextBox controls to the dictionary with unique keys
-            textBoxes["wiggleCooldown"] = wiggleCooldownTextBox;
-            textBoxes["dropCooldown"] = dropCooldownTextBox;
-            textBoxes["turnCooldown"] = turnCooldownTextBox;
-            textBoxes["gooseCooldown"] = gooseCooldownTextBox;
-            textBoxes["randomKeyCooldown"] = randomKeyCooldownTextBox;
-            textBoxes["oneClickCooldown"] = oneClickCooldownTextBox;
-            textBoxes["randomKeyInputs"] = randomKeyInputs;
-            textBoxes["autoMessageBox"] = autoMessageBox;
-            textBoxes["autoSendMessageCD"] = autoSendMessageCD;
-            textBoxes["grenadeCooldown"] = grenadeCooldownTextBox;
+            textBoxes["wiggleCooldown"] = WiggleCooldownTextBox;
+            textBoxes["dropCooldown"] = DropCooldownTextBox;
+            textBoxes["turnCooldown"] = TurnCooldownTextBox;
+            textBoxes["gooseCooldown"] = GooseCooldownTextBox;
+            textBoxes["randomKeyCooldown"] = RandomKeyCooldownTextBox;
+            textBoxes["oneClickCooldown"] = OneClickCooldownTextBox;
+            textBoxes["randomKeyInputs"] = RandomKeyInputs;
+            textBoxes["autoMessageBox"] = AutoMessageBox;
+            textBoxes["autoSendMessageCD"] = AutoSendMessageCD;
+            textBoxes["grenadeCooldown"] = GrenadeCooldownTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
-            textBoxes["dropKey"] = dropKeyTextBox;
-            textBoxes["granadeToss"] = grenadeCostBox;
-            textBoxes["grenadeTossKey"] = grenadeKeyBox;
+            textBoxes["dropKey"] = DropKeyTextBox;
+            textBoxes["granadeToss"] = GrenadeCostBox;
+            textBoxes["grenadeTossKey"] = GrenadeKeyBox;
             textBoxes["crouchKey"] = CrouchKeyBox;
             textBoxes["magDumpCost"] = MagDumpBox;
             textBoxes["holdAimCost"] = HoldAimCost;
             textBoxes["bonusTextBox"] = BonusTextBox;
             textBoxes["crouchBoxCost"] = CrouchBoxCost;
             textBoxes["mag360Cost"] = Mag360Cost;
+            textBoxes["proneCostBox"] = ProneCost;
+            textBoxes["proneKey"] = ProneKeyBox;
+            textBoxes["voicelineCostBox"] = VoicelineCostBox;
+            textBoxes["reloadCostBox"] = ReloadCostBox;
+            textBoxes["reloadKey"] = ReloadKeyBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -177,6 +187,32 @@ namespace UiBot
             get { return mag360Cost; }
             set { mag360Cost = value; }
         }
+        public TextBox ProneCost
+        {
+            get { return proneCostBox; }
+            set { proneCostBox = value; }
+        }
+        public TextBox ProneKeyBox
+        {
+            get { return proneKeyBox; }
+            set { proneKeyBox = value; }
+        }
+        public TextBox VoicelineCostBox
+        {
+            get { return voicelineCostBox; }
+            set { voicelineCostBox = value; }
+        }
+        public TextBox ReloadCostBox
+        {
+            get { return reloadCostBox; }
+            set { reloadCostBox = value; }
+        }
+        public TextBox ReloadKeyBox
+        {
+            get { return reloadKeyBox; }
+            set { reloadKeyBox = value; }
+        }
+
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
         {
@@ -328,6 +364,24 @@ namespace UiBot
         private void enable360MagDump_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isMagDump360Enabled = enable360MagDump.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableProne_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isProneEnabled = enableProne.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableVoiceLine_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isVoiceLineEnabled = enableVoiceLine.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableReload_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isReloadEnabled = enableReload.Checked;
             Properties.Settings.Default.Save();
         }
     }

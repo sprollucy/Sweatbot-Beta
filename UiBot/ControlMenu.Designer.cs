@@ -43,6 +43,14 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            reloadKeyBox = new TextBox();
+            reloadCostBox = new TextBox();
+            enableReload = new CheckBox();
+            enableVoiceLine = new CheckBox();
+            voicelineCostBox = new TextBox();
+            proneKeyBox = new TextBox();
+            proneCostBox = new TextBox();
+            enableProne = new CheckBox();
             mag360Cost = new TextBox();
             enable360MagDump = new CheckBox();
             label4 = new Label();
@@ -162,9 +170,9 @@
             randomTurn.BackColor = Color.FromArgb(181, 176, 163);
             randomTurn.Location = new Point(15, 247);
             randomTurn.Name = "randomTurn";
-            randomTurn.Size = new Size(85, 19);
+            randomTurn.Size = new Size(88, 19);
             randomTurn.TabIndex = 15;
-            randomTurn.Text = "EnableTurn";
+            randomTurn.Text = "Enable Turn";
             randomTurn.UseVisualStyleBackColor = false;
             randomTurn.CheckedChanged += randomTurn_CheckedChanged;
             // 
@@ -219,6 +227,14 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(reloadKeyBox);
+            panel1.Controls.Add(reloadCostBox);
+            panel1.Controls.Add(enableReload);
+            panel1.Controls.Add(enableVoiceLine);
+            panel1.Controls.Add(voicelineCostBox);
+            panel1.Controls.Add(proneKeyBox);
+            panel1.Controls.Add(proneCostBox);
+            panel1.Controls.Add(enableProne);
             panel1.Controls.Add(mag360Cost);
             panel1.Controls.Add(enable360MagDump);
             panel1.Controls.Add(label4);
@@ -262,6 +278,82 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 657);
             panel1.TabIndex = 20;
+            // 
+            // reloadKeyBox
+            // 
+            reloadKeyBox.Location = new Point(279, 566);
+            reloadKeyBox.Name = "reloadKeyBox";
+            reloadKeyBox.Size = new Size(31, 23);
+            reloadKeyBox.TabIndex = 71;
+            reloadKeyBox.Text = "X";
+            // 
+            // reloadCostBox
+            // 
+            reloadCostBox.Location = new Point(173, 566);
+            reloadCostBox.Name = "reloadCostBox";
+            reloadCostBox.Size = new Size(100, 23);
+            reloadCostBox.TabIndex = 70;
+            reloadCostBox.Text = "300";
+            // 
+            // enableReload
+            // 
+            enableReload.AutoSize = true;
+            enableReload.BackColor = Color.FromArgb(181, 176, 163);
+            enableReload.Location = new Point(14, 569);
+            enableReload.Name = "enableReload";
+            enableReload.Size = new Size(100, 19);
+            enableReload.TabIndex = 69;
+            enableReload.Text = "Enable Reload";
+            enableReload.UseVisualStyleBackColor = false;
+            enableReload.CheckedChanged += enableReload_CheckedChanged;
+            // 
+            // enableVoiceLine
+            // 
+            enableVoiceLine.AutoSize = true;
+            enableVoiceLine.BackColor = Color.FromArgb(181, 176, 163);
+            enableVoiceLine.Location = new Point(14, 540);
+            enableVoiceLine.Name = "enableVoiceLine";
+            enableVoiceLine.Size = new Size(117, 19);
+            enableVoiceLine.TabIndex = 68;
+            enableVoiceLine.Text = "Enable Voice Line";
+            enableVoiceLine.UseVisualStyleBackColor = false;
+            enableVoiceLine.CheckedChanged += enableVoiceLine_CheckedChanged;
+            // 
+            // voicelineCostBox
+            // 
+            voicelineCostBox.Location = new Point(173, 537);
+            voicelineCostBox.Name = "voicelineCostBox";
+            voicelineCostBox.Size = new Size(100, 23);
+            voicelineCostBox.TabIndex = 67;
+            voicelineCostBox.Text = "300";
+            // 
+            // proneKeyBox
+            // 
+            proneKeyBox.Location = new Point(279, 508);
+            proneKeyBox.Name = "proneKeyBox";
+            proneKeyBox.Size = new Size(31, 23);
+            proneKeyBox.TabIndex = 66;
+            proneKeyBox.Text = "X";
+            // 
+            // proneCostBox
+            // 
+            proneCostBox.Location = new Point(173, 508);
+            proneCostBox.Name = "proneCostBox";
+            proneCostBox.Size = new Size(100, 23);
+            proneCostBox.TabIndex = 65;
+            proneCostBox.Text = "300";
+            // 
+            // enableProne
+            // 
+            enableProne.AutoSize = true;
+            enableProne.BackColor = Color.FromArgb(181, 176, 163);
+            enableProne.Location = new Point(14, 511);
+            enableProne.Name = "enableProne";
+            enableProne.Size = new Size(95, 19);
+            enableProne.TabIndex = 64;
+            enableProne.Text = "Enable Prone";
+            enableProne.UseVisualStyleBackColor = false;
+            enableProne.CheckedChanged += enableProne_CheckedChanged;
             // 
             // mag360Cost
             // 
@@ -374,9 +466,9 @@
             crouchBox.BackColor = Color.FromArgb(181, 176, 163);
             crouchBox.Location = new Point(14, 395);
             crouchBox.Name = "crouchBox";
-            crouchBox.Size = new Size(65, 19);
+            crouchBox.Size = new Size(103, 19);
             crouchBox.TabIndex = 52;
-            crouchBox.Text = "Crouch";
+            crouchBox.Text = "Enable Crouch";
             crouchBox.UseVisualStyleBackColor = false;
             crouchBox.CheckedChanged += crouchBox_CheckedChanged;
             // 
@@ -533,9 +625,9 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(569, 311);
+            label1.Location = new Point(596, 279);
             label1.Name = "label1";
-            label1.Size = new Size(478, 60);
+            label1.Size = new Size(375, 90);
             label1.TabIndex = 28;
             label1.Text = resources.GetString("label1.Text");
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -702,5 +794,13 @@
         private Button restart_AppButton;
         private TextBox mag360Cost;
         private CheckBox enable360MagDump;
+        private TextBox proneKeyBox;
+        private TextBox proneCostBox;
+        private CheckBox enableProne;
+        private CheckBox enableVoiceLine;
+        private TextBox voicelineCostBox;
+        private TextBox reloadKeyBox;
+        private TextBox reloadCostBox;
+        private CheckBox enableReload;
     }
 }
