@@ -28,6 +28,10 @@ Feel free to report issues on here or directly contact me on discord if you have
 [1.0.0.65a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.65a)
 
 ## How To Use
+Tutorial video on quick setup  
+https://youtu.be/_G8fQeHlMOA  
+  
+
 1. First step is to create a account on Twitch.tv that you want to use as the bot account. I use this site but twitch also offers their own  
 https://twitchtokengenerator.com/  
   
