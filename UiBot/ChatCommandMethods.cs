@@ -23,6 +23,8 @@ namespace UiBot
         public string crouchKey { get; set; }
         public string proneKey { get; set; }
         public string reloadKey { get; set; }
+        public string knifeKey { get; set; }
+
 
     }
     internal class ChatCommandMethods
@@ -483,6 +485,96 @@ namespace UiBot
             // Play the notification sound
             Thread.Sleep(1000);
             player.Play();
+
+        }
+
+        public void KnivesOnly()
+        {
+            // Load the keys from CommandConfigData.json
+            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+            string knifeKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                knifeKeyBox = configData?.knifeKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(knifeKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            SendKeys.SendWait(knifeKeyBox);
+        }
+
+        //Name PraiseSun
+        public void LookUp(int durationMilliseconds)
+        {
+            Random random = new Random();
+            DateTime endTime = DateTime.Now.AddMilliseconds(durationMilliseconds);
+
+            while (DateTime.Now < endTime)
+            {
+                // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
+                int deltaY = 100;
+
+                // Move the mouse vertically
+                mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
+
+                // Sleep for a short duration before the next movement (e.g., 100-300ms)
+                Thread.Sleep(random.Next(100, 301));
+            }
+        }
+
+        public void LookDown(int durationMilliseconds)
+        {
+            Random random = new Random();
+            DateTime endTime = DateTime.Now.AddMilliseconds(durationMilliseconds);
+
+            while (DateTime.Now < endTime)
+            {
+                // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
+                int deltaY = -100;
+
+                // Move the mouse vertically
+                mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
+
+                // Sleep for a short duration before the next movement (e.g., 100-300ms)
+                Thread.Sleep(random.Next(100, 301));
+            }
+        }
+
+        public void TouchGrass(int durationMilliseconds)
+        {
+
+            // Start a new thread for pulling out the grenade
+            Thread crouchorStandThread = new Thread(() =>
+            {
+                CrouchorStand();
+            });
+
+            // Start a new thread for spinning
+            Thread lookDownThread = new Thread(() =>
+            {
+                LookDown(durationMilliseconds);
+            });
+
+            // Start both threads
+            crouchorStandThread.Start();
+            lookDownThread.Start();
+
+            // Wait for the grenadeThread to complete
+            crouchorStandThread.Join();
 
         }
 
