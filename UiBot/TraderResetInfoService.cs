@@ -1,15 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
+﻿using Newtonsoft.Json;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace UiBot
 {
     public class TraderResetInfoService
     {
-        private const string BaseUrl = "https://api.tarkov.dev/graphql"; 
+        private const string BaseUrl = "https://api.tarkov.dev/graphql";
         private const string JsonFileName = "resetTime.json"; // JSON file name
 
         public async Task<string> GetAndSaveTraderResetInfoWithLatest()

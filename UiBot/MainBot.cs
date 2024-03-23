@@ -1,14 +1,12 @@
-﻿using System.Runtime.InteropServices;
-using Newtonsoft.Json;
-using TwitchLib.Client.Events;
-using TwitchLib.PubSub;
-using TwitchLib.PubSub.Events;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using TwitchLib.Client;
+using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
-using System.Diagnostics;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using TwitchLib.Api.Helix;
+using TwitchLib.PubSub;
+using TwitchLib.PubSub.Events;
 
 
 /* TODO **
@@ -50,7 +48,7 @@ namespace UiBot
         internal MainBot()
         {
             LoadCredentialsFromJSON();
-            LoadUserBitsFromJson("user_bits.json"); 
+            LoadUserBitsFromJson("user_bits.json");
         }
 
         public void Dispose()
@@ -235,7 +233,7 @@ namespace UiBot
             }
         }
 
-//Chat 
+        //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             var traderResetInfoService = new TraderResetInfoService();
@@ -252,7 +250,7 @@ namespace UiBot
             int bitcostCooldownDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
 
-//Normal Commands
+            //Normal Commands
             switch (e.Command.CommandText.ToLower())
             {
                 case "help":
@@ -473,12 +471,12 @@ namespace UiBot
 
                     //Bit Commands
 
-                    if(Properties.Settings.Default.isCommandsPaused = true)
+                    if (Properties.Settings.Default.isCommandsPaused = true)
                     {
 
                     }
 
-//Bit Commands
+                //Bit Commands
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
@@ -1331,7 +1329,7 @@ namespace UiBot
                     break;
             }
 
-//Mod Commands
+            //Mod Commands
             if (e.Command.ChatMessage.IsModerator)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1360,7 +1358,7 @@ namespace UiBot
                 }
             }
 
-//Channel owner chat
+            //Channel owner chat
             if (e.Command.ChatMessage.IsBroadcaster)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1557,7 +1555,7 @@ namespace UiBot
             {
                 Console.WriteLine($"Error in AutoMessageSender: {ex.Message}");
             }
-        } 
+        }
     }
 
 }

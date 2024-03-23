@@ -1,4 +1,3 @@
-using System;
 namespace UiBot
 {
     internal static class Program

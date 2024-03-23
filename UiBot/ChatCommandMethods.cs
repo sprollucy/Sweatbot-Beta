@@ -1,11 +1,10 @@
-﻿using System.Runtime.InteropServices;
-using Newtonsoft.Json;
-using TwitchLib.Client;
+﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Media;
+using System.Runtime.InteropServices;
+using TwitchLib.Client;
 /* TODO **
- * Add lean, change fire mode, drop mag, look up or down, swap weapon fire
- * Dropbag needs the keys to be rebindable and the same for drop kit
+
  */
 
 namespace UiBot
@@ -464,14 +463,14 @@ namespace UiBot
         }
         public void HoldAim()
         {
-                // Simulate pressing the right mouse button
-                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+            // Simulate pressing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
 
-                // Wait for the specified duration
-                Thread.Sleep(2500);
+            // Wait for the specified duration
+            Thread.Sleep(2500);
 
-                // Simulate releasing the right mouse button
-                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);    
+            // Simulate releasing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 
 

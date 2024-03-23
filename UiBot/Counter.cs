@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 public class Counter
 {
@@ -99,7 +97,7 @@ public class Counter
     {
         public int AllDeath { get; set; }
         public int SurvivalCount { get; set; }
-        public int AllKillCount {  get; set; }
+        public int AllKillCount { get; set; }
     }
 
 }

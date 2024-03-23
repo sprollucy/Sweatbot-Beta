@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-using TwitchLib.Client.Models;
-using UiBot.Properties;
+﻿using System.Diagnostics;
 
 namespace UiBot
 {
