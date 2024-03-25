@@ -98,6 +98,19 @@ namespace UiBot
                     Console.WriteLine("[Sweat Bot]: Disconnected");
                     return; // Don't proceed further
                 }
+                if (creds == null)
+                {
+                    MessageBox.Show("Twitch credentials are not set.");
+                    Console.WriteLine("[Sweat Bot]: Disconnected");
+                    return; // Don't proceed further
+                }
+
+                if(channelId == null) 
+                {
+                    MessageBox.Show("Twitch channel are not set.");
+                    Console.WriteLine("[Sweat Bot]: Disconnected");
+                    return; // Don't proceed further
+                }
 
                 try
                 {
