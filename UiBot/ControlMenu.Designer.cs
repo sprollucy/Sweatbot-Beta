@@ -365,7 +365,6 @@
             enableJump.TabIndex = 82;
             enableJump.Text = "Enable Jump";
             enableJump.UseVisualStyleBackColor = false;
-            enableJump.CheckedChanged += enableJump_CheckedChanged;
             // 
             // dropconfigbutton
             // 
@@ -413,7 +412,6 @@
             enableKnifeOut.TabIndex = 77;
             enableKnifeOut.Text = "Enable Knife Out";
             enableKnifeOut.UseVisualStyleBackColor = false;
-            enableKnifeOut.CheckedChanged += enableKnifeOut_CheckedChanged;
             // 
             // enableTouchGrass
             // 
@@ -425,7 +423,6 @@
             enableTouchGrass.TabIndex = 75;
             enableTouchGrass.Text = "Enable Touch Grass";
             enableTouchGrass.UseVisualStyleBackColor = false;
-            enableTouchGrass.CheckedChanged += enableTouchGrass_CheckedChanged;
             // 
             // touchgrassCostBox
             // 
@@ -767,7 +764,6 @@
             enableModBits.TabIndex = 76;
             enableModBits.Text = "Allow Moderators to give bits";
             enableModBits.UseVisualStyleBackColor = false;
-            enableModBits.CheckedChanged += enableModBits_CheckedChanged;
             // 
             // enableTradersCommand
             // 
@@ -920,15 +916,6 @@
             textBox4.TabIndex = 82;
             textBox4.Text = "How often to send message?";
             textBox4.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(280, 715);
-            label5.Name = "label5";
-            label5.Size = new Size(115, 15);
-            label5.TabIndex = 87;
-            label5.Text = "How long?(seconds)";
             // 
             // ControlMenu
             // 
