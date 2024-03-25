@@ -49,7 +49,11 @@ namespace UiBot
             enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
             enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
             enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
-
+            enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
+            enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
+            enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
+            enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
+            enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -85,6 +89,12 @@ namespace UiBot
             textBoxes["voicelineCostBox"] = VoicelineCostBox;
             textBoxes["reloadCostBox"] = ReloadCostBox;
             textBoxes["reloadKey"] = ReloadKeyBox;
+            textBoxes["praisesunCostBox"] = PraisesunCostBox;
+            textBoxes["knifeoutCostBox"] = KnifeoutCostBox;
+            textBoxes["knifeKey"] = KnifeKeyBox;
+            textBoxes["jumpCostBox"] = JumpCostBox;
+            textBoxes["windowsmuteCostBox"] = WindowsmuteCostBox;
+            textBoxes["muteTime"] = MuteTimeBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -212,6 +222,42 @@ namespace UiBot
         {
             get { return reloadKeyBox; }
             set { reloadKeyBox = value; }
+        }
+
+        public TextBox PraisesunCostBox
+        {
+            get { return praisesunCostBox; }
+            set { praisesunCostBox = value; }
+        }
+        public TextBox TouchGrassCostBox
+        {
+            get { return touchgrassCostBox; }
+            set { touchgrassCostBox = value; }
+        }
+        public TextBox KnifeoutCostBox
+        {
+            get { return knifeoutCostBox; }
+            set { knifeoutCostBox = value; }
+        }
+        public TextBox KnifeKeyBox
+        {
+            get { return knifeKey; }
+            set { knifeKey = value; }
+        }
+        public TextBox JumpCostBox
+        {
+            get { return jumpCostBox; }
+            set { jumpCostBox = value; }
+        }
+        public TextBox WindowsmuteCostBox
+        {
+            get { return windowsmuteCostBox; }
+            set { windowsmuteCostBox = value; }
+        }
+        public TextBox MuteTimeBox
+        {
+            get { return muteTime; }
+            set { muteTime = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -393,6 +439,42 @@ namespace UiBot
         private void enableReload_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isReloadEnabled = enableReload.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enablePraiseSun_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isPraiseSunEnabled = enablePraiseSun.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableTouchGrass_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isTouchGrassEnabled = enableTouchGrass.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableModBits_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableKnifeOut_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isKnifeOutEnabled = enableKnifeOut.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableJump_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isJumpEnabled = enableJump.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableWindowsMute_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isMuteWindowsEnabled = enableWindowsMute.Checked;
             Properties.Settings.Default.Save();
         }
     }

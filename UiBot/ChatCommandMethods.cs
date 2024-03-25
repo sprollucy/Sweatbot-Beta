@@ -808,6 +808,7 @@ namespace UiBot
                 Console.WriteLine($"Error reading JSON file: {ex.Message}");
                 return;
             }
+        }
 
         public void TouchGrass(int durationMilliseconds)
         {
