@@ -5,7 +5,7 @@ It features chat commands to interact with you as you play. Only a few right now
 Readme and other info currently incomplete. This app has zero error exception handling so if it crashes, it may lock up!  
 
 Notice - This app was written with the assistance of chatgpt as I am still learning, but 90% of the code was writen by me. Its not fun writing the same thing 50 times and its great for finding bugs that I have missed.  
-Feel free to report issues on here or directly contact me on discord if you have any issues, or have any suggestion/criticisms: sprollucy
+
 
 ## Features
 -Some bitbot cloned features  
@@ -68,6 +68,10 @@ https://samperson.itch.io/desktop-goose
 ## Commands
 Soon to be written. use !help while running
 
+## How to Support  
+Feel free to report issues on here or directly contact me on discord if you have any issues, or have any suggestion/criticisms: sprollucy
+If you like my projects and want to help support me, you can directly donate here  
+[Paypal Donate](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA&no_recurring=0&item_name=Thank+you+for+helping+support+my+projects%21&currency_code=USD)
 
 ## Changelog
 1.0.0.65-alpha 3-22-24  
