@@ -365,6 +365,7 @@ namespace UiBot
             BlockInput(true);
 
             string configFilePath = "DropPositionData.json"; // Adjust the file path as needed
+            string keyFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string dropKey;
 
             System.Threading.Timer timer = new System.Threading.Timer(state =>
@@ -379,7 +380,9 @@ namespace UiBot
                 // Read the JSON file and parse it to extract the keys and mouse positions
                 string json = File.ReadAllText(configFilePath);
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                dropKey = configData?.dropKey;
+                string json2 = File.ReadAllText(keyFilePath);
+                var configData2 = JsonConvert.DeserializeObject<ConfigData>(json2); // Corrected: use json2
+                dropKey = configData2?.dropKey;
 
                 // Load the recorded mouse positions
                 Point[] mousePositions = configData?.MouseCursorPositions;
@@ -391,8 +394,8 @@ namespace UiBot
                 }
 
                 // Simulate button presses
-                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}", dropKey };
-                int[] sleepDurations = new int[] { 150, 200, 0, 300 }; // Corresponding sleep durations in milliseconds
+                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}"};
+                int[] sleepDurations = new int[] { 150, 200, 0 }; // Corresponding sleep durations in milliseconds
 
                 for (int i = 0; i < keyPresses.Length; i++)
                 {
@@ -405,20 +408,14 @@ namespace UiBot
 
                 foreach (Point newPosition in mousePositions)
                 {
+                    Thread.Sleep(200);
                     // Store the original mouse position
                     Point originalMousePosition = Cursor.Position;
 
                     // Move the mouse to the new position
                     Cursor.Position = newPosition;
 
-                    // Simulate a mouse click (DELETE key in this case)
                     SendKeys.SendWait(dropKey);
-
-                    // Sleep for a short duration
-                    Thread.Sleep(300);
-
-                    // Restore the original mouse position
-                    Cursor.Position = originalMousePosition;
                 }
             }
             finally
