@@ -309,7 +309,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 888);
             panel1.TabIndex = 20;
-            //
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -764,6 +764,7 @@
             enableModBits.TabIndex = 76;
             enableModBits.Text = "Allow Moderators to give bits";
             enableModBits.UseVisualStyleBackColor = false;
+            enableModBits.CheckedChanged += enableModBits_CheckedChanged;
             // 
             // enableTradersCommand
             // 
