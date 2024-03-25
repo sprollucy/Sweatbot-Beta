@@ -43,6 +43,20 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            muteTime = new TextBox();
+            windowsmuteCostBox = new TextBox();
+            enableWindowsMute = new CheckBox();
+            jumpCostBox = new TextBox();
+            enableJump = new CheckBox();
+            dropconfigbutton = new Button();
+            restart_AppButton = new Button();
+            knifeKey = new TextBox();
+            knifeoutCostBox = new TextBox();
+            enableKnifeOut = new CheckBox();
+            enableTouchGrass = new CheckBox();
+            touchgrassCostBox = new TextBox();
+            enablePraiseSun = new CheckBox();
+            praisesunCostBox = new TextBox();
             reloadKeyBox = new TextBox();
             reloadCostBox = new TextBox();
             enableReload = new CheckBox();
@@ -53,9 +67,6 @@
             enableProne = new CheckBox();
             mag360Cost = new TextBox();
             enable360MagDump = new CheckBox();
-            label4 = new Label();
-            bonusTextBox = new TextBox();
-            enableChatBonus = new CheckBox();
             holdAimCost = new TextBox();
             enableHoldAim = new CheckBox();
             magDumpCost = new TextBox();
@@ -66,7 +77,6 @@
             grenadeKeyBox = new TextBox();
             grenadeCostBox = new TextBox();
             enableGrenadeToss = new CheckBox();
-            enableTradersCommand = new CheckBox();
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             dropKeyTextBox = new TextBox();
@@ -78,6 +88,11 @@
             grenadeCooldownTextBox = new TextBox();
             randomKeyInputs = new TextBox();
             pictureBox2 = new PictureBox();
+            enableModBits = new CheckBox();
+            enableTradersCommand = new CheckBox();
+            enableChatBonus = new CheckBox();
+            bonusTextBox = new TextBox();
+            label4 = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
             pictureBox10 = new PictureBox();
@@ -86,12 +101,16 @@
             autoMessageLabel = new Label();
             enableAutoMessageCheck = new CheckBox();
             pictureBox3 = new PictureBox();
-            restart_AppButton = new Button();
+            pictureBox4 = new PictureBox();
+            label3 = new Label();
+            textBox4 = new TextBox();
+            label5 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
             // wiggleCooldownTextBox
@@ -144,7 +163,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(710, 386);
+            saveButton.Location = new Point(341, 12);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 23);
             saveButton.TabIndex = 6;
@@ -227,19 +246,32 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(muteTime);
+            panel1.Controls.Add(windowsmuteCostBox);
+            panel1.Controls.Add(enableWindowsMute);
+            panel1.Controls.Add(jumpCostBox);
+            panel1.Controls.Add(enableJump);
+            panel1.Controls.Add(dropconfigbutton);
+            panel1.Controls.Add(restart_AppButton);
+            panel1.Controls.Add(knifeKey);
+            panel1.Controls.Add(knifeoutCostBox);
+            panel1.Controls.Add(enableKnifeOut);
+            panel1.Controls.Add(enableTouchGrass);
+            panel1.Controls.Add(touchgrassCostBox);
+            panel1.Controls.Add(enablePraiseSun);
+            panel1.Controls.Add(praisesunCostBox);
             panel1.Controls.Add(reloadKeyBox);
             panel1.Controls.Add(reloadCostBox);
             panel1.Controls.Add(enableReload);
             panel1.Controls.Add(enableVoiceLine);
             panel1.Controls.Add(voicelineCostBox);
+            panel1.Controls.Add(saveButton);
             panel1.Controls.Add(proneKeyBox);
             panel1.Controls.Add(proneCostBox);
             panel1.Controls.Add(enableProne);
             panel1.Controls.Add(mag360Cost);
             panel1.Controls.Add(enable360MagDump);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(bonusTextBox);
-            panel1.Controls.Add(enableChatBonus);
             panel1.Controls.Add(holdAimCost);
             panel1.Controls.Add(enableHoldAim);
             panel1.Controls.Add(magDumpCost);
@@ -250,7 +282,6 @@
             panel1.Controls.Add(grenadeKeyBox);
             panel1.Controls.Add(grenadeCostBox);
             panel1.Controls.Add(enableGrenadeToss);
-            panel1.Controls.Add(enableTradersCommand);
             panel1.Controls.Add(textBox3);
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(dropKeyTextBox);
@@ -276,8 +307,144 @@
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(51, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 657);
+            panel1.Size = new Size(514, 888);
             panel1.TabIndex = 20;
+            // 
+            // muteTime
+            // 
+            muteTime.Location = new Point(401, 712);
+            muteTime.Name = "muteTime";
+            muteTime.Size = new Size(31, 23);
+            muteTime.TabIndex = 86;
+            muteTime.Text = "5";
+            // 
+            // windowsmuteCostBox
+            // 
+            windowsmuteCostBox.Location = new Point(173, 711);
+            windowsmuteCostBox.Name = "windowsmuteCostBox";
+            windowsmuteCostBox.Size = new Size(100, 23);
+            windowsmuteCostBox.TabIndex = 85;
+            windowsmuteCostBox.Text = "300";
+            // 
+            // enableWindowsMute
+            // 
+            enableWindowsMute.AutoSize = true;
+            enableWindowsMute.BackColor = Color.FromArgb(181, 176, 163);
+            enableWindowsMute.Location = new Point(14, 714);
+            enableWindowsMute.Name = "enableWindowsMute";
+            enableWindowsMute.Size = new Size(144, 19);
+            enableWindowsMute.TabIndex = 84;
+            enableWindowsMute.Text = "Enable Windows Mute";
+            enableWindowsMute.UseVisualStyleBackColor = false;
+            enableWindowsMute.CheckedChanged += enableWindowsMute_CheckedChanged;
+            // 
+            // jumpCostBox
+            // 
+            jumpCostBox.Location = new Point(173, 682);
+            jumpCostBox.Name = "jumpCostBox";
+            jumpCostBox.Size = new Size(100, 23);
+            jumpCostBox.TabIndex = 83;
+            jumpCostBox.Text = "300";
+            // 
+            // enableJump
+            // 
+            enableJump.AutoSize = true;
+            enableJump.BackColor = Color.FromArgb(181, 176, 163);
+            enableJump.Location = new Point(14, 685);
+            enableJump.Name = "enableJump";
+            enableJump.Size = new Size(93, 19);
+            enableJump.TabIndex = 82;
+            enableJump.Text = "Enable Jump";
+            enableJump.UseVisualStyleBackColor = false;
+            enableJump.CheckedChanged += enableJump_CheckedChanged;
+            // 
+            // dropconfigbutton
+            // 
+            dropconfigbutton.Location = new Point(280, 101);
+            dropconfigbutton.Name = "dropconfigbutton";
+            dropconfigbutton.Size = new Size(135, 23);
+            dropconfigbutton.TabIndex = 81;
+            dropconfigbutton.Text = "Open Drop Config.exe";
+            dropconfigbutton.UseVisualStyleBackColor = true;
+            dropconfigbutton.Click += dropconfigbutton_Click;
+            // 
+            // restart_AppButton
+            // 
+            restart_AppButton.Location = new Point(422, 12);
+            restart_AppButton.Name = "restart_AppButton";
+            restart_AppButton.Size = new Size(75, 23);
+            restart_AppButton.TabIndex = 29;
+            restart_AppButton.Text = "Restart App";
+            restart_AppButton.UseVisualStyleBackColor = true;
+            restart_AppButton.Click += button1_Click;
+            // 
+            // knifeKey
+            // 
+            knifeKey.Location = new Point(279, 653);
+            knifeKey.Name = "knifeKey";
+            knifeKey.Size = new Size(31, 23);
+            knifeKey.TabIndex = 79;
+            knifeKey.Text = "V";
+            // 
+            // knifeoutCostBox
+            // 
+            knifeoutCostBox.Location = new Point(173, 653);
+            knifeoutCostBox.Name = "knifeoutCostBox";
+            knifeoutCostBox.Size = new Size(100, 23);
+            knifeoutCostBox.TabIndex = 78;
+            knifeoutCostBox.Text = "300";
+            // 
+            // enableKnifeOut
+            // 
+            enableKnifeOut.AutoSize = true;
+            enableKnifeOut.BackColor = Color.FromArgb(181, 176, 163);
+            enableKnifeOut.Location = new Point(14, 656);
+            enableKnifeOut.Name = "enableKnifeOut";
+            enableKnifeOut.Size = new Size(114, 19);
+            enableKnifeOut.TabIndex = 77;
+            enableKnifeOut.Text = "Enable Knife Out";
+            enableKnifeOut.UseVisualStyleBackColor = false;
+            enableKnifeOut.CheckedChanged += enableKnifeOut_CheckedChanged;
+            // 
+            // enableTouchGrass
+            // 
+            enableTouchGrass.AutoSize = true;
+            enableTouchGrass.BackColor = Color.FromArgb(181, 176, 163);
+            enableTouchGrass.Location = new Point(15, 627);
+            enableTouchGrass.Name = "enableTouchGrass";
+            enableTouchGrass.Size = new Size(127, 19);
+            enableTouchGrass.TabIndex = 75;
+            enableTouchGrass.Text = "Enable Touch Grass";
+            enableTouchGrass.UseVisualStyleBackColor = false;
+            enableTouchGrass.CheckedChanged += enableTouchGrass_CheckedChanged;
+            // 
+            // touchgrassCostBox
+            // 
+            touchgrassCostBox.Location = new Point(174, 624);
+            touchgrassCostBox.Name = "touchgrassCostBox";
+            touchgrassCostBox.Size = new Size(100, 23);
+            touchgrassCostBox.TabIndex = 74;
+            touchgrassCostBox.Text = "300";
+            // 
+            // enablePraiseSun
+            // 
+            enablePraiseSun.AutoSize = true;
+            enablePraiseSun.BackColor = Color.FromArgb(181, 176, 163);
+            enablePraiseSun.Location = new Point(15, 598);
+            enablePraiseSun.Name = "enablePraiseSun";
+            enablePraiseSun.Size = new Size(118, 19);
+            enablePraiseSun.TabIndex = 73;
+            enablePraiseSun.Text = "Enable Praise Sun";
+            enablePraiseSun.UseVisualStyleBackColor = false;
+            enablePraiseSun.CheckedChanged += enablePraiseSun_CheckedChanged;
+            // 
+            // praisesunCostBox
+            // 
+            praisesunCostBox.Location = new Point(174, 595);
+            praisesunCostBox.Name = "praisesunCostBox";
+            praisesunCostBox.Size = new Size(100, 23);
+            praisesunCostBox.TabIndex = 72;
+            praisesunCostBox.Text = "300";
             // 
             // reloadKeyBox
             // 
@@ -285,7 +452,7 @@
             reloadKeyBox.Name = "reloadKeyBox";
             reloadKeyBox.Size = new Size(31, 23);
             reloadKeyBox.TabIndex = 71;
-            reloadKeyBox.Text = "X";
+            reloadKeyBox.Text = "R";
             // 
             // reloadCostBox
             // 
@@ -374,35 +541,6 @@
             enable360MagDump.Text = "Enable Mag Dump (360)";
             enable360MagDump.UseVisualStyleBackColor = false;
             enable360MagDump.CheckedChanged += enable360MagDump_CheckedChanged;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(298, 142);
-            label4.Name = "label4";
-            label4.Size = new Size(137, 15);
-            label4.TabIndex = 61;
-            label4.Text = "How many for first chat?";
-            // 
-            // bonusTextBox
-            // 
-            bonusTextBox.Location = new Point(299, 160);
-            bonusTextBox.Name = "bonusTextBox";
-            bonusTextBox.Size = new Size(100, 23);
-            bonusTextBox.TabIndex = 60;
-            bonusTextBox.Text = "100";
-            // 
-            // enableChatBonus
-            // 
-            enableChatBonus.AutoSize = true;
-            enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
-            enableChatBonus.Location = new Point(299, 120);
-            enableChatBonus.Name = "enableChatBonus";
-            enableChatBonus.Size = new Size(125, 19);
-            enableChatBonus.TabIndex = 59;
-            enableChatBonus.Text = "Enable Chat Bonus";
-            enableChatBonus.UseVisualStyleBackColor = false;
-            enableChatBonus.CheckedChanged += enableChatBonus_CheckedChanged;
             // 
             // holdAimCost
             // 
@@ -499,18 +637,6 @@
             enableGrenadeToss.Text = "Enable Grenade Toss(360)";
             enableGrenadeToss.UseVisualStyleBackColor = false;
             enableGrenadeToss.CheckedChanged += enableGrenadeToss_CheckedChanged;
-            // 
-            // enableTradersCommand
-            // 
-            enableTradersCommand.AutoSize = true;
-            enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
-            enableTradersCommand.Location = new Point(298, 73);
-            enableTradersCommand.Name = "enableTradersCommand";
-            enableTradersCommand.Size = new Size(155, 19);
-            enableTradersCommand.TabIndex = 48;
-            enableTradersCommand.Text = "enableTradersCommand";
-            enableTradersCommand.UseVisualStyleBackColor = false;
-            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
             // textBox3
             // 
@@ -622,10 +748,64 @@
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
             // 
+            // enableModBits
+            // 
+            enableModBits.AutoSize = true;
+            enableModBits.BackColor = Color.FromArgb(181, 176, 163);
+            enableModBits.Location = new Point(595, 228);
+            enableModBits.Name = "enableModBits";
+            enableModBits.Size = new Size(181, 19);
+            enableModBits.TabIndex = 76;
+            enableModBits.Text = "Allow Moderators to give bits";
+            enableModBits.UseVisualStyleBackColor = false;
+            enableModBits.CheckedChanged += enableModBits_CheckedChanged;
+            // 
+            // enableTradersCommand
+            // 
+            enableTradersCommand.AutoSize = true;
+            enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
+            enableTradersCommand.Location = new Point(595, 197);
+            enableTradersCommand.Name = "enableTradersCommand";
+            enableTradersCommand.Size = new Size(155, 19);
+            enableTradersCommand.TabIndex = 48;
+            enableTradersCommand.Text = "enableTradersCommand";
+            enableTradersCommand.UseVisualStyleBackColor = false;
+            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
+            // 
+            // enableChatBonus
+            // 
+            enableChatBonus.AutoSize = true;
+            enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
+            enableChatBonus.Location = new Point(594, 253);
+            enableChatBonus.Name = "enableChatBonus";
+            enableChatBonus.Size = new Size(125, 19);
+            enableChatBonus.TabIndex = 59;
+            enableChatBonus.Text = "Enable Chat Bonus";
+            enableChatBonus.UseVisualStyleBackColor = false;
+            enableChatBonus.CheckedChanged += enableChatBonus_CheckedChanged;
+            // 
+            // bonusTextBox
+            // 
+            bonusTextBox.Location = new Point(613, 292);
+            bonusTextBox.Name = "bonusTextBox";
+            bonusTextBox.Size = new Size(100, 23);
+            bonusTextBox.TabIndex = 60;
+            bonusTextBox.Text = "100";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(613, 274);
+            label4.Name = "label4";
+            label4.Size = new Size(137, 15);
+            label4.TabIndex = 61;
+            label4.Text = "How many for first chat?";
+            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(596, 279);
+            label1.ForeColor = Color.Red;
+            label1.Location = new Point(595, 35);
             label1.Name = "label1";
             label1.Size = new Size(375, 90);
             label1.TabIndex = 28;
@@ -652,7 +832,7 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.Location = new Point(734, 107);
+            autoMessageBox.Location = new Point(595, 481);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
             autoMessageBox.Size = new Size(228, 106);
@@ -661,7 +841,7 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.Location = new Point(657, 78);
+            autoSendMessageCD.Location = new Point(872, 480);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(54, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -672,7 +852,7 @@
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
             autoMessageLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            autoMessageLabel.Location = new Point(596, 39);
+            autoMessageLabel.Location = new Point(595, 409);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
             autoMessageLabel.TabIndex = 25;
@@ -682,7 +862,7 @@
             // 
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(181, 176, 163);
-            enableAutoMessageCheck.Location = new Point(735, 78);
+            enableAutoMessageCheck.Location = new Point(594, 452);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -693,22 +873,53 @@
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(586, 31);
+            pictureBox3.Location = new Point(585, 401);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(402, 236);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 27;
             pictureBox3.TabStop = false;
             // 
-            // restart_AppButton
+            // pictureBox4
             // 
-            restart_AppButton.Location = new Point(827, 386);
-            restart_AppButton.Name = "restart_AppButton";
-            restart_AppButton.Size = new Size(75, 23);
-            restart_AppButton.TabIndex = 29;
-            restart_AppButton.Text = "Restart App";
-            restart_AppButton.UseVisualStyleBackColor = true;
-            restart_AppButton.Click += button1_Click;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(585, 143);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(402, 236);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 30;
+            pictureBox4.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(162, 123, 92);
+            label3.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(595, 151);
+            label3.Name = "label3";
+            label3.Size = new Size(233, 25);
+            label3.TabIndex = 80;
+            label3.Text = "Regular Chat Commands";
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.FromArgb(181, 176, 163);
+            textBox4.BorderStyle = BorderStyle.None;
+            textBox4.Location = new Point(804, 453);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(182, 16);
+            textBox4.TabIndex = 82;
+            textBox4.Text = "How often to send message?";
+            textBox4.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(280, 715);
+            label5.Name = "label5";
+            label5.Size = new Size(115, 15);
+            label5.TabIndex = 87;
+            label5.Text = "How long?(seconds)";
             // 
             // ControlMenu
             // 
@@ -716,19 +927,25 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1058, 700);
+            ClientSize = new Size(1058, 931);
             ControlBox = false;
-            Controls.Add(restart_AppButton);
+            Controls.Add(textBox4);
+            Controls.Add(label3);
+            Controls.Add(enableModBits);
+            Controls.Add(enableTradersCommand);
             Controls.Add(enableAutoMessageCheck);
+            Controls.Add(enableChatBonus);
             Controls.Add(autoMessageLabel);
+            Controls.Add(bonusTextBox);
             Controls.Add(autoSendMessageCD);
+            Controls.Add(label4);
             Controls.Add(autoMessageBox);
             Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
-            Controls.Add(saveButton);
             Controls.Add(panel1);
-            Controls.Add(pictureBox3);
             Controls.Add(label1);
+            Controls.Add(pictureBox4);
+            Controls.Add(pictureBox3);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ControlMenu";
             Text = "ControlMenu";
@@ -738,6 +955,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -802,5 +1020,23 @@
         private TextBox reloadKeyBox;
         private TextBox reloadCostBox;
         private CheckBox enableReload;
+        private CheckBox enablePraiseSun;
+        private TextBox praisesunCostBox;
+        private CheckBox enableTouchGrass;
+        private TextBox touchgrassCostBox;
+        private CheckBox enableModBits;
+        private TextBox knifeKey;
+        private TextBox knifeoutCostBox;
+        private CheckBox enableKnifeOut;
+        private Button dropconfigbutton;
+        private PictureBox pictureBox4;
+        private Label label3;
+        private TextBox textBox4;
+        private TextBox jumpCostBox;
+        private CheckBox enableJump;
+        private TextBox muteTime;
+        private TextBox windowsmuteCostBox;
+        private CheckBox enableWindowsMute;
+        private Label label5;
     }
 }

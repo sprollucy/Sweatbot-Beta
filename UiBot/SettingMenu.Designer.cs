@@ -218,11 +218,13 @@
             // versionNumber
             // 
             versionNumber.AutoSize = true;
-            versionNumber.Location = new Point(906, 426);
+            versionNumber.Location = new Point(872, 426);
             versionNumber.Name = "versionNumber";
+            versionNumber.RightToLeft = RightToLeft.No;
             versionNumber.Size = new Size(89, 15);
             versionNumber.TabIndex = 28;
             versionNumber.Text = "versionNumber";
+            versionNumber.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label7
             // 

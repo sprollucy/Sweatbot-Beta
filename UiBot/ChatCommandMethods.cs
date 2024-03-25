@@ -24,6 +24,15 @@ namespace UiBot
         public string proneKey { get; set; }
         public string reloadKey { get; set; }
         public string knifeKey { get; set; }
+        public string jumpKey { get; set; }
+        public string muteTime { get; set; }
+        public string firemodeKey { get; set; }
+        public string swapKey { get; set; }
+        public string micTime { get; set; }
+        public string micKey { get; set; }
+        public string walkTime { get; set; }
+        public string walkKey { get; set; }
+
 
 
     }
@@ -44,7 +53,10 @@ namespace UiBot
 
         [return: MarshalAs(UnmanagedType.Bool)]
 
-        public static extern bool BlockInput([MarshalAs(UnmanagedType.Bool)] bool fBlockIt);
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        public static extern int BlockInput(int fBlockIt);
 
         // Mouse event constants
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -52,6 +64,9 @@ namespace UiBot
         public const int MOUSEEVENTF_MOVE = 0x0001;
         public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
         public const int MOUSEEVENTF_RIGHTUP = 0x0010;
+        const int VK_VOLUME_MUTE = 0xAD;
+        const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+        const uint KEYEVENTF_KEYUP = 0x0002;
         ControlMenu controlMenu = new ControlMenu();
 
         // Handles connection
@@ -84,6 +99,8 @@ namespace UiBot
         public DateTime lastHelpCommandTimer = DateTime.MinValue;
         public DateTime lastAboutCommandTimer = DateTime.MinValue;
         public DateTime lastBitcostCommandTimer = DateTime.MinValue;
+        public string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
+        string dropFilePath = "DropPositionData.json"; // Adjust the file path as needed
 
         public void LoadCredentialsFromJSON()
         {
@@ -127,14 +144,13 @@ namespace UiBot
             else
             {
                 // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; // You can return a default value or handle the error as needed
+                return TimeSpan.Zero; 
             }
         }
 
         public void SendRandomKeyPresses()
         {
             // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string keysInput;
 
             try
@@ -204,10 +220,9 @@ namespace UiBot
             }
         }
 
-        public void GrenadeToss(int durationMilliseconds)
+        public void GrenadeTossTurn(int durationMilliseconds)
         {
             // Assuming CommandConfigData.json contains the correct key mapping
-            string configFilePath = "CommandConfigData.json";
             string grenadeKey;
 
             try
@@ -242,6 +257,37 @@ namespace UiBot
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }
+        public void GrenadeToss()
+        {
+            // Assuming CommandConfigData.json contains the correct key mapping
+            string grenadeKey;
+
+            try
+            {
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                grenadeKey = configData?.grenadeTossKey;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(grenadeKey))
+            {
+                Console.WriteLine("Grenade key not configured.");
+                return;
+            }
+
+            SendKeys.SendWait(grenadeKey);
+
+            Thread.Sleep(3000);
+
+            // Simulate mouse left click to throw the grenade
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
 
         public void MagDump360(int durationMilliseconds)
         {
@@ -270,7 +316,6 @@ namespace UiBot
         public void CrouchorStand()
         {
             // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string crouchKeyBox;
 
             try
@@ -299,7 +344,6 @@ namespace UiBot
         public void Prone()
         {
             // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string proneKey;
 
             try
@@ -328,7 +372,6 @@ namespace UiBot
         public void Reload()
         {
             // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string reloadKeyBox;
 
             try
@@ -353,6 +396,35 @@ namespace UiBot
 
             SendKeys.SendWait(reloadKeyBox);
         }
+        public void DropMag()
+        {
+            // Load the keys from CommandConfigData.json
+            string reloadKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                reloadKeyBox = configData?.reloadKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(reloadKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            SendKeys.SendWait(reloadKeyBox);
+            Thread.Sleep(25);
+            SendKeys.SendWait(reloadKeyBox);
+        }
 
         public void VoiceLine()
         {
@@ -362,25 +434,23 @@ namespace UiBot
         public void SimulateButtonPressAndMouseMovement()
         {
             // Disable keyboard and mouse inputs
-            BlockInput(true);
+            BlockInput(1);
 
-            string configFilePath = "DropPositionData.json"; // Adjust the file path as needed
-            string keyFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string dropKey;
 
             System.Threading.Timer timer = new System.Threading.Timer(state =>
             {
                 // Enable keyboard and mouse inputs after 5 seconds
-                BlockInput(false);
+                BlockInput(0);
                 Console.WriteLine("Input is now unblocked.");
             }, null, 5000, Timeout.Infinite);
 
             try
             {
                 // Read the JSON file and parse it to extract the keys and mouse positions
-                string json = File.ReadAllText(configFilePath);
+                string json = File.ReadAllText(dropFilePath);
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                string json2 = File.ReadAllText(keyFilePath);
+                string json2 = File.ReadAllText(configFilePath);
                 var configData2 = JsonConvert.DeserializeObject<ConfigData>(json2); // Corrected: use json2
                 dropKey = configData2?.dropKey;
 
@@ -421,7 +491,7 @@ namespace UiBot
             finally
             {
                 // Ensure that input is re-enabled in case of exceptions
-                BlockInput(false);
+                BlockInput(0);
             }
         }
 
@@ -488,7 +558,6 @@ namespace UiBot
         public void KnivesOnly()
         {
             // Load the keys from CommandConfigData.json
-            string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
             string knifeKeyBox;
 
             try
@@ -523,13 +592,13 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = 100;
+                int deltaY = -100;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
 
                 // Sleep for a short duration before the next movement (e.g., 100-300ms)
-                Thread.Sleep(random.Next(100, 301));
+                Thread.Sleep(random.Next(10));
             }
         }
 
@@ -541,38 +610,231 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = -100;
+                int deltaY = 100;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
 
                 // Sleep for a short duration before the next movement (e.g., 100-300ms)
-                Thread.Sleep(random.Next(100, 301));
+                Thread.Sleep(random.Next(10));
             }
         }
 
-        public void TouchGrass(int durationMilliseconds)
+        private void pressAndHoldKey(string key, int durationMilliseconds)
         {
+            // Press the key down
+            SendKeys.SendWait(key);
+            Thread.Sleep(durationMilliseconds);
+            // Release the key
+            SendKeys.SendWait("{" + key + " up}");
 
-            // Start a new thread for pulling out the grenade
-            Thread crouchorStandThread = new Thread(() =>
+        }
+
+        public void MuteWindows()
+        {
+            // Load the keys from CommandConfigData.json
+            string muteDuration;
+
+            try
             {
-                CrouchorStand();
-            });
-
-            // Start a new thread for spinning
-            Thread lookDownThread = new Thread(() =>
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                muteDuration = configData?.muteTime;
+            }
+            catch (Exception ex)
             {
-                LookDown(durationMilliseconds);
-            });
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
 
-            // Start both threads
-            crouchorStandThread.Start();
-            lookDownThread.Start();
+            if (string.IsNullOrEmpty(muteDuration))
+            {
+                Console.WriteLine("No time set.");
+                return;
+            }
 
-            // Wait for the grenadeThread to complete
-            crouchorStandThread.Join();
+            if (!int.TryParse(muteDuration, out int muteDurationSeconds))
+            {
+                Console.WriteLine("Invalid mute duration format.");
+                return;
+            }
 
+            int muteDurationMilliseconds = muteDurationSeconds * 1000; // Convert seconds to milliseconds
+
+            // Mute the sound
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+
+            // Block input (to prevent accidental volume changes)
+            BlockInput(1);
+
+            // Wait for the specified duration
+            System.Threading.Thread.Sleep(muteDurationMilliseconds);
+
+            // Release the mute key
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+
+            // Unblock input
+            BlockInput(0);
+        }
+
+        public void FireMode()
+        {
+            // Load the keys from CommandConfigData.json
+            string firemodeKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                firemodeKeyBox = configData?.firemodeKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(firemodeKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            SendKeys.SendWait(firemodeKeyBox);
+        }
+
+        public void SwapWeapon()
+        {
+            // Load the keys from CommandConfigData.json
+            string weaponKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                weaponKeyBox = configData?.swapKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(weaponKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
+
+            string[] keys = weaponKeyBox.Split(',').Select(k => k.Trim()).ToArray();
+
+            foreach (string key in keys)
+            {
+                SendKeys.SendWait(key);
+            }
+        }
+
+        public void HotMic()
+        {
+            // Load the keys from CommandConfigData.json
+            string micDuration;
+            string micKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                micDuration = configData?.micTime;
+                micKeyBox = configData?.micKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(micDuration))
+            {
+                Console.WriteLine("No time set.");
+                return;
+            }
+
+            if (!int.TryParse(micDuration, out int DurationSeconds))
+            {
+                Console.WriteLine("Invalid mute duration format.");
+                return;
+            }
+
+            int DurationMilliseconds = DurationSeconds * 1000; // Convert seconds to milliseconds
+
+            if (string.IsNullOrEmpty(micKeyBox))
+            {
+                Console.WriteLine("No mic key set.");
+                return;
+            }
+
+            SendKeys.SendWait("{" + micKeyBox + " down}");
+
+            // Wait for the specified duration
+            System.Threading.Thread.Sleep(DurationMilliseconds);
+
+            SendKeys.SendWait("{" + micKeyBox + " up}");
+        }
+        public void Walk()
+        {
+            // Load the keys from CommandConfigData.json
+            string walkDuration;
+            string walkKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                walkDuration = configData?.walkTime;
+                walkKeyBox = configData?.walkKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(walkDuration))
+            {
+                Console.WriteLine("No time set.");
+                return;
+            }
+
+            if (!int.TryParse(walkDuration, out int DurationSeconds))
+            {
+                Console.WriteLine("Invalid walk duration format.");
+                return;
+            }
+
+            int DurationMilliseconds = DurationSeconds * 1000; // Convert seconds to milliseconds
+
+            if (string.IsNullOrEmpty(walkKeyBox))
+            {
+                Console.WriteLine("No walk key set.");
+                return;
+            }
+
+            SendKeys.SendWait("{" + walkKeyBox + " down}");
+
+            // Wait for the specified duration
+            System.Threading.Thread.Sleep(DurationMilliseconds);
+
+            SendKeys.SendWait("{" + walkKeyBox + " up}");
         }
 
     }

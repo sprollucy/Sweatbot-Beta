@@ -314,29 +314,36 @@ namespace UiBot
 
                         // Define the mappings of textbox names to their corresponding labels and enabled states
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
-            {
-                { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
-                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
-                { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
-                { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
-                { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
-                { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
-                { "GrenadeCooldownTextBox", ("grenadesound", () => Properties.Settings.Default.isGrenadeEnabled) },
-                { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
-                { "GrenadeCostBox", ("360grenadetoss", () => Properties.Settings.Default.isGrenadeTossEnabled) },
-                { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
-                { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
-                { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
-                { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
-                { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
-                { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
-                { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) }
+                        {
+                                { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
+                                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
+                                { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
+                                { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
+                                { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
+                                { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
+                                { "GrenadeCooldownTextBox", ("grenadesound", () => Properties.Settings.Default.isGrenadeEnabled) },
+                                { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
+                                { "GrenadeCostBox", ("360grenade", () => Properties.Settings.Default.isGrenadeTossEnabled) },
+                                { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
+                                { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+                                { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
+                                { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
+                                { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
+                                { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
+                                { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) },
+                                { "praisesunCostBox", ("praisesun", () => Properties.Settings.Default.isPraiseSunEnabled) },
+                                { "touchgrassCostBox", ("touchgrass", () => Properties.Settings.Default.isPraiseSunEnabled) },
+                                { "knifeoutCostBox", ("knifeout", () => Properties.Settings.Default.isKnifeOutEnabled) },
+                                { "jumpCostBox", ("jump", () => Properties.Settings.Default.isJumpEnabled) },
+                                { "windowsmuteCostBox", ("mutewindows", () => Properties.Settings.Default.isMuteWindowsEnabled) }
 
-        // Note: Add any other mappings you need here
-            };
+                                // Note: Add any other mappings you need here
+                        };
 
-                        // Construct the message dynamically with only enabled commands
-                        List<string> enabledCommandCosts = new List<string>();
+                        // Define a list to hold enabled command details
+                        List<(string Label, int Cost)> enabledCommandDetails = new List<(string Label, int Cost)>();
+
+                        // Retrieve enabled command details and add them to the list
                         foreach (var detail in textBoxDetails)
                         {
                             if (detail.Value.IsEnabled())
@@ -345,19 +352,27 @@ namespace UiBot
                                 if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
                                 {
                                     string label = detail.Value.Label;
-                                    enabledCommandCosts.Add($"!{label} - {textBox.Text}");
+                                    int cost = 0;
+                                    int.TryParse(textBox.Text, out cost); // Parsing cost as integer
+                                    enabledCommandDetails.Add((label, cost));
                                 }
                             }
                         }
 
+                        // Order the enabled commands by their costs from cheap to expensive
+                        enabledCommandDetails.Sort((x, y) => x.Cost.CompareTo(y.Cost));
+
+                        // Construct the message dynamically with ordered enabled commands
+                        List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label} - {detail.Cost}").ToList();
+
                         if (enabledCommandCosts.Count > 0)
                         {
-                            string message = $"{e.Command.ChatMessage.DisplayName}, these are the costs of the enabled commands: {string.Join(", ", enabledCommandCosts)}";
+                            string message = $"{e.Command.ChatMessage.DisplayName}, these are the available commands: {string.Join(", ", enabledCommandCosts)}";
                             client.SendMessage(channelId, message);
                         }
                         else
                         {
-                            string message = $"{e.Command.ChatMessage.DisplayName}, there are no enabled commands with costs.";
+                            string message = $"{e.Command.ChatMessage.DisplayName}, All sweatbot commands are disabled";
                             client.SendMessage(channelId, message);
                         }
                     }
@@ -476,7 +491,8 @@ namespace UiBot
 
                     }
 
-                //Bit Commands
+//Bit Commands
+
                 case "dropbag":
                     if (Properties.Settings.Default.isDropBagEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
@@ -487,25 +503,24 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.DropBagCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.DropBagCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     // Execute the command
                                     chatCommandMethods.BagDrop();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -668,25 +683,24 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.WiggleCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.WiggleCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     // Execute the command
                                     chatCommandMethods.WiggleMouse(4, 30, 50); //format is turns, distance in px, delay between move
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -717,13 +731,13 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.TurnCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.TurnCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     // Randomly decide whether to move the mouse to the right or left
                                     bool moveRight = (new Random()).Next(2) == 0;
@@ -732,12 +746,11 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -768,24 +781,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.RandomKeyCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.RandomKeyCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.SendRandomKeyPresses();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -806,7 +818,7 @@ namespace UiBot
                     }
                     break;
 
-                case "360grenadetoss":
+                case "360grenade":
                     if (Properties.Settings.Default.isGrenadeTossEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Load user bits data
@@ -816,24 +828,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.GrenadeCostBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.GrenadeCostBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
-                                    chatCommandMethods.GrenadeToss(5000);
+                                    chatCommandMethods.GrenadeTossTurn(5000);
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -864,24 +875,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.Mag360Cost.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.Mag360Cost.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.MagDump360(3000);
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -912,24 +922,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.DropCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.DropCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.SimulateButtonPressAndMouseMovement();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -960,24 +969,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.OneClickCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.OneClickCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.PopShot();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1008,24 +1016,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.GrenadeSound();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1056,24 +1063,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.CrouchBoxCost.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.CrouchBoxCost.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.CrouchorStand();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1103,24 +1109,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.VoicelineCostBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.VoicelineCostBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.VoiceLine();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1150,24 +1155,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.ReloadCostBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.ReloadCostBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.Reload();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1197,24 +1201,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.ProneCost.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.ProneCost.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.Prone();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1244,24 +1247,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.MagDumpBox.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.MagDumpBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.MagDump();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {cooldownCost} bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -1291,24 +1293,23 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.HoldAimCost.Text, out int cooldownCost))
+                            if (int.TryParse(controlMenu.HoldAimCost.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= cooldownCost)
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
                                     // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= cooldownCost;
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
 
                                     chatCommandMethods.HoldAim();
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                 }
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {cooldownCost}   bits.");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is   {bitCost}   bits.");
                                 }
                             }
                             else
@@ -1327,6 +1328,233 @@ namespace UiBot
                         client.SendMessage(channelId, "Holdaim command is currently disabled.");
                     }
                     break;
+
+                case "praisesun":
+                    if (Properties.Settings.Default.isPraiseSunEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    chatCommandMethods.CrouchorStand();
+                                    chatCommandMethods.LookUp(3000);
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Praise Sun command is currently disabled.");
+                    }
+                    break;
+
+                case "touchgrass":
+                    if (Properties.Settings.Default.isTouchGrassEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    chatCommandMethods.CrouchorStand();
+                                    chatCommandMethods.LookDown(3000);
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "touchgrass command is currently disabled.");
+                    }
+                    break;
+
+                case "knifeout":
+                    if (Properties.Settings.Default.isKnifeOutEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    chatCommandMethods.KnivesOnly();
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Knifeout command is currently disabled.");
+                    }
+                    break;
+
+                case "jump":
+                    if (Properties.Settings.Default.isJumpEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    SendKeys.SendWait(" ");
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Jump command is currently disabled.");
+                    }
+                    break;
+
+                case "mutewindows":
+                    if (Properties.Settings.Default.isMuteWindowsEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Load user bits data
+                        LoadUserBitsFromJson("user_bits.json");
+
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    chatCommandMethods.MuteWindows();
+                                    // Save the updated bit data
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    else
+                    {
+                        client.SendMessage(channelId, "Mute Windows command is currently disabled.");
+                    }
+                    break;
             }
 
             //Mod Commands
@@ -1335,7 +1563,15 @@ namespace UiBot
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
-                        client.SendMessage(channelId, "!death, !escape, !kill");
+                        if (Properties.Settings.Default.isModBitsEnabled)
+                        {
+                            client.SendMessage(channelId, "!death, !escape, !kill, !addbits");
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "!death, !escape, !kill");
+
+                        }
                         break;
 
                     case "death":
@@ -1355,10 +1591,46 @@ namespace UiBot
                         counter.IncrementSurvivalCount();
                         client.SendMessage(channelId, $"@{channelId} has escaped {counter.SurvivalCount} times");
                         break;
+
+                    case "addbits":
+                        if (Properties.Settings.Default.isModBitsEnabled)
+                        {
+                            string[] args = e.Command.ArgumentsAsString.Split(' ');
+                            if (args.Length == 2)
+                            {
+                                string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
+                                int bitsToAdd;
+                                if (int.TryParse(args[1], out bitsToAdd))
+                                {
+                                    // Update user's bits
+                                    if (userBits.ContainsKey(username))
+                                    {
+                                        userBits[username] += bitsToAdd;
+                                    }
+                                    else
+                                    {
+                                        userBits[username] = bitsToAdd;
+                                    }
+                                    WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+
+                                    // Notify about successful update
+                                    client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid number of bits specified.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid syntax. Usage: !addbits [username] [bits]");
+                            }
+                        }
+                        break;
                 }
             }
 
-            //Channel owner chat
+//Channel owner chat
             if (e.Command.ChatMessage.IsBroadcaster)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1369,7 +1641,6 @@ namespace UiBot
                     case "hi":
                         client.SendMessage(channelId, "Hi Boss");
                         break;
-                    //start windows proccesses 
                     case "note":
                         if (pname.Length > 0)
                         {

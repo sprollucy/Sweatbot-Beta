@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 
 /* TODO **
  * Add extra customization into commands like how long the action goes on for
@@ -43,7 +44,11 @@ namespace UiBot
             enableProne.Checked = Properties.Settings.Default.isProneEnabled;
             enableVoiceLine.Checked = Properties.Settings.Default.isVoiceLineEnabled;
             enableReload.Checked = Properties.Settings.Default.isReloadEnabled;
-
+            enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
+            enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
+            enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
+            enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
+            enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
 
         }
 
@@ -80,6 +85,12 @@ namespace UiBot
             textBoxes["voicelineCostBox"] = VoicelineCostBox;
             textBoxes["reloadCostBox"] = ReloadCostBox;
             textBoxes["reloadKey"] = ReloadKeyBox;
+            textBoxes["praisesunCostBox"] = PraisesunCostBox;
+            textBoxes["knifeoutCostBox"] = KnifeoutCostBox;
+            textBoxes["knifeKey"] = KnifeKeyBox;
+            textBoxes["jumpCostBox"] = JumpCostBox;
+            textBoxes["windowsmuteCostBox"] = WindowsmuteCostBox;
+            textBoxes["muteTime"] = MuteTimeBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -208,6 +219,42 @@ namespace UiBot
             get { return reloadKeyBox; }
             set { reloadKeyBox = value; }
         }
+        public TextBox PraisesunCostBox
+        {
+            get { return praisesunCostBox; }
+            set { praisesunCostBox = value; }
+        }
+        public TextBox TouchGrassCostBox
+        {
+            get { return touchgrassCostBox; }
+            set { touchgrassCostBox = value; }
+        }
+        public TextBox KnifeoutCostBox
+        {
+            get { return knifeoutCostBox; }
+            set { knifeoutCostBox = value; }
+        }
+        public TextBox KnifeKeyBox
+        {
+            get { return knifeKey; }
+            set { knifeKey = value; }
+        }
+        public TextBox JumpCostBox
+        {
+            get { return jumpCostBox; }
+            set { jumpCostBox = value; }
+        }
+        public TextBox WindowsmuteCostBox
+        {
+            get { return windowsmuteCostBox; }
+            set { windowsmuteCostBox = value; }
+        }
+        public TextBox MuteTimeBox
+        {
+            get { return muteTime; }
+            set { muteTime = value; }
+        }
+
 
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
@@ -258,7 +305,17 @@ namespace UiBot
                 }
             }
         }
-
+        private void dropconfigbutton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("Drop Config.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
         public void chkEnableGoose_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.IsGooseEnabled = chkEnableGoose.Checked;
@@ -378,6 +435,42 @@ namespace UiBot
         private void enableReload_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isReloadEnabled = enableReload.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enablePraiseSun_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isPraiseSunEnabled = enablePraiseSun.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableTouchGrass_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isTouchGrassEnabled = enableTouchGrass.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableModBits_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableKnifeOut_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isKnifeOutEnabled = enableKnifeOut.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableJump_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isJumpEnabled = enableJump.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableWindowsMute_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isMuteWindowsEnabled = enableWindowsMute.Checked;
             Properties.Settings.Default.Save();
         }
     }
