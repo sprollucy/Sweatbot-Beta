@@ -162,5 +162,17 @@ namespace UiBot
                 UseShellExecute = true
             });
         }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Specify the URL you want to open
+            string url = "https://www.paypal.com/donate/?business=FK2ZHM73QW3FA&no_recurring=0&item_name=Thank+you+for+helping+support+my+projects%21&currency_code=USD";
+
+            // Open the URL in the default web browser
+            System.Diagnostics.Process.Start(new ProcessStartInfo(url)
+            {
+                UseShellExecute = true
+            });
+        }
     }
 }

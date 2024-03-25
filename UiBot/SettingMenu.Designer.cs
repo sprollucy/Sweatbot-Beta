@@ -49,6 +49,8 @@
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             changelogLabel = new Label();
+            label4 = new Label();
+            linkLabel1 = new LinkLabel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -195,7 +197,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(156, 155, 151);
-            label5.Location = new Point(77, 398);
+            label5.Location = new Point(77, 500);
             label5.Name = "label5";
             label5.Size = new Size(251, 15);
             label5.TabIndex = 30;
@@ -206,7 +208,7 @@
             // 
             githubLink.AutoSize = true;
             githubLink.BackColor = Color.FromArgb(156, 155, 151);
-            githubLink.Location = new Point(334, 398);
+            githubLink.Location = new Point(334, 500);
             githubLink.Name = "githubLink";
             githubLink.Size = new Size(43, 15);
             githubLink.TabIndex = 29;
@@ -218,7 +220,8 @@
             // versionNumber
             // 
             versionNumber.AutoSize = true;
-            versionNumber.Location = new Point(872, 426);
+            versionNumber.BackColor = Color.FromArgb(156, 155, 151);
+            versionNumber.Location = new Point(860, 538);
             versionNumber.Name = "versionNumber";
             versionNumber.RightToLeft = RightToLeft.No;
             versionNumber.Size = new Size(89, 15);
@@ -231,7 +234,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(75, 413);
+            label7.Location = new Point(75, 530);
             label7.Name = "label7";
             label7.Size = new Size(551, 25);
             label7.TabIndex = 27;
@@ -242,9 +245,9 @@
             // 
             pictureBox2.BackColor = Color.FromArgb(156, 155, 151);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
-            pictureBox2.Location = new Point(0, 390);
+            pictureBox2.Location = new Point(0, 485);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(629, 63);
+            pictureBox2.Size = new Size(1075, 85);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 31;
             pictureBox2.TabStop = false;
@@ -271,13 +274,38 @@
             changelogLabel.TabIndex = 34;
             changelogLabel.Text = "Changelog";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(156, 155, 151);
+            label4.Location = new Point(77, 515);
+            label4.Name = "label4";
+            label4.Size = new Size(324, 15);
+            label4.TabIndex = 35;
+            label4.Text = "If you wish to support this project here is a link to my paypal";
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.BackColor = Color.FromArgb(156, 155, 151);
+            linkLabel1.Location = new Point(407, 515);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(42, 15);
+            linkLabel1.TabIndex = 36;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Paypal";
+            linkLabel1.TextAlign = ContentAlignment.MiddleCenter;
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked_1;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1058, 487);
+            ClientSize = new Size(1058, 602);
             ControlBox = false;
+            Controls.Add(linkLabel1);
+            Controls.Add(label4);
             Controls.Add(changelogLabel);
             Controls.Add(textBox3);
             Controls.Add(pictureBox3);
@@ -326,5 +354,7 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Label changelogLabel;
+        private Label label4;
+        private LinkLabel linkLabel1;
     }
 }
