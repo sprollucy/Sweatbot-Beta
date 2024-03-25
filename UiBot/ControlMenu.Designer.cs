@@ -309,7 +309,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 888);
             panel1.TabIndex = 20;
-            // 
+            //
             // label5
             // 
             label5.AutoSize = true;
