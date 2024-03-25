@@ -43,6 +43,8 @@ namespace UiBot
             enableProne.Checked = Properties.Settings.Default.isProneEnabled;
             enableVoiceLine.Checked = Properties.Settings.Default.isVoiceLineEnabled;
             enableReload.Checked = Properties.Settings.Default.isReloadEnabled;
+            enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
+            enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
 
 
         }
@@ -80,6 +82,7 @@ namespace UiBot
             textBoxes["voicelineCostBox"] = VoicelineCostBox;
             textBoxes["reloadCostBox"] = ReloadCostBox;
             textBoxes["reloadKey"] = ReloadKeyBox;
+            textBoxes["praisesunCostBox"] = PraisesunCostBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -207,6 +210,16 @@ namespace UiBot
         {
             get { return reloadKeyBox; }
             set { reloadKeyBox = value; }
+        }
+        public TextBox PraisesunCostBox
+        {
+            get { return praisesunCostBox; }
+            set { praisesunCostBox = value; }
+        }
+        public TextBox TouchGrassCostBox
+        {
+            get { return touchgrassCostBox; }
+            set { touchgrassCostBox = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -378,6 +391,18 @@ namespace UiBot
         private void enableReload_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isReloadEnabled = enableReload.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enablePraiseSun_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isPraiseSunEnabled = enablePraiseSun.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableTouchGrass_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isTouchGrassEnabled = enableTouchGrass.Checked;
             Properties.Settings.Default.Save();
         }
     }

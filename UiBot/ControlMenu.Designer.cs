@@ -43,6 +43,10 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            enableTouchGrass = new CheckBox();
+            touchgrassCostBox = new TextBox();
+            enablePraiseSun = new CheckBox();
+            praisesunCostBox = new TextBox();
             reloadKeyBox = new TextBox();
             reloadCostBox = new TextBox();
             enableReload = new CheckBox();
@@ -227,6 +231,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(enableTouchGrass);
+            panel1.Controls.Add(touchgrassCostBox);
+            panel1.Controls.Add(enablePraiseSun);
+            panel1.Controls.Add(praisesunCostBox);
             panel1.Controls.Add(reloadKeyBox);
             panel1.Controls.Add(reloadCostBox);
             panel1.Controls.Add(enableReload);
@@ -276,8 +284,48 @@
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(51, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 657);
+            panel1.Size = new Size(514, 888);
             panel1.TabIndex = 20;
+            // 
+            // enableTouchGrass
+            // 
+            enableTouchGrass.AutoSize = true;
+            enableTouchGrass.BackColor = Color.FromArgb(181, 176, 163);
+            enableTouchGrass.Location = new Point(15, 627);
+            enableTouchGrass.Name = "enableTouchGrass";
+            enableTouchGrass.Size = new Size(127, 19);
+            enableTouchGrass.TabIndex = 75;
+            enableTouchGrass.Text = "Enable Touch Grass";
+            enableTouchGrass.UseVisualStyleBackColor = false;
+            enableTouchGrass.CheckedChanged += enableTouchGrass_CheckedChanged;
+            // 
+            // touchgrassCostBox
+            // 
+            touchgrassCostBox.Location = new Point(174, 624);
+            touchgrassCostBox.Name = "touchgrassCostBox";
+            touchgrassCostBox.Size = new Size(100, 23);
+            touchgrassCostBox.TabIndex = 74;
+            touchgrassCostBox.Text = "300";
+            // 
+            // enablePraiseSun
+            // 
+            enablePraiseSun.AutoSize = true;
+            enablePraiseSun.BackColor = Color.FromArgb(181, 176, 163);
+            enablePraiseSun.Location = new Point(15, 598);
+            enablePraiseSun.Name = "enablePraiseSun";
+            enablePraiseSun.Size = new Size(118, 19);
+            enablePraiseSun.TabIndex = 73;
+            enablePraiseSun.Text = "Enable Praise Sun";
+            enablePraiseSun.UseVisualStyleBackColor = false;
+            enablePraiseSun.CheckedChanged += enablePraiseSun_CheckedChanged;
+            // 
+            // praisesunCostBox
+            // 
+            praisesunCostBox.Location = new Point(174, 595);
+            praisesunCostBox.Name = "praisesunCostBox";
+            praisesunCostBox.Size = new Size(100, 23);
+            praisesunCostBox.TabIndex = 72;
+            praisesunCostBox.Text = "300";
             // 
             // reloadKeyBox
             // 
@@ -285,7 +333,7 @@
             reloadKeyBox.Name = "reloadKeyBox";
             reloadKeyBox.Size = new Size(31, 23);
             reloadKeyBox.TabIndex = 71;
-            reloadKeyBox.Text = "X";
+            reloadKeyBox.Text = "R";
             // 
             // reloadCostBox
             // 
@@ -716,7 +764,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1058, 700);
+            ClientSize = new Size(1058, 931);
             ControlBox = false;
             Controls.Add(restart_AppButton);
             Controls.Add(enableAutoMessageCheck);
@@ -802,5 +850,9 @@
         private TextBox reloadKeyBox;
         private TextBox reloadCostBox;
         private CheckBox enableReload;
+        private CheckBox enablePraiseSun;
+        private TextBox praisesunCostBox;
+        private CheckBox enableTouchGrass;
+        private TextBox touchgrassCostBox;
     }
 }

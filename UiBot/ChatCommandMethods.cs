@@ -523,13 +523,13 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = 100;
+                int deltaY = -100;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
 
                 // Sleep for a short duration before the next movement (e.g., 100-300ms)
-                Thread.Sleep(random.Next(100, 301));
+                Thread.Sleep(random.Next(10));
             }
         }
 
@@ -541,38 +541,14 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = -100;
+                int deltaY = 100;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
 
                 // Sleep for a short duration before the next movement (e.g., 100-300ms)
-                Thread.Sleep(random.Next(100, 301));
+                Thread.Sleep(random.Next(10));
             }
-        }
-
-        public void TouchGrass(int durationMilliseconds)
-        {
-
-            // Start a new thread for pulling out the grenade
-            Thread crouchorStandThread = new Thread(() =>
-            {
-                CrouchorStand();
-            });
-
-            // Start a new thread for spinning
-            Thread lookDownThread = new Thread(() =>
-            {
-                LookDown(durationMilliseconds);
-            });
-
-            // Start both threads
-            crouchorStandThread.Start();
-            lookDownThread.Start();
-
-            // Wait for the grenadeThread to complete
-            crouchorStandThread.Join();
-
         }
 
     }

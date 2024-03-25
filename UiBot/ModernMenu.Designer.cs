@@ -69,7 +69,7 @@
             pictureBox1.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(47, 451);
+            pictureBox1.Size = new Size(47, 570);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -175,7 +175,7 @@
             // 
             settingsButton.BackColor = Color.FromArgb(63, 78, 79);
             settingsButton.Image = (Image)resources.GetObject("settingsButton.Image");
-            settingsButton.Location = new Point(0, 398);
+            settingsButton.Location = new Point(0, 512);
             settingsButton.Name = "settingsButton";
             settingsButton.Size = new Size(47, 50);
             settingsButton.SizeMode = PictureBoxSizeMode.Zoom;
@@ -268,7 +268,7 @@
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(63, 78, 79);
             label8.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(-35, 411);
+            label8.Location = new Point(-35, 524);
             label8.Name = "label8";
             label8.Size = new Size(81, 23);
             label8.TabIndex = 18;
@@ -306,7 +306,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1042, 448);
+            ClientSize = new Size(1042, 563);
             Controls.Add(minBox);
             Controls.Add(currentTab);
             Controls.Add(closeBox);
