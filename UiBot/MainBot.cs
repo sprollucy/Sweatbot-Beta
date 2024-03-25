@@ -1521,7 +1521,7 @@ namespace UiBot
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.PraisesunCostBox.Text, out int bitCost))
+                            if (int.TryParse(controlMenu.MuteTimeBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)

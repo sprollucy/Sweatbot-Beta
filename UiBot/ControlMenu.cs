@@ -49,7 +49,11 @@ namespace UiBot
             enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
             enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
             enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
-
+            enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
+            enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
+            enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
+            enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
+            enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -219,6 +223,7 @@ namespace UiBot
             get { return reloadKeyBox; }
             set { reloadKeyBox = value; }
         }
+
         public TextBox PraisesunCostBox
         {
             get { return praisesunCostBox; }
@@ -254,7 +259,6 @@ namespace UiBot
             get { return muteTime; }
             set { muteTime = value; }
         }
-
 
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)

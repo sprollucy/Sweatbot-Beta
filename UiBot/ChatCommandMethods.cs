@@ -808,33 +808,30 @@ namespace UiBot
                 Console.WriteLine($"Error reading JSON file: {ex.Message}");
                 return;
             }
+        }
 
-            if (string.IsNullOrEmpty(walkDuration))
+        public void TouchGrass(int durationMilliseconds)
+        {
+
+            // Start a new thread for pulling out the grenade
+            Thread crouchorStandThread = new Thread(() =>
             {
-                Console.WriteLine("No time set.");
-                return;
-            }
+                CrouchorStand();
+            });
 
-            if (!int.TryParse(walkDuration, out int DurationSeconds))
+            // Start a new thread for spinning
+            Thread lookDownThread = new Thread(() =>
             {
-                Console.WriteLine("Invalid walk duration format.");
-                return;
-            }
+                LookDown(durationMilliseconds);
+            });
 
-            int DurationMilliseconds = DurationSeconds * 1000; // Convert seconds to milliseconds
+            // Start both threads
+            crouchorStandThread.Start();
+            lookDownThread.Start();
 
-            if (string.IsNullOrEmpty(walkKeyBox))
-            {
-                Console.WriteLine("No walk key set.");
-                return;
-            }
+            // Wait for the grenadeThread to complete
+            crouchorStandThread.Join();
 
-            SendKeys.SendWait("{" + walkKeyBox + " down}");
-
-            // Wait for the specified duration
-            System.Threading.Thread.Sleep(DurationMilliseconds);
-
-            SendKeys.SendWait("{" + walkKeyBox + " up}");
         }
 
     }
