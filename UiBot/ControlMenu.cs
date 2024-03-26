@@ -50,8 +50,9 @@ namespace UiBot
             enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
             enableWalk.Checked = Properties.Settings.Default.isWalkEnabled;
             enableHotMic.Checked = Properties.Settings.Default.isHotMicEnabled;
-            enableHotMic.Checked = Properties.Settings.Default.isNormGrenadeEnabled;
             enableFireMode.Checked = Properties.Settings.Default.isFireModeEnabled;
+            enableModBits.Checked = Properties.Settings.Default.isModBitsEnabled;
+            enableNormGrenade.Checked = Properties.Settings.Default.isNormGrenadeEnabled;
 
         }
 
@@ -560,7 +561,7 @@ namespace UiBot
 
         private void enableNormGrenade_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isNormGrenadeEnabled = enableHotMic.Checked;
+            Properties.Settings.Default.isNormGrenadeEnabled = enableNormGrenade.Checked;
             Properties.Settings.Default.Save();
         }
 
