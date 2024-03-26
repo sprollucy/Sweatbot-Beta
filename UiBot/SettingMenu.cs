@@ -174,5 +174,80 @@ namespace UiBot
                 UseShellExecute = true
             });
         }
+
+        private void bitrestoreButton_Click(object sender, EventArgs e)
+        {
+            string backupFilePath = "user_bits_backup.txt";
+            string jsonFilePath = "user_bits.json";
+
+            Console.WriteLine($"Restoration triggered at {DateTime.Now}");
+
+            try
+            {
+                // Read the content from the backup file
+                string backupContent = File.ReadAllText(backupFilePath);
+
+                // Write the backup content back to the JSON file
+                File.WriteAllText(jsonFilePath, backupContent);
+
+                MessageBox.Show($"Restoration completed for {jsonFilePath} at {DateTime.Now}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during restoration: {ex.Message}");
+            }
+        }
+
+        private void restoreCommandButton_Click(object sender, EventArgs e)
+        {
+            // Define the list of backup file paths
+            string[] backupFilePaths = { "CommandConfigData_backup.txt", "DropPositionData_backup.txt" };
+
+            // Define the list of corresponding JSON file paths
+            string[] jsonFilePaths = { "CommandConfigData.json", "DropPositionData.json" };
+
+            Console.WriteLine($"Restoration triggered at {DateTime.Now}");
+
+            try
+            {
+                for (int i = 0; i < backupFilePaths.Length; i++)
+                {
+                    // Read the content from the backup file
+                    string backupContent = File.ReadAllText(backupFilePaths[i]);
+
+                    // Write the backup content back to the JSON file
+                    File.WriteAllText(jsonFilePaths[i], backupContent);
+
+                    MessageBox.Show($"Restoration completed for {jsonFilePaths[i]} at {DateTime.Now}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during restoration: {ex.Message}");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string backupFilePath = "Default_Commands.txt";
+            string jsonFilePath = "CommandConfigData.json";
+
+            Console.WriteLine($"Restoration triggered at {DateTime.Now}");
+
+            try
+            {
+                // Read the content from the backup file
+                string backupContent = File.ReadAllText(backupFilePath);
+
+                // Write the backup content back to the JSON file
+                File.WriteAllText(jsonFilePath, backupContent);
+
+                MessageBox.Show($"Restoration completed for {jsonFilePath} at {DateTime.Now}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during restoration: {ex.Message}");
+            }
+        }
     }
 }

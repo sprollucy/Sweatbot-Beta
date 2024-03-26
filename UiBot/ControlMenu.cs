@@ -48,6 +48,11 @@ namespace UiBot
             enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
             enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
             enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
+            enableWalk.Checked = Properties.Settings.Default.isWalkEnabled;
+            enableHotMic.Checked = Properties.Settings.Default.isHotMicEnabled;
+            enableHotMic.Checked = Properties.Settings.Default.isNormGrenadeEnabled;
+            enableFireMode.Checked = Properties.Settings.Default.isFireModeEnabled;
+
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -69,6 +74,7 @@ namespace UiBot
             textBoxes["autoSendMessageCD"] = AutoSendMessageCD;
             textBoxes["grenadeCooldown"] = GrenadeCooldownTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
+            textBoxes["dropbagKey"] = dropbagKeyBox;
             textBoxes["dropKey"] = DropKeyTextBox;
             textBoxes["granadeToss"] = GrenadeCostBox;
             textBoxes["grenadeTossKey"] = GrenadeKeyBox;
@@ -89,6 +95,17 @@ namespace UiBot
             textBoxes["jumpCostBox"] = JumpCostBox;
             textBoxes["windowsmuteCostBox"] = WindowsmuteCostBox;
             textBoxes["muteTime"] = MuteTimeBox;
+            textBoxes["walkCostBox"] = WalkCostBox;
+            textBoxes["walkTime"] = WalkTimeBox;
+            textBoxes["hotmicCostBox"] = HotMicCostBox;
+            textBoxes["micTime"] = MicTimeBox;
+            textBoxes["micKey"] = MicKeyBox;
+            textBoxes["normgrenadeCostBox"] = NormGrenadeCostBox;
+            textBoxes["weaponswapCostBox"] = WeaponSwapCostBox;
+            textBoxes["swapKey"] = SwapKeyBox;
+            textBoxes["firemodeCostBox"] = FireModeCostBox;
+            textBoxes["firemodeKey"] = FireModeKeyBox;
+
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -135,6 +152,13 @@ namespace UiBot
             get { return dropbagCooldownTextBox; }
             set { dropbagCooldownTextBox = value; }
         }
+
+        public TextBox DropBagKeyBox
+        {
+            get { return dropbagKeyBox; }
+            set { dropbagKeyBox = value; }
+        }
+
         public TextBox DropKeyTextBox
         {
             get { return dropKeyTextBox; }
@@ -252,6 +276,56 @@ namespace UiBot
         {
             get { return muteTime; }
             set { muteTime = value; }
+        }
+        public TextBox WalkCostBox
+        {
+            get { return walkCostBox; }
+            set { walkCostBox = value; }
+        }
+        public TextBox WalkTimeBox
+        {
+            get { return walkTime; }
+            set { walkTime = value; }
+        }
+        public TextBox HotMicCostBox
+        {
+            get { return hotmicCostBox; }
+            set { hotmicCostBox = value; }
+        }
+        public TextBox MicTimeBox
+        {
+            get { return micTime; }
+            set { micTime = value; }
+        }
+        public TextBox MicKeyBox
+        {
+            get { return micKey; }
+            set { micKey = value; }
+        }
+        public TextBox NormGrenadeCostBox
+        {
+            get { return normgrenadeCostBox; }
+            set { normgrenadeCostBox = value; }
+        }
+        public TextBox WeaponSwapCostBox
+        {
+            get { return weaponswapCostBox; }
+            set { weaponswapCostBox = value; }
+        }
+        public TextBox SwapKeyBox
+        {
+            get { return swapKey; }
+            set { swapKey = value; }
+        }
+        public TextBox FireModeCostBox
+        {
+            get { return firemodeCostBox; }
+            set { firemodeCostBox = value; }
+        }
+        public TextBox FireModeKeyBox
+        {
+            get { return firemodeKey; }
+            set { firemodeKey = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -469,6 +543,36 @@ namespace UiBot
         private void enableWindowsMute_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isMuteWindowsEnabled = enableWindowsMute.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableWalk_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isWalkEnabled = enableWalk.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableHotMic_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isHotMicEnabled = enableHotMic.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableNormGrenade_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isNormGrenadeEnabled = enableHotMic.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableWeaponSwap_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isWeaponSwapEnabled = enableWeaponSwap.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableFireMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isFireModeEnabled = enableFireMode.Checked;
             Properties.Settings.Default.Save();
         }
     }

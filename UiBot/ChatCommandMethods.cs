@@ -18,6 +18,7 @@ namespace UiBot
     {
         public string RandomKeyInputs { get; set; }
         public string dropKey { get; set; }
+        public string dropbagKey { get; set; }
         public Point[] MouseCursorPositions { get; set; }
         public string grenadeTossKey { get; set; }
         public string crouchKey { get; set; }
@@ -58,7 +59,7 @@ namespace UiBot
         [DllImport("user32.dll")]
         public static extern int BlockInput(int fBlockIt);
 
-        // Mouse event constants
+        // event constants
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         public const int MOUSEEVENTF_MOVE = 0x0001;
@@ -67,6 +68,9 @@ namespace UiBot
         const int VK_VOLUME_MUTE = 0xAD;
         const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
         const uint KEYEVENTF_KEYUP = 0x0002;
+        const uint KEYEVENTF_KEYDOWN = 0x0000; // Key down flag
+        const byte VK_W = 0x57; // Virtual-key code for the "W" key
+
         ControlMenu controlMenu = new ControlMenu();
 
         // Handles connection
@@ -210,7 +214,7 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random distance to move (e.g., between 5 and 20 pixels)
-                int distance = random.Next(100) * direction;
+                int distance = random.Next(200) * direction;
 
                 // Move the mouse
                 mouse_event(MOUSEEVENTF_MOVE, distance, 0, 0, 0);
@@ -246,6 +250,9 @@ namespace UiBot
             // Start spinning
             Thread spinThread = new Thread(() => TurnRandom(durationMilliseconds));
             spinThread.Start();
+
+            SendKeys.SendWait("S");
+            Thread.Sleep(100);
 
             // Equip grenade
             SendKeys.SendWait(grenadeKey);
@@ -437,6 +444,8 @@ namespace UiBot
             BlockInput(1);
 
             string dropKey;
+            string dropbagKeyBox;
+
 
             System.Threading.Timer timer = new System.Threading.Timer(state =>
             {
@@ -452,6 +461,7 @@ namespace UiBot
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
                 string json2 = File.ReadAllText(configFilePath);
                 var configData2 = JsonConvert.DeserializeObject<ConfigData>(json2); // Corrected: use json2
+                dropbagKeyBox = configData?.dropbagKey;
                 dropKey = configData2?.dropKey;
 
                 // Load the recorded mouse positions
@@ -464,7 +474,7 @@ namespace UiBot
                 }
 
                 // Simulate button presses
-                string[] keyPresses = new string[] { "{Z}", "{Z}", "{TAB}"};
+                string[] keyPresses = new string[] { dropbagKeyBox, dropbagKeyBox, "{TAB}"};
                 int[] sleepDurations = new int[] { 150, 200, 0 }; // Corresponding sleep durations in milliseconds
 
                 for (int i = 0; i < keyPresses.Length; i++)
@@ -498,8 +508,29 @@ namespace UiBot
 
         public void BagDrop()
         {
+            string dropbagKeyBox;
+
+            try
+            {
+                // Read the JSON file and parse it to extract the keys
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                dropbagKeyBox = configData?.dropbagKey;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(dropbagKeyBox))
+            {
+                Console.WriteLine("No keys to send.");
+                return;
+            }
             // Simulate button presses
-            string[] keyPresses = new string[] { "{Z}", "{Z}" };
+            string[] keyPresses = new string[] {dropbagKeyBox, dropbagKeyBox};
             int[] sleepDurations = new int[] { 150, 150 }; // Corresponding sleep durations in milliseconds
 
             for (int i = 0; i < keyPresses.Length; i++)
@@ -514,6 +545,7 @@ namespace UiBot
 
         public void PopShot()
         {
+            Thread.Sleep(100);
             // Simulate a left mouse button click
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -521,6 +553,7 @@ namespace UiBot
 
         public void MagDump()
         {
+            Thread.Sleep(100);
             // Simulate pressing the left mouse button
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
 
@@ -532,6 +565,7 @@ namespace UiBot
         }
         public void HoldAim()
         {
+            Thread.Sleep(100);
             // Simulate pressing the right mouse button
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
 
@@ -592,7 +626,7 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = -100;
+                int deltaY = -200;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
@@ -610,7 +644,7 @@ namespace UiBot
             while (DateTime.Now < endTime)
             {
                 // Generate a random Y-coordinate for looking up (e.g., between -20 and -5 pixels)
-                int deltaY = 100;
+                int deltaY = 200;
 
                 // Move the mouse vertically
                 mouse_event(MOUSEEVENTF_MOVE, 0, deltaY, 0, 0);
@@ -734,6 +768,10 @@ namespace UiBot
 
             string[] keys = weaponKeyBox.Split(',').Select(k => k.Trim()).ToArray();
 
+            // Shuffle the keys array
+            Random rnd = new Random();
+            keys = keys.OrderBy(k => rnd.Next()).ToArray();
+
             foreach (string key in keys)
             {
                 SendKeys.SendWait(key);
@@ -743,8 +781,7 @@ namespace UiBot
         public void HotMic()
         {
             // Load the keys from CommandConfigData.json
-            string micDuration;
-            string micKeyBox;
+            string micDuration, micKeyBox;
 
             try
             {
@@ -767,32 +804,26 @@ namespace UiBot
                 return;
             }
 
-            if (!int.TryParse(micDuration, out int DurationSeconds))
+            if (!int.TryParse(micDuration, out int durationSeconds))
             {
-                Console.WriteLine("Invalid mute duration format.");
+                Console.WriteLine("Invalid walk duration format.");
                 return;
             }
 
-            int DurationMilliseconds = DurationSeconds * 1000; // Convert seconds to milliseconds
-
-            if (string.IsNullOrEmpty(micKeyBox))
-            {
-                Console.WriteLine("No mic key set.");
-                return;
-            }
-
-            SendKeys.SendWait("{" + micKeyBox + " down}");
+            int durationMilliseconds = durationSeconds * 1000; // Convert seconds to milliseconds
+                                                               // Simulate key down
+            keybd_event((byte)micKeyBox[0], 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
 
             // Wait for the specified duration
-            System.Threading.Thread.Sleep(DurationMilliseconds);
+            System.Threading.Thread.Sleep(durationMilliseconds);
 
-            SendKeys.SendWait("{" + micKeyBox + " up}");
+            // Simulate key up
+            keybd_event((byte)micKeyBox[0], 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
         }
+
         public void Walk()
         {
-            // Load the keys from CommandConfigData.json
             string walkDuration;
-            string walkKeyBox;
 
             try
             {
@@ -800,7 +831,6 @@ namespace UiBot
                 string json = File.ReadAllText(configFilePath);
                 var configData = JsonConvert.DeserializeObject<ConfigData>(json);
                 walkDuration = configData?.walkTime;
-                walkKeyBox = configData?.walkKey;
             }
             catch (Exception ex)
             {
@@ -808,6 +838,29 @@ namespace UiBot
                 Console.WriteLine($"Error reading JSON file: {ex.Message}");
                 return;
             }
+
+            if (string.IsNullOrEmpty(walkDuration))
+            {
+                Console.WriteLine("No time set.");
+                return;
+            }
+
+            if (!int.TryParse(walkDuration, out int durationSeconds))
+            {
+                Console.WriteLine("Invalid walk duration format.");
+                return;
+            }
+
+            int durationMilliseconds = durationSeconds * 1000; // Convert seconds to milliseconds
+
+            // Simulate key down
+            keybd_event(VK_W, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
+
+            // Wait for the specified duration
+            System.Threading.Thread.Sleep(durationMilliseconds);
+
+            // Simulate key up
+            keybd_event(VK_W, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
         }
 
         public void TouchGrass(int durationMilliseconds)

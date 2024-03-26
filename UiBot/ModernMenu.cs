@@ -322,7 +322,7 @@ namespace UiBot
                 this.Controls.Add(controlMenu);
                 controlMenu.Show();
                 isControlMenuVisible = true;
-                currentTab.Text = "Controls Menu";
+                currentTab.Text = "Command Menu";
 
             }
         }

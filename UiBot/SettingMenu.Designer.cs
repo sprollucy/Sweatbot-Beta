@@ -51,11 +51,16 @@
             changelogLabel = new Label();
             label4 = new Label();
             linkLabel1 = new LinkLabel();
+            bitrestoreButton = new Button();
+            restoreCommandButton = new Button();
+            groupBox2 = new GroupBox();
+            defaultCommandButton = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -297,6 +302,48 @@
             linkLabel1.TextAlign = ContentAlignment.MiddleCenter;
             linkLabel1.LinkClicked += linkLabel1_LinkClicked_1;
             // 
+            // bitrestoreButton
+            // 
+            bitrestoreButton.Location = new Point(18, 22);
+            bitrestoreButton.Name = "bitrestoreButton";
+            bitrestoreButton.Size = new Size(201, 23);
+            bitrestoreButton.TabIndex = 37;
+            bitrestoreButton.Text = "Restore user bits from backup";
+            bitrestoreButton.UseVisualStyleBackColor = true;
+            bitrestoreButton.Click += bitrestoreButton_Click;
+            // 
+            // restoreCommandButton
+            // 
+            restoreCommandButton.Location = new Point(18, 51);
+            restoreCommandButton.Name = "restoreCommandButton";
+            restoreCommandButton.Size = new Size(201, 23);
+            restoreCommandButton.TabIndex = 38;
+            restoreCommandButton.Text = "Restore commands from backup";
+            restoreCommandButton.UseVisualStyleBackColor = true;
+            restoreCommandButton.Click += restoreCommandButton_Click;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(defaultCommandButton);
+            groupBox2.Controls.Add(restoreCommandButton);
+            groupBox2.Controls.Add(bitrestoreButton);
+            groupBox2.Location = new Point(54, 171);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(417, 96);
+            groupBox2.TabIndex = 39;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Restore settings";
+            // 
+            // defaultCommandButton
+            // 
+            defaultCommandButton.Location = new Point(230, 51);
+            defaultCommandButton.Name = "defaultCommandButton";
+            defaultCommandButton.Size = new Size(165, 23);
+            defaultCommandButton.TabIndex = 39;
+            defaultCommandButton.Text = "Restore default commands";
+            defaultCommandButton.UseVisualStyleBackColor = true;
+            defaultCommandButton.Click += button2_Click;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -304,6 +351,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 602);
             ControlBox = false;
+            Controls.Add(groupBox2);
             Controls.Add(linkLabel1);
             Controls.Add(label4);
             Controls.Add(changelogLabel);
@@ -327,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -356,5 +405,9 @@
         private Label changelogLabel;
         private Label label4;
         private LinkLabel linkLabel1;
+        private Button bitrestoreButton;
+        private Button restoreCommandButton;
+        private GroupBox groupBox2;
+        private Button defaultCommandButton;
     }
 }

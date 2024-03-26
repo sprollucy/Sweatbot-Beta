@@ -118,7 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>1.0.0.65-alpha 3-22-24
+    <value>1.0.0.66 Preview-alpha 3-26-24
+-Expanded main window length
+-Added !praisesun. It makes you crouch and look straight up
+-Added !touchgrass
+-Added ability to allow mods to give bits(will add specifics later
+-Renamed 360grenadetoss to 360grenade
+-Added !knifeout
+-Fixed !dropkit not using assigned key and tweaked to be more accurate
+-Added !jump
+-Changed !bitcost to list from cheapest to most expensive 
+-Added donation link in the settings menu
+-Added !walk
+-Added !hotmic
+-Added !grenadetoss
+-Added !weaponswap
+-Added a key config for dropbag 
+-Renamed control menu to command menu
+-Tweaked 360 grenade to hopefully get it to go off more reliably 
+-Added !firemode which changes firemode
+-Added backup and restore system in case of crashing. After you hit the backup button it will run every 10 minutes
+-Tons of bug fixes and other minor tweaks
+
+1.0.0.65-alpha 3-22-24
 -Added !addbits to streamer commands just in case the bot misses a cheer or you feel like giving them out usage is !mybits @username amount
 -Added !voiceline - will need feedback on this. its currently just f1
 -Added !prone

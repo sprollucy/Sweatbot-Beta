@@ -330,7 +330,7 @@
             Controls.Add(pictureBox1);
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Tarkov Sweat Bot";
+            Text = "Sweat Bot";
             Load += ModernMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

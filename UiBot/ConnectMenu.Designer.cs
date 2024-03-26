@@ -35,6 +35,7 @@
             disconnectButton = new Button();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            backupButton = new Button();
             twitchOpen = new Button();
             pauseCommands = new CheckBox();
             stopGoose = new Button();
@@ -99,6 +100,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(backupButton);
             panel1.Controls.Add(twitchOpen);
             panel1.Controls.Add(pauseCommands);
             panel1.Controls.Add(stopGoose);
@@ -108,6 +110,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(301, 339);
             panel1.TabIndex = 12;
+            // 
+            // backupButton
+            // 
+            backupButton.Location = new Point(164, 104);
+            backupButton.Name = "backupButton";
+            backupButton.Size = new Size(103, 23);
+            backupButton.TabIndex = 29;
+            backupButton.Text = "Start Backup";
+            backupButton.UseVisualStyleBackColor = true;
+            backupButton.Click += backupButton_Click;
             // 
             // twitchOpen
             // 
@@ -224,5 +236,6 @@
         private Label label2;
         private Label label3;
         private PictureBox pictureBox2;
+        private Button backupButton;
     }
 }

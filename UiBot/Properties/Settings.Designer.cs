@@ -538,5 +538,65 @@ namespace UiBot.Properties {
                 this["isMuteWindowsEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isWalkEnabled {
+            get {
+                return ((bool)(this["isWalkEnabled"]));
+            }
+            set {
+                this["isWalkEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isHotMicEnabled {
+            get {
+                return ((bool)(this["isHotMicEnabled"]));
+            }
+            set {
+                this["isHotMicEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isNormGrenadeEnabled {
+            get {
+                return ((bool)(this["isNormGrenadeEnabled"]));
+            }
+            set {
+                this["isNormGrenadeEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isWeaponSwapEnabled {
+            get {
+                return ((bool)(this["isWeaponSwapEnabled"]));
+            }
+            set {
+                this["isWeaponSwapEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isFireModeEnabled {
+            get {
+                return ((bool)(this["isFireModeEnabled"]));
+            }
+            set {
+                this["isFireModeEnabled"] = value;
+            }
+        }
     }
 }
