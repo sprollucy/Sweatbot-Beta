@@ -1,4 +1,4 @@
-# Tarkov-Twitch-Bot 1.0.0.65alpha
+# Tarkov-Twitch-Bot 1.0.0.66alpha
 
 This is my simple to use and open source twitch bot designed to be used with tarkov for now  
 It features chat commands to interact with you as you play. Only a few right now but more are coming. It also includes a trader reset screen for the true sweats to track exactly when traders reset and twitch chat reminders for it also!  
@@ -74,6 +74,29 @@ If you like my projects and want to help support me, you can directly donate her
 [Paypal Donate](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA&no_recurring=0&item_name=Thank+you+for+helping+support+my+projects%21&currency_code=USD)
 
 ## Changelog
+1.0.0.66 Preview-alpha 3-26-24  
+-Expanded main window length  
+-Added !praisesun. It makes you crouch and look straight up  
+-Added !touchgrass  
+-Added ability to allow mods to give bits(will add specifics later  
+-Renamed 360grenadetoss to 360grenade  
+-Added !knifeout  
+-Fixed !dropkit not using assigned key and tweaked to be more accurate  
+-Added !jump  
+-Changed !bitcost to list from cheapest to most expensive   
+-Added donation link in the settings menu  
+-Added !walk  
+-Added !hotmic  
+-Added !grenadetoss  
+-Added !weaponswap  
+-Added a key config for dropbag   
+-Renamed control menu to command menu  
+-Tweaked 360 grenade to hopefully get it to go off more reliably   
+-Added !firemode which changes firemode  
+-Added backup and restore system in case of crashing. After you hit the backup button it will run every 10 minutes  
+-Tons of bug fixes and other minor tweaks  
+
+
 1.0.0.65-alpha 3-22-24  
 -Added !addbits to streamer commands just in case the bot misses a cheer or you feel like giving them out usage is !mybits @username amount  
 -Added !voiceline - will need feedback on this. its currently just f1  
