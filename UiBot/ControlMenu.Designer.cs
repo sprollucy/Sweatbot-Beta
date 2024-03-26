@@ -365,6 +365,7 @@
             enableJump.TabIndex = 82;
             enableJump.Text = "Enable Jump";
             enableJump.UseVisualStyleBackColor = false;
+            enableJump.CheckedChanged += enableJump_CheckedChanged;
             // 
             // dropconfigbutton
             // 
@@ -412,6 +413,7 @@
             enableKnifeOut.TabIndex = 77;
             enableKnifeOut.Text = "Enable Knife Out";
             enableKnifeOut.UseVisualStyleBackColor = false;
+            enableKnifeOut.CheckedChanged += enableKnifeOut_CheckedChanged;
             // 
             // enableTouchGrass
             // 
@@ -423,6 +425,7 @@
             enableTouchGrass.TabIndex = 75;
             enableTouchGrass.Text = "Enable Touch Grass";
             enableTouchGrass.UseVisualStyleBackColor = false;
+            enableTouchGrass.CheckedChanged += enableTouchGrass_CheckedChanged;
             // 
             // touchgrassCostBox
             // 

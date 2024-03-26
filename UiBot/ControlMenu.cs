@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 /* TODO **
  * Add extra customization into commands like how long the action goes on for
- * Custom scripting for custom commands?
  * Add multiple messages that can be sent at different times
  * rename all cooldown boxes to cost boxes 
 */
@@ -44,11 +43,6 @@ namespace UiBot
             enableProne.Checked = Properties.Settings.Default.isProneEnabled;
             enableVoiceLine.Checked = Properties.Settings.Default.isVoiceLineEnabled;
             enableReload.Checked = Properties.Settings.Default.isReloadEnabled;
-            enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
-            enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
-            enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
-            enableJump.Checked = Properties.Settings.Default.isJumpEnabled;
-            enableWindowsMute.Checked = Properties.Settings.Default.isMuteWindowsEnabled;
             enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
             enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
             enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
