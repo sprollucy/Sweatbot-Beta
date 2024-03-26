@@ -11,8 +11,8 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyName>Sweat Bot</AssemblyName>
-    <Version>1.0.0.65-alpha</Version>
-    <AssemblyVersion>1.0.0.65</AssemblyVersion>
+    <Version>1.0.0.66-alpha</Version>
+    <AssemblyVersion>1.0.0.66</AssemblyVersion>
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <ApplicationManifest>app.manifest</ApplicationManifest>
 

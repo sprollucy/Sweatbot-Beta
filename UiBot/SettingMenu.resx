@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>1.0.0.66 Preview-alpha 3-26-24
+    <value>1.0.0.66-alpha 3-26-24
 -Expanded main window length
 -Added !praisesun. It makes you crouch and look straight up
 -Added !touchgrass
