@@ -494,7 +494,7 @@ namespace UiBot
 
                     // Move the mouse to the new position
                     Cursor.Position = newPosition;
-
+                    Thread.Sleep(100);
                     SendKeys.SendWait(dropKey);
                 }
             }

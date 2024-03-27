@@ -193,7 +193,7 @@
             // 
             oneClickCheck.AutoSize = true;
             oneClickCheck.BackColor = Color.FromArgb(181, 176, 163);
-            oneClickCheck.Location = new Point(15, 233);
+            oneClickCheck.Location = new Point(14, 236);
             oneClickCheck.Name = "oneClickCheck";
             oneClickCheck.Size = new Size(115, 19);
             oneClickCheck.TabIndex = 14;
@@ -205,7 +205,7 @@
             // 
             randomTurn.AutoSize = true;
             randomTurn.BackColor = Color.FromArgb(181, 176, 163);
-            randomTurn.Location = new Point(15, 204);
+            randomTurn.Location = new Point(14, 207);
             randomTurn.Name = "randomTurn";
             randomTurn.Size = new Size(88, 19);
             randomTurn.TabIndex = 15;
@@ -217,7 +217,7 @@
             // 
             enableRandomKey.AutoSize = true;
             enableRandomKey.BackColor = Color.FromArgb(181, 176, 163);
-            enableRandomKey.Location = new Point(15, 145);
+            enableRandomKey.Location = new Point(14, 148);
             enableRandomKey.Name = "enableRandomKey";
             enableRandomKey.Size = new Size(136, 19);
             enableRandomKey.TabIndex = 16;
@@ -229,7 +229,7 @@
             // 
             chkEnableGoose.AutoSize = true;
             chkEnableGoose.BackColor = Color.FromArgb(181, 176, 163);
-            chkEnableGoose.Location = new Point(15, 116);
+            chkEnableGoose.Location = new Point(14, 119);
             chkEnableGoose.Name = "chkEnableGoose";
             chkEnableGoose.Size = new Size(97, 19);
             chkEnableGoose.TabIndex = 17;
@@ -241,7 +241,7 @@
             // 
             enableKitDrop.AutoSize = true;
             enableKitDrop.BackColor = Color.FromArgb(181, 176, 163);
-            enableKitDrop.Location = new Point(15, 58);
+            enableKitDrop.Location = new Point(14, 61);
             enableKitDrop.Name = "enableKitDrop";
             enableKitDrop.Size = new Size(107, 19);
             enableKitDrop.TabIndex = 18;
@@ -253,7 +253,7 @@
             // 
             enableWiggle.AutoSize = true;
             enableWiggle.BackColor = Color.FromArgb(181, 176, 163);
-            enableWiggle.Location = new Point(15, 29);
+            enableWiggle.Location = new Point(14, 30);
             enableWiggle.Name = "enableWiggle";
             enableWiggle.Size = new Size(101, 19);
             enableWiggle.TabIndex = 19;
@@ -362,7 +362,7 @@
             // 
             enableFireMode.AutoSize = true;
             enableFireMode.BackColor = Color.FromArgb(181, 176, 163);
-            enableFireMode.Location = new Point(15, 816);
+            enableFireMode.Location = new Point(14, 815);
             enableFireMode.Name = "enableFireMode";
             enableFireMode.Size = new Size(158, 19);
             enableFireMode.TabIndex = 103;
@@ -398,7 +398,7 @@
             // 
             enableWeaponSwap.AutoSize = true;
             enableWeaponSwap.BackColor = Color.FromArgb(181, 176, 163);
-            enableWeaponSwap.Location = new Point(14, 787);
+            enableWeaponSwap.Location = new Point(14, 786);
             enableWeaponSwap.Name = "enableWeaponSwap";
             enableWeaponSwap.Size = new Size(139, 19);
             enableWeaponSwap.TabIndex = 99;
@@ -463,7 +463,7 @@
             // 
             enableHotMic.AutoSize = true;
             enableHotMic.BackColor = Color.FromArgb(181, 176, 163);
-            enableHotMic.Location = new Point(14, 758);
+            enableHotMic.Location = new Point(14, 757);
             enableHotMic.Name = "enableHotMic";
             enableHotMic.Size = new Size(107, 19);
             enableHotMic.TabIndex = 92;
@@ -537,7 +537,7 @@
             // 
             enableWindowsMute.AutoSize = true;
             enableWindowsMute.BackColor = Color.FromArgb(181, 176, 163);
-            enableWindowsMute.Location = new Point(14, 700);
+            enableWindowsMute.Location = new Point(14, 699);
             enableWindowsMute.Name = "enableWindowsMute";
             enableWindowsMute.Size = new Size(144, 19);
             enableWindowsMute.TabIndex = 84;
@@ -557,7 +557,7 @@
             // 
             enableJump.AutoSize = true;
             enableJump.BackColor = Color.FromArgb(181, 176, 163);
-            enableJump.Location = new Point(14, 671);
+            enableJump.Location = new Point(14, 670);
             enableJump.Name = "enableJump";
             enableJump.Size = new Size(93, 19);
             enableJump.TabIndex = 82;
@@ -595,7 +595,7 @@
             // 
             enableKnifeOut.AutoSize = true;
             enableKnifeOut.BackColor = Color.FromArgb(181, 176, 163);
-            enableKnifeOut.Location = new Point(14, 642);
+            enableKnifeOut.Location = new Point(14, 641);
             enableKnifeOut.Name = "enableKnifeOut";
             enableKnifeOut.Size = new Size(114, 19);
             enableKnifeOut.TabIndex = 77;
@@ -607,7 +607,7 @@
             // 
             enableTouchGrass.AutoSize = true;
             enableTouchGrass.BackColor = Color.FromArgb(181, 176, 163);
-            enableTouchGrass.Location = new Point(15, 613);
+            enableTouchGrass.Location = new Point(14, 612);
             enableTouchGrass.Name = "enableTouchGrass";
             enableTouchGrass.Size = new Size(127, 19);
             enableTouchGrass.TabIndex = 75;
@@ -627,7 +627,7 @@
             // 
             enablePraiseSun.AutoSize = true;
             enablePraiseSun.BackColor = Color.FromArgb(181, 176, 163);
-            enablePraiseSun.Location = new Point(15, 584);
+            enablePraiseSun.Location = new Point(14, 583);
             enablePraiseSun.Name = "enablePraiseSun";
             enablePraiseSun.Size = new Size(118, 19);
             enablePraiseSun.TabIndex = 73;
@@ -663,7 +663,7 @@
             // 
             enableReload.AutoSize = true;
             enableReload.BackColor = Color.FromArgb(181, 176, 163);
-            enableReload.Location = new Point(14, 555);
+            enableReload.Location = new Point(14, 554);
             enableReload.Name = "enableReload";
             enableReload.Size = new Size(100, 19);
             enableReload.TabIndex = 69;
@@ -675,7 +675,7 @@
             // 
             enableVoiceLine.AutoSize = true;
             enableVoiceLine.BackColor = Color.FromArgb(181, 176, 163);
-            enableVoiceLine.Location = new Point(14, 526);
+            enableVoiceLine.Location = new Point(14, 525);
             enableVoiceLine.Name = "enableVoiceLine";
             enableVoiceLine.Size = new Size(117, 19);
             enableVoiceLine.TabIndex = 68;
@@ -711,7 +711,7 @@
             // 
             enableProne.AutoSize = true;
             enableProne.BackColor = Color.FromArgb(181, 176, 163);
-            enableProne.Location = new Point(14, 497);
+            enableProne.Location = new Point(14, 496);
             enableProne.Name = "enableProne";
             enableProne.Size = new Size(95, 19);
             enableProne.TabIndex = 64;
@@ -731,7 +731,7 @@
             // 
             enable360MagDump.AutoSize = true;
             enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
-            enable360MagDump.Location = new Point(14, 468);
+            enable360MagDump.Location = new Point(14, 467);
             enable360MagDump.Name = "enable360MagDump";
             enable360MagDump.Size = new Size(153, 19);
             enable360MagDump.TabIndex = 62;
@@ -900,7 +900,7 @@
             // 
             enableGrenade.AutoSize = true;
             enableGrenade.BackColor = Color.FromArgb(181, 176, 163);
-            enableGrenade.Location = new Point(15, 265);
+            enableGrenade.Location = new Point(14, 264);
             enableGrenade.Name = "enableGrenade";
             enableGrenade.Size = new Size(145, 19);
             enableGrenade.TabIndex = 38;
@@ -959,7 +959,7 @@
             // 
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(181, 176, 163);
-            enableModBits.Location = new Point(595, 228);
+            enableModBits.Location = new Point(594, 228);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -971,11 +971,11 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
-            enableTradersCommand.Location = new Point(595, 197);
+            enableTradersCommand.Location = new Point(594, 203);
             enableTradersCommand.Name = "enableTradersCommand";
-            enableTradersCommand.Size = new Size(155, 19);
+            enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
-            enableTradersCommand.Text = "enableTradersCommand";
+            enableTradersCommand.Text = "Enable Trader Command for chat";
             enableTradersCommand.UseVisualStyleBackColor = false;
             enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
