@@ -27,8 +27,6 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         public Dictionary<string, string> commandConfigData;
 
-        public string streamName = Properties.Settings.Default.ChannelName;
-
         //Console import/kill
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
@@ -80,7 +78,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                Console.WriteLine($"[Sweat Bot]: Connecting to {streamName}...");
+                Console.WriteLine($"[Sweat Bot]: Connecting to {channelId}...");
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
@@ -92,7 +90,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(streamName))
+                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelId))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
                     Console.WriteLine("[Sweat Bot]: Disconnected");
@@ -274,7 +272,7 @@ namespace UiBot
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
 
-                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits, !drop, !stats, !wipestats. Use !bitcost to check which commands are available and to see the prices");
+                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits, !stats, !wipestats. Use !bitcost to check which commands are available and to see the prices");
                     }
                     break;
 

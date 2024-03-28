@@ -175,7 +175,7 @@
             // 
             settingsButton.BackColor = Color.FromArgb(63, 78, 79);
             settingsButton.Image = (Image)resources.GetObject("settingsButton.Image");
-            settingsButton.Location = new Point(0, 512);
+            settingsButton.Location = new Point(0, 513);
             settingsButton.Name = "settingsButton";
             settingsButton.Size = new Size(47, 50);
             settingsButton.SizeMode = PictureBoxSizeMode.Zoom;
