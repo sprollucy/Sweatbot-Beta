@@ -127,7 +127,6 @@ namespace UiBot
         {
             Properties.Settings.Default.isCommandsPaused = pauseCommands.Checked;
             Properties.Settings.Default.Save();
-
         }
 
         private void twitchOpen_Click(object sender, EventArgs e)

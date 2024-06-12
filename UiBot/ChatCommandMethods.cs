@@ -148,7 +148,7 @@ namespace UiBot
             else
             {
                 // Invalid input from the text box, use a default value or handle the error
-                return TimeSpan.Zero; 
+                return TimeSpan.Zero;
             }
         }
 
@@ -474,7 +474,7 @@ namespace UiBot
                 }
 
                 // Simulate button presses
-                string[] keyPresses = new string[] { dropbagKeyBox, dropbagKeyBox, "{TAB}"};
+                string[] keyPresses = new string[] { dropbagKeyBox, dropbagKeyBox, "{TAB}" };
                 int[] sleepDurations = new int[] { 150, 200, 0 }; // Corresponding sleep durations in milliseconds
 
                 for (int i = 0; i < keyPresses.Length; i++)
@@ -530,7 +530,7 @@ namespace UiBot
                 return;
             }
             // Simulate button presses
-            string[] keyPresses = new string[] {dropbagKeyBox, dropbagKeyBox};
+            string[] keyPresses = new string[] { dropbagKeyBox, dropbagKeyBox };
             int[] sleepDurations = new int[] { 150, 150 }; // Corresponding sleep durations in milliseconds
 
             for (int i = 0; i < keyPresses.Length; i++)
