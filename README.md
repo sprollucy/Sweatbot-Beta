@@ -25,7 +25,7 @@ Notice - This app was written with the assistance of chatgpt as I am still learn
 -Follower services  
 
 ### Download Latest Here
-[1.0.0.65a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.65a)
+[1.0.0.66a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.66a)
 
 ## How To Use
 Tutorial video on quick setup  
