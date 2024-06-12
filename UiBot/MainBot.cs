@@ -7,6 +7,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using TwitchLib.PubSub;
 using TwitchLib.PubSub.Events;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
 /* TODO **
@@ -1858,6 +1859,7 @@ namespace UiBot
                         client.SendMessage(channelId, $"@{channelId} has escaped {counter.SurvivalCount} times");
                         break;
 
+
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
@@ -1991,6 +1993,7 @@ namespace UiBot
         }
 
 //Loading and logging
+
         public void LoadCredentialsFromJSON()
         {
             // Correct the path to be relative
