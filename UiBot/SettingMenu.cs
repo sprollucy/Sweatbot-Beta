@@ -57,7 +57,7 @@ namespace UiBot
             existingData.BotToken = userInput1;
 
             // Specify the path to the JSON file
-            string jsonFilePath = "Logon.json";
+            string jsonFilePath = Path.Combine("Data", "Logon.json");
 
             // Serialize and save the updated data to the JSON file
             string jsonData = JsonConvert.SerializeObject(existingData, Formatting.Indented);
@@ -77,7 +77,7 @@ namespace UiBot
             existingData.ChannelName = userInput2;
 
             // Specify the path to the JSON file
-            string jsonFilePath = "Logon.json";
+            string jsonFilePath = Path.Combine("Data", "Logon.json");
 
             // Serialize and save the updated data to the JSON file
             string jsonData = JsonConvert.SerializeObject(existingData, Formatting.Indented);
@@ -89,7 +89,7 @@ namespace UiBot
         // Load existing data from the JSON file
         private CounterData LoadCounterData()
         {
-            string jsonFilePath = "Logon.json";
+            string jsonFilePath = Path.Combine("Data", "Logon.json");
             CounterData existingData = new CounterData();
 
             if (File.Exists(jsonFilePath))
@@ -177,8 +177,8 @@ namespace UiBot
 
         private void bitrestoreButton_Click(object sender, EventArgs e)
         {
-            string backupFilePath = "user_bits_backup.txt";
-            string jsonFilePath = "user_bits.json";
+            string backupFilePath = Path.Combine("Data", "user_bits_backup.txt");
+            string jsonFilePath = Path.Combine("Data", "user_bits.json");
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
@@ -198,13 +198,14 @@ namespace UiBot
             }
         }
 
+
         private void restoreCommandButton_Click(object sender, EventArgs e)
         {
             // Define the list of backup file paths
-            string[] backupFilePaths = { "CommandConfigData_backup.txt", "DropPositionData_backup.txt" };
+            string[] backupFilePaths = { Path.Combine("Data", "CommandConfigData_backup.txt"), Path.Combine("Data", "DropPositionData_backup.txt") };
 
             // Define the list of corresponding JSON file paths
-            string[] jsonFilePaths = { "CommandConfigData.json", "DropPositionData.json" };
+            string[] jsonFilePaths = { Path.Combine("Data", "CommandConfigData.json"), Path.Combine("Data", "DropPositionData.json") };
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
@@ -227,10 +228,11 @@ namespace UiBot
             }
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
-            string backupFilePath = "Default_Commands.txt";
-            string jsonFilePath = "CommandConfigData.json";
+            string backupFilePath = Path.Combine("Data", "Default_Commands.txt");
+            string jsonFilePath = Path.Combine("Data", "CommandConfigData.json");
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
@@ -249,5 +251,6 @@ namespace UiBot
                 MessageBox.Show($"Error during restoration: {ex.Message}");
             }
         }
+
     }
 }

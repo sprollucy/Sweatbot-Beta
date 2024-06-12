@@ -346,21 +346,26 @@ namespace UiBot
                 textData[textBoxKey] = textBoxText;
             }
 
-            // Serialize and save the dictionary to a JSON file
+            // Serialize and save the dictionary to a JSON file in the "Data" folder
             string json = JsonConvert.SerializeObject(textData);
-            File.WriteAllText("CommandConfigData.json", json);
-
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
+            string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
+            File.WriteAllText(filePath, json);
         }
-
 
         // Load settings from JSON on startup
         public void LoadSettings()
         {
+            // Construct the file path to the JSON file in the "Data" folder
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
+
             // Check if the JSON file exists
-            if (File.Exists("CommandConfigData.json"))
+            if (File.Exists(filePath))
             {
                 // Deserialize and load the data from the JSON file into a dictionary
-                string json = File.ReadAllText("CommandConfigData.json");
+                string json = File.ReadAllText(filePath);
                 Dictionary<string, string> textData = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
                 // Iterate through the dictionary and set the text for each TextBox
@@ -378,6 +383,7 @@ namespace UiBot
                 }
             }
         }
+
         private void dropconfigbutton_Click(object sender, EventArgs e)
         {
             try

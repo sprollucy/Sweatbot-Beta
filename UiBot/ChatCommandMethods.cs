@@ -103,12 +103,12 @@ namespace UiBot
         public DateTime lastHelpCommandTimer = DateTime.MinValue;
         public DateTime lastAboutCommandTimer = DateTime.MinValue;
         public DateTime lastBitcostCommandTimer = DateTime.MinValue;
-        public string configFilePath = "CommandConfigData.json"; // Adjust the file path as needed
-        string dropFilePath = "DropPositionData.json"; // Adjust the file path as needed
+        public string configFilePath = Path.Combine("Data", "CommandConfigData.json"); // Adjust the file path as needed
+        string dropFilePath = Path.Combine("Data", "DropPositionData.json"); // Adjust the file path as needed
 
         public void LoadCredentialsFromJSON()
         {
-            string jsonFilePath = "Logon.json";
+            string jsonFilePath = "Data/Logon.json";
 
             if (File.Exists(jsonFilePath))
             {

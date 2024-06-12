@@ -83,7 +83,7 @@ namespace UiBot
             // Update the resetTime.json file with the latest reset info
             //traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
 
-            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
+            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("Data/resetTime.json");
 
             if (!string.IsNullOrEmpty(resetTimeData))
             {

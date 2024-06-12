@@ -156,6 +156,7 @@ namespace UiBot
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
                         client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
                         WriteUserBitsToJson("user_bits.json");
+                        LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
                     }
                     else
                     {
@@ -172,6 +173,7 @@ namespace UiBot
             {
                 int bitsGiven = e.ChatMessage.Bits;
                 UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
             }
         }
 
@@ -189,9 +191,21 @@ namespace UiBot
             WriteUserBitsToJson("user_bits.json");
         }
 
-        static void LoadUserBitsFromJson(string filePath)
+        static void LoadUserBitsFromJson(string fileName)
         {
-            // Check if JSON file exists
+            // Construct the file path to the "Data" folder
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            string filePath = Path.Combine(directoryPath, fileName);
+
+            // Check if the directory exists
+            if (!Directory.Exists(directoryPath))
+            {
+                Console.WriteLine($"Data directory not found: {directoryPath}");
+                userBits = new Dictionary<string, int>();
+                return;
+            }
+
+            // Check if the JSON file exists
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("User bits JSON file not found.");
@@ -204,15 +218,37 @@ namespace UiBot
             userBits = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
 
-        // Write user bits to JSON file
-        static void WriteUserBitsToJson(string filePath)
+        //Log given bits from chat
+        private void LogBits(string userName, int bits, string timestamp)
         {
+            string logMessage = $"{timestamp} - {userName} gave {bits} bits";
+            string logFilePath = Path.Combine("Logs", "bitlog.txt");
+            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+        }
+
+        private void LogCommand(string userName, string command, int bitsCost, string timestamp)
+        {
+            string logMessage = $"{timestamp} - {userName} used {command} command, costing {bitsCost} bits";
+            string logFilePath = Path.Combine("Logs", "bitlog.txt");
+            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+        }
+
+
+        // Write user bits to JSON file
+        static void WriteUserBitsToJson(string fileName)
+        {
+            // Construct the file path to the JSON file in the "Data" folder
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
+            string filePath = Path.Combine(dataDirectory, fileName);
+
             // Serialize dictionary to JSON
             string json = JsonConvert.SerializeObject(userBits, Formatting.Indented);
 
             // Write JSON to file
             File.WriteAllText(filePath, json);
         }
+
 
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
         {
@@ -260,6 +296,7 @@ namespace UiBot
             int tradersCooldownDuration = 90;
             int bitcostCooldownDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
+            string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
@@ -419,7 +456,7 @@ namespace UiBot
                             await traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
 
                             // Read the reset time data from resetTime.json
-                            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("resetTime.json");
+                            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("Data/resetTime.json");
 
                             if (!string.IsNullOrEmpty(resetTimeData))
                             {
@@ -533,6 +570,7 @@ namespace UiBot
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "dropbag", bitCost, timestamp);
 
                                 }
                                 else
@@ -608,7 +646,7 @@ namespace UiBot
 
                                         // Save the updated bit data
                                         WriteUserBitsToJson("user_bits.json");
-
+                                        LogCommand(e.Command.ChatMessage.DisplayName, "goose", gooseCost, timestamp);
                                         // Schedule a task to stop the Goose process after the random runtime.
                                         Task.Run(() =>
                                         {
@@ -668,7 +706,7 @@ namespace UiBot
                                 {
                                     process.Kill();
                                 }
-
+                                LogCommand(e.Command.ChatMessage.DisplayName, "killgoose", killGooseCost, timestamp);
                                 // Save the updated bit data
                                 WriteUserBitsToJson("user_bits.json");
                             }
@@ -714,6 +752,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "wiggle", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, wiggle used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -766,6 +805,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "turn", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, turn used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -815,6 +855,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "randomkeys", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, randomkeys used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -864,6 +905,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "360grenade", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360grenade used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -913,6 +955,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "360magdump", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -962,6 +1005,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "dropkit", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropkit used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1011,6 +1055,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "pop", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, pop used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1060,6 +1105,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "grenadesound", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, grenadesound used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1109,6 +1155,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "crouch", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, crouch used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1157,6 +1204,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "voiceline", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, voiceline used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1205,6 +1253,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "reload", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, reload used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1253,6 +1302,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "prone", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, prone used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1301,6 +1351,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "magdump", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1349,6 +1400,7 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "holdaim", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, holdaim used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1397,6 +1449,7 @@ namespace UiBot
                                     chatCommandMethods.LookUp(3000);
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "praisesun", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, praisesun used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1445,6 +1498,7 @@ namespace UiBot
                                     chatCommandMethods.LookDown(3000);
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "touchgrass", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, touchgrass used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1492,6 +1546,7 @@ namespace UiBot
                                     chatCommandMethods.KnivesOnly();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "knifeout", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, knifeout used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1539,6 +1594,7 @@ namespace UiBot
                                     SendKeys.SendWait(" ");
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "jump", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, jump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1586,6 +1642,7 @@ namespace UiBot
                                     chatCommandMethods.MuteWindows();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "mutewindows", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, mutewindows used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1633,6 +1690,7 @@ namespace UiBot
                                     chatCommandMethods.Walk();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "walk", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, walk used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1680,6 +1738,7 @@ namespace UiBot
                                     chatCommandMethods.HotMic();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "hotmic", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1727,6 +1786,7 @@ namespace UiBot
                                     chatCommandMethods.GrenadeToss();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "greanadetoss", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1774,6 +1834,7 @@ namespace UiBot
                                     chatCommandMethods.SwapWeapon();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "weaponswap", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, weaponswap used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -1821,6 +1882,7 @@ namespace UiBot
                                     chatCommandMethods.FireMode();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
+                                    LogCommand(e.Command.ChatMessage.DisplayName, "firemode", bitCost, timestamp);
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, firemode used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
@@ -2015,7 +2077,8 @@ namespace UiBot
 
         public void LoadCredentialsFromJSON()
         {
-            string jsonFilePath = "Logon.json";
+            // Correct the path to be relative
+            string jsonFilePath = Path.Combine("Data", "Logon.json");
 
             if (File.Exists(jsonFilePath))
             {
@@ -2043,7 +2106,7 @@ namespace UiBot
         {
             try
             {
-                string jsonFilePath = "CommandConfigData.json";
+                string jsonFilePath = Path.Combine("Data", "CommandConfigData.json");
 
                 if (File.Exists(jsonFilePath))
                 {
@@ -2092,10 +2155,10 @@ namespace UiBot
         public void FileBackup()
         {
             // Define the list of file paths to backup
-            string[] jsonFilePaths = { "user_bits.json", "CommandConfigData.json", "DropPositionData.json" };
+            string[] jsonFilePaths = { Path.Combine("Data", "user_bits.json"), Path.Combine("Data", "CommandConfigData.json"), Path.Combine("Data", "DropPositionData.json") };
 
             // Define the list of backup file paths
-            string[] backupFilePaths = { "user_bits_backup.txt", "CommandConfigData_backup.txt", "DropPositionData_backup.txt" };
+            string[] backupFilePaths = { Path.Combine("Backup", "user_bits_backup.txt"), Path.Combine("Backup", "CommandConfigData_backup.txt"), Path.Combine("Backup", "DropPositionData_backup.txt") };
 
             Console.WriteLine($"Backup triggered at {DateTime.Now}");
 
@@ -2117,6 +2180,7 @@ namespace UiBot
                 Console.WriteLine($"Error during backup: {ex.Message}");
             }
         }
+
 
 
         public void AutoMessageSender(object state)
