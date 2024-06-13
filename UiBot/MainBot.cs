@@ -2134,8 +2134,6 @@ namespace UiBot
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
 
-
-        // Write user bits to JSON file
         static void WriteUserBitsToJson(string fileName)
         {
             // Construct the file path to the JSON file in the "Data" folder
@@ -2143,12 +2141,31 @@ namespace UiBot
             Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
             string filePath = Path.Combine(dataDirectory, fileName);
 
+            // Validate bits to ensure they are not negative
+            foreach (var user in userBits)
+            {
+                if (user.Value < 0)
+                {
+                    // Handle negative bits (e.g., set to zero or log the issue)
+                    userBits[user.Key] = 0;
+                    Console.WriteLine($"Negative bits detected for user {user.Key}. Set to 0.");
+                }
+            }
+
             // Serialize dictionary to JSON
             string json = JsonConvert.SerializeObject(userBits, Formatting.Indented);
 
-            // Write JSON to file
-            File.WriteAllText(filePath, json);
+            try
+            {
+                // Write JSON to file
+                File.WriteAllText(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing JSON file: {ex.Message}");
+            }
         }
+
 
         public void StartAutoMessage()
         {
