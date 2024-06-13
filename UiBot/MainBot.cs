@@ -223,6 +223,7 @@ namespace UiBot
             int aboutCooldownDuration = 10;
             int tradersCooldownDuration = 90;
             int bitcostCooldownDuration = 30;
+            int lastHow2useTimerDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
@@ -242,7 +243,12 @@ namespace UiBot
                     break;
 
                 case "how2use":
-                    client.SendMessage(channelId, "To use bits, just cheer them in the chat. The bot will keep track of how many you use. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat.");
+                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHow2useTimer;
+
+                    if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
+                    {
+                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
+                    }
                     break;
 
                 case "about":
@@ -316,8 +322,6 @@ namespace UiBot
                                 { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
                                 { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
                                 { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) }
-
-                                // Note: Add any other mappings you need here
                         };
 
                         // Define a list to hold enabled command details
@@ -464,12 +468,6 @@ namespace UiBot
                     }
                     break;
 
-                    //Bit Commands
-
-                    if (Properties.Settings.Default.isCommandsPaused = true)
-                    {
-
-                    }
 
 //Bit Commands
 
@@ -609,8 +607,6 @@ namespace UiBot
                     break;
 
                 case "killgoose":
-
-
                     if (gname.Length > 0)
                     {
                         // Check if the user's bits are loaded
@@ -1908,7 +1904,7 @@ namespace UiBot
                         client.SendMessage(channelId, "!hi, !goose, !killgoose, !death, !escape, !resettoday, !resetallstats, !addbits");
                         break;
                     case "hi":
-                        client.SendMessage(channelId, "Hi Boss");
+                        client.SendMessage(channelId, "Hi");
                         break;
                     case "note":
                         if (pname.Length > 0)
@@ -2066,9 +2062,18 @@ namespace UiBot
         private void LogBits(string userName, int bits, string timestamp)
         {
             string logMessage = $"{timestamp} - {userName} gave {bits} bits";
-            string logFilePath = Path.Combine("Logs", "bitlog.txt");
+
+            // Get the current date for the filename
+            string date = DateTime.Now.ToString("M-d-yy");
+
+            // Construct the log file path with the date in its name
+            string logFileName = $"{date} bitlog.txt";
+            string logFilePath = Path.Combine("Logs", logFileName);
+
+            // Append the log message to the file
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
+
 
         private void LogCommand(string userName, string command, int bitsCost, Dictionary<string, int> userBits, string timestamp)
         {
@@ -2083,32 +2088,52 @@ namespace UiBot
                 // Create the log message
                 string logMessage = $"{timestamp} - {userName} had {bitsBeforeCommand} bits, used {command} command, costing {bitsCost} bits, now has {bitsAfterCommand} bits";
 
+                // Get the current date for the filename
+                string date = DateTime.Now.ToString("M-d-yy");
+
+                // Construct the log file path with the date in its name
+                string logFileName = $"{date} bitlog.txt";
+                string logFilePath = Path.Combine("Logs", logFileName);
+
                 // Append the log message to the file
-                string logFilePath = Path.Combine("Logs", "bitlog.txt");
                 File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
             }
             else
             {
                 // If user's bits information is not available, log without the bit count information
                 string logMessage = $"{timestamp} - {userName} used {command} command, costing {bitsCost} bits";
-                string logFilePath = Path.Combine("Logs", "bitlog.txt");
+
+                // Get the current date for the filename
+                string date = DateTime.Now.ToString("M-d-yy");
+
+                // Construct the log file path with the date in its name
+                string logFileName = $"{date} bitlog.txt";
+                string logFilePath = Path.Combine("Logs", logFileName);
+
+                // Append the log message to the file
                 File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
             }
         }
 
         private void LogAddbits(string userName, string command, int bitsAdded, string targetUser, Dictionary<string, int> userBits, string timestamp)
         {
-
             // Get the current total bits of the user
             int currentTotalBits = userBits.ContainsKey(userName) ? userBits[userName] : 0;
 
             // Create the log message showing the current total bits, bits added, and the new total
-            string logMessage = $"{timestamp} - {userName} had {currentTotalBits} bits, used {command} command, added {bitsAdded} bits to {targetUser}, now has {currentTotalBits} bits";
+            string logMessage = $"{timestamp} - {userName} had {currentTotalBits - bitsAdded} bits, used {command} command, added {bitsAdded} bits to {targetUser}, now has {currentTotalBits} bits";
+
+            // Get the current date for the filename
+            string date = DateTime.Now.ToString("M-d-yy");
+
+            // Construct the log file path with the date in its name
+            string logFileName = $"{date} bitlog.txt";
+            string logFilePath = Path.Combine("Logs", logFileName);
 
             // Append the log message to the file
-            string logFilePath = Path.Combine("Logs", "bitlog.txt");
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
+
 
         // Write user bits to JSON file
         static void WriteUserBitsToJson(string fileName)

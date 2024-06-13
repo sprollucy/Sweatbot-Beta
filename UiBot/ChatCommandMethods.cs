@@ -39,8 +39,6 @@ namespace UiBot
     }
     internal class ChatCommandMethods
     {
-        //bit dictionary 
-        public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         //command dictionary
         public Dictionary<string, string> commandConfigData;
 
@@ -103,6 +101,8 @@ namespace UiBot
         public DateTime lastHelpCommandTimer = DateTime.MinValue;
         public DateTime lastAboutCommandTimer = DateTime.MinValue;
         public DateTime lastBitcostCommandTimer = DateTime.MinValue;
+        public DateTime lastHow2useTimer = DateTime.MinValue;
+
         public string configFilePath = Path.Combine("Data", "CommandConfigData.json"); // Adjust the file path as needed
         string dropFilePath = Path.Combine("Data", "DropPositionData.json"); // Adjust the file path as needed
 
@@ -180,13 +180,16 @@ namespace UiBot
             Random random = new Random();
             string[] keys = keysInput.Split(',');
 
+            // Shuffle the keys array
+            keys = keys.OrderBy(x => random.Next()).ToArray();
+
             foreach (string key in keys)
             {
                 string cleanedKey = key.Trim(); // Remove any leading/trailing spaces
                 SendKeys.SendWait(cleanedKey);
 
                 // Apply a random hold duration between 250ms and 1000ms
-                int holdDuration = random.Next(250, 1001);
+                int holdDuration = random.Next(250, 1000);
                 Thread.Sleep(holdDuration);
             }
         }
