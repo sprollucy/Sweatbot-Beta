@@ -1,6 +1,6 @@
-# Tarkov-Twitch-Bot 1.0.0.66alpha
+# Tarkov-Twitch-Bot 1.0.0.67alpha
 
-This is my simple to use and open source twitch bot designed to be used with tarkov for now  
+This is my simple to use and open source twitch bot designed to be used with tarkov mainly but works with other games  
 It features chat commands to interact with you as you play. Only a few right now but more are coming. It also includes a trader reset screen for the true sweats to track exactly when traders reset and twitch chat reminders for it also!  
 Readme and other info currently incomplete. This app has zero error exception handling so if it crashes, it may lock up!  
 
@@ -25,7 +25,7 @@ Notice - This app was written with the assistance of chatgpt as I am still learn
 -Follower services  
 
 ### Download Latest Here
-[1.0.0.66a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.66a)
+[1.0.0.67a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.67a)
 
 ## How To Use
 Tutorial video on quick setup  
@@ -74,6 +74,20 @@ If you like my projects and want to help support me, you can directly donate her
 [Paypal Donate](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA&no_recurring=0&item_name=Thank+you+for+helping+support+my+projects%21&currency_code=USD)
 
 ## Changelog
+1.0.0.67-alpha 6-12-24  
+-Added log files for when bits are added and when commands are used for how much. Can be found in the Log Folder  
+-Changed file directory layout  
+-Added back up system for user data, which keeps a back up of the user bits from twitch and user configurations. Back up button can be found in the Quick Toggles section of the Connection Menu  
+-Added restore function in the settings menu for default commands in case something goes wrong  
+-Added restore functions in the settings menu to restore user bit data from back up in case json file gets corrupted  
+-Added setting in the Command Menu to allow for moderators to give to users bits  
+-Added in quick buttons to open your twitch channel from inside the Connection Menu and Settings Menu  
+-Added button to launch the drop config exe. Still planning on writing this into the app  
+-Optimized loading of data string data. Ram usage is down from 190Mb to 60-70Mb in current testing.  
+-Fixed randomkeys to actually send the keys randomly  
+-Potentially fixed bug where users bits show in the negatives  
+-Fixed issue of potential corruption of json files from improper saving of files  
+
 1.0.0.66 Preview-alpha 3-26-24  
 -Expanded main window length  
 -Added !praisesun. It makes you crouch and look straight up  
