@@ -123,6 +123,7 @@
             pictureBox4 = new PictureBox();
             label3 = new Label();
             textBox4 = new TextBox();
+            modRefund = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -352,7 +353,7 @@
             // 
             // firemodeCostBox
             // 
-            firemodeCostBox.Location = new Point(174, 813);
+            firemodeCostBox.Location = new Point(173, 813);
             firemodeCostBox.Name = "firemodeCostBox";
             firemodeCostBox.Size = new Size(100, 23);
             firemodeCostBox.TabIndex = 104;
@@ -617,7 +618,7 @@
             // 
             // touchgrassCostBox
             // 
-            touchgrassCostBox.Location = new Point(174, 610);
+            touchgrassCostBox.Location = new Point(173, 610);
             touchgrassCostBox.Name = "touchgrassCostBox";
             touchgrassCostBox.Size = new Size(100, 23);
             touchgrassCostBox.TabIndex = 74;
@@ -637,7 +638,7 @@
             // 
             // praisesunCostBox
             // 
-            praisesunCostBox.Location = new Point(174, 581);
+            praisesunCostBox.Location = new Point(173, 581);
             praisesunCostBox.Name = "praisesunCostBox";
             praisesunCostBox.Size = new Size(100, 23);
             praisesunCostBox.TabIndex = 72;
@@ -839,7 +840,7 @@
             // 
             textBox3.BackColor = Color.FromArgb(181, 176, 163);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(35, 178);
+            textBox3.Location = new Point(34, 176);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(133, 16);
             textBox3.TabIndex = 47;
@@ -850,7 +851,7 @@
             // 
             textBox2.BackColor = Color.FromArgb(181, 176, 163);
             textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Location = new Point(68, 91);
+            textBox2.Location = new Point(67, 91);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 16);
             textBox2.TabIndex = 46;
@@ -938,7 +939,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(162, 123, 92);
-            label2.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Cambria", 15.75F);
             label2.Location = new Point(65, 50);
             label2.Name = "label2";
             label2.Size = new Size(174, 25);
@@ -983,7 +984,7 @@
             // 
             enableChatBonus.AutoSize = true;
             enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
-            enableChatBonus.Location = new Point(594, 253);
+            enableChatBonus.Location = new Point(594, 276);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
             enableChatBonus.TabIndex = 59;
@@ -993,7 +994,7 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.Location = new Point(613, 292);
+            bonusTextBox.Location = new Point(739, 294);
             bonusTextBox.Name = "bonusTextBox";
             bonusTextBox.Size = new Size(100, 23);
             bonusTextBox.TabIndex = 60;
@@ -1002,7 +1003,8 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(613, 274);
+            label4.BackColor = Color.FromArgb(180, 177, 163);
+            label4.Location = new Point(596, 297);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -1058,7 +1060,7 @@
             // 
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
-            autoMessageLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            autoMessageLabel.Font = new Font("Cambria", 15.75F);
             autoMessageLabel.Location = new Point(595, 409);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
@@ -1101,7 +1103,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
-            label3.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Cambria", 15.75F);
             label3.Location = new Point(595, 151);
             label3.Name = "label3";
             label3.Size = new Size(233, 25);
@@ -1119,6 +1121,18 @@
             textBox4.Text = "How often to send message?";
             textBox4.TextAlign = HorizontalAlignment.Center;
             // 
+            // modRefund
+            // 
+            modRefund.AutoSize = true;
+            modRefund.BackColor = Color.FromArgb(181, 176, 163);
+            modRefund.Location = new Point(594, 251);
+            modRefund.Name = "modRefund";
+            modRefund.Size = new Size(202, 19);
+            modRefund.TabIndex = 83;
+            modRefund.Text = "Allow Moderators to give refunds";
+            modRefund.UseVisualStyleBackColor = false;
+            modRefund.CheckedChanged += modRefund_CheckedChanged;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1127,6 +1141,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(modRefund);
             Controls.Add(restart_AppButton);
             Controls.Add(textBox4);
             Controls.Add(saveButton);
@@ -1258,5 +1273,6 @@
         private TextBox firemodeKey;
         private TextBox firemodeCostBox;
         private CheckBox enableFireMode;
+        private CheckBox modRefund;
     }
 }

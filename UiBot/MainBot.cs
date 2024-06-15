@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -157,7 +158,7 @@ namespace UiBot
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
                         client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
                         WriteUserBitsToJson("user_bits.json");
-                        LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
+                        LogHandler.LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
                     }
                     else
                     {
@@ -174,7 +175,7 @@ namespace UiBot
             {
                 int bitsGiven = e.ChatMessage.Bits;
                 UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+                LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
             }
         }
 
@@ -371,9 +372,6 @@ namespace UiBot
                         chatCommandMethods.lastWipeStatCommandTimer = DateTime.Now; // Update the last execution time
                         client.SendMessage(channelId, $"@{channelId} has died {counter.AllDeath} times, killed {counter.AllKillCount} players, and escaped {counter.SurvivalCount} raids this wipe.");
                     }
-                    else
-                    {
-                    }
                     break;
 
                 case "traders":
@@ -484,7 +482,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "dropbag", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "dropbag", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -543,7 +541,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= gooseCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "goose", gooseCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "goose", gooseCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= gooseCost;
@@ -615,7 +613,7 @@ namespace UiBot
                             // Convert the cost textbox value to an integer
                             if (int.TryParse(controlMenu.GooseCooldownTextBox.Text, out int killGooseCost))
                             {
-                                LogCommand(e.Command.ChatMessage.DisplayName, "dropbag", killGooseCost, userBits, timestamp);
+                                LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "killgoose", killGooseCost, userBits, timestamp);
 
                                 // Deduct the cost of the command
                                 userBits[e.Command.ChatMessage.DisplayName] -= killGooseCost;
@@ -663,7 +661,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "wiggle", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "wiggle", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -713,7 +711,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "turn", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "turn", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -764,7 +762,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "randomkeys", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "randomkeys", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -813,7 +811,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "360grenade", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "360grenade", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -861,7 +859,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "360magdump", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "360magdump", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -910,7 +908,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "dropkit", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "dropkit", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -960,7 +958,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "pop", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "pop", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1010,7 +1008,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "grenadesound", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "grenadesound", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1057,7 +1055,7 @@ namespace UiBot
                             // Convert the cooldown textbox value to an integer
                             if (int.TryParse(controlMenu.CrouchBoxCost.Text, out int bitCost))
                             {
-                                LogCommand(e.Command.ChatMessage.DisplayName, "crouch", bitCost, userBits, timestamp);
+                                LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "crouch", bitCost, userBits, timestamp);
 
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
@@ -1109,7 +1107,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "voiceline", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "voiceline", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1158,7 +1156,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "reload", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "reload", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1207,7 +1205,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "prone", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "prone", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1256,7 +1254,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "magdump", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "magdump", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1305,7 +1303,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "holdaim", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "holdaim", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1344,7 +1342,6 @@ namespace UiBot
                     if (Properties.Settings.Default.isPraiseSunEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
 
-
                         // Check if the user's bits are loaded
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
@@ -1354,7 +1351,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "praisesun", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "praisesun", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1402,7 +1399,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "touchgrass", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "touchgrass", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1450,7 +1447,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "knifeout", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "knifeout", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1498,7 +1495,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "jump", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "jump", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1546,7 +1543,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "mutewindows", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "mutewindows", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1594,7 +1591,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "walk", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "walk", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1642,7 +1639,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "hotmic", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "hotmic", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1650,7 +1647,7 @@ namespace UiBot
                                     chatCommandMethods.HotMic();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, hotmic used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
                                 else
@@ -1690,7 +1687,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "grenadetoss", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "grenadetoss", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1698,7 +1695,7 @@ namespace UiBot
                                     chatCommandMethods.GrenadeToss();
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, grenadetoss used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
                                 else
@@ -1737,7 +1734,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "weaponswap", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "weaponswap", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1785,7 +1782,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogCommand(e.Command.ChatMessage.DisplayName, "dropbag", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "firemode", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1826,15 +1823,19 @@ namespace UiBot
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
+                        StringBuilder message = new StringBuilder("!death, !escape, !kill");
+
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
-                            client.SendMessage(channelId, "!death, !escape, !kill, !addbits");
+                            message.Append(", !addbits");
                         }
-                        else
-                        {
-                            client.SendMessage(channelId, "!death, !escape, !kill");
 
+                        if (Properties.Settings.Default.isModRefundEnabled)
+                        {
+                            message.Append(", !refund");
                         }
+
+                        client.SendMessage(channelId, message.ToString());
                         break;
 
                     case "death":
@@ -1876,7 +1877,7 @@ namespace UiBot
                                         userBits[username] = bitsToAdd;
                                     }
                                     WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
-                                    LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
+                                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
 
                                     // Notify about successful update
                                     client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
@@ -1892,6 +1893,28 @@ namespace UiBot
                             }
                         }
                         break;
+
+                    case "refund":
+
+                        if (Properties.Settings.Default.isModRefundEnabled)
+                        {
+                            string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (refundArgs.Length == 1)
+                            {
+                                string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
+
+                                ChatCommandMethods.RefundLastCommand(refundUsername, userBits, client, channelId);
+                                LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
+                            }
+                        }
+                        break;
+
                 }
             }
 
@@ -1901,7 +1924,7 @@ namespace UiBot
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
-                        client.SendMessage(channelId, "!hi, !goose, !killgoose, !death, !escape, !resettoday, !resetallstats, !addbits");
+                        client.SendMessage(channelId, "!hi, !goose, !killgoose, !death, !escape, !resettoday, !resetallstats, !addbits, !refund");
                         break;
                     case "hi":
                         client.SendMessage(channelId, "Hi");
@@ -1967,7 +1990,7 @@ namespace UiBot
                                         userBits[username] = bitsToAdd;
                                     }
                                     WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
-                                    LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
+                                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
 
                                     // Notify about successful update
                                     client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
@@ -1982,6 +2005,24 @@ namespace UiBot
                                 client.SendMessage(channelId, "Invalid syntax. Usage: !addbits [username] [bits]");
                             }
                             break;
+
+                    case "refund":
+                        string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (refundArgs.Length == 1)
+                        {
+                            string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
+
+                            ChatCommandMethods.RefundLastCommand(refundUsername, userBits, client, channelId);
+                            LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
+                        }
+                        break;
+
 
 
                 }
@@ -2058,82 +2099,6 @@ namespace UiBot
             userBits = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
 
-        //Log given bits from chat
-        private void LogBits(string userName, int bits, string timestamp)
-        {
-            string logMessage = $"{timestamp} - {userName} gave {bits} bits";
-
-            // Get the current date for the filename
-            string date = DateTime.Now.ToString("M-d-yy");
-
-            // Construct the log file path with the date in its name
-            string logFileName = $"{date} bitlog.txt";
-            string logFilePath = Path.Combine("Logs", logFileName);
-
-            // Append the log message to the file
-            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
-        }
-
-
-        private void LogCommand(string userName, string command, int bitsCost, Dictionary<string, int> userBits, string timestamp)
-        {
-            // Check if the user's bits information is available in the dictionary
-            if (userBits.ContainsKey(userName))
-            {
-                int bitsBeforeCommand = userBits[userName];
-
-                // Deduct the cost of the command from the user's bits
-                int bitsAfterCommand = bitsBeforeCommand - bitsCost;
-
-                // Create the log message
-                string logMessage = $"{timestamp} - {userName} had {bitsBeforeCommand} bits, used {command} command, costing {bitsCost} bits, now has {bitsAfterCommand} bits";
-
-                // Get the current date for the filename
-                string date = DateTime.Now.ToString("M-d-yy");
-
-                // Construct the log file path with the date in its name
-                string logFileName = $"{date} bitlog.txt";
-                string logFilePath = Path.Combine("Logs", logFileName);
-
-                // Append the log message to the file
-                File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
-            }
-            else
-            {
-                // If user's bits information is not available, log without the bit count information
-                string logMessage = $"{timestamp} - {userName} used {command} command, costing {bitsCost} bits";
-
-                // Get the current date for the filename
-                string date = DateTime.Now.ToString("M-d-yy");
-
-                // Construct the log file path with the date in its name
-                string logFileName = $"{date} bitlog.txt";
-                string logFilePath = Path.Combine("Logs", logFileName);
-
-                // Append the log message to the file
-                File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
-            }
-        }
-
-        private void LogAddbits(string userName, string command, int bitsAdded, string targetUser, Dictionary<string, int> userBits, string timestamp)
-        {
-            // Get the current total bits of the user
-            int currentTotalBits = userBits.ContainsKey(userName) ? userBits[userName] : 0;
-
-            // Create the log message showing the current total bits, bits added, and the new total
-            string logMessage = $"{timestamp} - {userName} had {currentTotalBits - bitsAdded} bits, used {command} command, added {bitsAdded} bits to {targetUser}, now has {currentTotalBits} bits";
-
-            // Get the current date for the filename
-            string date = DateTime.Now.ToString("M-d-yy");
-
-            // Construct the log file path with the date in its name
-            string logFileName = $"{date} bitlog.txt";
-            string logFilePath = Path.Combine("Logs", logFileName);
-
-            // Append the log message to the file
-            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
-        }
-
         static void WriteUserBitsToJson(string fileName)
         {
             // Construct the file path to the JSON file in the "Data" folder
@@ -2164,16 +2129,6 @@ namespace UiBot
             {
                 Console.WriteLine($"Error writing JSON file: {ex.Message}");
             }
-        }
-
-
-        public void StartAutoMessage()
-        {
-            // Convert the interval to milliseconds
-            int intervalMilliseconds = autoSendMessageCD * 1000;
-
-            // Create a Timer object to run the method immediately and then reschedule it
-            timer = new System.Threading.Timer(AutoMessageSender, null, 0, intervalMilliseconds);
         }
 
         public void FileBackupTimer()
@@ -2283,6 +2238,15 @@ namespace UiBot
                 Console.WriteLine($"Error in AutoMessageSender: {ex.Message}");
             }
         }
+        public void StartAutoMessage()
+        {
+            // Convert the interval to milliseconds
+            int intervalMilliseconds = autoSendMessageCD * 1000;
+
+            // Create a Timer object to run the method immediately and then reschedule it
+            timer = new System.Threading.Timer(AutoMessageSender, null, 0, intervalMilliseconds);
+        }
+
     }
 
 }

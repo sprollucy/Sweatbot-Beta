@@ -53,6 +53,7 @@ namespace UiBot
             enableFireMode.Checked = Properties.Settings.Default.isFireModeEnabled;
             enableModBits.Checked = Properties.Settings.Default.isModBitsEnabled;
             enableNormGrenade.Checked = Properties.Settings.Default.isNormGrenadeEnabled;
+            modRefund.Checked = Properties.Settings.Default.isModRefundEnabled;
 
         }
 
@@ -532,6 +533,12 @@ namespace UiBot
         private void enableModBits_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void modRefund_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModRefundEnabled = modRefund.Checked;
             Properties.Settings.Default.Save();
         }
 

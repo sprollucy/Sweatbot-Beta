@@ -73,7 +73,7 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(channelBox2);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Font = new Font("Segoe UI", 9F);
             groupBox1.Location = new Point(54, 25);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(417, 140);
@@ -92,7 +92,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI Light", 9F);
             label1.Location = new Point(23, 108);
             label1.Name = "label1";
             label1.Size = new Size(228, 15);
@@ -121,7 +121,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox1.Font = new Font("Segoe UI", 9F);
             checkBox1.Location = new Point(288, 25);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(121, 19);
@@ -238,7 +238,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
-            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label7.Location = new Point(75, 530);
             label7.Name = "label7";
             label7.Size = new Size(551, 25);
@@ -272,7 +272,7 @@
             // 
             changelogLabel.AutoSize = true;
             changelogLabel.BackColor = Color.FromArgb(162, 123, 92);
-            changelogLabel.Font = new Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            changelogLabel.Font = new Font("Cambria", 15.75F);
             changelogLabel.Location = new Point(647, 40);
             changelogLabel.Name = "changelogLabel";
             changelogLabel.Size = new Size(105, 25);

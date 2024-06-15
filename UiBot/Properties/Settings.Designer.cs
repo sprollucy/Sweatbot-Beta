@@ -598,5 +598,17 @@ namespace UiBot.Properties {
                 this["isFireModeEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isModRefundEnabled {
+            get {
+                return ((bool)(this["isModRefundEnabled"]));
+            }
+            set {
+                this["isModRefundEnabled"] = value;
+            }
+        }
     }
 }

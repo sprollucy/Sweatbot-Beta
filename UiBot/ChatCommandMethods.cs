@@ -106,31 +106,6 @@ namespace UiBot
         public string configFilePath = Path.Combine("Data", "CommandConfigData.json"); // Adjust the file path as needed
         string dropFilePath = Path.Combine("Data", "DropPositionData.json"); // Adjust the file path as needed
 
-        public void LoadCredentialsFromJSON()
-        {
-            string jsonFilePath = "Data/Logon.json";
-
-            if (File.Exists(jsonFilePath))
-            {
-                string json = File.ReadAllText(jsonFilePath);
-                CounterData data = JsonConvert.DeserializeObject<CounterData>(json);
-
-                if (data != null && !string.IsNullOrEmpty(data.ChannelName))
-                {
-                    channelId = data.ChannelName;
-                }
-                else
-                {
-                    // Handle the case where the ChannelName is empty or invalid.
-                    // You can show a message to the user or take appropriate action.
-                }
-            }
-            else
-            {
-                // Handle the absence of the JSON file as needed.
-            }
-        }
-
         public TimeSpan GetRemainingRandomKeyPressesCooldown()
         {
             // Instantiate ControlMenu class to access the text box's text
@@ -438,7 +413,18 @@ namespace UiBot
 
         public void VoiceLine()
         {
-            SendKeys.SendWait("{F1}");
+            int randomNumber = random.Next(1, 3); // Generates 1 or 2
+
+            if (randomNumber == 1)
+            {
+                SendKeys.SendWait("{F1}");
+            }
+            else if (randomNumber == 2)
+            {
+                SendKeys.SendWait("{F1}");
+                Thread.Sleep(50); // Adjust delay time as needed
+                SendKeys.SendWait("{F1}");
+            }
         }
 
         public void SimulateButtonPressAndMouseMovement()
@@ -818,7 +804,7 @@ namespace UiBot
             keybd_event((byte)micKeyBox[0], 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
 
             // Wait for the specified duration
-            System.Threading.Thread.Sleep(durationMilliseconds);
+            Thread.Sleep(durationMilliseconds);
 
             // Simulate key up
             keybd_event((byte)micKeyBox[0], 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
@@ -860,7 +846,7 @@ namespace UiBot
             keybd_event(VK_W, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
 
             // Wait for the specified duration
-            System.Threading.Thread.Sleep(durationMilliseconds);
+            Thread.Sleep(durationMilliseconds);
 
             // Simulate key up
             keybd_event(VK_W, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
@@ -889,6 +875,83 @@ namespace UiBot
             crouchorStandThread.Join();
 
         }
+
+        //Mod Commands
+
+        public static void RefundLastCommand(string userName, Dictionary<string, int> userBits, TwitchClient client, string channelId)
+        {
+            // Get the current date for the filename
+            string date = DateTime.Now.ToString("M-d-yy");
+
+            // Construct the log file path with the date in its name
+            string logFileName = $"{date} bitlog.txt";
+            string logFilePath = Path.Combine("Logs", logFileName);
+
+            if (!File.Exists(logFilePath))
+            {
+                Console.WriteLine("No log file found for today.");
+                return;
+            }
+
+            // Read all lines from the log file
+            string[] logLines = File.ReadAllLines(logFilePath);
+
+            if (logLines.Length == 0)
+            {
+                Console.WriteLine("Log file is empty.");
+                return;
+            }
+
+            // Find the last log line for the specified user
+            string lastUserLogLine = logLines.LastOrDefault(line => line.Contains($" - {userName} had "));
+
+            if (string.IsNullOrEmpty(lastUserLogLine))
+            {
+                Console.WriteLine($"No log found for user {userName}.");
+                return;
+            }
+
+            // Extract information from the last log line for the user
+            string[] parts = lastUserLogLine.Split(new[] { " - ", " had ", " bits, used ", " command, costing ", " bits, now has " }, StringSplitOptions.None);
+
+            if (parts.Length < 6)
+            {
+                Console.WriteLine("Log format is invalid.");
+                return;
+            }
+
+            string timestamp = parts[0];
+            string logUserName = parts[1];
+            int bitsBeforeCommand = int.Parse(parts[2]);
+            int bitsCost = int.Parse(parts[4]);
+
+            // Refund the bits to the user
+            if (userBits.ContainsKey(logUserName))
+            {
+                userBits[logUserName] = bitsBeforeCommand;
+
+                // Log the refund
+                string refundTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                string refundLogMessage = $"{refundTimestamp} - {logUserName} was refunded {bitsCost} bits, now has {bitsBeforeCommand} bits";
+
+                // Append the refund log message to the file
+                File.AppendAllText(logFilePath, refundLogMessage + Environment.NewLine);
+
+                // Print message to console
+                Console.WriteLine($"Refunded {bitsCost} bits to {logUserName}. They now have {bitsBeforeCommand} bits.");
+
+                // Send message to chat
+                client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {bitsBeforeCommand} bits.");
+            }
+            else
+            {
+                Console.WriteLine("User not found in the bits dictionary.");
+            }
+        }
+
+
+
+
 
     }
 }
