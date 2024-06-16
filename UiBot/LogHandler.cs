@@ -98,6 +98,29 @@
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
 
+//Mod Whitelist
+
+        private static HashSet<string> modWhitelist;
+
+        public static void LoadWhitelist()
+        {
+            try
+            {
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
+                string[] lines = File.ReadAllLines(filePath);
+                modWhitelist = new HashSet<string>(lines, StringComparer.OrdinalIgnoreCase);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., file not found, read errors)
+                modWhitelist = new HashSet<string>();
+            }
+        }
+
+        public static bool IsUserInWhitelist(string username)
+        {
+            return modWhitelist.Contains(username);
+        }
 
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlMenu));
             wiggleCooldownTextBox = new TextBox();
             dropCooldownTextBox = new TextBox();
@@ -124,6 +125,11 @@
             label3 = new Label();
             textBox4 = new TextBox();
             modRefund = new CheckBox();
+            modWhitelistCheck = new CheckBox();
+            openModWhitelist = new Button();
+            enableBonusMulti = new CheckBox();
+            bonusMultiplierBox = new TextBox();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -960,7 +966,7 @@
             // 
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(181, 176, 163);
-            enableModBits.Location = new Point(594, 228);
+            enableModBits.Location = new Point(594, 219);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -972,7 +978,7 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
-            enableTradersCommand.Location = new Point(594, 203);
+            enableTradersCommand.Location = new Point(594, 194);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -984,7 +990,7 @@
             // 
             enableChatBonus.AutoSize = true;
             enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
-            enableChatBonus.Location = new Point(594, 276);
+            enableChatBonus.Location = new Point(594, 292);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
             enableChatBonus.TabIndex = 59;
@@ -994,9 +1000,9 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.Location = new Point(739, 294);
+            bonusTextBox.Location = new Point(739, 310);
             bonusTextBox.Name = "bonusTextBox";
-            bonusTextBox.Size = new Size(100, 23);
+            bonusTextBox.Size = new Size(55, 23);
             bonusTextBox.TabIndex = 60;
             bonusTextBox.Text = "100";
             // 
@@ -1004,7 +1010,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(180, 177, 163);
-            label4.Location = new Point(596, 297);
+            label4.Location = new Point(596, 313);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -1106,9 +1112,9 @@
             label3.Font = new Font("Cambria", 15.75F);
             label3.Location = new Point(595, 151);
             label3.Name = "label3";
-            label3.Size = new Size(233, 25);
+            label3.Size = new Size(301, 25);
             label3.TabIndex = 80;
-            label3.Text = "Regular Chat Commands";
+            label3.Text = "Moderator Control and Bonuses";
             // 
             // textBox4
             // 
@@ -1125,13 +1131,61 @@
             // 
             modRefund.AutoSize = true;
             modRefund.BackColor = Color.FromArgb(181, 176, 163);
-            modRefund.Location = new Point(594, 251);
+            modRefund.Location = new Point(594, 242);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
             modRefund.TabIndex = 83;
             modRefund.Text = "Allow Moderators to give refunds";
             modRefund.UseVisualStyleBackColor = false;
             modRefund.CheckedChanged += modRefund_CheckedChanged;
+            // 
+            // modWhitelistCheck
+            // 
+            modWhitelistCheck.AutoSize = true;
+            modWhitelistCheck.BackColor = Color.FromArgb(181, 176, 163);
+            modWhitelistCheck.Location = new Point(594, 267);
+            modWhitelistCheck.Name = "modWhitelistCheck";
+            modWhitelistCheck.Size = new Size(254, 19);
+            modWhitelistCheck.TabIndex = 84;
+            modWhitelistCheck.Text = "Enable Moderator Whitelist for bits/refunds";
+            modWhitelistCheck.UseVisualStyleBackColor = false;
+            modWhitelistCheck.CheckedChanged += modWhitelistCheck_CheckedChanged;
+            // 
+            // openModWhitelist
+            // 
+            openModWhitelist.Font = new Font("Segoe UI", 9F);
+            openModWhitelist.Location = new Point(851, 264);
+            openModWhitelist.Name = "openModWhitelist";
+            openModWhitelist.Size = new Size(95, 23);
+            openModWhitelist.TabIndex = 85;
+            openModWhitelist.Text = "Open Whitelist";
+            openModWhitelist.UseVisualStyleBackColor = true;
+            openModWhitelist.Click += openModWhitelist_Click;
+            // 
+            // enableBonusMulti
+            // 
+            enableBonusMulti.AutoSize = true;
+            enableBonusMulti.BackColor = Color.FromArgb(181, 176, 163);
+            enableBonusMulti.Location = new Point(594, 341);
+            enableBonusMulti.Name = "enableBonusMulti";
+            enableBonusMulti.Size = new Size(183, 19);
+            enableBonusMulti.TabIndex = 86;
+            enableBonusMulti.Text = "Enable bit donation multiplier";
+            enableBonusMulti.UseVisualStyleBackColor = false;
+            enableBonusMulti.CheckedChanged += enableBonusMulti_CheckedChanged;
+            // 
+            // bonusMultiplierBox
+            // 
+            bonusMultiplierBox.Location = new Point(783, 339);
+            bonusMultiplierBox.Name = "bonusMultiplierBox";
+            bonusMultiplierBox.Size = new Size(31, 23);
+            bonusMultiplierBox.TabIndex = 106;
+            bonusMultiplierBox.Text = "2";
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // ControlMenu
             // 
@@ -1141,6 +1195,10 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(bonusMultiplierBox);
+            Controls.Add(enableBonusMulti);
+            Controls.Add(openModWhitelist);
+            Controls.Add(modWhitelistCheck);
             Controls.Add(modRefund);
             Controls.Add(restart_AppButton);
             Controls.Add(textBox4);
@@ -1274,5 +1332,10 @@
         private TextBox firemodeCostBox;
         private CheckBox enableFireMode;
         private CheckBox modRefund;
+        private CheckBox modWhitelistCheck;
+        private Button openModWhitelist;
+        private CheckBox enableBonusMulti;
+        private TextBox bonusMultiplierBox;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }

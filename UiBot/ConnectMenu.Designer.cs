@@ -58,7 +58,7 @@
             // consoleTextBox
             // 
             consoleTextBox.BackColor = Color.FromArgb(156, 154, 151);
-            consoleTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            consoleTextBox.Font = new Font("Arial", 12F);
             consoleTextBox.Location = new Point(63, 54);
             consoleTextBox.Multiline = true;
             consoleTextBox.Name = "consoleTextBox";
@@ -150,12 +150,13 @@
             stopGoose.TabIndex = 13;
             stopGoose.Text = "Kill Goose";
             stopGoose.UseVisualStyleBackColor = true;
+            stopGoose.Click += stopGoose_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(162, 123, 92);
-            label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label1.Location = new Point(5, 10);
             label1.Name = "label1";
             label1.Size = new Size(136, 23);
@@ -176,7 +177,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
-            label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label3.Location = new Point(74, 32);
             label3.Name = "label3";
             label3.Size = new Size(156, 23);

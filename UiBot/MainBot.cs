@@ -48,6 +48,7 @@ namespace UiBot
         internal MainBot()
         {
             LoadCredentialsFromJSON();
+            LogHandler.LoadWhitelist();
             LoadUserBitsFromJson("user_bits.json");
         }
 
@@ -174,9 +175,34 @@ namespace UiBot
             if (e.ChatMessage.Bits > 0)
             {
                 int bitsGiven = e.ChatMessage.Bits;
-                UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                if (Properties.Settings.Default.isBonusMultiplierEnabled)
+                {
+                    ChatCommandMethods.BitMultiplier(); // Call BitMultiplier to update BitBonusMultiplier
+                    int multiplier = ChatCommandMethods.BitBonusMultiplier; // Access BitBonusMultiplier
+
+                    // Calculate bitsGiven after applying multiplier and rounding up
+                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
+
+                    // Update user bits and log the transaction
+                    UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                    Console.WriteLine($"Applied multiplier {multiplier}, resulting in {bitsGiven} bits given.");
+
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                }
+                else
+                {
+                    // Update user bits and log the transaction
+                    UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                    // Thank the user for giving bits and inform them of their new balance
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                }
             }
+
         }
 
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
@@ -357,7 +383,7 @@ namespace UiBot
                         }
                         else
                         {
-                            string message = $"{e.Command.ChatMessage.DisplayName}, All sweatbot commands are disabled";
+                            string message = $"{e.Command.ChatMessage.DisplayName}, All sweatbot commands are paused";
                             client.SendMessage(channelId, message);
                         }
                     }
@@ -459,11 +485,6 @@ namespace UiBot
                             lastTradersCommandTimer = DateTime.Now;
                         }
                     }
-                    else
-                    {
-                        // Send message indicating the command is disabled
-                        client.SendMessage(channelId, "Traders command is currently disabled.");
-                    }
                     break;
 
 
@@ -513,25 +534,12 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        // Send message indicating the command is disabled
-                        client.SendMessage(channelId, "Drop Bag command is currently disabled.");
-                    }
+
                     break;
 
                 case "goose":
-                    if (!Properties.Settings.Default.IsGooseEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    if (Properties.Settings.Default.IsGooseEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
-                        client.SendMessage(channelId, "Goose command is currently disabled.");
-                    }
-                    else if (gname.Length > 0)
-                    {
-                        client.SendMessage(channelId, "Goose is already running!");
-                    }
-                    else
-                    {
-
                         // Check if the user's bits are loaded
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
@@ -601,6 +609,15 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
+                    }
+                    else if (gname.Length > 0)
+                    {
+                        client.SendMessage(channelId, "Goose is already running!");
+                    }
+                    else
+                    {
+
+
                     }
                     break;
 
@@ -692,10 +709,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Wiggle command is currently disabled.");
-                    }
                     break;
 
                 case "turn":
@@ -744,10 +757,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Turn command is currently disabled.");
-                    }
                     break;
 
                 case "randomkeys":
@@ -791,10 +800,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Random Keys command is currently disabled.");
                     }
                     break;
 
@@ -841,10 +846,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "360grenadetoss command is currently disabled.");
-                    }
                     break;
 
                 case "360magdump":
@@ -888,10 +889,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "360magdump command is currently disabled.");
                     }
                     break;
 
@@ -937,10 +934,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Drop command is currently disabled.");
                     }
                     break;
 
@@ -988,10 +981,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Pop command is currently disabled.");
-                    }
                     break;
 
                 case "grenadesound":
@@ -1038,10 +1027,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Grenade Toss command is currently disabled.");
-                    }
                     break;
 
                 case "crouch":
@@ -1086,10 +1071,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Crouch command is currently disabled.");
                     }
                     break;
 
@@ -1136,10 +1117,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "VoiceLine command is currently disabled.");
-                    }
                     break;
 
                 case "reload":
@@ -1184,10 +1161,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Reload command is currently disabled.");
                     }
                     break;
 
@@ -1234,10 +1207,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Prone command is currently disabled.");
-                    }
                     break;
 
                 case "magdump":
@@ -1282,10 +1251,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Magdump command is currently disabled.");
                     }
                     break;
 
@@ -1332,10 +1297,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Holdaim command is currently disabled.");
-                    }
                     break;
 
                 case "praisesun":
@@ -1379,10 +1340,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Praise Sun command is currently disabled.");
                     }
                     break;
 
@@ -1428,10 +1385,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "touchgrass command is currently disabled.");
-                    }
                     break;
 
                 case "knifeout":
@@ -1474,10 +1427,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Knifeout command is currently disabled.");
                     }
                     break;
 
@@ -1523,10 +1472,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Jump command is currently disabled.");
-                    }
                     break;
 
                 case "mutewindows":
@@ -1570,10 +1515,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Mute Windows command is currently disabled.");
                     }
                     break;
 
@@ -1619,10 +1560,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Walk command is currently disabled.");
-                    }
                     break;
 
                 case "hotmic":
@@ -1666,10 +1603,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Hotmic command is currently disabled.");
                     }
                     break;
 
@@ -1715,10 +1648,6 @@ namespace UiBot
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
                     }
-                    else
-                    {
-                        client.SendMessage(channelId, "Grenade Toss command is currently disabled.");
-                    }
                     break;
 
                 case "weaponswap":
@@ -1761,10 +1690,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Weapon Swap command is currently disabled.");
                     }
                     break;
 
@@ -1809,10 +1734,6 @@ namespace UiBot
                             // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Weapon Swap command is currently disabled.");
                     }
                     break;
             }
@@ -1860,57 +1781,40 @@ namespace UiBot
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
-                            string[] args = e.Command.ArgumentsAsString.Split(' ');
-                            if (args.Length == 2)
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(e.Command.ChatMessage.DisplayName))
                             {
-                                string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
-                                int bitsToAdd;
-                                if (int.TryParse(args[1], out bitsToAdd))
-                                {
-                                    // Update user's bits
-                                    if (userBits.ContainsKey(username))
-                                    {
-                                        userBits[username] += bitsToAdd;
-                                    }
-                                    else
-                                    {
-                                        userBits[username] = bitsToAdd;
-                                    }
-                                    WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
-                                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
-
-                                    // Notify about successful update
-                                    client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
-                                }
-                                else
-                                {
-                                    client.SendMessage(channelId, "Invalid number of bits specified.");
-                                }
+                                ChatCommandMethods.AddBitCommand(client, e);
                             }
                             else
                             {
-                                client.SendMessage(channelId, "Invalid syntax. Usage: !addbits [username] [bits]");
+                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
                             }
                         }
                         break;
 
                     case "refund":
-
                         if (Properties.Settings.Default.isModRefundEnabled)
                         {
-                            string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
-
-                            if (refundArgs.Length == 1)
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(e.Command.ChatMessage.DisplayName))
                             {
-                                string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
+                                string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
 
-                                ChatCommandMethods.RefundLastCommand(refundUsername, userBits, client, channelId);
-                                LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                                WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+                                if (refundArgs.Length == 1)
+                                {
+                                    string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
+
+                                    ChatCommandMethods.RefundLastCommand(refundUsername, MainBot.userBits, client, e.Command.ChatMessage.Channel);
+                                    LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, MainBot.userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                    WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid syntax. Usage: !refund [username]");
+                                }
                             }
                             else
                             {
-                                client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
+                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
                             }
                         }
                         break;
@@ -1973,37 +1877,7 @@ namespace UiBot
                         break;
 
                     case "addbits":
-                            string[] args = e.Command.ArgumentsAsString.Split(' ');
-                            if (args.Length == 2)
-                            {
-                                string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
-                                int bitsToAdd;
-                                if (int.TryParse(args[1], out bitsToAdd))
-                                {
-                                    // Update user's bits
-                                    if (userBits.ContainsKey(username))
-                                    {
-                                        userBits[username] += bitsToAdd;
-                                    }
-                                    else
-                                    {
-                                        userBits[username] = bitsToAdd;
-                                    }
-                                    WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
-                                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, userBits, timestamp);
-
-                                    // Notify about successful update
-                                    client.SendMessage(channelId, $"{bitsToAdd} bits added to {username}. New total: {userBits[username]} bits");
-                                }
-                                else
-                                {
-                                    client.SendMessage(channelId, "Invalid number of bits specified.");
-                                }
-                            }
-                            else
-                            {
-                                client.SendMessage(channelId, "Invalid syntax. Usage: !addbits [username] [bits]");
-                            }
+                        ChatCommandMethods.AddBitCommand(client, e);
                             break;
 
                     case "refund":
@@ -2022,8 +1896,6 @@ namespace UiBot
                             client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
                         }
                         break;
-
-
 
                 }
             }
@@ -2058,7 +1930,7 @@ namespace UiBot
             }
         }
 
-        private static void UpdateUserBits(string username, int bitsGiven)
+        public static void UpdateUserBits(string username, int bitsGiven)
         {
             if (userBits.ContainsKey(username))
             {
@@ -2099,7 +1971,7 @@ namespace UiBot
             userBits = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
 
-        static void WriteUserBitsToJson(string fileName)
+        public static void WriteUserBitsToJson(string fileName)
         {
             // Construct the file path to the JSON file in the "Data" folder
             string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");

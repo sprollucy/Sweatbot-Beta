@@ -610,5 +610,29 @@ namespace UiBot.Properties {
                 this["isModRefundEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isModWhitelistEnabled {
+            get {
+                return ((bool)(this["isModWhitelistEnabled"]));
+            }
+            set {
+                this["isModWhitelistEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isBonusMultiplierEnabled {
+            get {
+                return ((bool)(this["isBonusMultiplierEnabled"]));
+            }
+            set {
+                this["isBonusMultiplierEnabled"] = value;
+            }
+        }
     }
 }

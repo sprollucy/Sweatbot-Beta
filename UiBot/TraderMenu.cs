@@ -120,73 +120,83 @@ namespace UiBot
             }
 
             // Use Control.Invoke to update UI controls from a separate thread
-            labels.nameLabel.Invoke((MethodInvoker)delegate
+            if (labels.nameLabel.IsHandleCreated)
             {
-                labels.nameLabel.Text = traderName;
-            });
-
-            labels.resetLabel.Invoke((MethodInvoker)delegate
-            {
-                labels.resetLabel.Text = "Reset: " + localResetTime.ToString();
-            });
-
-            labels.remainingLabel.Invoke((MethodInvoker)async delegate
-            {
-                labels.remainingLabel.Text = "Time Remaining: " + timeRemaining.ToString("hh\\:mm\\:ss");
-
-                // Check if timeRemaining is less than 5 minutes (300 seconds), the sound is enabled, and the sound hasn't been played for this trader
-                if (timeRemaining.TotalSeconds < 300 && isSoundEnabled && !traderSoundPlayed.ContainsKey(traderName))
+                labels.nameLabel.Invoke((MethodInvoker)delegate
                 {
-                    await Task.Run(() =>
+                    labels.nameLabel.Text = traderName;
+                });
+            }
+
+            if (labels.resetLabel.IsHandleCreated)
+            {
+                labels.resetLabel.Invoke((MethodInvoker)delegate
+                {
+                    labels.resetLabel.Text = "Reset: " + localResetTime.ToString();
+                });
+            }
+
+            if (labels.remainingLabel.IsHandleCreated)
+            {
+                labels.remainingLabel.Invoke((MethodInvoker)async delegate
+                {
+                    labels.remainingLabel.Text = "Time Remaining: " + timeRemaining.ToString("hh\\:mm\\:ss");
+
+                    // Check if timeRemaining is less than 5 minutes (300 seconds), the sound is enabled, and the sound hasn't been played for this trader
+                    if (timeRemaining.TotalSeconds < 300 && isSoundEnabled && !traderSoundPlayed.ContainsKey(traderName))
                     {
-                        if (Properties.Settings.Default.isTraderPraporEnabled && traderName == "Prapor")
+                        await Task.Run(() =>
                         {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderTherapistEnabled && traderName == "Therapist")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderPeacekeeperEnabled && traderName == "Peacekeeper")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderMechanicEnabled && traderName == "Mechanic")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderFenceEnabled && traderName == "Fence")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderRagmanEnabled && traderName == "Ragman")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderSkierEnabled && traderName == "Skier")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderJaegerEnabled && traderName == "Jaeger")
-                        {
-                            PlayNotificationSound();
-                        }
-                        if (Properties.Settings.Default.isTraderLightkeeperEnabled && traderName == "Lightkeeper")
-                        {
-                            PlayNotificationSound();
-                        }
-                    });
+                            if (Properties.Settings.Default.isTraderPraporEnabled && traderName == "Prapor")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderTherapistEnabled && traderName == "Therapist")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderPeacekeeperEnabled && traderName == "Peacekeeper")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderMechanicEnabled && traderName == "Mechanic")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderFenceEnabled && traderName == "Fence")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderRagmanEnabled && traderName == "Ragman")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderSkierEnabled && traderName == "Skier")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderJaegerEnabled && traderName == "Jaeger")
+                            {
+                                PlayNotificationSound();
+                            }
+                            if (Properties.Settings.Default.isTraderLightkeeperEnabled && traderName == "Lightkeeper")
+                            {
+                                PlayNotificationSound();
+                            }
+                        });
 
-                    // Mark the sound as played for this trader
-                    traderSoundPlayed[traderName] = true;
-                }
+                        // Mark the sound as played for this trader
+                        traderSoundPlayed[traderName] = true;
+                    }
 
-                if (timeRemaining.TotalSeconds < 0)
-                {
-                    traderSoundPlayed[traderName] = false;
-                }
-            });
+                    if (timeRemaining.TotalSeconds < 0)
+                    {
+                        traderSoundPlayed[traderName] = false;
+                    }
+                });
+            }
         }
+
 
         private void PlayNotificationSound()
         {

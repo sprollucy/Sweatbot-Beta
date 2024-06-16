@@ -54,6 +54,8 @@ namespace UiBot
             enableModBits.Checked = Properties.Settings.Default.isModBitsEnabled;
             enableNormGrenade.Checked = Properties.Settings.Default.isNormGrenadeEnabled;
             modRefund.Checked = Properties.Settings.Default.isModRefundEnabled;
+            modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
+            enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
 
         }
 
@@ -107,7 +109,7 @@ namespace UiBot
             textBoxes["swapKey"] = SwapKeyBox;
             textBoxes["firemodeCostBox"] = FireModeCostBox;
             textBoxes["firemodeKey"] = FireModeKeyBox;
-
+            textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -328,6 +330,12 @@ namespace UiBot
         {
             get { return firemodeKey; }
             set { firemodeKey = value; }
+        }
+
+        public TextBox BonusMultiplierBox
+        {
+            get { return bonusMultiplierBox; }
+            set { bonusMultiplierBox = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -587,6 +595,28 @@ namespace UiBot
         private void enableFireMode_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isFireModeEnabled = enableFireMode.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void modWhitelistCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void openModWhitelist_Click(object sender, EventArgs e)
+        {
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
+        }
+
+        private void enableBonusMulti_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
             Properties.Settings.Default.Save();
         }
     }

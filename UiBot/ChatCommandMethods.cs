@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using TwitchLib.Client;
+using TwitchLib.Client.Events;
 /* TODO **
 
  */
@@ -33,6 +35,7 @@ namespace UiBot
         public string micKey { get; set; }
         public string walkTime { get; set; }
         public string walkKey { get; set; }
+        public string bonusMultiplierBox { get; set; }
 
 
 
@@ -41,6 +44,7 @@ namespace UiBot
     {
         //command dictionary
         public Dictionary<string, string> commandConfigData;
+        public static Dictionary<string, int> userBits = new Dictionary<string, int>();
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
@@ -876,6 +880,42 @@ namespace UiBot
 
         }
 
+        public static int BitBonusMultiplier { get; private set; }
+
+        public static void BitMultiplier()
+        {
+            string bonusMultiplierBox;
+            string configFilePath = Path.Combine("Data", "CommandConfigData.json");
+
+            try
+            {
+                // Read the JSON file and parse it to extract the multiplier
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                bonusMultiplierBox = configData?.bonusMultiplierBox;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(bonusMultiplierBox))
+            {
+                Console.WriteLine("No time set.");
+                return;
+            }
+
+            if (!int.TryParse(bonusMultiplierBox, out int durationSeconds))
+            {
+                Console.WriteLine("Invalid multiplier duration format.");
+                return;
+            }
+
+            BitBonusMultiplier = durationSeconds;
+        }
+
         //Mod Commands
 
         public static void RefundLastCommand(string userName, Dictionary<string, int> userBits, TwitchClient client, string channelId)
@@ -948,10 +988,30 @@ namespace UiBot
                 Console.WriteLine("User not found in the bits dictionary.");
             }
         }
+        public static void AddBitCommand(TwitchClient client, OnChatCommandReceivedArgs e)
+        {
+            string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
+            string[] args = e.Command.ArgumentsAsString.Split(' ');
+            if (args.Length == 2)
+            {
+                string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
+                int bitsToAdd;
+                if (int.TryParse(args[1], out bitsToAdd))
+                {
+                    // Update user's bits
+                    MainBot.UpdateUserBits(username, bitsToAdd);
+                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, MainBot.userBits, timestamp);
 
-
-
+                    // Notify about successful update
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToAdd} bits added to {username}. New total: {MainBot.userBits[username]} bits");
+                }
+                else
+                {
+                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid number of bits specified.");
+                }
+            }
+        }
 
     }
 }
