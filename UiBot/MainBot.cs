@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using TwitchLib.Client;
@@ -1736,9 +1737,97 @@ namespace UiBot
                         }
                     }
                     break;
+
+                case "audiolist":
+                    if (Properties.Settings.Default.isAudclipEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clip");
+                        string availableSounds = string.Join(", ", GetAvailableSounds(soundClipPath));
+
+                        if (availableSounds == "No sounds available")
+                        {
+                            client.SendMessage(channelId, "No sounds available.");
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, $"Available sounds: {availableSounds}");
+                        }
+                    }
+                    break;
+
+                case "aplay":
+                    if (Properties.Settings.Default.isAudclipEnabled && !Properties.Settings.Default.isCommandsPaused)
+                    {
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        {
+                            // Convert the cooldown textbox value to an integer
+                            if (int.TryParse(controlMenu.FireModeCostBox.Text, out int bitCost))
+                            {
+                                // Check if the user has enough bits
+                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                {
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "aplay", bitCost, userBits, timestamp);
+
+                                    // Deduct the cost of the command
+                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+
+                                    string[] commandParts = e.Command.ArgumentsAsString.Split(' ');
+
+                                    if (commandParts.Length < 1)
+                                    {
+                                        client.SendMessage(channelId, "Please specify a sound file to play.");
+                                    }
+                                    else
+                                    {
+                                        string soundFileName = commandParts[0];
+                                        string soundFilePath = ChatCommandMethods.GetSoundFilePath(soundFileName);
+
+                                        if (soundFilePath != null)
+                                        {
+                                            // Play the sound
+                                            bool success = ChatCommandMethods.PlaySound(soundFileName, channelId, client);
+
+                                            // If successfully played, write updated bits
+                                            if (success)
+                                            {
+                                                WriteUserBitsToJson("user_bits.json");
+                                                client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, aplay used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                            }
+                                            // No need to send a message if PlaySound already handles errors
+                                        }
+                                        else
+                                        {
+                                            client.SendMessage(channelId, $"Sound file '{soundFileName}' not found.");
+                                            // Refund the bits deducted
+                                            userBits[e.Command.ChatMessage.DisplayName] += bitCost;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                }
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                        }
+                    }
+                    break;
+
+
+
             }
 
-//Mod Commands
+            //Mod Commands
             if (e.Command.ChatMessage.IsModerator)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1901,8 +1990,7 @@ namespace UiBot
             }
         }
 
-//Loading and logging
-
+        //Loading and logging
         public void LoadCredentialsFromJSON()
         {
             // Correct the path to be relative
@@ -1928,6 +2016,29 @@ namespace UiBot
             {
                 // Handle the absence of the JSON file as needed.
             }
+        }
+        public List<string> GetAvailableSounds(string soundDirectory)
+        {
+            // Ensure the directory exists
+            if (!Directory.Exists(soundDirectory))
+            {
+                return new List<string> { "No sounds available" };
+            }
+
+            // Define the supported sound file extensions
+            string[] soundExtensions = { "*.mp3", "*.wav", "*.ogg", "*.flac", "*.aac" };
+
+            // Get all sound files in the directory with the defined extensions
+            List<string> files = new List<string>();
+            foreach (var extension in soundExtensions)
+            {
+                files.AddRange(Directory.GetFiles(soundDirectory, extension));
+            }
+
+            // Extract the file names without extension
+            List<string> soundNames = files.Select(Path.GetFileNameWithoutExtension).ToList();
+
+            return soundNames;
         }
 
         public static void UpdateUserBits(string username, int bitsGiven)

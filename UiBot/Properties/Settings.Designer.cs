@@ -634,5 +634,17 @@ namespace UiBot.Properties {
                 this["isBonusMultiplierEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isAudclipEnabled {
+            get {
+                return ((bool)(this["isAudclipEnabled"]));
+            }
+            set {
+                this["isAudclipEnabled"] = value;
+            }
+        }
     }
 }

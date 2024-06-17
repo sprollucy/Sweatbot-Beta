@@ -581,6 +581,59 @@ namespace UiBot
             player.Play();
 
         }
+        public static bool PlaySound(string soundFileName, string channelId, TwitchClient client)
+        {
+            string soundFilePath = GetSoundFilePath(soundFileName);
+
+            if (soundFilePath != null)
+            {
+                try
+                {
+                    // Create a new SoundPlayer instance
+                    using (var player = new SoundPlayer(soundFilePath))
+                    {
+                        // Play the sound file
+                        player.Play();
+                        return true; // Return true if played successfully
+                    }
+                }
+                catch (Exception ex)
+                {
+                    client.SendMessage(channelId, $"Error playing sound: {ex.Message}");
+                    return false; // Return false if there was an error
+                }
+            }
+            else
+            {
+                return false; // Return false if sound file not found
+            }
+        }
+
+        public static string GetSoundFilePath(string soundFileName)
+        {
+            string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clip");
+
+            // Check if the file name includes the extension, if not, append a default extension like ".wav"
+            if (!soundFileName.EndsWith(".mp3") && !soundFileName.EndsWith(".wav") &&
+                !soundFileName.EndsWith(".ogg") && !soundFileName.EndsWith(".flac") &&
+                !soundFileName.EndsWith(".aac"))
+            {
+                soundFileName += ".wav"; // assuming .wav as default extension
+            }
+
+            string soundFilePath = Path.Combine(soundClipPath, soundFileName);
+
+            if (File.Exists(soundFilePath))
+            {
+                return soundFilePath;
+            }
+            else
+            {
+                return null; // Return null if sound file not found
+            }
+        }
+
+
 
         public void KnivesOnly()
         {
