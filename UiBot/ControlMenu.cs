@@ -31,7 +31,7 @@ namespace UiBot
             randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
             oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
             enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
-            enableGrenade.Checked = Properties.Settings.Default.isGrenadeEnabled;
+            enableSounds.Checked = Properties.Settings.Default.isAudclipEnabled;
             enableBagDrop.Checked = Properties.Settings.Default.isDropBagEnabled;
             enableTradersCommand.Checked = Properties.Settings.Default.isTradersEnabled;
             enableGrenadeToss.Checked = Properties.Settings.Default.isGrenadeTossEnabled;
@@ -76,7 +76,7 @@ namespace UiBot
             textBoxes["randomKeyInputs"] = RandomKeyInputs;
             textBoxes["autoMessageBox"] = AutoMessageBox;
             textBoxes["autoSendMessageCD"] = AutoSendMessageCD;
-            textBoxes["grenadeCooldown"] = GrenadeCooldownTextBox;
+            textBoxes["soundCostBox"] = SoundTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
             textBoxes["dropbagKey"] = dropbagKeyBox;
             textBoxes["dropKey"] = DropKeyTextBox;
@@ -146,10 +146,10 @@ namespace UiBot
             get { return randomKeyInputs; }
             set { randomKeyInputs = value; }
         }
-        public TextBox GrenadeCooldownTextBox
+        public TextBox SoundTextBox
         {
-            get { return grenadeCooldownTextBox; }
-            set { grenadeCooldownTextBox = value; }
+            get { return soundCostTextBox; }
+            set { soundCostTextBox = value; }
         }
         public TextBox DropBagCooldownTextBox
         {
@@ -448,9 +448,9 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
-        private void enableGrenade_CheckedChanged(object sender, EventArgs e)
+        private void enableSounds_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isGrenadeEnabled = enableGrenade.Checked;
+            Properties.Settings.Default.isAudclipEnabled = enableSounds.Checked;
             Properties.Settings.Default.Save();
         }
 

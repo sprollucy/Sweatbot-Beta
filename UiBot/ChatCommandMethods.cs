@@ -611,7 +611,7 @@ namespace UiBot
 
         public static string GetSoundFilePath(string soundFileName)
         {
-            string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clip");
+            string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clips");
 
             // Check if the file name includes the extension, if not, append a default extension like ".wav"
             if (!soundFileName.EndsWith(".mp3") && !soundFileName.EndsWith(".wav") &&

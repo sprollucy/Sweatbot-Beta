@@ -9,6 +9,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using TwitchLib.PubSub;
 using TwitchLib.PubSub.Events;
+using UiBot.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
@@ -255,7 +256,7 @@ namespace UiBot
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
-//Normal Commands
+            //Normal Commands
             switch (e.Command.CommandText.ToLower())
             {
                 case "help":
@@ -349,7 +350,9 @@ namespace UiBot
                                 { "hotmicCostBox", ("hotmic", () => Properties.Settings.Default.isHotMicEnabled) },
                                 { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
                                 { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-                                { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) }
+                                { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
+                                { "soundCostTextBox", ("aplay", () => Properties.Settings.Default.isAudclipEnabled) }
+
                         };
 
                         // Define a list to hold enabled command details
@@ -962,52 +965,6 @@ namespace UiBot
                                     // Save the updated bit data
                                     WriteUserBitsToJson("user_bits.json");
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, pop used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
-
-                                }
-                                else
-                                {
-                                    // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
-                                }
-                            }
-                            else
-                            {
-                                // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cost value.");
-                            }
-                        }
-                        else
-                        {
-                            // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
-                        }
-                    }
-                    break;
-
-                case "grenadesound":
-                    if (Properties.Settings.Default.isGrenadeEnabled && !Properties.Settings.Default.isCommandsPaused)
-                    {
-
-
-                        // Check if the user's bits are loaded
-                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
-                        {
-                            // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.GrenadeCooldownTextBox.Text, out int bitCost))
-                            {
-                                // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
-                                {
-                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "grenadesound", bitCost, userBits, timestamp);
-
-                                    // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
-
-                                    chatCommandMethods.GrenadeSound();
-
-                                    // Save the updated bit data
-                                    WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, grenadesound used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
 
                                 }
                                 else
@@ -1741,7 +1698,7 @@ namespace UiBot
                 case "audiolist":
                     if (Properties.Settings.Default.isAudclipEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
-                        string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clip");
+                        string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clips");
                         string availableSounds = string.Join(", ", GetAvailableSounds(soundClipPath));
 
                         if (availableSounds == "No sounds available")
@@ -1755,14 +1712,14 @@ namespace UiBot
                     }
                     break;
 
-                case "aplay":
+                case "audioplay":
                     if (Properties.Settings.Default.isAudclipEnabled && !Properties.Settings.Default.isCommandsPaused)
                     {
                         // Check if the user's bits are loaded
                         if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
                         {
                             // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.FireModeCostBox.Text, out int bitCost))
+                            if (int.TryParse(controlMenu.SoundTextBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
@@ -1798,7 +1755,7 @@ namespace UiBot
                                         }
                                         else
                                         {
-                                            client.SendMessage(channelId, $"Sound file '{soundFileName}' not found.");
+                                            client.SendMessage(channelId, $"Sound file '{soundFileName}' not found. Use !audiolist to see what sounds there are to use");
                                             // Refund the bits deducted
                                             userBits[e.Command.ChatMessage.DisplayName] += bitCost;
                                         }

@@ -102,8 +102,8 @@
             textBox1 = new TextBox();
             enableBagDrop = new CheckBox();
             dropbagCooldownTextBox = new TextBox();
-            enableGrenade = new CheckBox();
-            grenadeCooldownTextBox = new TextBox();
+            enableSounds = new CheckBox();
+            soundCostTextBox = new TextBox();
             randomKeyInputs = new TextBox();
             restart_AppButton = new Button();
             label2 = new Label();
@@ -329,8 +329,8 @@
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(enableBagDrop);
             panel1.Controls.Add(dropbagCooldownTextBox);
-            panel1.Controls.Add(enableGrenade);
-            panel1.Controls.Add(grenadeCooldownTextBox);
+            panel1.Controls.Add(enableSounds);
+            panel1.Controls.Add(soundCostTextBox);
             panel1.Controls.Add(randomKeyInputs);
             panel1.Controls.Add(oneClickCheck);
             panel1.Controls.Add(randomTurn);
@@ -903,25 +903,25 @@
             dropbagCooldownTextBox.TabIndex = 40;
             dropbagCooldownTextBox.Text = "300";
             // 
-            // enableGrenade
+            // enableSounds
             // 
-            enableGrenade.AutoSize = true;
-            enableGrenade.BackColor = Color.FromArgb(181, 176, 163);
-            enableGrenade.Location = new Point(14, 264);
-            enableGrenade.Name = "enableGrenade";
-            enableGrenade.Size = new Size(145, 19);
-            enableGrenade.TabIndex = 38;
-            enableGrenade.Text = "Enable Grenade Sound";
-            enableGrenade.UseVisualStyleBackColor = false;
-            enableGrenade.CheckedChanged += enableGrenade_CheckedChanged;
+            enableSounds.AutoSize = true;
+            enableSounds.BackColor = Color.FromArgb(181, 176, 163);
+            enableSounds.Location = new Point(14, 264);
+            enableSounds.Name = "enableSounds";
+            enableSounds.Size = new Size(132, 19);
+            enableSounds.TabIndex = 38;
+            enableSounds.Text = "Enable Sounds Clips";
+            enableSounds.UseVisualStyleBackColor = false;
+            enableSounds.CheckedChanged += enableSounds_CheckedChanged;
             // 
-            // grenadeCooldownTextBox
+            // soundCostTextBox
             // 
-            grenadeCooldownTextBox.Location = new Point(174, 262);
-            grenadeCooldownTextBox.Name = "grenadeCooldownTextBox";
-            grenadeCooldownTextBox.Size = new Size(100, 23);
-            grenadeCooldownTextBox.TabIndex = 36;
-            grenadeCooldownTextBox.Text = "300";
+            soundCostTextBox.Location = new Point(174, 262);
+            soundCostTextBox.Name = "soundCostTextBox";
+            soundCostTextBox.Size = new Size(100, 23);
+            soundCostTextBox.TabIndex = 36;
+            soundCostTextBox.Text = "300";
             // 
             // randomKeyInputs
             // 
@@ -1260,8 +1260,8 @@
         private PictureBox pictureBox3;
         private Label label1;
         private TextBox randomKeyInputs;
-        private CheckBox enableGrenade;
-        private TextBox grenadeCooldownTextBox;
+        private CheckBox enableSounds;
+        private TextBox soundCostTextBox;
         private CheckBox enableBagDrop;
         private TextBox dropbagCooldownTextBox;
         private Label label2;
