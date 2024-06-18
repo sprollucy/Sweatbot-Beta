@@ -1,4 +1,4 @@
-# Tarkov-Twitch-Bot 1.0.0.67alpha
+# Tarkov-Twitch-Bot 1.0.0.68alpha
 
 This is my simple to use and open source twitch bot designed to be used with tarkov mainly but works with other games  
 It features chat commands to interact with you as you play. Only a few right now but more are coming. It also includes a trader reset screen for the true sweats to track exactly when traders reset and twitch chat reminders for it also!  
@@ -25,7 +25,7 @@ Notice - This app was written with the assistance of chatgpt as I am still learn
 -Follower services  
 
 ### Download Latest Here
-[1.0.0.67a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.67a)
+[1.0.0.68a](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.68a)
 
 ## How To Use
 Tutorial video on quick setup  
@@ -74,6 +74,25 @@ If you like my projects and want to help support me, you can directly donate her
 [Paypal Donate](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA&no_recurring=0&item_name=Thank+you+for+helping+support+my+projects%21&currency_code=USD)
 
 ## Changelog
+
+1.0.0.68-alpha 6-17-24  
+-Added !refund command and setting to allow moderators to use it  
+-Removed !grenadesound  
+-Added custom audio loader. Currently it only supports wav format files. With the commands enabled, you can either do !audiolist to list all sound clips in the Sound Clips directory and then you do !audioplay <filename>. I will eventually make a way to add custom prices to each sound  
+-Align command boxes  
+-Fixed logbits method showing the wrong users bits  
+-Fixed description error for firemode  
+-Moved log methods to separate file called LogHandler  
+-Changed voice line to either do f1 once or twice randomly  
+-Fixed bug with goose still being able to work when chat is paused  
+-Removed messages that commands are disabled for less chat clutter  
+-Fixed error with trader update causing app to crash either when opening trader menu or calling it in twitch chat and then opening the trader menu  
+-Fixed Kill Goose button not working. Broke with a git error  
+-Fixed goose command being able to be used while it is disabled and commands are paused.  
+-Added whitelist for moderators to allow certain mods of the channel to use the !refund and !addbits commands. Either use the button in the Commands menu or go to the Data folder and opon ModWhitelist.txt  
+-Added bit multiplier in the Command Menu for people who give bits. So if set to 2, and someone give 10 bits, it will count as 20 to the bot  
+
+
 1.0.0.67-alpha 6-12-24  
 -Added log files for when bits are added and when commands are used for how much. Can be found in the Log Folder  
 -Changed file directory layout  
