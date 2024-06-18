@@ -56,6 +56,7 @@ namespace UiBot
             modRefund.Checked = Properties.Settings.Default.isModRefundEnabled;
             modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
             enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
+            enableWeaponSwap.Checked = Properties.Settings.Default.isWeaponSwapEnabled;
 
         }
 
