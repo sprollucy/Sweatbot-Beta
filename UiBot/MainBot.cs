@@ -351,7 +351,7 @@ namespace UiBot
                                 { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
                                 { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
                                 { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-                                { "soundCostTextBox", ("aplay", () => Properties.Settings.Default.isAudclipEnabled) }
+                                { "soundCostTextBox", ("audioplay", () => Properties.Settings.Default.isAudclipEnabled) }
 
                         };
 
@@ -1724,7 +1724,7 @@ namespace UiBot
                                 // Check if the user has enough bits
                                 if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
                                 {
-                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "aplay", bitCost, userBits, timestamp);
+                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "audioplay", bitCost, userBits, timestamp);
 
                                     // Deduct the cost of the command
                                     userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
@@ -1749,7 +1749,7 @@ namespace UiBot
                                             if (success)
                                             {
                                                 WriteUserBitsToJson("user_bits.json");
-                                                client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, aplay used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                                client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, audioplay used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                             }
                                             // No need to send a message if PlaySound already handles errors
                                         }

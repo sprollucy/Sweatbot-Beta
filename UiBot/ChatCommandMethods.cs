@@ -569,18 +569,6 @@ namespace UiBot
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 
-
-        public void GrenadeSound()
-        {
-            // Create a SoundPlayer and specify the notification sound file path
-            string notificationSoundFilePath = Path.Combine(appDirectory, soundFileName);
-            SoundPlayer player = new SoundPlayer(notificationSoundFilePath);
-
-            // Play the notification sound
-            Thread.Sleep(1000);
-            player.Play();
-
-        }
         public static bool PlaySound(string soundFileName, string channelId, TwitchClient client)
         {
             string soundFilePath = GetSoundFilePath(soundFileName);
@@ -613,13 +601,8 @@ namespace UiBot
         {
             string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clips");
 
-            // Check if the file name includes the extension, if not, append a default extension like ".wav"
-            if (!soundFileName.EndsWith(".mp3") && !soundFileName.EndsWith(".wav") &&
-                !soundFileName.EndsWith(".ogg") && !soundFileName.EndsWith(".flac") &&
-                !soundFileName.EndsWith(".aac"))
-            {
-                soundFileName += ".wav"; // assuming .wav as default extension
-            }
+
+            soundFileName += ".wav"; // assuming .wav as default extension
 
             string soundFilePath = Path.Combine(soundClipPath, soundFileName);
 
