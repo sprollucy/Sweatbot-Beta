@@ -23,7 +23,6 @@ namespace UiBot
     internal class MainBot : IDisposable
     {
         //References
-        Counter counter = new Counter();
         ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
         ControlMenu controlMenu = new ControlMenu();
 
@@ -246,8 +245,6 @@ namespace UiBot
             Process[] gname = Process.GetProcessesByName("GooseDesktop");
 
 //antispam cooldowns
-            int wipecooldownDuration = 30;
-            int wipestatcooldownDuration = 30;
             int helpCooldownDuration = 30;
             int aboutCooldownDuration = 10;
             int tradersCooldownDuration = 90;
@@ -267,7 +264,7 @@ namespace UiBot
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
 
-                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits, !stats, !wipestats. Use !bitcost to check which commands are available and to see the prices");
+                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices");
                     }
                     break;
 
@@ -289,18 +286,6 @@ namespace UiBot
                         client.SendMessage(channelId, $"I am a bot created by Sprollucy. This is a small project that was inspired by bitbot and to help practice my coding. Many features may be incomplete or missing at this time.");
                         client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Tarkov-Twitch-Bot-Working for more information, bug reporting, and suggestions");
                     }
-                    break;
-
-                case "stats":
-                    // Calculate the time elapsed since the last execution
-                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
-
-                    if (timeSinceLastExecution.TotalSeconds >= wipecooldownDuration)
-                    {
-                        chatCommandMethods.lastStatCommandTimer = DateTime.Now; // Update the last execution time
-                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times today, escaped {chatCommandMethods.survivalCount} times, and killed {chatCommandMethods.killCount} players");
-                    }
-
                     break;
 
                 case "mybits":
@@ -390,17 +375,6 @@ namespace UiBot
                             string message = $"{e.Command.ChatMessage.DisplayName}, All sweatbot commands are paused";
                             client.SendMessage(channelId, message);
                         }
-                    }
-                    break;
-
-                case "wipestats":
-                    // Calculate the time elapsed since the last execution
-                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastWipeStatCommandTimer;
-
-                    if (timeSinceLastExecution.TotalSeconds >= wipestatcooldownDuration)
-                    {
-                        chatCommandMethods.lastWipeStatCommandTimer = DateTime.Now; // Update the last execution time
-                        client.SendMessage(channelId, $"@{channelId} has died {counter.AllDeath} times, killed {counter.AllKillCount} players, and escaped {counter.SurvivalCount} raids this wipe.");
                     }
                     break;
 
@@ -1790,7 +1764,7 @@ namespace UiBot
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
-                        StringBuilder message = new StringBuilder("!death, !escape, !kill");
+                        StringBuilder message = new StringBuilder("");
 
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
@@ -1804,25 +1778,6 @@ namespace UiBot
 
                         client.SendMessage(channelId, message.ToString());
                         break;
-
-                    case "death":
-                        chatCommandMethods.deathCount = chatCommandMethods.deathCount + 1;
-                        counter.IncrementAllDeath();
-                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times");
-                        break;
-
-                    case "kill":
-                        chatCommandMethods.killCount = chatCommandMethods.killCount + 1;
-                        counter.IncrementKillCount();
-                        client.SendMessage(channelId, $"You got a kill! thats {chatCommandMethods.killCount} kills today!");
-                        break;
-
-                    case "escape":
-                        chatCommandMethods.survivalCount = chatCommandMethods.survivalCount + 1;
-                        counter.IncrementSurvivalCount();
-                        client.SendMessage(channelId, $"@{channelId} has escaped {counter.SurvivalCount} times");
-                        break;
-
 
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
@@ -1874,7 +1829,7 @@ namespace UiBot
                 switch (e.Command.CommandText.ToLower())
                 {
                     case "help":
-                        client.SendMessage(channelId, "!hi, !goose, !killgoose, !death, !escape, !resettoday, !resetallstats, !addbits, !refund");
+                        client.SendMessage(channelId, "!hi, !addbits, !refund");
                         break;
                     case "hi":
                         client.SendMessage(channelId, "Hi");
@@ -1890,36 +1845,6 @@ namespace UiBot
                             notePad.StartInfo.FileName = "notepad.exe";
                             notePad.Start();
                         }
-                        break;
-
-                    case "death":
-                        chatCommandMethods.deathCount = chatCommandMethods.deathCount + 1;
-                        counter.IncrementAllDeath();
-                        client.SendMessage(channelId, $"@{channelId} has died {chatCommandMethods.deathCount} times");
-                        break;
-
-                    case "resettoday":
-                        client.SendMessage(channelId, $"Stream stats reset!");
-                        chatCommandMethods.deathCount = 0;
-                        chatCommandMethods.killCount = 0;
-                        break;
-
-                    case "escape":
-                        counter.IncrementSurvivalCount();
-                        client.SendMessage(channelId, $"@{channelId} has escaped {counter.SurvivalCount} times");
-                        break;
-
-                    case "kill":
-                        chatCommandMethods.killCount = chatCommandMethods.killCount + 1;
-                        counter.IncrementKillCount();
-                        client.SendMessage(channelId, $"You got a kill! thats {chatCommandMethods.killCount} kills today!");
-                        break;
-
-                    case "resetallstats":
-                        client.SendMessage(channelId, "All stats reset!");
-                        counter.ResetAllDeath();
-                        counter.ResetSurvivalCount();
-                        chatCommandMethods.deathCount = 0;
                         break;
 
                     case "addbits":

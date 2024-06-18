@@ -84,8 +84,6 @@ namespace UiBot
         //random key press
         public DateTime lastRandomKeyPressesTime = DateTime.MinValue;
 
-        Counter counter = new Counter();
-
         //death counter
         public int deathCount = 0;
         public int killCount = 0;
