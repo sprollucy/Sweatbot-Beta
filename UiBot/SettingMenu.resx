@@ -118,7 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>1.0.0.67-alpha 6-12-24
+    <value>1.0.0.68-alpha 6-17-24
+-Added !refund command and setting to allow moderators to use it
+-Removed !grenadesound
+-Added custom audio loader. Currently it only supports wav format files. With the commands enabled, you can either do !audiolist to list all sound clips in the Sound Clips directory and then you do !audioplay &lt;filename&gt;. I will eventually make a way to add custom prices to each sound
+-Align command boxes
+-Fixed logbits method showing the wrong users bits
+-Fixed description error for firemode
+-Moved log methods to separate file called LogHandler
+-Changed voice line to either do f1 once or twice randomly
+-Fixed bug with goose still being able to work when chat is paused
+-Removed messages that commands are disabled for less chat clutter
+-Fixed error with trader update causing app to crash either when opening trader menu or calling it in twitch chat and then opening the trader menu
+-Fixed Kill Goose button not working. Broke with a git error 
+-Fixed goose command being able to be used while it is disabled and commands are paused.
+-Added whitelist for moderators to allow certain mods of the channel to use the !refund and !addbits commands. Either use the button in the Commands menu or go to the Data folder and opon ModWhitelist.txt
+-Added bit multiplier in the Command Menu for people who give bits. So if set to 2, and someone give 10 bits, it will count as 20 to the bot
+
+1.0.0.67-alpha 6-12-24
 -Added log files for when bits are added and when commands are used for how much. Can be found in the Log Folder
 -Changed file directory layout
 -Added back up system for user data, which keeps a back up of the user bits from twitch and user configurations. Back up button can be found in the Quick Toggles section of the Connection Menu
@@ -259,7 +276,6 @@ changelog
 -Fixed some cooldowns accidentally triggering another when certain commands are used
 -Refactored most of the original code for readability
 Remember to report any bugs or new feature request on the github page!
-
 
 </value>
   </data>
