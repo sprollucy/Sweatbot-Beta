@@ -1036,7 +1036,7 @@ namespace UiBot
                 if (int.TryParse(args[1], out bitsToAdd))
                 {
                     // Update user's bits
-                    MainBot.UpdateUserBits(username, bitsToAdd);
+                    LogHandler.UpdateUserBits(username, bitsToAdd);
                     LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, MainBot.userBits, timestamp);
 
                     // Notify about successful update
