@@ -58,6 +58,7 @@ namespace UiBot
             modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
             enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
             enableWeaponSwap.Checked = Properties.Settings.Default.isWeaponSwapEnabled;
+            enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
 
         }
 
@@ -113,6 +114,12 @@ namespace UiBot
             textBoxes["firemodeCostBox"] = FireModeCostBox;
             textBoxes["firemodeKey"] = FireModeKeyBox;
             textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
+            textBoxes["bottoggleCostBox"] = BotToggleCostBox;
+        }
+        public TextBox BotToggleCostBox
+        {
+            get { return bottoggleCostBox; }
+            set { bottoggleCostBox = value; }
         }
         public TextBox WiggleCooldownTextBox
         {
@@ -630,6 +637,12 @@ namespace UiBot
         private void enableDropMag_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isDropMagEnabled = enableDropMag.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableBotToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
             Properties.Settings.Default.Save();
         }
     }

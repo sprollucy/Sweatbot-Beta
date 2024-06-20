@@ -646,5 +646,17 @@ namespace UiBot.Properties {
                 this["isAudclipEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSweatbotEnabled {
+            get {
+                return ((bool)(this["isSweatbotEnabled"]));
+            }
+            set {
+                this["isSweatbotEnabled"] = value;
+            }
+        }
     }
 }

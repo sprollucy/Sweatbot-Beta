@@ -1,4 +1,6 @@
-﻿namespace UiBot
+﻿using Newtonsoft.Json;
+
+namespace UiBot
 {
     internal class LogHandler
     {
@@ -127,6 +129,78 @@
             }
         }
 
+        public static void LoadUserBitsFromJson(string fileName)
+        {
+            // Construct the file path to the "Data" folder
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            string filePath = Path.Combine(directoryPath, fileName);
+
+            // Check if the directory exists
+            if (!Directory.Exists(directoryPath))
+            {
+                Console.WriteLine($"Data directory not found: {directoryPath}");
+                MainBot.userBits = new Dictionary<string, int>();
+                return;
+            }
+
+            // Check if the JSON file exists
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("User bits JSON file not found.");
+                MainBot.userBits = new Dictionary<string, int>();
+                return;
+            }
+
+            // Deserialize JSON file to dictionary
+            string json = File.ReadAllText(filePath);
+            MainBot.userBits = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
+        }
+
+        public static void WriteUserBitsToJson(string fileName)
+        {
+            // Construct the file path to the JSON file in the "Data" folder
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
+            string filePath = Path.Combine(dataDirectory, fileName);
+
+            // Validate bits to ensure they are not negative
+            foreach (var user in MainBot.userBits)
+            {
+                if (user.Value < 0)
+                {
+                    // Handle negative bits (e.g., set to zero or log the issue)
+                    MainBot.userBits[user.Key] = 0;
+                    Console.WriteLine($"Negative bits detected for user {user.Key}. Set to 0.");
+                }
+            }
+
+            // Serialize dictionary to JSON
+            string json = JsonConvert.SerializeObject(MainBot.userBits, Formatting.Indented);
+
+            try
+            {
+                // Write JSON to file
+                File.WriteAllText(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing JSON file: {ex.Message}");
+            }
+        }
+
+        public static void UpdateUserBits(string username, int bitsGiven)
+        {
+            if (MainBot.userBits.ContainsKey(username))
+            {
+                MainBot.userBits[username] += bitsGiven;
+            }
+            else
+            {
+                MainBot.userBits.Add(username, bitsGiven);
+            }
+
+            LogHandler.WriteUserBitsToJson("user_bits.json");
+        }
 
         //Mod Whitelist
 

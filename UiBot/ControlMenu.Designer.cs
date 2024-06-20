@@ -44,6 +44,8 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            dropmagCostBox = new TextBox();
+            enableDropMag = new CheckBox();
             firemodeKey = new TextBox();
             firemodeCostBox = new TextBox();
             enableFireMode = new CheckBox();
@@ -130,8 +132,8 @@
             enableBonusMulti = new CheckBox();
             bonusMultiplierBox = new TextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            enableDropMag = new CheckBox();
-            dropmagCostBox = new TextBox();
+            bottoggleCostBox = new TextBox();
+            enableBotToggle = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -142,7 +144,7 @@
             // 
             // wiggleCooldownTextBox
             // 
-            wiggleCooldownTextBox.Location = new Point(174, 28);
+            wiggleCooldownTextBox.Location = new Point(174, 58);
             wiggleCooldownTextBox.Name = "wiggleCooldownTextBox";
             wiggleCooldownTextBox.Size = new Size(100, 23);
             wiggleCooldownTextBox.TabIndex = 0;
@@ -150,7 +152,7 @@
             // 
             // dropCooldownTextBox
             // 
-            dropCooldownTextBox.Location = new Point(174, 59);
+            dropCooldownTextBox.Location = new Point(174, 89);
             dropCooldownTextBox.Name = "dropCooldownTextBox";
             dropCooldownTextBox.Size = new Size(100, 23);
             dropCooldownTextBox.TabIndex = 1;
@@ -158,7 +160,7 @@
             // 
             // gooseCooldownTextBox
             // 
-            gooseCooldownTextBox.Location = new Point(174, 117);
+            gooseCooldownTextBox.Location = new Point(174, 147);
             gooseCooldownTextBox.Name = "gooseCooldownTextBox";
             gooseCooldownTextBox.Size = new Size(100, 23);
             gooseCooldownTextBox.TabIndex = 2;
@@ -166,7 +168,7 @@
             // 
             // randomKeyCooldownTextBox
             // 
-            randomKeyCooldownTextBox.Location = new Point(174, 146);
+            randomKeyCooldownTextBox.Location = new Point(174, 176);
             randomKeyCooldownTextBox.Name = "randomKeyCooldownTextBox";
             randomKeyCooldownTextBox.Size = new Size(100, 23);
             randomKeyCooldownTextBox.TabIndex = 3;
@@ -174,7 +176,7 @@
             // 
             // turnCooldownTextBox
             // 
-            turnCooldownTextBox.Location = new Point(174, 205);
+            turnCooldownTextBox.Location = new Point(174, 235);
             turnCooldownTextBox.Name = "turnCooldownTextBox";
             turnCooldownTextBox.Size = new Size(100, 23);
             turnCooldownTextBox.TabIndex = 4;
@@ -182,7 +184,7 @@
             // 
             // oneClickCooldownTextBox
             // 
-            oneClickCooldownTextBox.Location = new Point(174, 234);
+            oneClickCooldownTextBox.Location = new Point(174, 264);
             oneClickCooldownTextBox.Name = "oneClickCooldownTextBox";
             oneClickCooldownTextBox.Size = new Size(100, 23);
             oneClickCooldownTextBox.TabIndex = 5;
@@ -202,7 +204,7 @@
             // 
             oneClickCheck.AutoSize = true;
             oneClickCheck.BackColor = Color.FromArgb(181, 176, 163);
-            oneClickCheck.Location = new Point(14, 236);
+            oneClickCheck.Location = new Point(14, 266);
             oneClickCheck.Name = "oneClickCheck";
             oneClickCheck.Size = new Size(115, 19);
             oneClickCheck.TabIndex = 14;
@@ -214,7 +216,7 @@
             // 
             randomTurn.AutoSize = true;
             randomTurn.BackColor = Color.FromArgb(181, 176, 163);
-            randomTurn.Location = new Point(14, 207);
+            randomTurn.Location = new Point(14, 237);
             randomTurn.Name = "randomTurn";
             randomTurn.Size = new Size(88, 19);
             randomTurn.TabIndex = 15;
@@ -226,7 +228,7 @@
             // 
             enableRandomKey.AutoSize = true;
             enableRandomKey.BackColor = Color.FromArgb(181, 176, 163);
-            enableRandomKey.Location = new Point(14, 148);
+            enableRandomKey.Location = new Point(14, 178);
             enableRandomKey.Name = "enableRandomKey";
             enableRandomKey.Size = new Size(136, 19);
             enableRandomKey.TabIndex = 16;
@@ -238,7 +240,7 @@
             // 
             chkEnableGoose.AutoSize = true;
             chkEnableGoose.BackColor = Color.FromArgb(181, 176, 163);
-            chkEnableGoose.Location = new Point(14, 119);
+            chkEnableGoose.Location = new Point(14, 149);
             chkEnableGoose.Name = "chkEnableGoose";
             chkEnableGoose.Size = new Size(97, 19);
             chkEnableGoose.TabIndex = 17;
@@ -250,7 +252,7 @@
             // 
             enableKitDrop.AutoSize = true;
             enableKitDrop.BackColor = Color.FromArgb(181, 176, 163);
-            enableKitDrop.Location = new Point(14, 61);
+            enableKitDrop.Location = new Point(14, 91);
             enableKitDrop.Name = "enableKitDrop";
             enableKitDrop.Size = new Size(107, 19);
             enableKitDrop.TabIndex = 18;
@@ -262,7 +264,7 @@
             // 
             enableWiggle.AutoSize = true;
             enableWiggle.BackColor = Color.FromArgb(181, 176, 163);
-            enableWiggle.Location = new Point(14, 30);
+            enableWiggle.Location = new Point(14, 60);
             enableWiggle.Name = "enableWiggle";
             enableWiggle.Size = new Size(101, 19);
             enableWiggle.TabIndex = 19;
@@ -273,6 +275,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(enableBotToggle);
+            panel1.Controls.Add(bottoggleCostBox);
             panel1.Controls.Add(dropmagCostBox);
             panel1.Controls.Add(enableDropMag);
             panel1.Controls.Add(firemodeKey);
@@ -353,9 +357,28 @@
             panel1.Size = new Size(514, 932);
             panel1.TabIndex = 20;
             // 
+            // dropmagCostBox
+            // 
+            dropmagCostBox.Location = new Point(173, 611);
+            dropmagCostBox.Name = "dropmagCostBox";
+            dropmagCostBox.Size = new Size(100, 23);
+            dropmagCostBox.TabIndex = 107;
+            dropmagCostBox.Text = "300";
+            // 
+            // enableDropMag
+            // 
+            enableDropMag.AutoSize = true;
+            enableDropMag.Location = new Point(14, 613);
+            enableDropMag.Name = "enableDropMag";
+            enableDropMag.Size = new Size(117, 19);
+            enableDropMag.TabIndex = 106;
+            enableDropMag.Text = "Enable Drop Mag";
+            enableDropMag.UseVisualStyleBackColor = true;
+            enableDropMag.CheckedChanged += enableDropMag_CheckedChanged;
+            // 
             // firemodeKey
             // 
-            firemodeKey.Location = new Point(280, 841);
+            firemodeKey.Location = new Point(280, 871);
             firemodeKey.Name = "firemodeKey";
             firemodeKey.Size = new Size(31, 23);
             firemodeKey.TabIndex = 105;
@@ -363,7 +386,7 @@
             // 
             // firemodeCostBox
             // 
-            firemodeCostBox.Location = new Point(173, 841);
+            firemodeCostBox.Location = new Point(173, 871);
             firemodeCostBox.Name = "firemodeCostBox";
             firemodeCostBox.Size = new Size(100, 23);
             firemodeCostBox.TabIndex = 104;
@@ -373,7 +396,7 @@
             // 
             enableFireMode.AutoSize = true;
             enableFireMode.BackColor = Color.FromArgb(181, 176, 163);
-            enableFireMode.Location = new Point(14, 843);
+            enableFireMode.Location = new Point(14, 873);
             enableFireMode.Name = "enableFireMode";
             enableFireMode.Size = new Size(158, 19);
             enableFireMode.TabIndex = 103;
@@ -383,7 +406,7 @@
             // 
             // dropbagKeyBox
             // 
-            dropbagKeyBox.Location = new Point(279, 291);
+            dropbagKeyBox.Location = new Point(279, 321);
             dropbagKeyBox.Name = "dropbagKeyBox";
             dropbagKeyBox.Size = new Size(31, 23);
             dropbagKeyBox.TabIndex = 102;
@@ -391,7 +414,7 @@
             // 
             // swapKey
             // 
-            swapKey.Location = new Point(279, 812);
+            swapKey.Location = new Point(279, 842);
             swapKey.Name = "swapKey";
             swapKey.Size = new Size(31, 23);
             swapKey.TabIndex = 101;
@@ -399,7 +422,7 @@
             // 
             // weaponswapCostBox
             // 
-            weaponswapCostBox.Location = new Point(173, 812);
+            weaponswapCostBox.Location = new Point(173, 842);
             weaponswapCostBox.Name = "weaponswapCostBox";
             weaponswapCostBox.Size = new Size(100, 23);
             weaponswapCostBox.TabIndex = 100;
@@ -409,7 +432,7 @@
             // 
             enableWeaponSwap.AutoSize = true;
             enableWeaponSwap.BackColor = Color.FromArgb(181, 176, 163);
-            enableWeaponSwap.Location = new Point(14, 814);
+            enableWeaponSwap.Location = new Point(14, 844);
             enableWeaponSwap.Name = "enableWeaponSwap";
             enableWeaponSwap.Size = new Size(139, 19);
             enableWeaponSwap.TabIndex = 99;
@@ -419,7 +442,7 @@
             // 
             // normgrenadeCostBox
             // 
-            normgrenadeCostBox.Location = new Point(173, 349);
+            normgrenadeCostBox.Location = new Point(173, 379);
             normgrenadeCostBox.Name = "normgrenadeCostBox";
             normgrenadeCostBox.Size = new Size(100, 23);
             normgrenadeCostBox.TabIndex = 98;
@@ -429,7 +452,7 @@
             // 
             enableNormGrenade.AutoSize = true;
             enableNormGrenade.BackColor = Color.FromArgb(181, 176, 163);
-            enableNormGrenade.Location = new Point(14, 352);
+            enableNormGrenade.Location = new Point(14, 382);
             enableNormGrenade.Name = "enableNormGrenade";
             enableNormGrenade.Size = new Size(133, 19);
             enableNormGrenade.TabIndex = 97;
@@ -439,7 +462,7 @@
             // 
             // micKey
             // 
-            micKey.Location = new Point(279, 783);
+            micKey.Location = new Point(279, 813);
             micKey.Name = "micKey";
             micKey.Size = new Size(31, 23);
             micKey.TabIndex = 96;
@@ -448,7 +471,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(332, 787);
+            label7.Location = new Point(332, 817);
             label7.Name = "label7";
             label7.Size = new Size(115, 15);
             label7.TabIndex = 95;
@@ -456,7 +479,7 @@
             // 
             // micTime
             // 
-            micTime.Location = new Point(453, 784);
+            micTime.Location = new Point(453, 814);
             micTime.Name = "micTime";
             micTime.Size = new Size(31, 23);
             micTime.TabIndex = 94;
@@ -464,7 +487,7 @@
             // 
             // hotmicCostBox
             // 
-            hotmicCostBox.Location = new Point(173, 783);
+            hotmicCostBox.Location = new Point(173, 813);
             hotmicCostBox.Name = "hotmicCostBox";
             hotmicCostBox.Size = new Size(100, 23);
             hotmicCostBox.TabIndex = 93;
@@ -474,7 +497,7 @@
             // 
             enableHotMic.AutoSize = true;
             enableHotMic.BackColor = Color.FromArgb(181, 176, 163);
-            enableHotMic.Location = new Point(14, 785);
+            enableHotMic.Location = new Point(14, 815);
             enableHotMic.Name = "enableHotMic";
             enableHotMic.Size = new Size(107, 19);
             enableHotMic.TabIndex = 92;
@@ -485,7 +508,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(332, 758);
+            label6.Location = new Point(332, 788);
             label6.Name = "label6";
             label6.Size = new Size(115, 15);
             label6.TabIndex = 91;
@@ -493,7 +516,7 @@
             // 
             // walkTime
             // 
-            walkTime.Location = new Point(453, 755);
+            walkTime.Location = new Point(453, 785);
             walkTime.Name = "walkTime";
             walkTime.Size = new Size(31, 23);
             walkTime.TabIndex = 90;
@@ -501,7 +524,7 @@
             // 
             // walkCostBox
             // 
-            walkCostBox.Location = new Point(173, 754);
+            walkCostBox.Location = new Point(173, 784);
             walkCostBox.Name = "walkCostBox";
             walkCostBox.Size = new Size(100, 23);
             walkCostBox.TabIndex = 89;
@@ -511,7 +534,7 @@
             // 
             enableWalk.AutoSize = true;
             enableWalk.BackColor = Color.FromArgb(181, 176, 163);
-            enableWalk.Location = new Point(14, 757);
+            enableWalk.Location = new Point(14, 787);
             enableWalk.Name = "enableWalk";
             enableWalk.Size = new Size(136, 19);
             enableWalk.TabIndex = 88;
@@ -522,7 +545,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(332, 729);
+            label5.Location = new Point(332, 759);
             label5.Name = "label5";
             label5.Size = new Size(115, 15);
             label5.TabIndex = 87;
@@ -530,7 +553,7 @@
             // 
             // muteTime
             // 
-            muteTime.Location = new Point(453, 726);
+            muteTime.Location = new Point(453, 756);
             muteTime.Name = "muteTime";
             muteTime.Size = new Size(31, 23);
             muteTime.TabIndex = 86;
@@ -538,7 +561,7 @@
             // 
             // windowsmuteCostBox
             // 
-            windowsmuteCostBox.Location = new Point(173, 725);
+            windowsmuteCostBox.Location = new Point(173, 755);
             windowsmuteCostBox.Name = "windowsmuteCostBox";
             windowsmuteCostBox.Size = new Size(100, 23);
             windowsmuteCostBox.TabIndex = 85;
@@ -548,7 +571,7 @@
             // 
             enableWindowsMute.AutoSize = true;
             enableWindowsMute.BackColor = Color.FromArgb(181, 176, 163);
-            enableWindowsMute.Location = new Point(14, 727);
+            enableWindowsMute.Location = new Point(14, 757);
             enableWindowsMute.Name = "enableWindowsMute";
             enableWindowsMute.Size = new Size(144, 19);
             enableWindowsMute.TabIndex = 84;
@@ -558,7 +581,7 @@
             // 
             // jumpCostBox
             // 
-            jumpCostBox.Location = new Point(173, 696);
+            jumpCostBox.Location = new Point(173, 726);
             jumpCostBox.Name = "jumpCostBox";
             jumpCostBox.Size = new Size(100, 23);
             jumpCostBox.TabIndex = 83;
@@ -568,7 +591,7 @@
             // 
             enableJump.AutoSize = true;
             enableJump.BackColor = Color.FromArgb(181, 176, 163);
-            enableJump.Location = new Point(14, 698);
+            enableJump.Location = new Point(14, 728);
             enableJump.Name = "enableJump";
             enableJump.Size = new Size(93, 19);
             enableJump.TabIndex = 82;
@@ -578,7 +601,7 @@
             // 
             // dropconfigbutton
             // 
-            dropconfigbutton.Location = new Point(280, 58);
+            dropconfigbutton.Location = new Point(280, 88);
             dropconfigbutton.Name = "dropconfigbutton";
             dropconfigbutton.Size = new Size(135, 23);
             dropconfigbutton.TabIndex = 81;
@@ -588,7 +611,7 @@
             // 
             // knifeKey
             // 
-            knifeKey.Location = new Point(279, 667);
+            knifeKey.Location = new Point(279, 697);
             knifeKey.Name = "knifeKey";
             knifeKey.Size = new Size(31, 23);
             knifeKey.TabIndex = 79;
@@ -596,7 +619,7 @@
             // 
             // knifeoutCostBox
             // 
-            knifeoutCostBox.Location = new Point(173, 667);
+            knifeoutCostBox.Location = new Point(173, 697);
             knifeoutCostBox.Name = "knifeoutCostBox";
             knifeoutCostBox.Size = new Size(100, 23);
             knifeoutCostBox.TabIndex = 78;
@@ -606,7 +629,7 @@
             // 
             enableKnifeOut.AutoSize = true;
             enableKnifeOut.BackColor = Color.FromArgb(181, 176, 163);
-            enableKnifeOut.Location = new Point(14, 669);
+            enableKnifeOut.Location = new Point(14, 699);
             enableKnifeOut.Name = "enableKnifeOut";
             enableKnifeOut.Size = new Size(114, 19);
             enableKnifeOut.TabIndex = 77;
@@ -618,7 +641,7 @@
             // 
             enableTouchGrass.AutoSize = true;
             enableTouchGrass.BackColor = Color.FromArgb(181, 176, 163);
-            enableTouchGrass.Location = new Point(14, 640);
+            enableTouchGrass.Location = new Point(14, 670);
             enableTouchGrass.Name = "enableTouchGrass";
             enableTouchGrass.Size = new Size(127, 19);
             enableTouchGrass.TabIndex = 75;
@@ -628,7 +651,7 @@
             // 
             // touchgrassCostBox
             // 
-            touchgrassCostBox.Location = new Point(173, 638);
+            touchgrassCostBox.Location = new Point(173, 668);
             touchgrassCostBox.Name = "touchgrassCostBox";
             touchgrassCostBox.Size = new Size(100, 23);
             touchgrassCostBox.TabIndex = 74;
@@ -638,7 +661,7 @@
             // 
             enablePraiseSun.AutoSize = true;
             enablePraiseSun.BackColor = Color.FromArgb(181, 176, 163);
-            enablePraiseSun.Location = new Point(14, 611);
+            enablePraiseSun.Location = new Point(14, 641);
             enablePraiseSun.Name = "enablePraiseSun";
             enablePraiseSun.Size = new Size(118, 19);
             enablePraiseSun.TabIndex = 73;
@@ -648,7 +671,7 @@
             // 
             // praisesunCostBox
             // 
-            praisesunCostBox.Location = new Point(173, 609);
+            praisesunCostBox.Location = new Point(173, 639);
             praisesunCostBox.Name = "praisesunCostBox";
             praisesunCostBox.Size = new Size(100, 23);
             praisesunCostBox.TabIndex = 72;
@@ -656,7 +679,7 @@
             // 
             // reloadKeyBox
             // 
-            reloadKeyBox.Location = new Point(279, 552);
+            reloadKeyBox.Location = new Point(279, 582);
             reloadKeyBox.Name = "reloadKeyBox";
             reloadKeyBox.Size = new Size(31, 23);
             reloadKeyBox.TabIndex = 71;
@@ -664,7 +687,7 @@
             // 
             // reloadCostBox
             // 
-            reloadCostBox.Location = new Point(173, 552);
+            reloadCostBox.Location = new Point(173, 582);
             reloadCostBox.Name = "reloadCostBox";
             reloadCostBox.Size = new Size(100, 23);
             reloadCostBox.TabIndex = 70;
@@ -674,7 +697,7 @@
             // 
             enableReload.AutoSize = true;
             enableReload.BackColor = Color.FromArgb(181, 176, 163);
-            enableReload.Location = new Point(14, 554);
+            enableReload.Location = new Point(14, 584);
             enableReload.Name = "enableReload";
             enableReload.Size = new Size(100, 19);
             enableReload.TabIndex = 69;
@@ -686,7 +709,7 @@
             // 
             enableVoiceLine.AutoSize = true;
             enableVoiceLine.BackColor = Color.FromArgb(181, 176, 163);
-            enableVoiceLine.Location = new Point(14, 525);
+            enableVoiceLine.Location = new Point(14, 555);
             enableVoiceLine.Name = "enableVoiceLine";
             enableVoiceLine.Size = new Size(117, 19);
             enableVoiceLine.TabIndex = 68;
@@ -696,7 +719,7 @@
             // 
             // voicelineCostBox
             // 
-            voicelineCostBox.Location = new Point(173, 523);
+            voicelineCostBox.Location = new Point(173, 553);
             voicelineCostBox.Name = "voicelineCostBox";
             voicelineCostBox.Size = new Size(100, 23);
             voicelineCostBox.TabIndex = 67;
@@ -704,7 +727,7 @@
             // 
             // proneKeyBox
             // 
-            proneKeyBox.Location = new Point(279, 494);
+            proneKeyBox.Location = new Point(279, 524);
             proneKeyBox.Name = "proneKeyBox";
             proneKeyBox.Size = new Size(31, 23);
             proneKeyBox.TabIndex = 66;
@@ -712,7 +735,7 @@
             // 
             // proneCostBox
             // 
-            proneCostBox.Location = new Point(173, 494);
+            proneCostBox.Location = new Point(173, 524);
             proneCostBox.Name = "proneCostBox";
             proneCostBox.Size = new Size(100, 23);
             proneCostBox.TabIndex = 65;
@@ -722,7 +745,7 @@
             // 
             enableProne.AutoSize = true;
             enableProne.BackColor = Color.FromArgb(181, 176, 163);
-            enableProne.Location = new Point(14, 496);
+            enableProne.Location = new Point(14, 526);
             enableProne.Name = "enableProne";
             enableProne.Size = new Size(95, 19);
             enableProne.TabIndex = 64;
@@ -732,7 +755,7 @@
             // 
             // mag360Cost
             // 
-            mag360Cost.Location = new Point(173, 465);
+            mag360Cost.Location = new Point(173, 495);
             mag360Cost.Name = "mag360Cost";
             mag360Cost.Size = new Size(100, 23);
             mag360Cost.TabIndex = 63;
@@ -742,7 +765,7 @@
             // 
             enable360MagDump.AutoSize = true;
             enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
-            enable360MagDump.Location = new Point(14, 467);
+            enable360MagDump.Location = new Point(14, 497);
             enable360MagDump.Name = "enable360MagDump";
             enable360MagDump.Size = new Size(153, 19);
             enable360MagDump.TabIndex = 62;
@@ -752,7 +775,7 @@
             // 
             // holdAimCost
             // 
-            holdAimCost.Location = new Point(173, 436);
+            holdAimCost.Location = new Point(173, 466);
             holdAimCost.Name = "holdAimCost";
             holdAimCost.Size = new Size(100, 23);
             holdAimCost.TabIndex = 58;
@@ -762,7 +785,7 @@
             // 
             enableHoldAim.AutoSize = true;
             enableHoldAim.BackColor = Color.FromArgb(181, 176, 163);
-            enableHoldAim.Location = new Point(14, 439);
+            enableHoldAim.Location = new Point(14, 469);
             enableHoldAim.Name = "enableHoldAim";
             enableHoldAim.Size = new Size(115, 19);
             enableHoldAim.TabIndex = 57;
@@ -772,7 +795,7 @@
             // 
             // magDumpCost
             // 
-            magDumpCost.Location = new Point(173, 407);
+            magDumpCost.Location = new Point(173, 437);
             magDumpCost.Name = "magDumpCost";
             magDumpCost.Size = new Size(100, 23);
             magDumpCost.TabIndex = 56;
@@ -782,7 +805,7 @@
             // 
             enableMagDump.AutoSize = true;
             enableMagDump.BackColor = Color.FromArgb(181, 176, 163);
-            enableMagDump.Location = new Point(14, 410);
+            enableMagDump.Location = new Point(14, 440);
             enableMagDump.Name = "enableMagDump";
             enableMagDump.Size = new Size(124, 19);
             enableMagDump.TabIndex = 55;
@@ -792,7 +815,7 @@
             // 
             // crouchBoxKey
             // 
-            crouchBoxKey.Location = new Point(279, 378);
+            crouchBoxKey.Location = new Point(279, 408);
             crouchBoxKey.Name = "crouchBoxKey";
             crouchBoxKey.Size = new Size(31, 23);
             crouchBoxKey.TabIndex = 54;
@@ -800,7 +823,7 @@
             // 
             // crouchBoxCost
             // 
-            crouchBoxCost.Location = new Point(173, 378);
+            crouchBoxCost.Location = new Point(173, 408);
             crouchBoxCost.Name = "crouchBoxCost";
             crouchBoxCost.Size = new Size(100, 23);
             crouchBoxCost.TabIndex = 53;
@@ -810,7 +833,7 @@
             // 
             crouchBox.AutoSize = true;
             crouchBox.BackColor = Color.FromArgb(181, 176, 163);
-            crouchBox.Location = new Point(14, 381);
+            crouchBox.Location = new Point(14, 411);
             crouchBox.Name = "crouchBox";
             crouchBox.Size = new Size(103, 19);
             crouchBox.TabIndex = 52;
@@ -820,7 +843,7 @@
             // 
             // grenadeKeyBox
             // 
-            grenadeKeyBox.Location = new Point(279, 320);
+            grenadeKeyBox.Location = new Point(279, 350);
             grenadeKeyBox.Name = "grenadeKeyBox";
             grenadeKeyBox.Size = new Size(31, 23);
             grenadeKeyBox.TabIndex = 51;
@@ -828,7 +851,7 @@
             // 
             // grenadeCostBox
             // 
-            grenadeCostBox.Location = new Point(173, 320);
+            grenadeCostBox.Location = new Point(173, 350);
             grenadeCostBox.Name = "grenadeCostBox";
             grenadeCostBox.Size = new Size(100, 23);
             grenadeCostBox.TabIndex = 50;
@@ -838,7 +861,7 @@
             // 
             enableGrenadeToss.AutoSize = true;
             enableGrenadeToss.BackColor = Color.FromArgb(181, 176, 163);
-            enableGrenadeToss.Location = new Point(14, 323);
+            enableGrenadeToss.Location = new Point(14, 353);
             enableGrenadeToss.Name = "enableGrenadeToss";
             enableGrenadeToss.Size = new Size(159, 19);
             enableGrenadeToss.TabIndex = 49;
@@ -850,7 +873,7 @@
             // 
             textBox3.BackColor = Color.FromArgb(181, 176, 163);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(34, 176);
+            textBox3.Location = new Point(34, 206);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(133, 16);
             textBox3.TabIndex = 47;
@@ -861,7 +884,7 @@
             // 
             textBox2.BackColor = Color.FromArgb(181, 176, 163);
             textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Location = new Point(67, 91);
+            textBox2.Location = new Point(67, 121);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 16);
             textBox2.TabIndex = 46;
@@ -870,7 +893,7 @@
             // 
             // dropKeyTextBox
             // 
-            dropKeyTextBox.Location = new Point(173, 88);
+            dropKeyTextBox.Location = new Point(173, 118);
             dropKeyTextBox.Name = "dropKeyTextBox";
             dropKeyTextBox.Size = new Size(100, 23);
             dropKeyTextBox.TabIndex = 45;
@@ -891,7 +914,7 @@
             // 
             enableBagDrop.AutoSize = true;
             enableBagDrop.BackColor = Color.FromArgb(181, 176, 163);
-            enableBagDrop.Location = new Point(14, 294);
+            enableBagDrop.Location = new Point(14, 324);
             enableBagDrop.Name = "enableBagDrop";
             enableBagDrop.Size = new Size(113, 19);
             enableBagDrop.TabIndex = 42;
@@ -901,7 +924,7 @@
             // 
             // dropbagCooldownTextBox
             // 
-            dropbagCooldownTextBox.Location = new Point(173, 291);
+            dropbagCooldownTextBox.Location = new Point(173, 321);
             dropbagCooldownTextBox.Name = "dropbagCooldownTextBox";
             dropbagCooldownTextBox.Size = new Size(100, 23);
             dropbagCooldownTextBox.TabIndex = 40;
@@ -911,7 +934,7 @@
             // 
             enableSounds.AutoSize = true;
             enableSounds.BackColor = Color.FromArgb(181, 176, 163);
-            enableSounds.Location = new Point(14, 264);
+            enableSounds.Location = new Point(14, 294);
             enableSounds.Name = "enableSounds";
             enableSounds.Size = new Size(132, 19);
             enableSounds.TabIndex = 38;
@@ -921,7 +944,7 @@
             // 
             // soundCostTextBox
             // 
-            soundCostTextBox.Location = new Point(174, 262);
+            soundCostTextBox.Location = new Point(174, 292);
             soundCostTextBox.Name = "soundCostTextBox";
             soundCostTextBox.Size = new Size(100, 23);
             soundCostTextBox.TabIndex = 36;
@@ -929,7 +952,7 @@
             // 
             // randomKeyInputs
             // 
-            randomKeyInputs.Location = new Point(174, 175);
+            randomKeyInputs.Location = new Point(174, 205);
             randomKeyInputs.Name = "randomKeyInputs";
             randomKeyInputs.Size = new Size(206, 23);
             randomKeyInputs.TabIndex = 35;
@@ -1191,24 +1214,25 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // enableDropMag
+            // bottoggleCostBox
             // 
-            enableDropMag.AutoSize = true;
-            enableDropMag.Location = new Point(14, 583);
-            enableDropMag.Name = "enableDropMag";
-            enableDropMag.Size = new Size(117, 19);
-            enableDropMag.TabIndex = 106;
-            enableDropMag.Text = "Enable Drop Mag";
-            enableDropMag.UseVisualStyleBackColor = true;
-            enableDropMag.CheckedChanged += enableDropMag_CheckedChanged;
+            bottoggleCostBox.Location = new Point(174, 29);
+            bottoggleCostBox.Name = "bottoggleCostBox";
+            bottoggleCostBox.Size = new Size(100, 23);
+            bottoggleCostBox.TabIndex = 108;
+            bottoggleCostBox.Text = "300";
             // 
-            // dropmagCostBox
+            // enableBotToggle
             // 
-            dropmagCostBox.Location = new Point(173, 581);
-            dropmagCostBox.Name = "dropmagCostBox";
-            dropmagCostBox.Size = new Size(100, 23);
-            dropmagCostBox.TabIndex = 107;
-            dropmagCostBox.Text = "300";
+            enableBotToggle.AutoSize = true;
+            enableBotToggle.BackColor = Color.FromArgb(181, 176, 163);
+            enableBotToggle.Location = new Point(14, 31);
+            enableBotToggle.Name = "enableBotToggle";
+            enableBotToggle.Size = new Size(151, 19);
+            enableBotToggle.TabIndex = 109;
+            enableBotToggle.Text = "Enable Sweatbot Toggle";
+            enableBotToggle.UseVisualStyleBackColor = false;
+            enableBotToggle.CheckedChanged += enableBotToggle_CheckedChanged;
             // 
             // ControlMenu
             // 
@@ -1362,5 +1386,7 @@
         private ContextMenuStrip contextMenuStrip1;
         private TextBox dropmagCostBox;
         private CheckBox enableDropMag;
+        private CheckBox enableBotToggle;
+        private TextBox bottoggleCostBox;
     }
 }
