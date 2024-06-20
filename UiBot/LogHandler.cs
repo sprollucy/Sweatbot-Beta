@@ -98,7 +98,37 @@
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
 
-//Mod Whitelist
+        public static void FileBackup()
+        {
+            // Define the list of file paths to backup
+            string[] jsonFilePaths = { Path.Combine("Data", "user_bits.json"), Path.Combine("Data", "CommandConfigData.json"), Path.Combine("Data", "DropPositionData.json") };
+
+            // Define the list of backup file paths
+            string[] backupFilePaths = { Path.Combine("Backup", "user_bits_backup.txt"), Path.Combine("Backup", "CommandConfigData_backup.txt"), Path.Combine("Backup", "DropPositionData_backup.txt") };
+
+            Console.WriteLine($"Backup triggered at {DateTime.Now}");
+
+            try
+            {
+                for (int i = 0; i < jsonFilePaths.Length; i++)
+                {
+                    // Read the JSON content
+                    string json = File.ReadAllText(jsonFilePaths[i]);
+
+                    // Write JSON content to the backup file
+                    File.WriteAllText(backupFilePaths[i], json);
+
+                    Console.WriteLine($"Backup completed for {jsonFilePaths[i]} at {DateTime.Now}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during backup: {ex.Message}");
+            }
+        }
+
+
+        //Mod Whitelist
 
         private static HashSet<string> modWhitelist;
 

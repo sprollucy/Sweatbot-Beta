@@ -314,12 +314,12 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isGrenadeEnabled {
+        public bool isDropMagEnabled {
             get {
-                return ((bool)(this["isGrenadeEnabled"]));
+                return ((bool)(this["isDropMagEnabled"]));
             }
             set {
-                this["isGrenadeEnabled"] = value;
+                this["isDropMagEnabled"] = value;
             }
         }
         

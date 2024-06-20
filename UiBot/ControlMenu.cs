@@ -43,6 +43,7 @@ namespace UiBot
             enableProne.Checked = Properties.Settings.Default.isProneEnabled;
             enableVoiceLine.Checked = Properties.Settings.Default.isVoiceLineEnabled;
             enableReload.Checked = Properties.Settings.Default.isReloadEnabled;
+            enableDropMag.Checked = Properties.Settings.Default.isDropMagEnabled;
             enablePraiseSun.Checked = Properties.Settings.Default.isPraiseSunEnabled;
             enableTouchGrass.Checked = Properties.Settings.Default.isTouchGrassEnabled;
             enableKnifeOut.Checked = Properties.Settings.Default.isKnifeOutEnabled;
@@ -93,6 +94,7 @@ namespace UiBot
             textBoxes["proneKey"] = ProneKeyBox;
             textBoxes["voicelineCostBox"] = VoicelineCostBox;
             textBoxes["reloadCostBox"] = ReloadCostBox;
+            textBoxes["dropmagCostBox"] = DropMagCostBox;
             textBoxes["reloadKey"] = ReloadKeyBox;
             textBoxes["praisesunCostBox"] = PraisesunCostBox;
             textBoxes["knifeoutCostBox"] = KnifeoutCostBox;
@@ -246,7 +248,11 @@ namespace UiBot
             get { return reloadKeyBox; }
             set { reloadKeyBox = value; }
         }
-
+        public TextBox DropMagCostBox
+        {
+            get { return dropmagCostBox; }
+            set { dropmagCostBox = value; }
+        }
         public TextBox PraisesunCostBox
         {
             get { return praisesunCostBox; }
@@ -618,6 +624,12 @@ namespace UiBot
         private void enableBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableDropMag_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isDropMagEnabled = enableDropMag.Checked;
             Properties.Settings.Default.Save();
         }
     }

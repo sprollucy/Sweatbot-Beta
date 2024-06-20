@@ -147,7 +147,7 @@ namespace UiBot
 
         private void backupButton_Click(object sender, EventArgs e)
         {
-            bot.FileBackup();
+            LogHandler.FileBackup();
         }
     }
 }

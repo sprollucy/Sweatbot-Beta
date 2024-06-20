@@ -74,7 +74,7 @@
     <Setting Name="keyToSend" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="isGrenadeEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="isDropMagEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="isDropBagEnabled" Type="System.Boolean" Scope="User">

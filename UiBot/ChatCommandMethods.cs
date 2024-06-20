@@ -571,49 +571,49 @@ namespace UiBot
         {
             string soundFilePath = GetSoundFilePath(soundFileName);
 
-            if (soundFilePath != null)
-            {
-                try
-                {
-                    // Create a new SoundPlayer instance
-                    using (var player = new SoundPlayer(soundFilePath))
-                    {
-                        // Play the sound file
-                        player.Play();
-                        return true; // Return true if played successfully
-                    }
-                }
-                catch (Exception ex)
-                {
-                    client.SendMessage(channelId, $"Error playing sound: {ex.Message}");
-                    return false; // Return false if there was an error
-                }
-            }
-            else
+            if (soundFilePath == null)
             {
                 return false; // Return false if sound file not found
+            }
+
+            try
+            {
+                // Create a new SoundPlayer instance and play the sound file
+                using (var player = new SoundPlayer(soundFilePath))
+                {
+                    player.Play();
+                }
+                return true; // Return true if played successfully
+            }
+            catch (Exception ex)
+            {
+                client.SendMessage(channelId, $"Error playing sound: {ex.Message}");
+                return false; // Return false if there was an error
             }
         }
 
         public static string GetSoundFilePath(string soundFileName)
         {
             string soundClipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clips");
+            string soundFilePath = Path.Combine(soundClipPath, $"{soundFileName}.wav"); // assuming .wav as default extension
 
-
-            soundFileName += ".wav"; // assuming .wav as default extension
-
-            string soundFilePath = Path.Combine(soundClipPath, soundFileName);
-
-            if (File.Exists(soundFilePath))
-            {
-                return soundFilePath;
-            }
-            else
-            {
-                return null; // Return null if sound file not found
-            }
+            return File.Exists(soundFilePath) ? soundFilePath : null; // Return path if exists, otherwise null
         }
 
+        public static List<string> GetAvailableSounds(string soundDirectory)
+        {
+            if (!Directory.Exists(soundDirectory))
+            {
+                return new List<string> { "No sounds available" };
+            }
+
+            // Define the supported sound file extensions and get all sound files in the directory
+            string[] soundExtensions = { "*.mp3", "*.wav", "*.ogg", "*.flac", "*.aac" };
+            var files = soundExtensions.SelectMany(ext => Directory.GetFiles(soundDirectory, ext)).ToList();
+
+            // Extract and return the file names without extension
+            return files.Select(Path.GetFileNameWithoutExtension).ToList();
+        }
 
 
         public void KnivesOnly()
@@ -1002,26 +1002,28 @@ namespace UiBot
             // Refund the bits to the user
             if (userBits.ContainsKey(logUserName))
             {
-                userBits[logUserName] = bitsBeforeCommand;
+                userBits[logUserName] += bitsCost; // Add the refunded bits to the current balance
 
                 // Log the refund
                 string refundTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                string refundLogMessage = $"{refundTimestamp} - {logUserName} was refunded {bitsCost} bits, now has {bitsBeforeCommand} bits";
+                string refundLogMessage = $"{refundTimestamp} - {logUserName} was refunded {bitsCost} bits, now has {userBits[logUserName]} bits";
 
                 // Append the refund log message to the file
                 File.AppendAllText(logFilePath, refundLogMessage + Environment.NewLine);
 
                 // Print message to console
-                Console.WriteLine($"Refunded {bitsCost} bits to {logUserName}. They now have {bitsBeforeCommand} bits.");
+                Console.WriteLine($"Refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
 
                 // Send message to chat
-                client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {bitsBeforeCommand} bits.");
+                client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
             }
             else
             {
                 Console.WriteLine("User not found in the bits dictionary.");
             }
         }
+
+
         public static void AddBitCommand(TwitchClient client, OnChatCommandReceivedArgs e)
         {
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
@@ -1039,6 +1041,8 @@ namespace UiBot
 
                     // Notify about successful update
                     client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToAdd} bits added to {username}. New total: {MainBot.userBits[username]} bits");
+                    Console.WriteLine($"[{timestamp}] User [{e.Command.ChatMessage.DisplayName}] added {bitsToAdd} bits to {username}. New total: {MainBot.userBits[username]} bits");
+
                 }
                 else
                 {

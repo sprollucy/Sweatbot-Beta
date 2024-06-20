@@ -132,6 +132,7 @@
 -Fixed error with trader update causing app to crash either when opening trader menu or calling it in twitch chat and then opening the trader menu
 -Fixed Kill Goose button not working. Broke with a git error 
 -Fixed goose command being able to be used while it is disabled and commands are paused.
+-Added !dropmag command for games that support double tap to drop
 -Added whitelist for moderators to allow certain mods of the channel to use the !refund and !addbits commands. Either use the button in the Commands menu or go to the Data folder and opon ModWhitelist.txt
 -Added bit multiplier in the Command Menu for people who give bits. So if set to 2, and someone give 10 bits, it will count as 20 to the bot
 
