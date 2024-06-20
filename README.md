@@ -86,6 +86,7 @@ If you like my projects and want to help support me, you can directly donate her
 -Changed voice line to either do f1 once or twice randomly  
 -Fixed bug with goose still being able to work when chat is paused  
 -Removed messages that commands are disabled for less chat clutter  
+-Added !dropmag command for games that support double tap to drop  
 -Fixed error with trader update causing app to crash either when opening trader menu or calling it in twitch chat and then opening the trader menu  
 -Fixed Kill Goose button not working. Broke with a git error  
 -Fixed goose command being able to be used while it is disabled and commands are paused.  
