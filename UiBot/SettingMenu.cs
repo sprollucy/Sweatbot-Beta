@@ -125,16 +125,6 @@ namespace UiBot
             }
         }
 
-
-        private void helpButton_Click(object sender, EventArgs e)
-        {
-            // Create an instance of the AboutForm
-            AboutForm aboutForm = new AboutForm();
-
-            // Show the AboutForm as a dialog (modal)
-            aboutForm.ShowDialog();
-        }
-
         public void channelOpen_Click(object sender, EventArgs e)
         {
             // Get the channel name from channelBox2
