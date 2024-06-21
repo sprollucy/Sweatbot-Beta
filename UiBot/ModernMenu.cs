@@ -33,6 +33,7 @@ namespace UiBot
         public ModernMenu()
         {
             InitializeComponent();
+
             this.FormBorderStyle = FormBorderStyle.None;
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
@@ -113,28 +114,6 @@ namespace UiBot
             traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
 
         }
-
-        private CounterData LoadCounterData()
-        {
-            string jsonFilePath = "Logon.json";
-            CounterData existingData = new CounterData();
-
-            if (File.Exists(jsonFilePath))
-            {
-                string json = File.ReadAllText(jsonFilePath);
-                existingData = JsonConvert.DeserializeObject<CounterData>(json) ?? new CounterData();
-            }
-
-            return existingData;
-        }
-
-        public class CounterData
-        {
-            public string ChannelName { get; set; }
-            public string BotToken { get; set; }
-        }
-
-
 
         private void TransitionTimer_Tick(object sender, EventArgs e)
         {
@@ -401,8 +380,14 @@ namespace UiBot
             ShowControlMenu();
         }
 
-        private void ModernMenu_Load(object sender, EventArgs e)
+
+        private async void ModernMenu_Load(object sender, EventArgs e)
         {
+            if(Properties.Settings.Default.isUpdateCheckEnabled)
+            {
+                UpdateCheck updateChecker = new UpdateCheck();
+                await updateChecker.CheckForUpdatesAsync();
+            }
             ShowConnectMenu();
         }
 

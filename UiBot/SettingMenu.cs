@@ -7,24 +7,24 @@ namespace UiBot
     public partial class SettingMenu : Form
     {
         Process[] gname = Process.GetProcessesByName("GooseDesktop");
-        private MainBot bot;
         public SettingMenu()
         {
             string packageVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-
-            bot = new MainBot(); // Initialize the bot instance
 
             InitializeComponent();
             this.TopLevel = false;
             accessBox.UseSystemPasswordChar = true;
 
             // Load existing data from the JSON file
-            CounterData existingData = LoadCounterData();
+            LoginData existingData = LoadCounterData();
 
             // Set the textBox1 and textBox2 controls with the loaded data
             accessBox.Text = existingData.BotToken;
             channelBox2.Text = existingData.ChannelName;
             versionNumber.Text = "Version: " + packageVersion;
+
+            enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
+
         }
 
 
@@ -51,7 +51,7 @@ namespace UiBot
             string userInput1 = accessBox.Text;
 
             // Load existing data from the JSON file
-            CounterData existingData = LoadCounterData();
+            LoginData existingData = LoadCounterData();
 
             // Update the existing data with the new value
             existingData.BotToken = userInput1;
@@ -71,7 +71,7 @@ namespace UiBot
             string userInput2 = channelBox2.Text;
 
             // Load existing data from the JSON file
-            CounterData existingData = LoadCounterData();
+            LoginData existingData = LoadCounterData();
 
             // Update the existing data with the new value
             existingData.ChannelName = userInput2;
@@ -87,21 +87,21 @@ namespace UiBot
         }
 
         // Load existing data from the JSON file
-        private CounterData LoadCounterData()
+        private LoginData LoadCounterData()
         {
             string jsonFilePath = Path.Combine("Data", "Logon.json");
-            CounterData existingData = new CounterData();
+            LoginData existingData = new LoginData();
 
             if (File.Exists(jsonFilePath))
             {
                 string json = File.ReadAllText(jsonFilePath);
-                existingData = JsonConvert.DeserializeObject<CounterData>(json) ?? new CounterData();
+                existingData = JsonConvert.DeserializeObject<LoginData>(json) ?? new LoginData();
             }
 
             return existingData;
         }
 
-        public class CounterData
+        public class LoginData
         {
             public string ChannelName { get; set; }
             public string BotToken { get; set; }
@@ -252,5 +252,16 @@ namespace UiBot
             }
         }
 
+        private void enableUpdateCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isUpdateCheckEnabled = enableUpdateCheck.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private async void checkUpdateButton_Click(object sender, EventArgs e)
+        {
+            UpdateCheck updateChecker = new UpdateCheck();
+            await updateChecker.ButtonCheckForUpdatesAsync();
+        }
     }
 }

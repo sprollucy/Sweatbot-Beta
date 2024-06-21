@@ -55,12 +55,16 @@
             restoreCommandButton = new Button();
             groupBox2 = new GroupBox();
             defaultCommandButton = new Button();
+            enableUpdateCheck = new CheckBox();
+            groupBox3 = new GroupBox();
+            checkUpdateButton = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -344,6 +348,39 @@
             defaultCommandButton.UseVisualStyleBackColor = true;
             defaultCommandButton.Click += button2_Click;
             // 
+            // enableUpdateCheck
+            // 
+            enableUpdateCheck.AutoSize = true;
+            enableUpdateCheck.BackColor = Color.FromArgb(201, 198, 189);
+            enableUpdateCheck.Location = new Point(198, 25);
+            enableUpdateCheck.Name = "enableUpdateCheck";
+            enableUpdateCheck.Size = new Size(197, 19);
+            enableUpdateCheck.TabIndex = 40;
+            enableUpdateCheck.Text = "Enable Automatic Update Check";
+            enableUpdateCheck.UseVisualStyleBackColor = false;
+            enableUpdateCheck.CheckedChanged += enableUpdateCheck_CheckedChanged;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(checkUpdateButton);
+            groupBox3.Controls.Add(enableUpdateCheck);
+            groupBox3.Location = new Point(54, 272);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(417, 55);
+            groupBox3.TabIndex = 40;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Update Settings";
+            // 
+            // checkUpdateButton
+            // 
+            checkUpdateButton.Location = new Point(18, 22);
+            checkUpdateButton.Name = "checkUpdateButton";
+            checkUpdateButton.Size = new Size(136, 23);
+            checkUpdateButton.TabIndex = 37;
+            checkUpdateButton.Text = "Check For Update";
+            checkUpdateButton.UseVisualStyleBackColor = true;
+            checkUpdateButton.Click += checkUpdateButton_Click;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -351,6 +388,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 602);
             ControlBox = false;
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(linkLabel1);
             Controls.Add(label4);
@@ -376,6 +414,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             groupBox2.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -409,5 +449,10 @@
         private Button restoreCommandButton;
         private GroupBox groupBox2;
         private Button defaultCommandButton;
+        private CheckBox enableUpdateCheck;
+        private GroupBox groupBox3;
+        private Button button2;
+        private Button button4;
+        private Button checkUpdateButton;
     }
 }

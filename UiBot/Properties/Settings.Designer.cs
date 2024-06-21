@@ -658,5 +658,17 @@ namespace UiBot.Properties {
                 this["isSweatbotEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isUpdateCheckEnabled {
+            get {
+                return ((bool)(this["isUpdateCheckEnabled"]));
+            }
+            set {
+                this["isUpdateCheckEnabled"] = value;
+            }
+        }
     }
 }
