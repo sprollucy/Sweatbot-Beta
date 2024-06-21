@@ -12,7 +12,7 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyName>Sweat Bot</AssemblyName>
     <Version>1.0.0.69-alpha</Version>
-    <AssemblyVersion>1.0.0.69</AssemblyVersion>
+    <AssemblyVersion>1.0.0.67</AssemblyVersion>
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <ApplicationManifest>app.manifest</ApplicationManifest>
 

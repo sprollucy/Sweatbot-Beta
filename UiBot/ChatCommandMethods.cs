@@ -496,7 +496,6 @@ namespace UiBot
             }
         }
 
-
         public void BagDrop()
         {
             string dropbagKeyBox;
@@ -833,7 +832,7 @@ namespace UiBot
 
             if (!int.TryParse(micDuration, out int durationSeconds))
             {
-                Console.WriteLine("Invalid walk duration format.");
+                Console.WriteLine("Invalid hotmic duration format.");
                 return;
             }
 
