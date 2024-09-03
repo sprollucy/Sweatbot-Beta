@@ -23,6 +23,7 @@ namespace UiBot
         //References
         ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
         ControlMenu controlMenu = new ControlMenu();
+        private static CommandHandler commandHandler;
 
         //dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
@@ -49,6 +50,10 @@ namespace UiBot
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
             LogHandler.LoadUserBitsFromJson("user_bits.json");
+            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+            string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+            commandHandler = new CommandHandler(commandsFilePath);
+
         }
 
         public void Dispose()
@@ -141,6 +146,16 @@ namespace UiBot
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+            //Custom Command Handler
+            if (e.ChatMessage.Message.StartsWith("!"))
+            {
+                commandHandler.HandleCommand(e.ChatMessage.Message, client, e.ChatMessage.Channel);
+            }
+            else
+            {
+                Console.WriteLine($"Message received but not a command: {e.ChatMessage.Message}");
+            }
+
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
             if (Properties.Settings.Default.isChatBonusEnabled)
