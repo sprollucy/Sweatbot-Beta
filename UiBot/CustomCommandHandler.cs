@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions; // For parsing command string
-using System.Windows.Forms; // For SendKeys
 using TwitchLib.Client;
 
-public class CommandHandler
+public class CustomCommandHandler
 {
     private readonly Dictionary<string, List<string>> _commands;
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _methodMap;
@@ -17,7 +13,7 @@ public class CommandHandler
 
     private const int KEYEVENTF_KEYDOWN = 0x0000; // Key down flag
     private const int KEYEVENTF_KEYUP = 0x0002; // Key up flag
-    public CommandHandler(string filePath)
+    public CustomCommandHandler(string filePath)
     {
         _commands = LoadCommandsFromFile(filePath);
         _methodMap = new Dictionary<string, Action<TwitchClient, string, string>>
@@ -25,7 +21,8 @@ public class CommandHandler
             { "methoda", MethodA },
             { "methodb", MethodB },
             { "methodc", MethodC },
-            { "holdbutton", HoldButton }
+            { "holdkey", HoldKey },
+            { "hitkey", HitKey }
         };
     }
 
@@ -99,7 +96,7 @@ public class CommandHandler
         client.SendMessage(channel, "Method C executed.");
     }
 
-    private void HoldButton(TwitchClient client, string channel, string parameter = null)
+    private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
@@ -127,11 +124,11 @@ public class CommandHandler
         try
         {
             Console.WriteLine($"Holding button '{key}' for {duration} seconds.");
-            client.SendMessage(channel, $"Holding button '{key}' for {duration} seconds.");
+            client.SendMessage(channel, $"Holding button '{key}' for {duration} ms.");
 
             // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
-            System.Threading.Thread.Sleep(duration * 1000); // Hold for specified duration
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
             // Release the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
         }
@@ -141,6 +138,44 @@ public class CommandHandler
             client.SendMessage(channel, $"Error holding button: {ex.Message}");
         }
     }
+
+    private void HitKey(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for HitKey.");
+            return;
+        }
+
+        // Remove duration-related code
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9])");
+        if (!match.Success)
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Button.");
+            return;
+        }
+
+        string key = match.Groups[1].Value.ToUpper();
+
+        // Map the character to a virtual key code
+        byte vkCode = (byte)ToVirtualKey(key);
+
+        try
+        {
+            Console.WriteLine($"Hitting button '{key}'");
+            client.SendMessage(channel, $"Hitting button '{key}'");
+
+            // Press and release the key
+            keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+            keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error hitting button: {ex.Message}");
+            client.SendMessage(channel, $"Error hitting button: {ex.Message}");
+        }
+    }
+
 
     // Helper method to convert key characters to virtual key codes
     private static int ToVirtualKey(string key)

@@ -23,7 +23,7 @@ namespace UiBot
         //References
         ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
         ControlMenu controlMenu = new ControlMenu();
-        private static CommandHandler commandHandler;
+        private static CustomCommandHandler commandHandler;
 
         //dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
@@ -52,7 +52,7 @@ namespace UiBot
             LogHandler.LoadUserBitsFromJson("user_bits.json");
             string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
             string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
-            commandHandler = new CommandHandler(commandsFilePath);
+            commandHandler = new CustomCommandHandler(commandsFilePath);
 
         }
 
