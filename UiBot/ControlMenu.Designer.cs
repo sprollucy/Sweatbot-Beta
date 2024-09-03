@@ -44,6 +44,8 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            enableBotToggle = new CheckBox();
+            bottoggleCostBox = new TextBox();
             dropmagCostBox = new TextBox();
             enableDropMag = new CheckBox();
             firemodeKey = new TextBox();
@@ -132,8 +134,7 @@
             enableBonusMulti = new CheckBox();
             bonusMultiplierBox = new TextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            bottoggleCostBox = new TextBox();
-            enableBotToggle = new CheckBox();
+            customCommandsBox = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -275,6 +276,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.Controls.Add(customCommandsBox);
             panel1.Controls.Add(enableBotToggle);
             panel1.Controls.Add(bottoggleCostBox);
             panel1.Controls.Add(dropmagCostBox);
@@ -356,6 +358,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 932);
             panel1.TabIndex = 20;
+            // 
+            // enableBotToggle
+            // 
+            enableBotToggle.AutoSize = true;
+            enableBotToggle.BackColor = Color.FromArgb(181, 176, 163);
+            enableBotToggle.Location = new Point(14, 31);
+            enableBotToggle.Name = "enableBotToggle";
+            enableBotToggle.Size = new Size(151, 19);
+            enableBotToggle.TabIndex = 109;
+            enableBotToggle.Text = "Enable Sweatbot Toggle";
+            enableBotToggle.UseVisualStyleBackColor = false;
+            enableBotToggle.CheckedChanged += enableBotToggle_CheckedChanged;
+            // 
+            // bottoggleCostBox
+            // 
+            bottoggleCostBox.Location = new Point(174, 29);
+            bottoggleCostBox.Name = "bottoggleCostBox";
+            bottoggleCostBox.Size = new Size(100, 23);
+            bottoggleCostBox.TabIndex = 108;
+            bottoggleCostBox.Text = "300";
             // 
             // dropmagCostBox
             // 
@@ -1214,25 +1236,16 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // bottoggleCostBox
+            // customCommandsBox
             // 
-            bottoggleCostBox.Location = new Point(174, 29);
-            bottoggleCostBox.Name = "bottoggleCostBox";
-            bottoggleCostBox.Size = new Size(100, 23);
-            bottoggleCostBox.TabIndex = 108;
-            bottoggleCostBox.Text = "300";
-            // 
-            // enableBotToggle
-            // 
-            enableBotToggle.AutoSize = true;
-            enableBotToggle.BackColor = Color.FromArgb(181, 176, 163);
-            enableBotToggle.Location = new Point(14, 31);
-            enableBotToggle.Name = "enableBotToggle";
-            enableBotToggle.Size = new Size(151, 19);
-            enableBotToggle.TabIndex = 109;
-            enableBotToggle.Text = "Enable Sweatbot Toggle";
-            enableBotToggle.UseVisualStyleBackColor = false;
-            enableBotToggle.CheckedChanged += enableBotToggle_CheckedChanged;
+            customCommandsBox.AutoSize = true;
+            customCommandsBox.Location = new Point(307, 31);
+            customCommandsBox.Name = "customCommandsBox";
+            customCommandsBox.Size = new Size(171, 19);
+            customCommandsBox.TabIndex = 110;
+            customCommandsBox.Text = "Enable Custom Commands";
+            customCommandsBox.UseVisualStyleBackColor = true;
+            customCommandsBox.CheckedChanged += customCommandsBox_CheckedChanged;
             // 
             // ControlMenu
             // 
@@ -1388,5 +1401,6 @@
         private CheckBox enableDropMag;
         private CheckBox enableBotToggle;
         private TextBox bottoggleCostBox;
+        private CheckBox customCommandsBox;
     }
 }

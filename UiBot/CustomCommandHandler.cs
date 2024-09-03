@@ -1,32 +1,66 @@
 ﻿using Newtonsoft.Json;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions; // For parsing command string
 using TwitchLib.Client;
+using UiBot;
 
 public class CustomCommandHandler
 {
-    private readonly Dictionary<string, List<string>> _commands;
+    private readonly Dictionary<string, Command> _commands;
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _methodMap;
-    // Import necessary methods from user32.dll
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
-    private const int KEYEVENTF_KEYDOWN = 0x0000; // Key down flag
-    private const int KEYEVENTF_KEYUP = 0x0002; // Key up flag
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+    [DllImport("user32.dll")]
+    public static extern bool SetCursorPos(int X, int Y);
+
+    // event constants
+    public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+    public const int MOUSEEVENTF_LEFTUP = 0x04;
+    private const int KEYEVENTF_KEYDOWN = 0x0000; 
+    private const int KEYEVENTF_KEYUP = 0x0002;
+    public const int MOUSEEVENTF_MOVE = 0x0001;
+    public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
+    public const int MOUSEEVENTF_RIGHTUP = 0x0010;
+    const int VK_VOLUME_MUTE = 0xAD;
+    const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
     public CustomCommandHandler(string filePath)
     {
         _commands = LoadCommandsFromFile(filePath);
         _methodMap = new Dictionary<string, Action<TwitchClient, string, string>>
-        {
-            { "methoda", MethodA },
-            { "methodb", MethodB },
-            { "methodc", MethodC },
-            { "holdkey", HoldKey },
-            { "hitkey", HitKey }
-        };
+    {
+    { "holdkey", HoldKey },
+    { "hitkey", HitKey },
+    { "leftclick", LeftClick },
+    { "rightclick", RightClick },
+    { "turnmouse", TurnMouse },
+    { "playsoundclip", PlaySoundClip },
+    { "rightclickhold", RightClickHold },
+    { "leftclickhold", LeftClickHold },
+    { "mutevolume", MuteVolume },
+    { "delay", Delay }
+    };
+
     }
 
-    private Dictionary<string, List<string>> LoadCommandsFromFile(string filePath)
+    public Dictionary<string, int> GetAllCommandsWithCosts()
+    {
+        return _commands.ToDictionary(
+            cmd => cmd.Key,
+            cmd => cmd.Value.BitCost
+        );
+    }
+
+
+    private Dictionary<string, Command> LoadCommandsFromFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -34,67 +68,104 @@ public class CustomCommandHandler
         }
 
         var json = File.ReadAllText(filePath);
-        return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+        var commands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json);
+
+        // Debugging: Print out the loaded commands
+        foreach (var cmd in commands)
+        {
+            Console.WriteLine($"Command: {cmd.Key}, BitCost: {cmd.Value.BitCost}, Methods: {string.Join(", ", cmd.Value.Methods ?? new List<string>())}");
+        }
+
+        return commands;
     }
 
-    public void HandleCommand(string message, TwitchClient client, string channel)
-    {
-        Console.WriteLine($"Received message: {message}");
 
-        if (!message.StartsWith("!"))
+    public Command GetCommand(string commandName)
+    {
+        _commands.TryGetValue(commandName.ToLower(), out var command);
+        return command;
+    }
+
+    public bool CanExecuteCommand(string commandName, int userBits)
+    {
+        var command = GetCommand(commandName);
+        return command != null && userBits >= command.BitCost;
+    }
+
+    public async void ExecuteCommand(string commandName, TwitchClient client, string channel)
+    {
+        var command = GetCommand(commandName);
+        if (command == null)
         {
-            Console.WriteLine("Message does not start with '!'");
+            Console.WriteLine($"Command '{commandName}' not found.");
+            client.SendMessage(channel, "Command not recognized.");
             return;
         }
 
-        string[] parts = message.Substring(1).Split(' ');
-        string command = parts[0].ToLower();
-        Console.WriteLine($"Parsed command: {command}");
-
-        if (_commands.TryGetValue(command, out var methods))
+        if (command.Methods == null || command.Methods.Count == 0)
         {
-            Console.WriteLine($"Methods found for command '{command}': {string.Join(", ", methods)}");
+            Console.WriteLine($"No methods defined for command '{commandName}'.");
+            client.SendMessage(channel, "No methods defined for this command.");
+            return;
+        }
 
-            foreach (var methodName in methods)
+        bool isParallelMode = false;
+        var parallelTasks = new List<Task>();
+
+        foreach (var methodName in command.Methods)
+        {
+            var commandParts = methodName.Split(new[] { '=' }, 2);
+            var method = commandParts[0].Trim().ToLower();
+            var parameters = commandParts.Length > 1 ? commandParts[1].Trim() : null;
+
+            if (method == "parallel")
             {
-                Console.WriteLine($"Executing method: {methodName}");
-
-                var commandParts = methodName.Split('=');
-                var method = commandParts[0].ToLower();
-                var parameters = commandParts.Length > 1 ? commandParts[1] : null;
-
-                if (_methodMap.TryGetValue(method, out var action))
+                // Set parallel mode and continue to collect tasks
+                isParallelMode = true;
+            }
+            else
+            {
+                if (isParallelMode)
                 {
-                    action(client, channel, parameters);
+                    // Add to parallel tasks list
+                    if (_methodMap.TryGetValue(method, out var action))
+                    {
+                        parallelTasks.Add(Task.Run(() => action(client, channel, parameters)));
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Method {method} not recognized.");
+                        client.SendMessage(channel, $"Method {method} not recognized.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"Method {method} not recognized.");
-                    client.SendMessage(channel, $"Method {method} not recognized.");
+                    // Execute synchronously
+                    if (_methodMap.TryGetValue(method, out var action))
+                    {
+                        if (action.Method.ReturnType == typeof(Task)) // Asynchronous method
+                        {
+                            await (Task)action.DynamicInvoke(client, channel, parameters);
+                        }
+                        else // Synchronous method
+                        {
+                            action(client, channel, parameters);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Method {method} not recognized.");
+                        client.SendMessage(channel, $"Method {method} not recognized.");
+                    }
                 }
             }
         }
-        else
-        {
-            Console.WriteLine($"Command '{command}' not recognized.");
-            client.SendMessage(channel, "Command not recognized.");
-        }
+
+        // Wait for all parallel tasks to complete
+        await Task.WhenAll(parallelTasks);
     }
 
-    private void MethodA(TwitchClient client, string channel, string parameter = null)
-    {
-        client.SendMessage(channel, "Method A executed.");
-    }
 
-    private void MethodB(TwitchClient client, string channel, string parameter = null)
-    {
-        client.SendMessage(channel, "Method B executed.");
-    }
-
-    private void MethodC(TwitchClient client, string channel, string parameter = null)
-    {
-        client.SendMessage(channel, "Method C executed.");
-    }
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {
@@ -124,7 +195,7 @@ public class CustomCommandHandler
         try
         {
             Console.WriteLine($"Holding button '{key}' for {duration} seconds.");
-            client.SendMessage(channel, $"Holding button '{key}' for {duration} ms.");
+            //client.SendMessage(channel, $"Holding button '{key}' for {duration} ms.");
 
             // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
@@ -163,9 +234,8 @@ public class CustomCommandHandler
         try
         {
             Console.WriteLine($"Hitting button '{key}'");
-            client.SendMessage(channel, $"Hitting button '{key}'");
-
-            // Press and release the key
+            //client.SendMessage(channel, $"Hitting button '{key}'");
+            Thread.Sleep(100);
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
         }
@@ -176,6 +246,275 @@ public class CustomCommandHandler
         }
     }
 
+    private void TurnMouse(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for TurnMouse.");
+            return;
+        }
+
+        // Regex to match Direction(Duration,Speed)
+        var match = Regex.Match(parameter, @"([UDLR])\((\d+),(\d+)\)");
+        if (!match.Success)
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Direction(Duration,Speed).");
+            return;
+        }
+
+        string direction = match.Groups[1].Value.ToUpper();
+        if (!int.TryParse(match.Groups[2].Value, out int duration) ||
+            !int.TryParse(match.Groups[3].Value, out int speed))
+        {
+            client.SendMessage(channel, "Invalid duration or speed specified.");
+            return;
+        }
+
+        // Calculate move distance per iteration
+        int pixelsPerSecond = speed;
+        int moveDistance = pixelsPerSecond * 10; // Move distance every 10ms
+        int interval = 10; // Move every 10ms
+        int totalSteps = duration / interval;
+
+        try
+        {
+            Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
+            //client.SendMessage(channel, $"Turning mouse '{direction}' for {duration} ms at speed {speed}.");
+
+            for (int i = 0; i < totalSteps; i++)
+            {
+                int dx = 0, dy = 0;
+                switch (direction)
+                {
+                    case "U":
+                        dy = -moveDistance;
+                        break;
+                    case "D":
+                        dy = moveDistance;
+                        break;
+                    case "R":
+                        dx = moveDistance;
+                        break;
+                    case "L":
+                        dx = -moveDistance;
+                        break;
+                    default:
+                        client.SendMessage(channel, "Invalid direction specified. Use U, D, L, or R.");
+                        return;
+                }
+
+                // Move the mouse
+                mouse_event(MOUSEEVENTF_MOVE, dx, dy, 0, 0);
+
+                // Sleep for the interval duration
+                Thread.Sleep(interval);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error turning mouse: {ex.Message}");
+            client.SendMessage(channel, $"Error turning mouse: {ex.Message}");
+        }
+    }
+
+    private void LeftClick(TwitchClient client, string channel, string parameter = null)
+    {
+        Thread.Sleep(100);
+        // Simulate a left mouse button click
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+    }
+
+    private void RightClick(TwitchClient client, string channel, string parameter = null)
+    {
+        Thread.Sleep(100);
+        // Simulate pressing the right mouse button
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        // Simulate releasing the right mouse button
+        mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+    }
+
+    private void RightClickHold(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
+
+            // Simulate pressing the left mouse button
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+
+            // Simulate releasing the left mouse button
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in LeftClickHold: {ex.Message}");
+            client.SendMessage(channel, $"Error in LeftClickHold: {ex.Message}");
+        }
+    }
+
+    private void LeftClickHold(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
+
+            // Simulate pressing the left mouse button
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+
+            // Simulate releasing the left mouse button
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in LeftClickHold: {ex.Message}");
+            client.SendMessage(channel, $"Error in LeftClickHold: {ex.Message}");
+        }
+    }
+
+    private void MuteVolume(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for MuteVolume.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine($"Muting Windows for {duration} milliseconds.");
+            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
+
+            // Simulate pressing the left mouse button
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+
+            // Simulate releasing the left mouse button
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MuteVolume: {ex.Message}");
+            client.SendMessage(channel, $"Error in MuteVolume: {ex.Message}");
+        }
+    }
+
+    private void Delay(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine($"Delay for {duration} milliseconds.");
+            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
+
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in Delay: {ex.Message}");
+            client.SendMessage(channel, $"Error in Delay: {ex.Message}");
+        }
+    }
+
+    private void PlaySoundClip(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            client.SendMessage(channel, "No parameters specified for PlaySoundClip.");
+            return;
+        }
+
+        // Remove leading and trailing spaces and quotes from the parameter
+        var fileName = parameter.Trim(' ', '(', ')', '"');
+
+        // Get the file path
+        string filePath = GetSoundFilePath(fileName);
+
+        if (filePath == null)
+        {
+            client.SendMessage(channel, $"Sound file not found: {fileName}");
+            return;
+        }
+
+        try
+        {
+            // Play the sound file
+            using (var player = new System.Media.SoundPlayer(filePath))
+            {
+                player.Play();
+            }
+            //client.SendMessage(channel, $"Playing sound: {fileName}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error playing sound: {ex.Message}");
+            client.SendMessage(channel, $"Error playing sound: {fileName}");
+        }
+    }
+
+
+    private static string GetSoundFilePath(string soundFileName)
+    {
+        string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound Clips");
+        string filePath = Path.Combine(folderPath, soundFileName);
+
+        // Check if file exists
+        if (File.Exists(filePath))
+        {
+            return filePath;
+        }
+        return null; // Return null if file does not exist
+    }
 
     // Helper method to convert key characters to virtual key codes
     private static int ToVirtualKey(string key)
@@ -282,4 +621,9 @@ public class CustomCommandHandler
                 throw new ArgumentException("Unsupported key");
         }
     }
+}
+public class Command
+{
+    public int BitCost { get; set; }
+    public List<string> Methods { get; set; }
 }

@@ -187,7 +187,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(63, 78, 79);
-            label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label1.Location = new Point(-73, 32);
             label1.Name = "label1";
             label1.Size = new Size(62, 23);
@@ -198,7 +198,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(63, 78, 79);
-            label2.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label2.Location = new Point(-43, 86);
             label2.Name = "label2";
             label2.Size = new Size(84, 23);
@@ -209,7 +209,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(63, 78, 79);
-            label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label3.Location = new Point(-73, 141);
             label3.Name = "label3";
             label3.Size = new Size(113, 23);
@@ -220,7 +220,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(63, 78, 79);
-            label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label4.Location = new Point(-33, 195);
             label4.Name = "label4";
             label4.Size = new Size(78, 23);
@@ -231,7 +231,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(63, 78, 79);
-            label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label5.Location = new Point(-19, 249);
             label5.Name = "label5";
             label5.Size = new Size(63, 23);
@@ -243,7 +243,7 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(63, 78, 79);
-            label6.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label6.Location = new Point(-19, 304);
             label6.Name = "label6";
             label6.Size = new Size(64, 23);
@@ -255,7 +255,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(63, 78, 79);
-            label7.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label7.Location = new Point(-19, 358);
             label7.Name = "label7";
             label7.Size = new Size(63, 23);
@@ -267,7 +267,7 @@
             // 
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(63, 78, 79);
-            label8.Font = new Font("Constantia", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label8.Location = new Point(-35, 524);
             label8.Name = "label8";
             label8.Size = new Size(81, 23);
@@ -278,7 +278,7 @@
             // 
             currentTab.AutoSize = true;
             currentTab.BackColor = Color.FromArgb(44, 54, 57);
-            currentTab.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            currentTab.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             currentTab.Image = (Image)resources.GetObject("currentTab.Image");
             currentTab.ImageAlign = ContentAlignment.MiddleRight;
             currentTab.Location = new Point(0, -2);

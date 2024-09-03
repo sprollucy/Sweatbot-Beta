@@ -1,6 +1,6 @@
 ﻿namespace UiBot
 {
-    partial class QuestMenu
+    partial class CommandBuilderMenu
     {
         /// <summary>
         /// Required designer variable.

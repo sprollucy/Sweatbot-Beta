@@ -143,17 +143,125 @@ namespace UiBot
             pubSub.ListenToFollows(channelId);
             pubSub.Connect();
         }
+        // Property to get the connection status
+        public bool IsConnected => isBotConnected;
 
-        private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
+        // Method to process commands locally
+        public void ProcessLocalCommand(string commandName)
         {
-            //Custom Command Handler
-            if (e.ChatMessage.Message.StartsWith("!"))
+            if (commandHandler == null)
             {
-                commandHandler.HandleCommand(e.ChatMessage.Message, client, e.ChatMessage.Channel);
+                string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+                string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+                commandHandler = new CustomCommandHandler(commandsFilePath);
+            }
+
+            int userBits = 100000; // Simulate user bits
+
+            if (commandHandler.CanExecuteCommand(commandName, userBits))
+            {
+                var command = commandHandler.GetCommand(commandName);
+                if (command != null)
+                {
+                    // Simulate command execution
+                    commandHandler.ExecuteCommand(commandName, null, "testChannel"); // Channel is not used here
+                    Console.WriteLine($"Command executed locally: {commandName}");
+                }
             }
             else
             {
-                Console.WriteLine($"Message received but not a command: {e.ChatMessage.Message}");
+                Console.WriteLine($"Cannot execute command '{commandName}'. Not enough bits or command does not exist.");
+            }
+        }
+
+        private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
+        {
+            if (Properties.Settings.Default.isCustomCommandsEnabled && !Properties.Settings.Default.isCommandsPaused)
+            {
+                // Ensure the command handler is initialized
+                if (commandHandler == null)
+                {
+                    string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+                    string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+                    commandHandler = new CustomCommandHandler(commandsFilePath);
+                }
+
+                // Load user bits
+                string userBitsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "user_bits.json");
+                LogHandler.LoadUserBitsFromJson(userBitsFilePath);
+
+                // Check if the message is a command
+                if (e.ChatMessage.Message.StartsWith("!"))
+                {
+                    string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
+
+                    if (commandName == "ccommand")
+                    {
+                        // List all available commands with their bit costs
+                        var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+                        if (allCommandsWithCosts.Any())
+                        {
+                            var commandList = allCommandsWithCosts
+                                .Select(cmd => $"{cmd.Key} ( {cmd.Value} )")
+                                .ToList();
+
+                            string commandListMessage = string.Join(", ", commandList);
+                            client.SendMessage(e.ChatMessage.Channel, $"Available commands: {commandListMessage}");
+                        }
+                        else
+                        {
+                            client.SendMessage(e.ChatMessage.Channel, "No commands available.");
+                        }
+                        return;
+                    }
+
+                    // Process other commands
+                    int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
+                        ? MainBot.userBits[e.ChatMessage.DisplayName]
+                        : 0;
+
+                    if (commandHandler.CanExecuteCommand(commandName, userBits))
+                    {
+                        var command = commandHandler.GetCommand(commandName);
+                        if (command != null)
+                        {
+                            try
+                            {
+                                // Execute the command
+                                commandHandler.ExecuteCommand(commandName, client, e.ChatMessage.Channel);
+
+                                // Deduct the bit cost of the command
+                                MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
+
+                                // Log the command execution
+                                string timestamp1 = DateTime.Now.ToString("HH:mm:ss");
+                                LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp1);
+
+                                // Save the updated bit data
+                                LogHandler.WriteUserBitsToJson(userBitsFilePath);
+
+                                // Inform the user that the command was executed
+                                client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, {commandName} used! You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.");
+                                Console.WriteLine($"[{timestamp1}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log and inform the user of the error
+                                Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
+                                client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Inform the user they do not have enough bits
+                        client.SendMessage(e.ChatMessage.Channel, $"You don't have enough bits to execute the command '{commandName}'.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Message received but not a command: {e.ChatMessage.Message}");
+                }
             }
 
             string timestamp = DateTime.Now.ToString("HH:mm:ss");

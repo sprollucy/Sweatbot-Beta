@@ -201,7 +201,8 @@
 1.0.0.64-alpha
 Rewrote how commands are handled again. I have opted to remove the cooldown and switch fully to a seudo bit system. Now if a user cheers bits in the chat this should pick that up and add it to a file to be used as point payment for commands. Channel owners can add points manually as well from the !addbits command or by editing the user_bits.json file. 
 -Fixed error on !randomkey where it actually didnt include the correct method
--Added a Quest menu for future potential future updates. For now enjoy the blank screen
+-Added a 
+for future potential future updates. For now enjoy the blank screen
 -Updated background color to be a little easier on the eyes and minor layout tweaks
 -Removed help button because it just showed the changelog
 -Added !grenadetoss which spins you then throws a grenade

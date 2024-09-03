@@ -1,8 +1,8 @@
 ﻿namespace UiBot
 {
-    public partial class QuestMenu : Form
+    public partial class CommandBuilderMenu : Form
     {
-        public QuestMenu()
+        public CommandBuilderMenu()
         {
             InitializeComponent();
             this.TopLevel = false;

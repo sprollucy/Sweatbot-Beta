@@ -18,7 +18,7 @@ namespace UiBot
         private SettingMenu settingMenu;
         private ControlMenu controlMenu;
         private TraderMenu traderMenu;
-        private QuestMenu questMenu;
+        private CommandBuilderMenu questMenu;
         private bool isConnectMenuVisible = false;
         private bool isSettingMenuVisible = false;
         private bool isControlMenuVisible = false;
@@ -320,14 +320,14 @@ namespace UiBot
             {
                 if (questMenu == null || questMenu.IsDisposed)
                 {
-                    questMenu = new QuestMenu();
+                    questMenu = new CommandBuilderMenu();
                     questMenu.Dock = DockStyle.Fill;
                     questMenu.Location = new Point(-questMenu.Width, 0);
                 }
                 this.Controls.Add(questMenu);
                 questMenu.Show();
                 isQuestMenuVisible = true;
-                currentTab.Text = "Quest Menu";
+                currentTab.Text = "Command Builder";
 
             }
         }

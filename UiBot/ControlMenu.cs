@@ -59,7 +59,7 @@ namespace UiBot
             enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
             enableWeaponSwap.Checked = Properties.Settings.Default.isWeaponSwapEnabled;
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
-
+            customCommandsBox.Checked = Properties.Settings.Default.isCustomCommandsEnabled;
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -643,6 +643,12 @@ namespace UiBot
         private void enableBotToggle_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void customCommandsBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isCustomCommandsEnabled = customCommandsBox.Checked;
             Properties.Settings.Default.Save();
         }
     }
