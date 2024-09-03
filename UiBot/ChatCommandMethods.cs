@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 /* TODO **
@@ -951,10 +950,11 @@ namespace UiBot
 
         //Mod Commands
 
-        public static void RefundLastCommand(string userName, Dictionary<string, int> userBits, TwitchClient client, string channelId)
+        public static void RefundLastCommand(OnChatCommandReceivedArgs e, string userName, Dictionary<string, int> userBits, TwitchClient client, string channelId)
         {
-            // Get the current date for the filename
+            // Get the current date and timestamp for the log
             string date = DateTime.Now.ToString("M-d-yy");
+            string timestamp = DateTime.Now.ToString("HH:mm:ss");
 
             // Construct the log file path with the date in its name
             string logFileName = $"{date} bitlog.txt";
@@ -968,12 +968,6 @@ namespace UiBot
 
             // Read all lines from the log file
             string[] logLines = File.ReadAllLines(logFilePath);
-
-            if (logLines.Length == 0)
-            {
-                Console.WriteLine("Log file is empty.");
-                return;
-            }
 
             // Find the last log line for the specified user
             string lastUserLogLine = logLines.LastOrDefault(line => line.Contains($" - {userName} had "));
@@ -993,9 +987,7 @@ namespace UiBot
                 return;
             }
 
-            string timestamp = parts[0];
             string logUserName = parts[1];
-            int bitsBeforeCommand = int.Parse(parts[2]);
             int bitsCost = int.Parse(parts[4]);
 
             // Refund the bits to the user
@@ -1003,15 +995,21 @@ namespace UiBot
             {
                 userBits[logUserName] += bitsCost; // Add the refunded bits to the current balance
 
-                // Log the refund
-                string refundTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                string refundLogMessage = $"{refundTimestamp} - {logUserName} was refunded {bitsCost} bits, now has {userBits[logUserName]} bits";
+                // Log the refund operation
+                int currentTotalBits = userBits[logUserName];
+                string logMessage = $"{timestamp} - {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}, now has {currentTotalBits} bits";
 
-                // Append the refund log message to the file
-                File.AppendAllText(logFilePath, refundLogMessage + Environment.NewLine);
+                // Ensure the Logs directory exists
+                if (!Directory.Exists("Logs"))
+                {
+                    Directory.CreateDirectory("Logs");
+                }
 
-                // Print message to console
-                Console.WriteLine($"Refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
+                // Append the log message to the file
+                File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+
+                // Output to console
+                Console.WriteLine($"[{timestamp}] {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
 
                 // Send message to chat
                 client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
@@ -1021,7 +1019,6 @@ namespace UiBot
                 Console.WriteLine("User not found in the bits dictionary.");
             }
         }
-
 
         public static void AddBitCommand(TwitchClient client, OnChatCommandReceivedArgs e)
         {

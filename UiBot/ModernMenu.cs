@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 using Timer = System.Windows.Forms.Timer;
 
 namespace UiBot
@@ -383,7 +382,7 @@ namespace UiBot
 
         private async void ModernMenu_Load(object sender, EventArgs e)
         {
-            if(Properties.Settings.Default.isUpdateCheckEnabled)
+            if (Properties.Settings.Default.isUpdateCheckEnabled)
             {
                 UpdateCheck updateChecker = new UpdateCheck();
                 await updateChecker.CheckForUpdatesAsync();

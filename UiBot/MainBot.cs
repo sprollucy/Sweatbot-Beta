@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using TwitchLib.Client;
@@ -9,8 +8,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using TwitchLib.PubSub;
 using TwitchLib.PubSub.Events;
-using UiBot.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 
 
 /* TODO **
@@ -107,7 +105,7 @@ namespace UiBot
                     return; // Don't proceed further
                 }
 
-                if(channelId == null) 
+                if (channelId == null)
                 {
                     MessageBox.Show("Twitch channel are not set.");
                     Console.WriteLine("[Sweat Bot]: Disconnected");
@@ -232,7 +230,7 @@ namespace UiBot
             }
         }
 
-//Chat 
+        //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             var traderResetInfoService = new TraderResetInfoService();
@@ -240,7 +238,7 @@ namespace UiBot
             Process[] pname = Process.GetProcessesByName("notepad");
             Process[] gname = Process.GetProcessesByName("GooseDesktop");
 
-//antispam cooldowns
+            //antispam cooldowns
             int helpCooldownDuration = 30;
             int aboutCooldownDuration = 10;
             int tradersCooldownDuration = 90;
@@ -1941,9 +1939,8 @@ namespace UiBot
                                 {
                                     string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
 
-                                    ChatCommandMethods.RefundLastCommand(refundUsername, MainBot.userBits, client, e.Command.ChatMessage.Channel);
-                                    LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, MainBot.userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                                    LogHandler.WriteUserBitsToJson("user_bits.json");
+                                    ChatCommandMethods.RefundLastCommand(e, refundUsername, userBits, client, channelId);
+                                    LogHandler.WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
                                 }
                                 else
                                 {
@@ -1960,7 +1957,7 @@ namespace UiBot
                 }
             }
 
-//Channel owner chat
+            //Channel owner chat
             if (e.Command.ChatMessage.IsBroadcaster)
             {
                 switch (e.Command.CommandText.ToLower())
@@ -1986,7 +1983,7 @@ namespace UiBot
 
                     case "addbits":
                         ChatCommandMethods.AddBitCommand(client, e);
-                            break;
+                        break;
 
                     case "refund":
                         string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
@@ -1995,8 +1992,7 @@ namespace UiBot
                         {
                             string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
 
-                            ChatCommandMethods.RefundLastCommand(refundUsername, userBits, client, channelId);
-                            LogHandler.LogRefundbits(e.Command.ChatMessage.DisplayName, refundUsername, userBits, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            ChatCommandMethods.RefundLastCommand(e, refundUsername, userBits, client, channelId);
                             LogHandler.WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
                         }
                         else
@@ -2037,7 +2033,7 @@ namespace UiBot
             }
         }
 
-//Auto Message
+        //Auto Message
         public void LoadAutoMessageData()
         {
             try

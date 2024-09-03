@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Reflection;
-
 using System.Diagnostics;
+using System.Reflection;
 
 namespace UiBot
 {
@@ -107,7 +106,7 @@ namespace UiBot
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             return version?.ToString();
         }
-                private bool IsNewerVersionAvailable(string currentVersion, string latestVersion)
+        private bool IsNewerVersionAvailable(string currentVersion, string latestVersion)
         {
             Version current = new Version(currentVersion);
             Version latest = new Version(latestVersion);

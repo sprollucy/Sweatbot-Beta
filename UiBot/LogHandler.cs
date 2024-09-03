@@ -80,26 +80,6 @@ namespace UiBot
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
 
-
-        public static void LogRefundbits(string commandUser, string refundUsername, Dictionary<string, int> userBits, string timestamp)
-        {
-            // Get the current total bits of the target user
-            int currentTotalBits = userBits.ContainsKey(refundUsername) ? userBits[refundUsername] : 0;
-
-            // Create the log message showing the current total bits, bits added, and the new total
-            string logMessage = $"{timestamp} - {commandUser} refunded bits to {refundUsername}, now has {currentTotalBits} bits";
-
-            // Get the current date for the filename
-            string date = DateTime.Now.ToString("M-d-yy");
-
-            // Construct the log file path with the date in its name
-            string logFileName = $"{date} bitlog.txt";
-            string logFilePath = Path.Combine("Logs", logFileName);
-
-            // Append the log message to the file
-            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
-        }
-
         public static void FileBackup()
         {
             // Define the list of file paths to backup
