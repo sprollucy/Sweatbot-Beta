@@ -85,8 +85,15 @@ namespace UiBot
             // Define the list of file paths to backup
             string[] jsonFilePaths = { Path.Combine("Data", "user_bits.json"), Path.Combine("Data", "CommandConfigData.json"), Path.Combine("Data", "DropPositionData.json") };
 
-            // Define the list of backup file paths
-            string[] backupFilePaths = { Path.Combine("Backup", "user_bits_backup.txt"), Path.Combine("Backup", "CommandConfigData_backup.txt"), Path.Combine("Backup", "DropPositionData_backup.txt") };
+            // Define the date and time format
+            string timestamp = DateTime.Now.ToString("MM_dd_HH_mm");
+
+            // Create a backup directory if it doesn't exist
+            string backupDirectory = Path.Combine("Backup");
+            if (!Directory.Exists(backupDirectory))
+            {
+                Directory.CreateDirectory(backupDirectory);
+            }
 
             Console.WriteLine($"Backup triggered at {DateTime.Now}");
 
@@ -94,11 +101,14 @@ namespace UiBot
             {
                 for (int i = 0; i < jsonFilePaths.Length; i++)
                 {
+                    // Generate the backup file path with the timestamp
+                    string backupFilePath = Path.Combine(backupDirectory, $"{Path.GetFileNameWithoutExtension(jsonFilePaths[i])}_backup_{timestamp}{Path.GetExtension(jsonFilePaths[i])}");
+
                     // Read the JSON content
                     string json = File.ReadAllText(jsonFilePaths[i]);
 
                     // Write JSON content to the backup file
-                    File.WriteAllText(backupFilePaths[i], json);
+                    File.WriteAllText(backupFilePath, json);
 
                     Console.WriteLine($"Backup completed for {jsonFilePaths[i]} at {DateTime.Now}");
                 }
@@ -108,6 +118,7 @@ namespace UiBot
                 Console.WriteLine($"Error during backup: {ex.Message}");
             }
         }
+
 
         public static void LoadUserBitsFromJson(string fileName)
         {

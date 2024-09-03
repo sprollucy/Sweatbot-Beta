@@ -34,7 +34,7 @@
             connectButton = new PictureBox();
             commandMenu = new PictureBox();
             pictureBox5 = new PictureBox();
-            questTracker = new PictureBox();
+            commandBuilder = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox8 = new PictureBox();
             closeBox = new PictureBox();
@@ -44,18 +44,19 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            label5 = new Label();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
             currentTab = new Label();
             minBox = new PictureBox();
+            label5 = new Label();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)questTracker).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)commandBuilder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).BeginInit();
@@ -114,7 +115,7 @@
             // 
             pictureBox5.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(0, 182);
+            pictureBox5.Location = new Point(0, 238);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(47, 50);
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
@@ -122,15 +123,17 @@
             pictureBox5.TabStop = false;
             pictureBox5.Click += pictureBox5_Click;
             // 
-            // questTracker
+            // commandBuilder
             // 
-            questTracker.BackColor = Color.FromArgb(63, 78, 79);
-            questTracker.Location = new Point(0, 236);
-            questTracker.Name = "questTracker";
-            questTracker.Size = new Size(47, 50);
-            questTracker.TabIndex = 5;
-            questTracker.TabStop = false;
-            questTracker.Click += questTracker_Click;
+            commandBuilder.BackColor = Color.FromArgb(63, 78, 79);
+            commandBuilder.Image = (Image)resources.GetObject("commandBuilder.Image");
+            commandBuilder.Location = new Point(0, 183);
+            commandBuilder.Name = "commandBuilder";
+            commandBuilder.Size = new Size(47, 50);
+            commandBuilder.SizeMode = PictureBoxSizeMode.StretchImage;
+            commandBuilder.TabIndex = 5;
+            commandBuilder.TabStop = false;
+            commandBuilder.Click += questTracker_Click;
             // 
             // pictureBox7
             // 
@@ -221,23 +224,11 @@
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(63, 78, 79);
             label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label4.Location = new Point(-33, 195);
+            label4.Location = new Point(-33, 250);
             label4.Name = "label4";
             label4.Size = new Size(78, 23);
             label4.TabIndex = 14;
             label4.Text = "Traders";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(63, 78, 79);
-            label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label5.Location = new Point(-19, 249);
-            label5.Name = "label5";
-            label5.Size = new Size(63, 23);
-            label5.TabIndex = 15;
-            label5.Text = "label5";
-            label5.Visible = false;
             // 
             // label6
             // 
@@ -301,6 +292,28 @@
             minBox.TabStop = false;
             minBox.Click += minBox_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(63, 78, 79);
+            label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label5.Location = new Point(-42, 207);
+            label5.Name = "label5";
+            label5.Size = new Size(77, 23);
+            label5.TabIndex = 15;
+            label5.Text = "Builder";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.FromArgb(63, 78, 79);
+            label9.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label9.Location = new Point(-73, 188);
+            label9.Name = "label9";
+            label9.Size = new Size(104, 23);
+            label9.TabIndex = 21;
+            label9.Text = "Command";
+            // 
             // ModernMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -314,7 +327,7 @@
             Controls.Add(settingsButton);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
-            Controls.Add(questTracker);
+            Controls.Add(commandBuilder);
             Controls.Add(pictureBox5);
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
@@ -327,6 +340,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(label9);
             Controls.Add(pictureBox1);
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
@@ -337,7 +351,7 @@
             ((System.ComponentModel.ISupportInitialize)connectButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)questTracker).EndInit();
+            ((System.ComponentModel.ISupportInitialize)commandBuilder).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).EndInit();
@@ -355,7 +369,7 @@
         private PictureBox connectButton;
         private PictureBox commandMenu;
         private PictureBox pictureBox5;
-        private PictureBox questTracker;
+        private PictureBox commandBuilder;
         private PictureBox pictureBox7;
         private PictureBox pictureBox8;
         private PictureBox closeBox;
@@ -365,11 +379,12 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private Label label5;
         private Label label6;
         private Label label7;
         private Label label8;
         private Label currentTab;
         private PictureBox minBox;
+        private Label label5;
+        private Label label9;
     }
 }

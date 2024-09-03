@@ -100,7 +100,7 @@ namespace UiBot
             setMouseEvents(connectButton);
             setMouseEvents(commandMenu);
             setMouseEvents(pictureBox5);
-            setMouseEvents(questTracker);
+            setMouseEvents(commandBuilder);
             //setMouseEvents(pictureBox7);
             //setMouseEvents(pictureBox8);
             setMouseEvents(settingsButton);
@@ -143,7 +143,7 @@ namespace UiBot
             {
                 if (control is Label label)
                 {
-                    if (label.Name == "label1" || label.Name == "label2" || label.Name == "label3" || label.Name == "label3" || label.Name == "label4" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "label8")
+                    if (label.Name == "label1" || label.Name == "label2" || label.Name == "label3" ||  label.Name == "label4" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "label8" || label.Name == "label9")
                     {
                         label.Left = newLeft;
                     }
@@ -403,6 +403,10 @@ namespace UiBot
 
         private void questTracker_Click(object sender, EventArgs e)
         {
+            if (isEnlarged)
+            {
+                menuButton_Click(sender, e);
+            }
             HideOpenMenu();
             ShowQuestMenu();
         }

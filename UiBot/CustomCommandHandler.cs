@@ -60,7 +60,7 @@ public class CustomCommandHandler
     }
 
 
-    private Dictionary<string, Command> LoadCommandsFromFile(string filePath)
+    public Dictionary<string, Command> LoadCommandsFromFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
