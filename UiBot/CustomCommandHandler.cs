@@ -2,6 +2,7 @@
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions; // For parsing command string
+using System.Windows.Forms;
 using TwitchLib.Client;
 using UiBot;
 
@@ -187,11 +188,11 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for HoldButton.");
+            Console.WriteLine("No parameters specified for HoldKey.");
             return;
         }
 
-        var match = Regex.Match(parameter, @"([a-zA-Z0-9])\((\d+)\)");
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)\((\d+)\)");
         if (!match.Success)
         {
             Console.WriteLine("Invalid parameter format. Expected format: Button(Duration).");
@@ -205,21 +206,33 @@ public class CustomCommandHandler
             return;
         }
 
-        // Map the character to a virtual key code
-        byte vkCode = (byte)ToVirtualKey(key);
+        int vkCode;
+        try
+        {
+            vkCode = ToVirtualKey(key);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error mapping key: {ex.Message}");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Holding key '{key}' (VK Code: {vkCode:X}) for {duration} milliseconds.");
+        }
 
         try
         {
-            Console.WriteLine($"Holding button '{key}' for {duration} seconds.");
             // Press the key
-            keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+            keybd_event((byte)vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
-            // Release the key
-            keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
+                                                     // Release the key
+            keybd_event((byte)vkCode, 0, KEYEVENTF_KEYUP, 0);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error holding button: {ex.Message}");
+            Console.WriteLine($"Error holding key: {ex.Message}");
         }
     }
 
@@ -227,11 +240,11 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for HoldKey.");
+            Console.WriteLine("No parameters specified for HoldKeyAsync.");
             return;
         }
 
-        var match = Regex.Match(parameter, @"([a-zA-Z0-9])\((\d+)\)");
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)\((\d+)\)");
         if (!match.Success)
         {
             Console.WriteLine("Invalid parameter format. Expected format: Button(Duration).");
@@ -245,13 +258,24 @@ public class CustomCommandHandler
             return;
         }
 
-        // Map the character to a virtual key code
-        byte vkCode = (byte)ToVirtualKey(key);
+        byte vkCode;
+        try
+        {
+            vkCode = (byte)ToVirtualKey(key);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error mapping key: {ex.Message}");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Async Holding key '{key}' (VK Code: {vkCode:X}) for {duration} milliseconds.");
+        }
 
         try
         {
-            Console.WriteLine($"Holding button '{key}' for {duration} milliseconds.");
-
             // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             await Task.Delay(duration); // Hold for specified duration
@@ -260,9 +284,10 @@ public class CustomCommandHandler
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error holding button: {ex.Message}");
+            Console.WriteLine($"Error holding key asynchronously: {ex.Message}");
         }
     }
+
 
     private void HitKey(TwitchClient client, string channel, string parameter = null)
     {
@@ -273,7 +298,7 @@ public class CustomCommandHandler
         }
 
         // Remove duration-related code
-        var match = Regex.Match(parameter, @"([a-zA-Z0-9])");
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)");
         if (!match.Success)
         {
             Console.WriteLine("Invalid parameter format. Expected format: Button.");
@@ -281,20 +306,27 @@ public class CustomCommandHandler
         }
 
         string key = match.Groups[1].Value.ToUpper();
-
-        // Map the character to a virtual key code
-        byte vkCode = (byte)ToVirtualKey(key);
+        byte vkCode;
+        try
+        {
+            vkCode = (byte)ToVirtualKey(key);
+        }
+        catch (ArgumentException ex) { Console.WriteLine($"Error mapping key: {ex.Message}"); return; }
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Hitting key '{key}' (VK Code: {vkCode:X})");
+        }
 
         try
         {
-            Console.WriteLine($"Hitting button '{key}'");
-            Thread.Sleep(100);
+            // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+            // Release the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error hitting button: {ex.Message}");
+            Console.WriteLine($"Error hitting key: {ex.Message}");
         }
     }
 
@@ -302,11 +334,11 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for HitKey.");
+            Console.WriteLine("No parameters specified for HitKeyAsync.");
             return;
         }
 
-        var match = Regex.Match(parameter, @"([a-zA-Z0-9])");
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)");
         if (!match.Success)
         {
             Console.WriteLine("Invalid parameter format. Expected format: Button.");
@@ -314,18 +346,33 @@ public class CustomCommandHandler
         }
 
         string key = match.Groups[1].Value.ToUpper();
-        byte vkCode = (byte)ToVirtualKey(key);
+        byte vkCode;
+        try
+        {
+            vkCode = (byte)ToVirtualKey(key);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error mapping key: {ex.Message}");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Async Hitting key '{key}' (VK Code: {vkCode:X})");
+        }
 
         try
         {
-            Console.WriteLine($"Hitting button '{key}'");
-            await Task.Delay(100); // Use Task.Delay instead of Thread.Sleep
+            await Task.Delay(100); // Small delay before sending key events
+                                   // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+            // Release the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error hitting button: {ex.Message}");
+            Console.WriteLine($"Error hitting key asynchronously: {ex.Message}");
         }
     }
 
@@ -363,12 +410,18 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
+            }
 
             if (direction == "RAND")
             {
                 int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
-                Console.WriteLine($"Random number: {randomNumber}");
+                if (UiBot.Properties.Settings.Default.isDebugOn)
+                {
+                    Console.WriteLine($"Random number: {randomNumber}");
+                }
 
                 switch (randomNumber)
                 {
@@ -455,12 +508,18 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
+            }
 
             if (direction == "RAND")
             {
                 int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
-                Console.WriteLine($"Random number: {randomNumber}");
+                if (UiBot.Properties.Settings.Default.isDebugOn)
+                {
+                    Console.WriteLine($"Random number: {randomNumber}");
+                }
 
                 switch (randomNumber)
                 {
@@ -512,10 +571,12 @@ public class CustomCommandHandler
         }
     }
 
-
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
     {
-        Thread.Sleep(100);
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine("Left click");
+        }
         // Simulate a left mouse button click
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -523,8 +584,10 @@ public class CustomCommandHandler
 
     private async Task LeftClickAsync(TwitchClient client, string channel, string parameter = null)
     {
-        await Task.Delay(100); // Use Task.Delay instead of Thread.Sleep
-
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine("Async Left click");
+        }
         // Simulate a left mouse button click
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -532,7 +595,10 @@ public class CustomCommandHandler
 
     private void RightClick(TwitchClient client, string channel, string parameter = null)
     {
-        Thread.Sleep(100);
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine("Right click");
+        }
         // Simulate pressing the right mouse button
         mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
         // Simulate releasing the right mouse button
@@ -541,8 +607,10 @@ public class CustomCommandHandler
 
     private async Task RightClickAsync(TwitchClient client, string channel, string parameter = null)
     {
-        await Task.Delay(100); // Use Task.Delay instead of Thread.Sleep
-
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine("Async Right click");
+        }
         // Simulate pressing the right mouse button
         mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
         // Simulate releasing the right mouse button
@@ -566,7 +634,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Holding right mouse button for {duration} milliseconds.");
+            }            
             // Simulate pressing the left mouse button
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -597,7 +668,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Holding right mouse button for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Holding async right mouse button for {duration} milliseconds.");
+            }
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
             await Task.Delay(duration); // Use Task.Delay instead of Thread.Sleep
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
@@ -625,7 +699,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            }
             // Simulate pressing the left mouse button
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -656,7 +733,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Holding Async left mouse button for {duration} milliseconds.");
+            }
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             await Task.Delay(duration); // Use Task.Delay instead of Thread.Sleep
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -684,7 +764,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Muting Windows for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Muting Windows for {duration} milliseconds.");
+            }
             // Simulate pressing the left mouse button
             keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -715,7 +798,10 @@ public class CustomCommandHandler
 
         try
         {
-            Console.WriteLine($"Delay for {duration} milliseconds.");
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Delay for {duration} milliseconds.");
+            }
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
 
         }
@@ -752,6 +838,10 @@ public class CustomCommandHandler
             {
                 player.Play();
             }
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Playing sound for {fileName}.");
+            }
         }
         catch (Exception ex)
         {
@@ -784,6 +874,10 @@ public class CustomCommandHandler
             {
                 // SoundPlayer doesn't support async playback, but you can use a Task.Run to avoid blocking
                 await Task.Run(() => player.Play());
+            }
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Async Playing sound for {fileName}.");
             }
         }
         catch (Exception ex)

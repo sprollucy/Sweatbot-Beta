@@ -195,26 +195,6 @@ namespace UiBot
                 {
                     string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
 
-                    if (commandName == "ccommand")
-                    {
-                        // List all available commands with their bit costs
-                        var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
-                        if (allCommandsWithCosts.Any())
-                        {
-                            var commandList = allCommandsWithCosts
-                                .Select(cmd => $"{cmd.Key} ( {cmd.Value} )")
-                                .ToList();
-
-                            string commandListMessage = string.Join(", ", commandList);
-                            client.SendMessage(e.ChatMessage.Channel, $"Available commands: {commandListMessage}");
-                        }
-                        else
-                        {
-                            client.SendMessage(e.ChatMessage.Channel, "No commands available.");
-                        }
-                        return;
-                    }
-
                     // Process other commands
                     int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
                         ? MainBot.userBits[e.ChatMessage.DisplayName]
@@ -383,11 +363,6 @@ namespace UiBot
                         StringBuilder message = new StringBuilder();
                         message.Append("!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices.");
 
-                        if (Properties.Settings.Default.isCustomCommandsEnabled)
-                        {
-                            message.Append(" Use !ccommand to see if any custom commands are available.");
-                        }
-
                         // Check if the user is a moderator
                         if (e.Command.ChatMessage.IsModerator)
                         {
@@ -419,7 +394,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost or !ccommand to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
+                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
                     }
                     break;
 
@@ -451,41 +426,51 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
                     {
-                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "bitcost" execution time
+
+                        // Fetch all commands with costs from commandHandler
+                        var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+                        List<string> allCommandList = new List<string>();
+
+                        if (allCommandsWithCosts.Any())
+                        {
+                            allCommandList = allCommandsWithCosts
+                                .Select(cmd => $"!{cmd.Key}({cmd.Value})")
+                                .ToList();
+                        }
 
                         // Define the mappings of textbox names to their corresponding labels and enabled states
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
-                        {
-                                { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
-                                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
-                                { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
-                                { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
-                                { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
-                                { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
-                                { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
-                                { "GrenadeCostBox", ("360grenade", () => Properties.Settings.Default.isGrenadeTossEnabled) },
-                                { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
-                                { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
-                                { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
-                                { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
-                                { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
-                                { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
-                                { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) },
-                                { "dropmagCostBox", ("dropmag", () => Properties.Settings.Default.isDropMagEnabled) },
-                                { "praisesunCostBox", ("praisesun", () => Properties.Settings.Default.isPraiseSunEnabled) },
-                                { "touchgrassCostBox", ("touchgrass", () => Properties.Settings.Default.isTouchGrassEnabled) },
-                                { "knifeoutCostBox", ("knifeout", () => Properties.Settings.Default.isKnifeOutEnabled) },
-                                { "jumpCostBox", ("jump", () => Properties.Settings.Default.isJumpEnabled) },
-                                { "windowsmuteCostBox", ("mutewindows", () => Properties.Settings.Default.isMuteWindowsEnabled) },
-                                { "walkCostBox", ("walk", () => Properties.Settings.Default.isWalkEnabled) },
-                                { "hotmicCostBox", ("hotmic", () => Properties.Settings.Default.isHotMicEnabled) },
-                                { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
-                                { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-                                { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-                                { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
-                                { "soundCostTextBox", ("audioplay", () => Properties.Settings.Default.isAudclipEnabled) }
-
-                        };
+        {
+            { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
+            { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
+            { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
+            { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
+            { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
+            { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
+            { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
+            { "GrenadeCostBox", ("360grenade", () => Properties.Settings.Default.isGrenadeTossEnabled) },
+            { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
+            { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+            { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
+            { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
+            { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
+            { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
+            { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) },
+            { "dropmagCostBox", ("dropmag", () => Properties.Settings.Default.isDropMagEnabled) },
+            { "praisesunCostBox", ("praisesun", () => Properties.Settings.Default.isPraiseSunEnabled) },
+            { "touchgrassCostBox", ("touchgrass", () => Properties.Settings.Default.isTouchGrassEnabled) },
+            { "knifeoutCostBox", ("knifeout", () => Properties.Settings.Default.isKnifeOutEnabled) },
+            { "jumpCostBox", ("jump", () => Properties.Settings.Default.isJumpEnabled) },
+            { "windowsmuteCostBox", ("mutewindows", () => Properties.Settings.Default.isMuteWindowsEnabled) },
+            { "walkCostBox", ("walk", () => Properties.Settings.Default.isWalkEnabled) },
+            { "hotmicCostBox", ("hotmic", () => Properties.Settings.Default.isHotMicEnabled) },
+            { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
+            { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
+            { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
+            { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
+            { "soundCostTextBox", ("audioplay", () => Properties.Settings.Default.isAudclipEnabled) }
+        };
 
                         // Define a list to hold enabled command details
                         List<(string Label, int Cost)> enabledCommandDetails = new List<(string Label, int Cost)>();
@@ -512,18 +497,18 @@ namespace UiBot
                         // Construct the message dynamically with ordered enabled commands
                         List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label}({detail.Cost})").ToList();
 
-                        if (enabledCommandCosts.Count > 0)
-                        {
-                            string message = $"{e.Command.ChatMessage.DisplayName}, these are the available commands: {string.Join(", ", enabledCommandCosts)}";
-                            client.SendMessage(channelId, message);
-                        }
-                        else
-                        {
-                            string message = $"{e.Command.ChatMessage.DisplayName}, All sweatbot commands are paused";
-                            client.SendMessage(channelId, message);
-                        }
+                        // Construct the final message
+                        string allCommandsMessage = allCommandList.Count > 0 ? $"Available commands: {string.Join(", ", allCommandList)}" : "No commands available.";
+                        string enabledCommandsMessage = enabledCommandCosts.Count > 0
+                            ? $"{string.Join(", ", enabledCommandCosts)}"
+                            : $"";
+
+                        // Send both messages in one go
+                        string finalMessage = $"{allCommandsMessage}. {enabledCommandsMessage}";
+                        client.SendMessage(channelId, finalMessage);
                     }
                     break;
+
 
                 case "traders":
                     if (Properties.Settings.Default.isTradersEnabled)

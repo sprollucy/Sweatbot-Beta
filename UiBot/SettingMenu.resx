@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>1.0.0.68-alpha 6-17-24
+    <value>
+1.0.0.68-alpha 6-17-24
 -Added !refund command and setting to allow moderators to use it
 -Removed !grenadesound
 -Added custom audio loader. Currently it only supports wav format files. With the commands enabled, you can either do !audiolist to list all sound clips in the Sound Clips directory and then you do !audioplay &lt;filename&gt;. I will eventually make a way to add custom prices to each sound

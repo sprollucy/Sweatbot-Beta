@@ -47,7 +47,6 @@
             versionNumber = new Label();
             label7 = new Label();
             pictureBox2 = new PictureBox();
-            pictureBox3 = new PictureBox();
             changelogLabel = new Label();
             label4 = new Label();
             linkLabel1 = new LinkLabel();
@@ -59,14 +58,16 @@
             groupBox3 = new GroupBox();
             checkUpdateButton = new Button();
             pictureBox6 = new PictureBox();
+            enableDebug = new CheckBox();
+            groupBox4 = new GroupBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -195,7 +196,7 @@
             // 
             textBox3.BackColor = Color.FromArgb(220, 215, 201);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(635, 68);
+            textBox3.Location = new Point(635, 58);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
@@ -208,7 +209,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(156, 155, 151);
-            label5.Location = new Point(77, 500);
+            label5.Location = new Point(72, 500);
             label5.Name = "label5";
             label5.Size = new Size(251, 15);
             label5.TabIndex = 30;
@@ -219,7 +220,7 @@
             // 
             githubLink.AutoSize = true;
             githubLink.BackColor = Color.FromArgb(156, 155, 151);
-            githubLink.Location = new Point(334, 500);
+            githubLink.Location = new Point(329, 500);
             githubLink.Name = "githubLink";
             githubLink.Size = new Size(43, 15);
             githubLink.TabIndex = 29;
@@ -245,7 +246,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            label7.Location = new Point(75, 530);
+            label7.Location = new Point(70, 530);
             label7.Name = "label7";
             label7.Size = new Size(551, 25);
             label7.TabIndex = 27;
@@ -263,22 +264,12 @@
             pictureBox2.TabIndex = 31;
             pictureBox2.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox3.Location = new Point(635, 28);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(470, 385);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 32;
-            pictureBox3.TabStop = false;
-            // 
             // changelogLabel
             // 
             changelogLabel.AutoSize = true;
             changelogLabel.BackColor = Color.FromArgb(162, 123, 92);
             changelogLabel.Font = new Font("Cambria", 15.75F);
-            changelogLabel.Location = new Point(647, 40);
+            changelogLabel.Location = new Point(635, 32);
             changelogLabel.Name = "changelogLabel";
             changelogLabel.Size = new Size(105, 25);
             changelogLabel.TabIndex = 34;
@@ -288,7 +279,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(156, 155, 151);
-            label4.Location = new Point(77, 515);
+            label4.Location = new Point(72, 515);
             label4.Name = "label4";
             label4.Size = new Size(324, 15);
             label4.TabIndex = 35;
@@ -298,7 +289,7 @@
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.BackColor = Color.FromArgb(156, 155, 151);
-            linkLabel1.Location = new Point(407, 515);
+            linkLabel1.Location = new Point(402, 515);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(42, 15);
             linkLabel1.TabIndex = 36;
@@ -386,12 +377,33 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(635, 25);
+            pictureBox6.Location = new Point(635, 32);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(411, 40);
+            pictureBox6.Size = new Size(411, 25);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 109;
             pictureBox6.TabStop = false;
+            // 
+            // enableDebug
+            // 
+            enableDebug.AutoSize = true;
+            enableDebug.Location = new Point(18, 22);
+            enableDebug.Name = "enableDebug";
+            enableDebug.Size = new Size(133, 19);
+            enableDebug.TabIndex = 110;
+            enableDebug.Text = "Enable Debug Mode";
+            enableDebug.UseVisualStyleBackColor = true;
+            enableDebug.CheckedChanged += enableDebug_CheckedChanged;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(enableDebug);
+            groupBox4.Location = new Point(54, 333);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(417, 55);
+            groupBox4.TabIndex = 111;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Debug Settings";
             // 
             // SettingMenu
             // 
@@ -400,6 +412,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1041, 602);
             ControlBox = false;
+            Controls.Add(groupBox4);
             Controls.Add(changelogLabel);
             Controls.Add(pictureBox6);
             Controls.Add(groupBox3);
@@ -407,7 +420,6 @@
             Controls.Add(linkLabel1);
             Controls.Add(label4);
             Controls.Add(textBox3);
-            Controls.Add(pictureBox3);
             Controls.Add(label5);
             Controls.Add(githubLink);
             Controls.Add(versionNumber);
@@ -425,11 +437,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -455,7 +468,6 @@
         private Label versionNumber;
         private Label label7;
         private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
         private Label changelogLabel;
         private Label label4;
         private LinkLabel linkLabel1;
@@ -469,5 +481,7 @@
         private Button button4;
         private Button checkUpdateButton;
         private PictureBox pictureBox6;
+        private CheckBox enableDebug;
+        private GroupBox groupBox4;
     }
 }

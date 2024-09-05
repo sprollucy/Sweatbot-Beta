@@ -41,7 +41,6 @@
             saveButton = new Button();
             richTextBox1 = new RichTextBox();
             pictureBox4 = new PictureBox();
-            pictureBox5 = new PictureBox();
             openCustomJson = new Button();
             label5 = new Label();
             commandListBox = new ListBox();
@@ -79,34 +78,35 @@
             aholdkeyButton = new Button();
             label9 = new Label();
             label8 = new Label();
+            pictureBox5 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // nametextBox
             // 
-            nametextBox.Location = new Point(59, 55);
+            nametextBox.Location = new Point(55, 55);
             nametextBox.Name = "nametextBox";
             nametextBox.Size = new Size(100, 23);
             nametextBox.TabIndex = 1;
             // 
             // costtextBox
             // 
-            costtextBox.Location = new Point(165, 55);
+            costtextBox.Location = new Point(161, 55);
             costtextBox.Name = "costtextBox";
             costtextBox.Size = new Size(51, 23);
             costtextBox.TabIndex = 2;
             // 
             // commandtextBox
             // 
-            commandtextBox.Location = new Point(222, 55);
+            commandtextBox.Location = new Point(218, 55);
             commandtextBox.Name = "commandtextBox";
             commandtextBox.Size = new Size(794, 23);
             commandtextBox.TabIndex = 3;
@@ -115,7 +115,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(162, 123, 92);
-            label2.Location = new Point(59, 37);
+            label2.Location = new Point(55, 37);
             label2.Name = "label2";
             label2.Size = new Size(39, 15);
             label2.TabIndex = 4;
@@ -125,7 +125,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
-            label3.Location = new Point(165, 37);
+            label3.Location = new Point(161, 37);
             label3.Name = "label3";
             label3.Size = new Size(31, 15);
             label3.TabIndex = 5;
@@ -135,7 +135,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(162, 123, 92);
-            label4.Location = new Point(222, 37);
+            label4.Location = new Point(218, 37);
             label4.Name = "label4";
             label4.Size = new Size(282, 15);
             label4.TabIndex = 6;
@@ -145,7 +145,7 @@
             // 
             pictureBox1.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Location = new Point(59, 36);
+            pictureBox1.Location = new Point(55, 36);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(100, 24);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -156,7 +156,7 @@
             // 
             pictureBox2.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
-            pictureBox2.Location = new Point(222, 36);
+            pictureBox2.Location = new Point(218, 36);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(794, 24);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -167,7 +167,7 @@
             // 
             pictureBox3.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
-            pictureBox3.Location = new Point(165, 36);
+            pictureBox3.Location = new Point(161, 36);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(51, 24);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -176,7 +176,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(222, 234);
+            saveButton.Location = new Point(218, 234);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(108, 23);
             saveButton.TabIndex = 9;
@@ -191,13 +191,12 @@
             richTextBox1.Location = new Point(514, 219);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(527, 342);
+            richTextBox1.Size = new Size(527, 346);
             richTextBox1.TabIndex = 10;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // pictureBox4
             // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
             pictureBox4.Location = new Point(503, 219);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(667, 397);
@@ -205,19 +204,9 @@
             pictureBox4.TabIndex = 11;
             pictureBox4.TabStop = false;
             // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox5.Location = new Point(503, 219);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(558, 362);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 12;
-            pictureBox5.TabStop = false;
-            // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(222, 321);
+            openCustomJson.Location = new Point(218, 321);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -231,11 +220,11 @@
             label5.BackColor = Color.FromArgb(220, 215, 201);
             label5.Font = new Font("Segoe UI", 12F);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(105, 394);
+            label5.Location = new Point(78, 401);
             label5.Name = "label5";
-            label5.Size = new Size(202, 42);
+            label5.Size = new Size(238, 42);
             label5.TabIndex = 14;
-            label5.Text = "Must restart application for \r\ncommands to show up";
+            label5.Text = "Must restart application for \r\ncommands to show up on Twitch";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // commandListBox
@@ -243,14 +232,14 @@
             commandListBox.BackColor = Color.FromArgb(220, 215, 201);
             commandListBox.FormattingEnabled = true;
             commandListBox.ItemHeight = 15;
-            commandListBox.Location = new Point(59, 234);
+            commandListBox.Location = new Point(55, 234);
             commandListBox.Name = "commandListBox";
             commandListBox.Size = new Size(157, 154);
             commandListBox.TabIndex = 15;
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(222, 292);
+            removeCommandButton.Location = new Point(218, 292);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(108, 23);
             removeCommandButton.TabIndex = 17;
@@ -283,7 +272,7 @@
             // pictureBox7
             // 
             pictureBox7.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox7.Location = new Point(59, 207);
+            pictureBox7.Location = new Point(55, 207);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(280, 239);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -294,7 +283,7 @@
             // 
             pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
-            pictureBox8.Location = new Point(59, 207);
+            pictureBox8.Location = new Point(55, 207);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(280, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -306,7 +295,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(162, 123, 92);
             label7.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label7.Location = new Point(62, 208);
+            label7.Location = new Point(58, 208);
             label7.Name = "label7";
             label7.Size = new Size(120, 19);
             label7.TabIndex = 22;
@@ -314,7 +303,7 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(222, 263);
+            restartButton.Location = new Point(218, 263);
             restartButton.Name = "restartButton";
             restartButton.Size = new Size(108, 23);
             restartButton.TabIndex = 23;
@@ -360,7 +349,7 @@
             panel1.Controls.Add(holdkeyButton);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label8);
-            panel1.Location = new Point(59, 84);
+            panel1.Location = new Point(55, 84);
             panel1.Name = "panel1";
             panel1.Size = new Size(971, 117);
             panel1.TabIndex = 25;
@@ -463,9 +452,9 @@
             label11.AutoSize = true;
             label11.Location = new Point(58, 94);
             label11.Name = "label11";
-            label11.Size = new Size(101, 15);
+            label11.Size = new Size(139, 15);
             label11.TabIndex = 49;
-            label11.Text = "Direction(U,D,L,R)";
+            label11.Text = "Direction(U,D,L,R, RAND)";
             // 
             // ahitkeyButton
             // 
@@ -602,12 +591,22 @@
             label8.TabIndex = 46;
             label8.Text = "Duration(in ms)";
             // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.FromArgb(220, 215, 201);
+            pictureBox5.Location = new Point(503, 219);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(558, 362);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 12;
+            pictureBox5.TabStop = false;
+            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1042, 570);
+            ClientSize = new Size(1042, 564);
             ControlBox = false;
             Controls.Add(panel1);
             Controls.Add(restartButton);
@@ -640,12 +639,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -664,7 +663,6 @@
         private Button saveButton;
         private RichTextBox richTextBox1;
         private PictureBox pictureBox4;
-        private PictureBox pictureBox5;
         private Button openCustomJson;
         private Label label5;
         private ListBox commandListBox;
@@ -702,5 +700,7 @@
         private Label label10;
         private Label label9;
         private Label label8;
+        private PictureBox pictureBox9;
+        private PictureBox pictureBox5;
     }
 }

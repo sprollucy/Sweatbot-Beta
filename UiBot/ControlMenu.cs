@@ -355,57 +355,171 @@ namespace UiBot
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
         {
-            // Create a dictionary to store the text from all TextBox controls
-            Dictionary<string, string> textData = new Dictionary<string, string>();
+                SaveData();
+                MessageBox.Show("Settings have been saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
-            // Iterate through the TextBoxes dictionary and save the text from each TextBox
-            foreach (var textBoxEntry in textBoxes)
+        public void SaveData()
+        {
+            try
             {
-                string textBoxKey = textBoxEntry.Key;
-                TextBox textBox = textBoxEntry.Value;
-                string textBoxText = textBox.Text;
+                // Create a dictionary to store the text from all TextBox controls
+                Dictionary<string, string> textData = new Dictionary<string, string>();
 
-                // Add the TextBox key and text to the dictionary
-                textData[textBoxKey] = textBoxText;
+                // Iterate through the TextBoxes dictionary and save the text from each TextBox
+                foreach (var textBoxEntry in textBoxes)
+                {
+                    string textBoxKey = textBoxEntry.Key;
+                    TextBox textBox = textBoxEntry.Value;
+                    string textBoxText = textBox.Text;
+
+                    // Add the TextBox key and text to the dictionary
+                    textData[textBoxKey] = textBoxText;
+                }
+
+                // Create a dictionary to store checkbox states
+                Dictionary<string, bool> enabledCommands = new Dictionary<string, bool>
+        {
+            { "chkEnableGoose", chkEnableGoose.Checked },
+            { "enableWiggle", enableWiggle.Checked },
+            { "enableRandomKey", enableRandomKey.Checked },
+            { "enableKitDrop", enableKitDrop.Checked },
+            { "randomTurn", randomTurn.Checked },
+            { "oneClickCheck", oneClickCheck.Checked },
+            { "enableAutoMessageCheck", enableAutoMessageCheck.Checked },
+            { "enableSounds", enableSounds.Checked },
+            { "enableBagDrop", enableBagDrop.Checked },
+            { "enableTradersCommand", enableTradersCommand.Checked },
+            { "enableGrenadeToss", enableGrenadeToss.Checked },
+            { "crouchBox", crouchBox.Checked },
+            { "enableMagDump", enableMagDump.Checked },
+            { "enableHoldAim", enableHoldAim.Checked },
+            { "enableChatBonus", enableChatBonus.Checked },
+            { "enable360MagDump", enable360MagDump.Checked },
+            { "enableProne", enableProne.Checked },
+            { "enableVoiceLine", enableVoiceLine.Checked },
+            { "enableReload", enableReload.Checked },
+            { "enableDropMag", enableDropMag.Checked },
+            { "enablePraiseSun", enablePraiseSun.Checked },
+            { "enableTouchGrass", enableTouchGrass.Checked },
+            { "enableKnifeOut", enableKnifeOut.Checked },
+            { "enableJump", enableJump.Checked },
+            { "enableWindowsMute", enableWindowsMute.Checked },
+            { "enableWalk", enableWalk.Checked },
+            { "enableHotMic", enableHotMic.Checked },
+            { "enableFireMode", enableFireMode.Checked },
+            { "enableModBits", enableModBits.Checked },
+            { "enableNormGrenade", enableNormGrenade.Checked },
+            { "modRefund", modRefund.Checked },
+            { "modWhitelistCheck", modWhitelistCheck.Checked },
+            { "enableBonusMulti", enableBonusMulti.Checked },
+            { "enableWeaponSwap", enableWeaponSwap.Checked },
+            { "enableBotToggle", enableBotToggle.Checked },
+            { "customCommandsBox", customCommandsBox.Checked }
+        };
+
+                // Prepare the final dictionary with "TextData" and "EnabledCommands" as keys
+                var jsonData = new Dictionary<string, object>
+        {
+            { "TextData", textData },
+            { "EnabledCommands", enabledCommands }
+        };
+
+                // Serialize and save the dictionary to a JSON file in the "Data" folder
+                string json = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+                string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+                Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
+                string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
+                File.WriteAllText(filePath, json);
+
             }
-
-            // Serialize and save the dictionary to a JSON file in the "Data" folder
-            string json = JsonConvert.SerializeObject(textData);
-            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
-            Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
-            string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
-            File.WriteAllText(filePath, json);
+            catch (Exception ex)
+            {
+                // Handle exceptions such as file writing issues
+                MessageBox.Show($"An error occurred while saving the settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Load settings from JSON on startup
         public void LoadSettings()
         {
-            // Construct the file path to the JSON file in the "Data" folder
-            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
-            string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
-
-            // Check if the JSON file exists
-            if (File.Exists(filePath))
+            try
             {
-                // Deserialize and load the data from the JSON file into a dictionary
-                string json = File.ReadAllText(filePath);
-                Dictionary<string, string> textData = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                // Construct the file path to the JSON file in the "Data" folder
+                string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+                string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
 
-                // Iterate through the dictionary and set the text for each TextBox
-                foreach (var textBoxEntry in textData)
+                // Check if the JSON file exists
+                if (File.Exists(filePath))
                 {
-                    string textBoxKey = textBoxEntry.Key;
-                    string textBoxText = textBoxEntry.Value;
+                    // Deserialize and load the data from the JSON file into a dictionary
+                    string json = File.ReadAllText(filePath);
 
-                    // Check if the key exists in the TextBoxes dictionary
-                    if (textBoxes.ContainsKey(textBoxKey))
+                    // Deserialize the JSON into a dictionary with object values
+                    var jsonData = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+                    // Check if "EnabledCommands" exists in the deserialized data
+                    if (jsonData != null && jsonData.ContainsKey("EnabledCommands"))
                     {
-                        TextBox textBox = textBoxes[textBoxKey];
-                        textBox.Text = textBoxText;
+                        var enabledCommands = JsonConvert.DeserializeObject<Dictionary<string, bool>>(jsonData["EnabledCommands"].ToString());
+
+                        // Apply the settings to the checkboxes
+                        chkEnableGoose.Checked = enabledCommands.GetValueOrDefault("chkEnableGoose", chkEnableGoose.Checked);
+                        enableWiggle.Checked = enabledCommands.GetValueOrDefault("enableWiggle", enableWiggle.Checked);
+                        enableRandomKey.Checked = enabledCommands.GetValueOrDefault("enableRandomKey", enableRandomKey.Checked);
+                        enableKitDrop.Checked = enabledCommands.GetValueOrDefault("enableKitDrop", enableKitDrop.Checked);
+                        randomTurn.Checked = enabledCommands.GetValueOrDefault("randomTurn", randomTurn.Checked);
+                        oneClickCheck.Checked = enabledCommands.GetValueOrDefault("oneClickCheck", oneClickCheck.Checked);
+                        enableAutoMessageCheck.Checked = enabledCommands.GetValueOrDefault("enableAutoMessageCheck", enableAutoMessageCheck.Checked);
+                        enableSounds.Checked = enabledCommands.GetValueOrDefault("enableSounds", enableSounds.Checked);
+                        enableBagDrop.Checked = enabledCommands.GetValueOrDefault("enableBagDrop", enableBagDrop.Checked);
+                        enableTradersCommand.Checked = enabledCommands.GetValueOrDefault("enableTradersCommand", enableTradersCommand.Checked);
+                        enableGrenadeToss.Checked = enabledCommands.GetValueOrDefault("enableGrenadeToss", enableGrenadeToss.Checked);
+                        crouchBox.Checked = enabledCommands.GetValueOrDefault("crouchBox", crouchBox.Checked);
+                        enableMagDump.Checked = enabledCommands.GetValueOrDefault("enableMagDump", enableMagDump.Checked);
+                        enableHoldAim.Checked = enabledCommands.GetValueOrDefault("enableHoldAim", enableHoldAim.Checked);
+                        enableChatBonus.Checked = enabledCommands.GetValueOrDefault("enableChatBonus", enableChatBonus.Checked);
+                        enable360MagDump.Checked = enabledCommands.GetValueOrDefault("enable360MagDump", enable360MagDump.Checked);
+                        enableProne.Checked = enabledCommands.GetValueOrDefault("enableProne", enableProne.Checked);
+                        enableVoiceLine.Checked = enabledCommands.GetValueOrDefault("enableVoiceLine", enableVoiceLine.Checked);
+                        enableReload.Checked = enabledCommands.GetValueOrDefault("enableReload", enableReload.Checked);
+                        enableDropMag.Checked = enabledCommands.GetValueOrDefault("enableDropMag", enableDropMag.Checked);
+                        enablePraiseSun.Checked = enabledCommands.GetValueOrDefault("enablePraiseSun", enablePraiseSun.Checked);
+                        enableTouchGrass.Checked = enabledCommands.GetValueOrDefault("enableTouchGrass", enableTouchGrass.Checked);
+                        enableKnifeOut.Checked = enabledCommands.GetValueOrDefault("enableKnifeOut", enableKnifeOut.Checked);
+                        enableJump.Checked = enabledCommands.GetValueOrDefault("enableJump", enableJump.Checked);
+                        enableWindowsMute.Checked = enabledCommands.GetValueOrDefault("enableWindowsMute", enableWindowsMute.Checked);
+                        enableWalk.Checked = enabledCommands.GetValueOrDefault("enableWalk", enableWalk.Checked);
+                        enableHotMic.Checked = enabledCommands.GetValueOrDefault("enableHotMic", enableHotMic.Checked);
+                        enableFireMode.Checked = enabledCommands.GetValueOrDefault("enableFireMode", enableFireMode.Checked);
+                        enableModBits.Checked = enabledCommands.GetValueOrDefault("enableModBits", enableModBits.Checked);
+                        enableNormGrenade.Checked = enabledCommands.GetValueOrDefault("enableNormGrenade", enableNormGrenade.Checked);
+                        modRefund.Checked = enabledCommands.GetValueOrDefault("modRefund", modRefund.Checked);
+                        modWhitelistCheck.Checked = enabledCommands.GetValueOrDefault("modWhitelistCheck", modWhitelistCheck.Checked);
+                        enableBonusMulti.Checked = enabledCommands.GetValueOrDefault("enableBonusMulti", enableBonusMulti.Checked);
+                        enableWeaponSwap.Checked = enabledCommands.GetValueOrDefault("enableWeaponSwap", enableWeaponSwap.Checked);
+                        enableBotToggle.Checked = enabledCommands.GetValueOrDefault("enableBotToggle", enableBotToggle.Checked);
+                        customCommandsBox.Checked = enabledCommands.GetValueOrDefault("customCommandsBox", customCommandsBox.Checked);
+                    }
+                    else
+                    {
+                        // Optionally, notify the user that the settings file is not in the expected format
+                        MessageBox.Show("The settings file does not contain the expected 'EnabledCommands' section.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
+                else
+                {
+                    // Optionally, notify the user that the file does not exist
+                    MessageBox.Show("The settings file was not found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions such as file reading or deserialization issues
+                MessageBox.Show($"An error occurred while loading the settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void dropconfigbutton_Click(object sender, EventArgs e)
         {

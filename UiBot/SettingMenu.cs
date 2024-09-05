@@ -24,6 +24,8 @@ namespace UiBot
             versionNumber.Text = "Version: " + packageVersion;
 
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
+            enableDebug.Checked = Properties.Settings.Default.isDebugOn;
+
 
         }
 
@@ -252,6 +254,12 @@ namespace UiBot
         {
             UpdateCheck updateChecker = new UpdateCheck();
             await updateChecker.ButtonCheckForUpdatesAsync();
+        }
+
+        private void enableDebug_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isDebugOn = enableDebug.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

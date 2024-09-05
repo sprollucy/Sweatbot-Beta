@@ -682,5 +682,19 @@ namespace UiBot.Properties {
                 this["isCustomCommandsEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isDebugOn {
+            get {
+                return ((bool)(this["isDebugOn"]));
+            }
+            set {
+                this["isDebugOn"] = value;
+            }
+        }
+
+        }
     }
-}
+

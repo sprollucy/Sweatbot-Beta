@@ -120,7 +120,6 @@
             label4 = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
-            pictureBox10 = new PictureBox();
             autoMessageBox = new TextBox();
             autoSendMessageCD = new TextBox();
             autoMessageLabel = new Label();
@@ -141,7 +140,6 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
@@ -434,7 +432,7 @@
             // enableFireMode
             // 
             enableFireMode.AutoSize = true;
-            enableFireMode.BackColor = Color.FromArgb(181, 176, 163);
+            enableFireMode.BackColor = Color.FromArgb(220, 215, 201);
             enableFireMode.Location = new Point(14, 873);
             enableFireMode.Name = "enableFireMode";
             enableFireMode.Size = new Size(158, 19);
@@ -1102,15 +1100,6 @@
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
-            // pictureBox10
-            // 
-            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox10.Location = new Point(42, -3);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(757, 20);
-            pictureBox10.TabIndex = 22;
-            pictureBox10.TabStop = false;
-            // 
             // autoMessageBox
             // 
             autoMessageBox.Location = new Point(595, 481);
@@ -1316,7 +1305,6 @@
             Controls.Add(autoSendMessageCD);
             Controls.Add(label4);
             Controls.Add(autoMessageBox);
-            Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             Controls.Add(label1);
@@ -1330,7 +1318,6 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();

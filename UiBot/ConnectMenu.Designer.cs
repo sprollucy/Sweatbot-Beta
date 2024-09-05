@@ -47,17 +47,19 @@
             label2 = new Label();
             label3 = new Label();
             pictureBox2 = new PictureBox();
+            pictureBox5 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // messageTextBox
             // 
-            messageTextBox.Location = new Point(63, 360);
+            messageTextBox.Location = new Point(53, 369);
             messageTextBox.Name = "messageTextBox";
             messageTextBox.Size = new Size(574, 23);
             messageTextBox.TabIndex = 0;
@@ -66,7 +68,7 @@
             // 
             consoleTextBox.BackColor = Color.FromArgb(156, 154, 151);
             consoleTextBox.Font = new Font("Arial", 12F);
-            consoleTextBox.Location = new Point(63, 54);
+            consoleTextBox.Location = new Point(53, 63);
             consoleTextBox.Multiline = true;
             consoleTextBox.Name = "consoleTextBox";
             consoleTextBox.ReadOnly = true;
@@ -76,7 +78,7 @@
             // 
             // connectButton
             // 
-            connectButton.Location = new Point(63, 389);
+            connectButton.Location = new Point(53, 398);
             connectButton.Name = "connectButton";
             connectButton.Size = new Size(75, 23);
             connectButton.TabIndex = 2;
@@ -86,7 +88,7 @@
             // 
             // disconnectButton
             // 
-            disconnectButton.Location = new Point(144, 389);
+            disconnectButton.Location = new Point(134, 398);
             disconnectButton.Name = "disconnectButton";
             disconnectButton.Size = new Size(75, 23);
             disconnectButton.TabIndex = 3;
@@ -117,7 +119,7 @@
             panel1.Controls.Add(customCommandBox);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(pictureBox3);
-            panel1.Location = new Point(643, 26);
+            panel1.Location = new Point(633, 35);
             panel1.Name = "panel1";
             panel1.Size = new Size(403, 339);
             panel1.TabIndex = 12;
@@ -234,7 +236,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.Red;
-            label2.Location = new Point(302, 400);
+            label2.Location = new Point(292, 409);
             label2.Name = "label2";
             label2.Size = new Size(326, 15);
             label2.TabIndex = 13;
@@ -245,7 +247,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
             label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label3.Location = new Point(70, 31);
+            label3.Location = new Point(60, 40);
             label3.Name = "label3";
             label3.Size = new Size(156, 23);
             label3.TabIndex = 29;
@@ -254,12 +256,21 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.FromArgb(162, 123, 92);
-            pictureBox2.Location = new Point(63, 26);
+            pictureBox2.Location = new Point(53, 35);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(574, 37);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 29;
             pictureBox2.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.Red;
+            pictureBox5.Location = new Point(0, 27);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(47, 47);
+            pictureBox5.TabIndex = 30;
+            pictureBox5.TabStop = false;
             // 
             // ConnectMenu
             // 
@@ -268,6 +279,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 596);
             ControlBox = false;
+            Controls.Add(pictureBox5);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(panel1);
@@ -287,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -312,5 +325,7 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private PictureBox pictureBox8;
+        private PictureBox pictureBox5;
+        private PictureBox pictureBox10;
     }
 }
