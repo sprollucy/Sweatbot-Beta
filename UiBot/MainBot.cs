@@ -419,7 +419,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
+                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost or !ccommand to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
                     }
                     break;
 

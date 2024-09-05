@@ -33,27 +33,114 @@ namespace UiBot
             removeCommandButton.Click += removeCommandButton_Click;
         }
 
-
-        private void QuestMenu_Load(object sender, EventArgs e)
+        private void holdkeyButton_Click(object sender, EventArgs e)
         {
-            LoadCommandsIntoListBox();
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HoldKey=KeyIn(dur) ");
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void aholdkeyButton_Click(object sender, EventArgs e)
         {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HoldKeyAsync=KeyIn(dur) ");
         }
 
-        private void commandtextBox_TextChanged(object sender, EventArgs e)
+        private void hitkeyButton_Click(object sender, EventArgs e)
         {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HitKey=KeyIn ");
         }
 
-        private void costtextBox_TextChanged(object sender, EventArgs e)
+        private void ahitkeyButton_Click(object sender, EventArgs e)
         {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HitKeyAsync=KeyIn ");
         }
 
-        private void nametextBox_TextChanged(object sender, EventArgs e)
+        private void leftButton_Click(object sender, EventArgs e)
         {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " LeftClick ";
         }
+
+        private void aleftButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " LeftClickAsync ";
+        }
+
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " RightClick ";
+        }
+
+        private void arightButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " RightClickAsync ";
+        }
+
+        private void turnButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" TurnMouse=Direction(dur,Speed) ");
+        }
+
+        private void aturnButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" TurnMouseAsync=Direction(dur,Speed) ");
+        }
+
+        private void playsoundButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " PlaySoundClip=filename.wav ";
+        }
+
+        private void aplaysoundButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += " PlaySoundClipAsync=filename.wav ";
+        }
+
+        private void leftholdButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" LeftClickHold=dur ");
+        }
+
+        private void aleftholdButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" LeftClickHoldAsync=dur ");
+        }
+
+        private void rightholdButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" RightClickHold=dur ");
+        }
+
+        private void arightholdButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" RightClickHoldAsync=dur ");
+        }
+
+        private void delayButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" Delay=dur ");
+        }
+
+        private void muteButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" MuteVolume=dur ");
+        }
+
 
         private void saveButton_Click(object sender, EventArgs e)
         {
@@ -241,32 +328,6 @@ namespace UiBot
             }
         }
 
-        private void loadCommandButton_Click(object sender, EventArgs e)
-        {
-            // Get the selected command from the ListBox
-            var selectedCommand = commandListBox.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(selectedCommand))
-            {
-                return;
-            }
-
-            // Load the commands from the file
-            var commands = LoadCommands();
-
-            if (commands.TryGetValue(selectedCommand, out Command command))
-            {
-                // Populate text boxes with command details
-                nametextBox.Text = selectedCommand;
-                costtextBox.Text = command.BitCost.ToString();
-                commandtextBox.Text = string.Join(",", command.Methods);
-            }
-            else
-            {
-                MessageBox.Show("The selected command does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void removeCommandButton_Click(object sender, EventArgs e)
         {
             var selectedCommand = commandListBox.SelectedItem?.ToString();
@@ -301,6 +362,27 @@ namespace UiBot
             {
                 MessageBox.Show("The selected command does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GetCommandText(string commandTemplate)
+        {
+            string key = keyBox.Text.Trim();
+            string dur = durBox.Text.Trim();
+            string speed = speedBox.Text.Trim();
+            string direction = directionBox.Text.Trim(); // Get the value from directionBox
+
+            // Replace placeholders with actual values
+            return commandTemplate
+                .Replace("KeyIn", key)
+                .Replace("dur", dur)
+                .Replace("Speed", speed)
+                .Replace("Direction", direction); // Replace Direction with the value from directionBox
+        }
+
+
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
     }

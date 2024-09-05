@@ -22,6 +22,7 @@ public class CustomCommandHandler
 
     [DllImport("user32.dll")]
     public static extern bool SetCursorPos(int X, int Y);
+    private Random random = new Random(); // Class-level Random object
 
     // event constants
     public const int MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -63,6 +64,7 @@ public class CustomCommandHandler
         { "playsoundclipasync", PlaySoundClipAsync },
         { "rightclickholdasync", RightClickHoldAsync },
         { "leftclickholdasync", LeftClickHoldAsync }
+
     };
     }
 
@@ -76,7 +78,7 @@ public class CustomCommandHandler
     }
 
 
-    public Dictionary<string, Command> LoadCommandsFromFile(string filePath)
+    public static Dictionary<string, Command> LoadCommandsFromFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -123,22 +125,46 @@ public class CustomCommandHandler
             return;
         }
 
-        var parallelTasks = new List<Task>();
         var sequentialTasks = new List<Func<Task>>();
+        var asyncTasks = new List<Func<Task>>();
 
         foreach (var methodName in command.Methods)
         {
-            var commandParts = methodName.Split(new[] { '=' }, 2);
-            var method = commandParts[0].Trim().ToLower();
-            var parameters = commandParts.Length > 1 ? commandParts[1].Trim() : null;
+            string method;
+            string parameters = null;
 
-            if (_asyncMethodMap.TryGetValue(method, out var asyncAction))
+            // Check for '=' format
+            if (methodName.Contains("="))
             {
-                parallelTasks.Add(asyncAction(client, channel, parameters));
+                var commandParts = methodName.Split(new[] { '=' }, 2);
+                method = commandParts[0].Trim().ToLower();
+                parameters = commandParts.Length > 1 ? commandParts[1].Trim() : null;
             }
-            else if (_syncMethodMap.TryGetValue(method, out var syncAction))
+            // Check for '()' format
+            else
             {
-                sequentialTasks.Add(() => Task.Run(() => syncAction(client, channel, parameters)));
+                var methodMatch = Regex.Match(methodName, @"([a-zA-Z]+)\(([^)]*)\)");
+                if (methodMatch.Success)
+                {
+                    method = methodMatch.Groups[1].Value.ToLower();
+                    parameters = methodMatch.Groups[2].Value;
+                }
+                else
+                {
+                    method = methodName.Trim().ToLower();
+                }
+            }
+
+            if (_syncMethodMap.TryGetValue(method, out var syncAction))
+            {
+                sequentialTasks.Add(async () =>
+                {
+                    await Task.Run(() => syncAction(client, channel, parameters));
+                });
+            }
+            else if (_asyncMethodMap.TryGetValue(method, out var asyncAction))
+            {
+                asyncTasks.Add(() => asyncAction(client, channel, parameters));
             }
             else
             {
@@ -146,37 +172,36 @@ public class CustomCommandHandler
             }
         }
 
-        // Execute asynchronous methods in parallel
-        await Task.WhenAll(parallelTasks);
-
-        // Execute synchronous methods sequentially
+        // Execute synchronous methods in sequence
         foreach (var task in sequentialTasks)
         {
             await task();
         }
-    }
 
+        // Execute asynchronous methods in parallel
+        await Task.WhenAll(asyncTasks.Select(t => t()));
+    }
 
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for HoldButton.");
+            Console.WriteLine("No parameters specified for HoldButton.");
             return;
         }
 
         var match = Regex.Match(parameter, @"([a-zA-Z0-9])\((\d+)\)");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Button(Duration).");
+            Console.WriteLine("Invalid parameter format. Expected format: Button(Duration).");
             return;
         }
 
         string key = match.Groups[1].Value.ToUpper();
         if (!int.TryParse(match.Groups[2].Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid duration specified.");
+            Console.WriteLine("Invalid duration specified.");
             return;
         }
 
@@ -186,8 +211,6 @@ public class CustomCommandHandler
         try
         {
             Console.WriteLine($"Holding button '{key}' for {duration} seconds.");
-            //client.SendMessage(channel, $"Holding button '{key}' for {duration} ms.");
-
             // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -197,7 +220,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error holding button: {ex.Message}");
-            client.SendMessage(channel, $"Error holding button: {ex.Message}");
         }
     }
 
@@ -205,21 +227,21 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for HoldKey.");
+            Console.WriteLine("No parameters specified for HoldKey.");
             return;
         }
 
         var match = Regex.Match(parameter, @"([a-zA-Z0-9])\((\d+)\)");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Button(Duration).");
+            Console.WriteLine("Invalid parameter format. Expected format: Button(Duration).");
             return;
         }
 
         string key = match.Groups[1].Value.ToUpper();
         if (!int.TryParse(match.Groups[2].Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid duration specified.");
+            Console.WriteLine("Invalid duration specified.");
             return;
         }
 
@@ -229,7 +251,6 @@ public class CustomCommandHandler
         try
         {
             Console.WriteLine($"Holding button '{key}' for {duration} milliseconds.");
-            //client.SendMessage(channel, $"Holding button '{key}' for {duration} ms.");
 
             // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
@@ -240,7 +261,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error holding button: {ex.Message}");
-            client.SendMessage(channel, $"Error holding button: {ex.Message}");
         }
     }
 
@@ -248,7 +268,7 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for HitKey.");
+            Console.WriteLine("No parameters specified for HitKey.");
             return;
         }
 
@@ -256,7 +276,7 @@ public class CustomCommandHandler
         var match = Regex.Match(parameter, @"([a-zA-Z0-9])");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Button.");
+            Console.WriteLine("Invalid parameter format. Expected format: Button.");
             return;
         }
 
@@ -268,7 +288,6 @@ public class CustomCommandHandler
         try
         {
             Console.WriteLine($"Hitting button '{key}'");
-            //client.SendMessage(channel, $"Hitting button '{key}'");
             Thread.Sleep(100);
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
@@ -276,7 +295,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error hitting button: {ex.Message}");
-            client.SendMessage(channel, $"Error hitting button: {ex.Message}");
         }
     }
 
@@ -284,14 +302,14 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for HitKey.");
+            Console.WriteLine("No parameters specified for HitKey.");
             return;
         }
 
         var match = Regex.Match(parameter, @"([a-zA-Z0-9])");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Button.");
+            Console.WriteLine("Invalid parameter format. Expected format: Button.");
             return;
         }
 
@@ -308,7 +326,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error hitting button: {ex.Message}");
-            client.SendMessage(channel, $"Error hitting button: {ex.Message}");
         }
     }
 
@@ -316,15 +333,15 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for TurnMouse.");
+            Console.WriteLine("No parameters specified for TurnMouse.");
             return;
         }
 
         // Regex to match Direction(Duration,Speed)
-        var match = Regex.Match(parameter, @"([UDLR])\((\d+),(\d+)\)");
+        var match = Regex.Match(parameter, @"([UDLR]|RAND)\((\d+),(\d+)\)");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Direction(Duration,Speed).");
+            Console.WriteLine("Invalid parameter format. Expected format: Direction(Duration,Speed).");
             return;
         }
 
@@ -332,7 +349,7 @@ public class CustomCommandHandler
         if (!int.TryParse(match.Groups[2].Value, out int duration) ||
             !int.TryParse(match.Groups[3].Value, out int speed))
         {
-            client.SendMessage(channel, "Invalid duration or speed specified.");
+            Console.WriteLine("Invalid duration or speed specified.");
             return;
         }
 
@@ -342,14 +359,32 @@ public class CustomCommandHandler
         int interval = 10; // Move every 10ms
         int totalSteps = duration / interval;
 
+        int dx = 0, dy = 0;
+
         try
         {
             Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
-            //client.SendMessage(channel, $"Turning mouse '{direction}' for {duration} ms at speed {speed}.");
 
-            for (int i = 0; i < totalSteps; i++)
+            if (direction == "RAND")
             {
-                int dx = 0, dy = 0;
+                int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
+                Console.WriteLine($"Random number: {randomNumber}");
+
+                switch (randomNumber)
+                {
+                    case 0:
+                        dx = -moveDistance;
+                        break;
+                    case 1:
+                        dx = moveDistance;
+                        break;
+                    default:
+                        Console.WriteLine("Unexpected random number.");
+                        break;
+                }
+            }
+            else
+            {
                 switch (direction)
                 {
                     case "U":
@@ -365,10 +400,13 @@ public class CustomCommandHandler
                         dx = -moveDistance;
                         break;
                     default:
-                        client.SendMessage(channel, "Invalid direction specified. Use U, D, L, or R.");
+                        Console.WriteLine("Invalid direction specified. Use U, D, L, R, or RAND.");
                         return;
                 }
+            }
 
+            for (int i = 0; i < totalSteps; i++)
+            {
                 // Move the mouse
                 mouse_event(MOUSEEVENTF_MOVE, dx, dy, 0, 0);
 
@@ -379,23 +417,23 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error turning mouse: {ex.Message}");
-            client.SendMessage(channel, $"Error turning mouse: {ex.Message}");
         }
     }
+
 
     private async Task TurnMouseAsync(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for TurnMouse.");
+            Console.WriteLine("No parameters specified for TurnMouse.");
             return;
         }
 
-        // Regex to match Direction(Duration,Speed)
-        var match = Regex.Match(parameter, @"([UDLR])\((\d+),(\d+)\)");
+        // Regex to match Direction(Duration,Speed) or RAND(Duration,Speed)
+        var match = Regex.Match(parameter, @"([UDLR]|RAND)\((\d+),(\d+)\)");
         if (!match.Success)
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Direction(Duration,Speed).");
+            Console.WriteLine("Invalid parameter format. Expected format: Direction(Duration,Speed) or RAND(Duration,Speed).");
             return;
         }
 
@@ -403,7 +441,7 @@ public class CustomCommandHandler
         if (!int.TryParse(match.Groups[2].Value, out int duration) ||
             !int.TryParse(match.Groups[3].Value, out int speed))
         {
-            client.SendMessage(channel, "Invalid duration or speed specified.");
+            Console.WriteLine("Invalid duration or speed specified.");
             return;
         }
 
@@ -413,14 +451,32 @@ public class CustomCommandHandler
         int interval = 10; // Move every 10ms
         int totalSteps = duration / interval;
 
+        int dx = 0, dy = 0;
+
         try
         {
             Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
-            // await client.SendMessage(channel, $"Turning mouse '{direction}' for {duration} ms at speed {speed}.");
 
-            for (int i = 0; i < totalSteps; i++)
+            if (direction == "RAND")
             {
-                int dx = 0, dy = 0;
+                int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
+                Console.WriteLine($"Random number: {randomNumber}");
+
+                switch (randomNumber)
+                {
+                    case 0:
+                        dx = -moveDistance;
+                        break;
+                    case 1:
+                        dx = moveDistance;
+                        break;
+                    default:
+                        Console.WriteLine("Unexpected random number.");
+                        break;
+                }
+            }
+            else
+            {
                 switch (direction)
                 {
                     case "U":
@@ -436,10 +492,13 @@ public class CustomCommandHandler
                         dx = -moveDistance;
                         break;
                     default:
-                        client.SendMessage(channel, "Invalid direction specified. Use U, D, L, or R.");
+                        Console.WriteLine(channel, "Invalid direction specified. Use U, D, L, R, or RAND.");
                         return;
                 }
+            }
 
+            for (int i = 0; i < totalSteps; i++)
+            {
                 // Move the mouse
                 mouse_event(MOUSEEVENTF_MOVE, dx, dy, 0, 0);
 
@@ -450,9 +509,9 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error turning mouse: {ex.Message}");
-            client.SendMessage(channel, $"Error turning mouse: {ex.Message}");
         }
     }
+
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
     {
@@ -494,22 +553,20 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            Console.WriteLine("No parameters specified for LeftClickHold.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
         try
         {
             Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
-            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
-
             // Simulate pressing the left mouse button
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -520,7 +577,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error in LeftClickHold: {ex.Message}");
-            client.SendMessage(channel, $"Error in LeftClickHold: {ex.Message}");
         }
     }
 
@@ -528,14 +584,14 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for RightClickHold.");
+            Console.WriteLine("No parameters specified for RightClickHold.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
@@ -549,7 +605,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error in RightClickHold: {ex.Message}");
-            client.SendMessage(channel, $"Error in RightClickHold: {ex.Message}");
         }
     }
 
@@ -557,22 +612,20 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            Console.WriteLine("No parameters specified for LeftClickHold.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
         try
         {
             Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
-            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
-
             // Simulate pressing the left mouse button
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -583,7 +636,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error in LeftClickHold: {ex.Message}");
-            client.SendMessage(channel, $"Error in LeftClickHold: {ex.Message}");
         }
     }
 
@@ -591,14 +643,14 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            Console.WriteLine("No parameters specified for LeftClickHold.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
@@ -612,7 +664,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error in LeftClickHold: {ex.Message}");
-            client.SendMessage(channel, $"Error in LeftClickHold: {ex.Message}");
         }
     }
 
@@ -620,22 +671,20 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for MuteVolume.");
+            Console.WriteLine("No parameters specified for MuteVolume.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
         try
         {
             Console.WriteLine($"Muting Windows for {duration} milliseconds.");
-            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
-
             // Simulate pressing the left mouse button
             keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
@@ -646,7 +695,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error in MuteVolume: {ex.Message}");
-            client.SendMessage(channel, $"Error in MuteVolume: {ex.Message}");
         }
     }
 
@@ -654,29 +702,26 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for LeftClickHold.");
+            Console.WriteLine("No parameters specified for LeftClickHold.");
             return;
         }
 
         var match = Regex.Match(parameter, @"(\d+)");
         if (!match.Success || !int.TryParse(match.Value, out int duration))
         {
-            client.SendMessage(channel, "Invalid parameter format. Expected format: Duration.");
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
             return;
         }
 
         try
         {
             Console.WriteLine($"Delay for {duration} milliseconds.");
-            //client.SendMessage(channel, $"Holding left mouse button for {duration} ms.");
-
             System.Threading.Thread.Sleep(duration); // Hold for specified duration
 
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error in Delay: {ex.Message}");
-            client.SendMessage(channel, $"Error in Delay: {ex.Message}");
         }
     }
 
@@ -684,7 +729,7 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for PlaySoundClip.");
+            Console.WriteLine("No parameters specified for PlaySoundClip.");
             return;
         }
 
@@ -696,7 +741,7 @@ public class CustomCommandHandler
 
         if (filePath == null)
         {
-            client.SendMessage(channel, $"Sound file not found: {fileName}");
+            Console.WriteLine($"Sound file not found: {fileName}");
             return;
         }
 
@@ -707,12 +752,11 @@ public class CustomCommandHandler
             {
                 player.Play();
             }
-            //client.SendMessage(channel, $"Playing sound: {fileName}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error playing sound: {ex.Message}");
-            client.SendMessage(channel, $"Error playing sound: {fileName}");
+            Console.WriteLine($"Error playing sound: {fileName}");
         }
     }
 
@@ -720,7 +764,7 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            client.SendMessage(channel, "No parameters specified for PlaySoundClip.");
+            Console.WriteLine("No parameters specified for PlaySoundClip.");
             return;
         }
 
@@ -729,7 +773,7 @@ public class CustomCommandHandler
 
         if (filePath == null)
         {
-            client.SendMessage(channel, $"Sound file not found: {fileName}");
+            Console.WriteLine($"Sound file not found: {fileName}");
             return;
         }
 
@@ -745,7 +789,6 @@ public class CustomCommandHandler
         catch (Exception ex)
         {
             Console.WriteLine($"Error playing sound: {ex.Message}");
-            client.SendMessage(channel, $"Error playing sound: {fileName}");
         }
     }
 

@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>To use commands, type the command function along with the appropriate modifiers. For example, HoldKey=F(1000). You can separate multiple functions with a comma (,) or a space. Commands can be chained together to run in series. For complex operations that require simultaneous execution, use the asynchronous (Async) commands. For instance, HoldKeyAsync=K(1000) TurnMouseAsync=L(1000, 20) will hold the K button and turn the mouse at the same time. Key codes available below the Commands
+    <value>
+To use commands, either type the command function along with the appropriate modifiers, or use the buttons to quickly add the functions. If you are using the buttons make sure you have something set in the text fields beside the buttons. For example, HoldKey=F(1000). You can separate multiple functions with a comma (,) or a space. Commands can be chained together to run in series. For complex operations that require simultaneous execution, use the asynchronous (Async) commands. For instance, HoldKeyAsync=K(1000) TurnMouseAsync=L(1000, 20) will hold the K button and turn the mouse at the same time. Key codes available below the Commands
 
 Commands:
 HoldKey=KEY(Duration)
@@ -134,10 +135,10 @@ HitKeyAsync=KEY
 Asynchronously presses the specified key once.
 
 TurnMouse=Direction(Duration,Speed)
-Moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right).
+Moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right), RAND(Right or Left).
 
 TurnMouseAsync=Direction(Duration,Speed)
-Asynchronously moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right).
+Asynchronously moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right), RAND(Right or Left).
 
 LeftClick
 Performs a left mouse button click.
@@ -145,10 +146,10 @@ Performs a left mouse button click.
 LeftClickAsync
 Asynchronously performs a left mouse button click.
 
-LeftClickHold(Duration)
+LeftClickHold=Duration
 Performs a left mouse button click and holds it for the specified duration in milliseconds.
 
-LeftClickHoldAsync(Duration)
+LeftClickHoldAsync=Duration
 Asynchronously performs a left mouse button click and holds it for the specified duration in milliseconds.
 
 RightClick
@@ -157,10 +158,10 @@ Performs a right mouse button click.
 RightClickAsync
 Asynchronously performs a right mouse button click.
 
-RightClickHold(Duration)
+RightClickHold=Duration
 Performs a right mouse button click and holds it for the specified duration in milliseconds.
 
-RightClickHoldAsync(Duration)
+RightClickHoldAsync=Duration
 Asynchronously performs a right mouse button click and holds it for the specified duration in milliseconds.
 
 PlaySoundClip=filename.wav
@@ -169,8 +170,11 @@ Plays the specified sound file. Files MUST be stored in the 'Sound Clips' folder
 PlaySoundClipAsync=filename.wav
 Asynchronously plays the specified sound file. Files MUST be stored in the 'Sound Clips' folder.
 
-Delay(Duration)
+Delay=Duration
 Pauses execution for the specified duration in milliseconds.
+
+MuteVolume=Duration
+Mutes windows for a specified duration in milliseconds.
 
 Key Code Table:
 A, B, C, D, E, F, G, H, I, J
