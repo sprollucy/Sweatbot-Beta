@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectMenu));
             messageTextBox = new TextBox();
             consoleTextBox = new TextBox();
             connectButton = new Button();
             disconnectButton = new Button();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            label4 = new Label();
+            pictureBox4 = new PictureBox();
             label1 = new Label();
+            pictureBox8 = new PictureBox();
             pauseCommands = new CheckBox();
             stopGoose = new Button();
             twitchOpen = new Button();
             backupButton = new Button();
             customCommandBox = new RichTextBox();
-            label4 = new Label();
             pictureBox3 = new PictureBox();
             label2 = new Label();
             label3 = new Label();
             pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -93,8 +96,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox1.Location = new Point(1, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(163, 326);
@@ -104,36 +106,71 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(pictureBox4);
             panel1.Controls.Add(label1);
+            panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pauseCommands);
             panel1.Controls.Add(stopGoose);
             panel1.Controls.Add(twitchOpen);
             panel1.Controls.Add(backupButton);
             panel1.Controls.Add(customCommandBox);
             panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(label4);
             panel1.Controls.Add(pictureBox3);
             panel1.Location = new Point(643, 26);
             panel1.Name = "panel1";
             panel1.Size = new Size(403, 339);
             panel1.TabIndex = 12;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(162, 123, 92);
+            label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label4.Location = new Point(170, 3);
+            label4.Name = "label4";
+            label4.Size = new Size(188, 23);
+            label4.TabIndex = 30;
+            label4.Text = "Custom Commands";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox4.BackgroundImageLayout = ImageLayout.None;
+            pictureBox4.Location = new Point(170, 3);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(210, 24);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 32;
+            pictureBox4.TabStop = false;
+            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(162, 123, 92);
             label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label1.Location = new Point(5, 10);
+            label1.Location = new Point(3, 3);
             label1.Name = "label1";
             label1.Size = new Size(136, 23);
             label1.TabIndex = 12;
             label1.Text = "Quick Toggles";
             // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox8.BackgroundImageLayout = ImageLayout.None;
+            pictureBox8.Location = new Point(1, 2);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(163, 24);
+            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.TabIndex = 30;
+            pictureBox8.TabStop = false;
+            // 
             // pauseCommands
             // 
             pauseCommands.AutoSize = true;
-            pauseCommands.BackColor = Color.FromArgb(181, 176, 163);
-            pauseCommands.Location = new Point(8, 46);
+            pauseCommands.BackColor = Color.FromArgb(220, 215, 201);
+            pauseCommands.Location = new Point(5, 34);
             pauseCommands.Name = "pauseCommands";
             pauseCommands.Size = new Size(146, 19);
             pauseCommands.TabIndex = 27;
@@ -174,30 +211,18 @@
             // 
             // customCommandBox
             // 
-            customCommandBox.BackColor = Color.FromArgb(181, 176, 163);
+            customCommandBox.BackColor = Color.FromArgb(220, 215, 201);
             customCommandBox.BorderStyle = BorderStyle.None;
-            customCommandBox.Location = new Point(173, 39);
+            customCommandBox.Location = new Point(174, 29);
             customCommandBox.Name = "customCommandBox";
             customCommandBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            customCommandBox.Size = new Size(199, 263);
+            customCommandBox.Size = new Size(205, 297);
             customCommandBox.TabIndex = 30;
             customCommandBox.Text = "";
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(162, 123, 92);
-            label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label4.Location = new Point(173, 9);
-            label4.Name = "label4";
-            label4.Size = new Size(188, 23);
-            label4.TabIndex = 30;
-            label4.Text = "Custom Commands";
-            // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox3.Location = new Point(170, 3);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(210, 325);
@@ -228,11 +253,10 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox2.Location = new Point(63, 26);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(574, 326);
+            pictureBox2.Size = new Size(574, 37);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 29;
             pictureBox2.TabStop = false;
@@ -259,6 +283,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -284,5 +310,7 @@
         private RichTextBox customCommandBox;
         private Label label4;
         private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox8;
     }
 }

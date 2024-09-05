@@ -58,6 +58,7 @@
             enableUpdateCheck = new CheckBox();
             groupBox3 = new GroupBox();
             checkUpdateButton = new Button();
+            pictureBox6 = new PictureBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -65,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -191,14 +193,14 @@
             // 
             // textBox3
             // 
-            textBox3.BackColor = Color.FromArgb(222, 208, 182);
+            textBox3.BackColor = Color.FromArgb(220, 215, 201);
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(647, 76);
+            textBox3.Location = new Point(635, 68);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
             textBox3.ScrollBars = ScrollBars.Vertical;
-            textBox3.Size = new Size(386, 306);
+            textBox3.Size = new Size(406, 345);
             textBox3.TabIndex = 1;
             textBox3.Text = resources.GetString("textBox3.Text");
             // 
@@ -256,15 +258,14 @@
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 485);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(1075, 85);
+            pictureBox2.Size = new Size(1046, 85);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 31;
             pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.FromArgb(201, 198, 189);
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox3.Location = new Point(635, 28);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(470, 385);
@@ -381,18 +382,30 @@
             checkUpdateButton.UseVisualStyleBackColor = true;
             checkUpdateButton.Click += checkUpdateButton_Click;
             // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox6.BackgroundImageLayout = ImageLayout.None;
+            pictureBox6.Location = new Point(635, 25);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(411, 40);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 109;
+            pictureBox6.TabStop = false;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1058, 602);
+            ClientSize = new Size(1041, 602);
             ControlBox = false;
+            Controls.Add(changelogLabel);
+            Controls.Add(pictureBox6);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(linkLabel1);
             Controls.Add(label4);
-            Controls.Add(changelogLabel);
             Controls.Add(textBox3);
             Controls.Add(pictureBox3);
             Controls.Add(label5);
@@ -416,6 +429,7 @@
             groupBox2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -454,5 +468,6 @@
         private Button button2;
         private Button button4;
         private Button checkUpdateButton;
+        private PictureBox pictureBox6;
     }
 }

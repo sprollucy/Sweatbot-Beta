@@ -44,6 +44,7 @@
             enableKitDrop = new CheckBox();
             enableWiggle = new CheckBox();
             panel1 = new Panel();
+            customCommandsBox = new CheckBox();
             enableBotToggle = new CheckBox();
             bottoggleCostBox = new TextBox();
             dropmagCostBox = new TextBox();
@@ -134,13 +135,18 @@
             enableBonusMulti = new CheckBox();
             bonusMultiplierBox = new TextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            customCommandsBox = new CheckBox();
+            pictureBox5 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            pictureBox7 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             SuspendLayout();
             // 
             // wiggleCooldownTextBox
@@ -204,7 +210,7 @@
             // oneClickCheck
             // 
             oneClickCheck.AutoSize = true;
-            oneClickCheck.BackColor = Color.FromArgb(181, 176, 163);
+            oneClickCheck.BackColor = Color.FromArgb(220, 215, 201);
             oneClickCheck.Location = new Point(14, 266);
             oneClickCheck.Name = "oneClickCheck";
             oneClickCheck.Size = new Size(115, 19);
@@ -216,7 +222,7 @@
             // randomTurn
             // 
             randomTurn.AutoSize = true;
-            randomTurn.BackColor = Color.FromArgb(181, 176, 163);
+            randomTurn.BackColor = Color.FromArgb(220, 215, 201);
             randomTurn.Location = new Point(14, 237);
             randomTurn.Name = "randomTurn";
             randomTurn.Size = new Size(88, 19);
@@ -228,7 +234,7 @@
             // enableRandomKey
             // 
             enableRandomKey.AutoSize = true;
-            enableRandomKey.BackColor = Color.FromArgb(181, 176, 163);
+            enableRandomKey.BackColor = Color.FromArgb(220, 215, 201);
             enableRandomKey.Location = new Point(14, 178);
             enableRandomKey.Name = "enableRandomKey";
             enableRandomKey.Size = new Size(136, 19);
@@ -240,7 +246,7 @@
             // chkEnableGoose
             // 
             chkEnableGoose.AutoSize = true;
-            chkEnableGoose.BackColor = Color.FromArgb(181, 176, 163);
+            chkEnableGoose.BackColor = Color.FromArgb(220, 215, 201);
             chkEnableGoose.Location = new Point(14, 149);
             chkEnableGoose.Name = "chkEnableGoose";
             chkEnableGoose.Size = new Size(97, 19);
@@ -252,7 +258,7 @@
             // enableKitDrop
             // 
             enableKitDrop.AutoSize = true;
-            enableKitDrop.BackColor = Color.FromArgb(181, 176, 163);
+            enableKitDrop.BackColor = Color.FromArgb(220, 215, 201);
             enableKitDrop.Location = new Point(14, 91);
             enableKitDrop.Name = "enableKitDrop";
             enableKitDrop.Size = new Size(107, 19);
@@ -264,7 +270,7 @@
             // enableWiggle
             // 
             enableWiggle.AutoSize = true;
-            enableWiggle.BackColor = Color.FromArgb(181, 176, 163);
+            enableWiggle.BackColor = Color.FromArgb(220, 215, 201);
             enableWiggle.Location = new Point(14, 60);
             enableWiggle.Name = "enableWiggle";
             enableWiggle.Size = new Size(101, 19);
@@ -275,7 +281,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(180, 177, 163);
+            panel1.BackColor = Color.FromArgb(220, 215, 201);
             panel1.Controls.Add(customCommandsBox);
             panel1.Controls.Add(enableBotToggle);
             panel1.Controls.Add(bottoggleCostBox);
@@ -359,10 +365,21 @@
             panel1.Size = new Size(514, 932);
             panel1.TabIndex = 20;
             // 
+            // customCommandsBox
+            // 
+            customCommandsBox.AutoSize = true;
+            customCommandsBox.Location = new Point(307, 31);
+            customCommandsBox.Name = "customCommandsBox";
+            customCommandsBox.Size = new Size(171, 19);
+            customCommandsBox.TabIndex = 110;
+            customCommandsBox.Text = "Enable Custom Commands";
+            customCommandsBox.UseVisualStyleBackColor = true;
+            customCommandsBox.CheckedChanged += customCommandsBox_CheckedChanged;
+            // 
             // enableBotToggle
             // 
             enableBotToggle.AutoSize = true;
-            enableBotToggle.BackColor = Color.FromArgb(181, 176, 163);
+            enableBotToggle.BackColor = Color.FromArgb(220, 215, 201);
             enableBotToggle.Location = new Point(14, 31);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
@@ -453,7 +470,7 @@
             // enableWeaponSwap
             // 
             enableWeaponSwap.AutoSize = true;
-            enableWeaponSwap.BackColor = Color.FromArgb(181, 176, 163);
+            enableWeaponSwap.BackColor = Color.FromArgb(220, 215, 201);
             enableWeaponSwap.Location = new Point(14, 844);
             enableWeaponSwap.Name = "enableWeaponSwap";
             enableWeaponSwap.Size = new Size(139, 19);
@@ -473,7 +490,7 @@
             // enableNormGrenade
             // 
             enableNormGrenade.AutoSize = true;
-            enableNormGrenade.BackColor = Color.FromArgb(181, 176, 163);
+            enableNormGrenade.BackColor = Color.FromArgb(220, 215, 201);
             enableNormGrenade.Location = new Point(14, 382);
             enableNormGrenade.Name = "enableNormGrenade";
             enableNormGrenade.Size = new Size(133, 19);
@@ -518,7 +535,7 @@
             // enableHotMic
             // 
             enableHotMic.AutoSize = true;
-            enableHotMic.BackColor = Color.FromArgb(181, 176, 163);
+            enableHotMic.BackColor = Color.FromArgb(220, 215, 201);
             enableHotMic.Location = new Point(14, 815);
             enableHotMic.Name = "enableHotMic";
             enableHotMic.Size = new Size(107, 19);
@@ -555,7 +572,7 @@
             // enableWalk
             // 
             enableWalk.AutoSize = true;
-            enableWalk.BackColor = Color.FromArgb(181, 176, 163);
+            enableWalk.BackColor = Color.FromArgb(220, 215, 201);
             enableWalk.Location = new Point(14, 787);
             enableWalk.Name = "enableWalk";
             enableWalk.Size = new Size(136, 19);
@@ -592,7 +609,7 @@
             // enableWindowsMute
             // 
             enableWindowsMute.AutoSize = true;
-            enableWindowsMute.BackColor = Color.FromArgb(181, 176, 163);
+            enableWindowsMute.BackColor = Color.FromArgb(220, 215, 201);
             enableWindowsMute.Location = new Point(14, 757);
             enableWindowsMute.Name = "enableWindowsMute";
             enableWindowsMute.Size = new Size(144, 19);
@@ -612,7 +629,7 @@
             // enableJump
             // 
             enableJump.AutoSize = true;
-            enableJump.BackColor = Color.FromArgb(181, 176, 163);
+            enableJump.BackColor = Color.FromArgb(220, 215, 201);
             enableJump.Location = new Point(14, 728);
             enableJump.Name = "enableJump";
             enableJump.Size = new Size(93, 19);
@@ -650,7 +667,7 @@
             // enableKnifeOut
             // 
             enableKnifeOut.AutoSize = true;
-            enableKnifeOut.BackColor = Color.FromArgb(181, 176, 163);
+            enableKnifeOut.BackColor = Color.FromArgb(220, 215, 201);
             enableKnifeOut.Location = new Point(14, 699);
             enableKnifeOut.Name = "enableKnifeOut";
             enableKnifeOut.Size = new Size(114, 19);
@@ -662,7 +679,7 @@
             // enableTouchGrass
             // 
             enableTouchGrass.AutoSize = true;
-            enableTouchGrass.BackColor = Color.FromArgb(181, 176, 163);
+            enableTouchGrass.BackColor = Color.FromArgb(220, 215, 201);
             enableTouchGrass.Location = new Point(14, 670);
             enableTouchGrass.Name = "enableTouchGrass";
             enableTouchGrass.Size = new Size(127, 19);
@@ -682,7 +699,7 @@
             // enablePraiseSun
             // 
             enablePraiseSun.AutoSize = true;
-            enablePraiseSun.BackColor = Color.FromArgb(181, 176, 163);
+            enablePraiseSun.BackColor = Color.FromArgb(220, 215, 201);
             enablePraiseSun.Location = new Point(14, 641);
             enablePraiseSun.Name = "enablePraiseSun";
             enablePraiseSun.Size = new Size(118, 19);
@@ -718,7 +735,7 @@
             // enableReload
             // 
             enableReload.AutoSize = true;
-            enableReload.BackColor = Color.FromArgb(181, 176, 163);
+            enableReload.BackColor = Color.FromArgb(220, 215, 201);
             enableReload.Location = new Point(14, 584);
             enableReload.Name = "enableReload";
             enableReload.Size = new Size(100, 19);
@@ -730,7 +747,7 @@
             // enableVoiceLine
             // 
             enableVoiceLine.AutoSize = true;
-            enableVoiceLine.BackColor = Color.FromArgb(181, 176, 163);
+            enableVoiceLine.BackColor = Color.FromArgb(220, 215, 201);
             enableVoiceLine.Location = new Point(14, 555);
             enableVoiceLine.Name = "enableVoiceLine";
             enableVoiceLine.Size = new Size(117, 19);
@@ -766,7 +783,7 @@
             // enableProne
             // 
             enableProne.AutoSize = true;
-            enableProne.BackColor = Color.FromArgb(181, 176, 163);
+            enableProne.BackColor = Color.FromArgb(220, 215, 201);
             enableProne.Location = new Point(14, 526);
             enableProne.Name = "enableProne";
             enableProne.Size = new Size(95, 19);
@@ -786,7 +803,7 @@
             // enable360MagDump
             // 
             enable360MagDump.AutoSize = true;
-            enable360MagDump.BackColor = Color.FromArgb(181, 176, 163);
+            enable360MagDump.BackColor = Color.FromArgb(220, 215, 201);
             enable360MagDump.Location = new Point(14, 497);
             enable360MagDump.Name = "enable360MagDump";
             enable360MagDump.Size = new Size(153, 19);
@@ -806,7 +823,7 @@
             // enableHoldAim
             // 
             enableHoldAim.AutoSize = true;
-            enableHoldAim.BackColor = Color.FromArgb(181, 176, 163);
+            enableHoldAim.BackColor = Color.FromArgb(220, 215, 201);
             enableHoldAim.Location = new Point(14, 469);
             enableHoldAim.Name = "enableHoldAim";
             enableHoldAim.Size = new Size(115, 19);
@@ -826,7 +843,7 @@
             // enableMagDump
             // 
             enableMagDump.AutoSize = true;
-            enableMagDump.BackColor = Color.FromArgb(181, 176, 163);
+            enableMagDump.BackColor = Color.FromArgb(220, 215, 201);
             enableMagDump.Location = new Point(14, 440);
             enableMagDump.Name = "enableMagDump";
             enableMagDump.Size = new Size(124, 19);
@@ -854,7 +871,7 @@
             // crouchBox
             // 
             crouchBox.AutoSize = true;
-            crouchBox.BackColor = Color.FromArgb(181, 176, 163);
+            crouchBox.BackColor = Color.FromArgb(220, 215, 201);
             crouchBox.Location = new Point(14, 411);
             crouchBox.Name = "crouchBox";
             crouchBox.Size = new Size(103, 19);
@@ -882,7 +899,7 @@
             // enableGrenadeToss
             // 
             enableGrenadeToss.AutoSize = true;
-            enableGrenadeToss.BackColor = Color.FromArgb(181, 176, 163);
+            enableGrenadeToss.BackColor = Color.FromArgb(220, 215, 201);
             enableGrenadeToss.Location = new Point(14, 353);
             enableGrenadeToss.Name = "enableGrenadeToss";
             enableGrenadeToss.Size = new Size(159, 19);
@@ -893,7 +910,7 @@
             // 
             // textBox3
             // 
-            textBox3.BackColor = Color.FromArgb(181, 176, 163);
+            textBox3.BackColor = Color.FromArgb(220, 215, 201);
             textBox3.BorderStyle = BorderStyle.None;
             textBox3.Location = new Point(34, 206);
             textBox3.Name = "textBox3";
@@ -904,7 +921,7 @@
             // 
             // textBox2
             // 
-            textBox2.BackColor = Color.FromArgb(181, 176, 163);
+            textBox2.BackColor = Color.FromArgb(220, 215, 201);
             textBox2.BorderStyle = BorderStyle.None;
             textBox2.Location = new Point(67, 121);
             textBox2.Name = "textBox2";
@@ -923,7 +940,7 @@
             // 
             // textBox1
             // 
-            textBox1.BackColor = Color.FromArgb(181, 176, 163);
+            textBox1.BackColor = Color.FromArgb(220, 215, 201);
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Location = new Point(173, 7);
             textBox1.Name = "textBox1";
@@ -935,7 +952,7 @@
             // enableBagDrop
             // 
             enableBagDrop.AutoSize = true;
-            enableBagDrop.BackColor = Color.FromArgb(181, 176, 163);
+            enableBagDrop.BackColor = Color.FromArgb(220, 215, 201);
             enableBagDrop.Location = new Point(14, 324);
             enableBagDrop.Name = "enableBagDrop";
             enableBagDrop.Size = new Size(113, 19);
@@ -955,7 +972,7 @@
             // enableSounds
             // 
             enableSounds.AutoSize = true;
-            enableSounds.BackColor = Color.FromArgb(181, 176, 163);
+            enableSounds.BackColor = Color.FromArgb(220, 215, 201);
             enableSounds.Location = new Point(14, 294);
             enableSounds.Name = "enableSounds";
             enableSounds.Size = new Size(132, 19);
@@ -1003,7 +1020,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox2.Location = new Point(53, 35);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(514, 429);
@@ -1014,7 +1031,7 @@
             // enableModBits
             // 
             enableModBits.AutoSize = true;
-            enableModBits.BackColor = Color.FromArgb(181, 176, 163);
+            enableModBits.BackColor = Color.FromArgb(220, 215, 201);
             enableModBits.Location = new Point(594, 219);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
@@ -1026,7 +1043,7 @@
             // enableTradersCommand
             // 
             enableTradersCommand.AutoSize = true;
-            enableTradersCommand.BackColor = Color.FromArgb(181, 176, 163);
+            enableTradersCommand.BackColor = Color.FromArgb(220, 215, 201);
             enableTradersCommand.Location = new Point(594, 194);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
@@ -1038,7 +1055,7 @@
             // enableChatBonus
             // 
             enableChatBonus.AutoSize = true;
-            enableChatBonus.BackColor = Color.FromArgb(181, 176, 163);
+            enableChatBonus.BackColor = Color.FromArgb(220, 215, 201);
             enableChatBonus.Location = new Point(594, 292);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
@@ -1058,7 +1075,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(180, 177, 163);
+            label4.BackColor = Color.FromArgb(220, 215, 201);
             label4.Location = new Point(596, 313);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
@@ -1125,7 +1142,7 @@
             // enableAutoMessageCheck
             // 
             enableAutoMessageCheck.AutoSize = true;
-            enableAutoMessageCheck.BackColor = Color.FromArgb(181, 176, 163);
+            enableAutoMessageCheck.BackColor = Color.FromArgb(220, 215, 201);
             enableAutoMessageCheck.Location = new Point(594, 452);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
@@ -1136,7 +1153,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox3.Location = new Point(585, 401);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(402, 236);
@@ -1146,7 +1163,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox4.Location = new Point(585, 143);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(402, 236);
@@ -1167,7 +1184,7 @@
             // 
             // textBox4
             // 
-            textBox4.BackColor = Color.FromArgb(181, 176, 163);
+            textBox4.BackColor = Color.FromArgb(220, 215, 201);
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.Location = new Point(804, 453);
             textBox4.Name = "textBox4";
@@ -1179,7 +1196,7 @@
             // modRefund
             // 
             modRefund.AutoSize = true;
-            modRefund.BackColor = Color.FromArgb(181, 176, 163);
+            modRefund.BackColor = Color.FromArgb(220, 215, 201);
             modRefund.Location = new Point(594, 242);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
@@ -1191,7 +1208,7 @@
             // modWhitelistCheck
             // 
             modWhitelistCheck.AutoSize = true;
-            modWhitelistCheck.BackColor = Color.FromArgb(181, 176, 163);
+            modWhitelistCheck.BackColor = Color.FromArgb(220, 215, 201);
             modWhitelistCheck.Location = new Point(594, 267);
             modWhitelistCheck.Name = "modWhitelistCheck";
             modWhitelistCheck.Size = new Size(254, 19);
@@ -1214,7 +1231,7 @@
             // enableBonusMulti
             // 
             enableBonusMulti.AutoSize = true;
-            enableBonusMulti.BackColor = Color.FromArgb(181, 176, 163);
+            enableBonusMulti.BackColor = Color.FromArgb(220, 215, 201);
             enableBonusMulti.Location = new Point(594, 341);
             enableBonusMulti.Name = "enableBonusMulti";
             enableBonusMulti.Size = new Size(183, 19);
@@ -1236,16 +1253,38 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // customCommandsBox
+            // pictureBox5
             // 
-            customCommandsBox.AutoSize = true;
-            customCommandsBox.Location = new Point(307, 31);
-            customCommandsBox.Name = "customCommandsBox";
-            customCommandsBox.Size = new Size(171, 19);
-            customCommandsBox.TabIndex = 110;
-            customCommandsBox.Text = "Enable Custom Commands";
-            customCommandsBox.UseVisualStyleBackColor = true;
-            customCommandsBox.CheckedChanged += customCommandsBox_CheckedChanged;
+            pictureBox5.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox5.BackgroundImageLayout = ImageLayout.None;
+            pictureBox5.Location = new Point(585, 402);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(401, 32);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 107;
+            pictureBox5.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox6.BackgroundImageLayout = ImageLayout.None;
+            pictureBox6.Location = new Point(585, 143);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(401, 33);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 108;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox7.BackgroundImageLayout = ImageLayout.None;
+            pictureBox7.Location = new Point(53, 35);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(514, 44);
+            pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox7.TabIndex = 109;
+            pictureBox7.TabStop = false;
             // 
             // ControlMenu
             // 
@@ -1255,20 +1294,24 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(restart_AppButton);
+            Controls.Add(saveButton);
+            Controls.Add(label2);
+            Controls.Add(pictureBox7);
+            Controls.Add(label3);
+            Controls.Add(pictureBox6);
+            Controls.Add(autoMessageLabel);
+            Controls.Add(pictureBox5);
             Controls.Add(bonusMultiplierBox);
             Controls.Add(enableBonusMulti);
             Controls.Add(openModWhitelist);
             Controls.Add(modWhitelistCheck);
             Controls.Add(modRefund);
-            Controls.Add(restart_AppButton);
             Controls.Add(textBox4);
-            Controls.Add(saveButton);
-            Controls.Add(label3);
             Controls.Add(enableModBits);
             Controls.Add(enableTradersCommand);
             Controls.Add(enableAutoMessageCheck);
             Controls.Add(enableChatBonus);
-            Controls.Add(autoMessageLabel);
             Controls.Add(bonusTextBox);
             Controls.Add(autoSendMessageCD);
             Controls.Add(label4);
@@ -1279,7 +1322,6 @@
             Controls.Add(label1);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox3);
-            Controls.Add(label2);
             Controls.Add(pictureBox2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ControlMenu";
@@ -1291,6 +1333,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1402,5 +1447,8 @@
         private CheckBox enableBotToggle;
         private TextBox bottoggleCostBox;
         private CheckBox customCommandsBox;
+        private PictureBox pictureBox5;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox7;
     }
 }

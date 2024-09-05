@@ -117,169 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAMgAAAAVCAYAAAAD+KFvAAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI
-        A0EYhb8kijcWBjyw2EKttFERS4miCAoSI8SjcHdjopDdhN2IjaVgK1h4NEYtbKy1tbAVBMEDxNbGStFG
-        ZP1nIyQIERwY5uPNvMfMGwjm06blVgyBZeec6FhEi8/OaVXP1FBHJa0066abnZwejVF2fNwSUOtNj8ri
-        f6MhseSaENCEh8yskxNeFB5Yy2UV7wqHzWU9IXwq3O3IBYXvlW4U+EVxyuegygw7seiwcFhYS5WwUcLm
-        smMJ9wt3JCxb8oPxAicUryu20qvmzz3VC+uX7JlppctsZ4xxJplCw2CVFdLk6JHVFsUlKvuRMv423z8l
-        LkNcK5jiGCGDhe77UX/wu1s32ddbSKqPQOWT5711QtU2fG153ueh530dQegRLuyiP5OHwXfRt4paxwE0
-        bsDZZVEzduB8E1oesrqj+1JIZjCZhNcT+aZZaLqG2vlCbz/7HN9BTLqauIK9fehKSfZCmXdXl/b25xm/
-        PyLfcapypqGbItkAAAAJcEhZcwAALiIAAC4iAari3ZIAAAAHdElNRQfnCQsFHxIlrNnXAAAAGXRFWHRD
-        b21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAI5JREFUeF7t17ENwlAQREFE7mZcByW4E+cuxBLl
-        uAliYuTEwH05QnxtBRNMCU+3d1nn6QP0CQQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAI
-        BAKBvnfZBQJ9r7IJBP4d5VEWgcCvFsez3MsoEDi1n6PNqnY5Why3MggETnvZylLGMqzzdP0Co5B7bpPJ
-        QngAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAMgAAAAVCAYAAAAD+KFvAAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI
-        A0EYhb8kijcWBjyw2EKttFERS4miCAoSI8SjcHdjopDdhN2IjaVgK1h4NEYtbKy1tbAVBMEDxNbGStFG
-        ZP1nIyQIERwY5uPNvMfMGwjm06blVgyBZeec6FhEi8/OaVXP1FBHJa0066abnZwejVF2fNwSUOtNj8ri
-        f6MhseSaENCEh8yskxNeFB5Yy2UV7wqHzWU9IXwq3O3IBYXvlW4U+EVxyuegygw7seiwcFhYS5WwUcLm
-        smMJ9wt3JCxb8oPxAicUryu20qvmzz3VC+uX7JlppctsZ4xxJplCw2CVFdLk6JHVFsUlKvuRMv423z8l
-        LkNcK5jiGCGDhe77UX/wu1s32ddbSKqPQOWT5711QtU2fG153ueh530dQegRLuyiP5OHwXfRt4paxwE0
-        bsDZZVEzduB8E1oesrqj+1JIZjCZhNcT+aZZaLqG2vlCbz/7HN9BTLqauIK9fehKSfZCmXdXl/b25xm/
-        PyLfcapypqGbItkAAAAJcEhZcwAALiIAAC4iAari3ZIAAAAHdElNRQfnCQsFHxIlrNnXAAAAGXRFWHRD
-        b21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAI5JREFUeF7t17ENwlAQREFE7mZcByW4E+cuxBLl
-        uAliYuTEwH05QnxtBRNMCU+3d1nn6QP0CQQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAI
-        BAKBvnfZBQJ9r7IJBP4d5VEWgcCvFsez3MsoEDi1n6PNqnY5Why3MggETnvZylLGMqzzdP0Co5B7bpPJ
-        QngAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAMgAAAAVCAYAAAAD+KFvAAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI
-        A0EYhb8kijcWBjyw2EKttFERS4miCAoSI8SjcHdjopDdhN2IjaVgK1h4NEYtbKy1tbAVBMEDxNbGStFG
-        ZP1nIyQIERwY5uPNvMfMGwjm06blVgyBZeec6FhEi8/OaVXP1FBHJa0066abnZwejVF2fNwSUOtNj8ri
-        f6MhseSaENCEh8yskxNeFB5Yy2UV7wqHzWU9IXwq3O3IBYXvlW4U+EVxyuegygw7seiwcFhYS5WwUcLm
-        smMJ9wt3JCxb8oPxAicUryu20qvmzz3VC+uX7JlppctsZ4xxJplCw2CVFdLk6JHVFsUlKvuRMv423z8l
-        LkNcK5jiGCGDhe77UX/wu1s32ddbSKqPQOWT5711QtU2fG153ueh530dQegRLuyiP5OHwXfRt4paxwE0
-        bsDZZVEzduB8E1oesrqj+1JIZjCZhNcT+aZZaLqG2vlCbz/7HN9BTLqauIK9fehKSfZCmXdXl/b25xm/
-        PyLfcapypqGbItkAAAAJcEhZcwAALiIAAC4iAari3ZIAAAAHdElNRQfnCQsFHxIlrNnXAAAAGXRFWHRD
-        b21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAI5JREFUeF7t17ENwlAQREFE7mZcByW4E+cuxBLl
-        uAliYuTEwH05QnxtBRNMCU+3d1nn6QP0CQQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAI
-        BAKBvnfZBQJ9r7IJBP4d5VEWgcCvFsez3MsoEDi1n6PNqnY5Why3MggETnvZylLGMqzzdP0Co5B7bpPJ
-        QngAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>COMMANDS AND USAGE
+    <value>To use commands, type the command function along with the appropriate modifiers. For example, HoldKey=F(1000). You can separate multiple functions with a comma (,) or a space. Commands can be chained together to run in series. For complex operations that require simultaneous execution, use the asynchronous (Async) commands. For instance, HoldKeyAsync=K(1000) TurnMouseAsync=L(1000, 20) will hold the K button and turn the mouse at the same time. Key codes available below the Commands
 
-HoldKey=KEY(Duration): Holds the specified key for the duration given in milliseconds.
+Commands:
+HoldKey=KEY(Duration)
+Holds the specified key for the duration in milliseconds.
 
-HitKey=KEY: Presses the specified key once.
+HoldKeyAsync=KEY(Duration)
+Asynchronously holds the specified key for the duration in milliseconds.
 
-TurnMouse=Direction(Duration,Speed): Moves the mouse in the specified direction for the given duration and speed. Directions are U(Up), D(Down), L(Left), R(Right)
+HitKey=KEY
+Presses the specified key once.
 
-LeftClick: Performs a left mouse button click.
+HitKeyAsync=KEY
+Asynchronously presses the specified key once.
 
-LeftClickHold(Duration): Performs a left mouse click and holds it for the duration given in milliseconds.
+TurnMouse=Direction(Duration,Speed)
+Moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right).
 
-RightClick: Performs a right mouse button click.
+TurnMouseAsync=Direction(Duration,Speed)
+Asynchronously moves the mouse in the specified direction for the given duration and speed. Directions: U (Up), D (Down), L (Left), R (Right).
 
-RightClickHold(Duration): Performs a right mouse click and holds it for the duration given in milliseconds.
+LeftClick
+Performs a left mouse button click.
 
-PlaySoundClip=filename.wav: Plays the specified sound file. Files MUST be stored in the 'Sound Clips' folder.
+LeftClickAsync
+Asynchronously performs a left mouse button click.
 
-Parallel: Indicates that subsequent commands should be executed in parallel.
+LeftClickHold(Duration)
+Performs a left mouse button click and holds it for the specified duration in milliseconds.
 
-Delay(Duration): Pauses execution for the specified duration in milliseconds.
+LeftClickHoldAsync(Duration)
+Asynchronously performs a left mouse button click and holds it for the specified duration in milliseconds.
 
-KEY CODE TABLE
+RightClick
+Performs a right mouse button click.
 
-A
-B
-C
-D
-E
-F
-G
-H
-I
-J
-K
-L
-M
-N
-O
-P
-Q
-R
-S
-T
-U
-V
-W
-X
-Y
-Z
+RightClickAsync
+Asynchronously performs a right mouse button click.
 
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
+RightClickHold(Duration)
+Performs a right mouse button click and holds it for the specified duration in milliseconds.
 
-F1
-F2
-F3
-F4
-F5
-F6
-F7
-F8
-F9
-F10
-F11
-F12
+RightClickHoldAsync(Duration)
+Asynchronously performs a right mouse button click and holds it for the specified duration in milliseconds.
 
-ESC
-TAB
-ENTER
-SHIFT
-CTRL
-ALT
-CAPSLOCK
-SPACE
-PAGEUP
-PAGEDOWN
-END
-HOME
-LEFT
-UP
-RIGHT
-DOWN
-PRINTSCREEN
-INSERT
-DELETE
-WIN
-NUMLOCK
-SCROLLLOCK
+PlaySoundClip=filename.wav
+Plays the specified sound file. Files MUST be stored in the 'Sound Clips' folder.
 
-NUMPAD0
-NUMPAD1
-NUMPAD2
-NUMPAD3
-NUMPAD4
-NUMPAD5
-NUMPAD6
-NUMPAD7
-NUMPAD8
-NUMPAD9
-NUMPADADD
-NUMPADSUBTRACT
-NUMPADMULTIPLY
-NUMPADDIVIDE</value>
+PlaySoundClipAsync=filename.wav
+Asynchronously plays the specified sound file. Files MUST be stored in the 'Sound Clips' folder.
+
+Delay(Duration)
+Pauses execution for the specified duration in milliseconds.
+
+Key Code Table:
+A, B, C, D, E, F, G, H, I, J
+K, L, M, N, O, P, Q, R, S, T
+U, V, W, X, Y, Z, 0, 1, 2, 3
+4, 5, 6, 7, 8, 9, F1, F2, F3, F4
+F5, F6, F7, F8, F9, F10, F11, F12, ESC, TAB
+ENTER, SHIFT, CTRL, ALT, CAPSLOCK, SPACE, PAGEUP, PAGEDOWN
+END, HOME, LEFT, UP, RIGHT, DOWN, PRINTSCREEN, INSERT, DELETE
+WIN, NUMLOCK, SCROLLLOCK, NUMPAD0, NUMPAD1, NUMPAD2, NUMPAD3, NUMPAD4
+NUMPAD5, NUMPAD6, NUMPAD7, NUMPAD8, NUMPAD9, NUMPADADD, NUMPADSUBTRACT
+NUMPADMULTIPLY, NUMPADDIVIDE</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAABhGlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTtI
@@ -346,74 +251,6 @@ NUMPADDIVIDE</value>
         npP0RwfA68zPs8h1SX+IADzf/AyLvDbpjxOAx5ufXZH1kv5gAbjf/LyK7JP0hwzA1+ZnVOSMpD9yABS+
         FCX9BwBoMj+HIt1J/zkATjI/dyLyVdJ/IIAdzM+YiDw66T8cwJXm50i2y69f/wEYbI1KFmRmKQAAAABJ
         RU5ErkJggg==
-</value>
-  </data>
-  <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        ZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAA
-        oJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgA
-        AIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAh
-        AwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAA
-        hQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYA
-        ABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZ
-        AABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAo
-        ZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAA
-        oJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgA
-        AIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAh
-        AwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAA
-        hQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYA
-        ABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZ
-        AABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAo
-        ZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAA
-        oJABAACFDAAAKGQAAEAhAwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgA
-        AIBCBgAAFDIAAKCQAQAAhQwAAChkAABAIQMAAAoZAABQyAAAgEIGAAAUMgAAoJABAACFDAAAKGQAAEAh
-        AwAAChkAAFDIAACAQgYAABQyAACgkAEAAIUMAAAoZAAAQCEDAAAKGQAAUMgAAIBCBgAAFDIAAKCQAQAA
-        hQwAACj063fSPwAAZ/pv+f9O+kcA4ExT/wYAADSZ+jcAAKDJ1L8BAABNpv4NAABoMvVvAABAk6n/t6QD
-        AICzTO2/Jx0EAJxlav896SAA4CxT++9JBwEAZ5naf086CAA4y9T+x6QDAYAzTN3/mXQwAHCGqfs/kw4G
-        AM4wdf9n0sEAwBmm7nPSBwCAvU3N/z3pQwDA3qbm/570IQBgb1Pznyd9EADY09T710kfBgD2NPX+ddKH
-        AYA9Tb1/nfRhAGBPU++3JZ0AANjL1PrtSScBAPYytX570kkAgL1MrX8v6UQAwB6mzr+fdDIAYA9T599P
-        OhkAsIep8/uSTggArG1q/P6kkwIAa5sa/1nSiQGANU19/zzp5ADAmqa+f550cgBgTVPfj0m6AACwlqnt
-        xyVdBABYy9T2Y5MuBACsYer68UkXAwDWMHX9nKQLAgCvNTX9vKSLAgCvNTX93KQLAwCvMfX8/KSLAwCv
-        MfV8TdINAADXmlq+LukmAIBrTS1fm3QjAMA1po6vT7oZAOAaU8evSbohAOC5poZfl3RTAMBzTQ2/NunG
-        AIDnmPpdI+kGAYDHmtpdJ+kmAYDHmtpdK+lGAYDHmLpdL+lmAYDHmLpdM+mGAYCfmZpdO+nGAYD7TL2u
-        n3TzAMB9pl73SHoAAOB7plb3SnoQAOA2U6f7JT0MAHCbqdM9kx4IAPjc1OjeSQ8GAGRTn2ckPSAA8NHU
-        5jlJDwkAfDS1eVbSgwIAb6Yuz0x6YABoNzV5dtKDA0CrqceOpBcAAG2mFnuSXgIAtJla7Ep6EQDQYuqw
-        M+mFAMDppga7k14MAJxq6k9+J70gADjN1J78b9KLAoBTTN1JSnphALC7qTn5LOnFAcCupt7klqQXCAC7
-        mVqT7yS9SADYxdSZ3JP0QgFgdVNj8pOkFwsAq5r6kkckvWAAWM3Uljwy6UUDwCqmruRZSS8dAF5l6kmu
-        SPoCAOBqU0tyZdIXAQBXmTqSVyR9IQDwbFND8uqkLwcAHm1qR1ZK+qIA4FGmbmTFpC8MAH5qakZWT/ry
-        AOC7plZkp6QvEgBuNXUiuyZ9qQDwN1MfckLSFwwA/29qQ05L+rIBYGpCTk/68gHoM7UgTUl/CAD0mDqQ
-        1qQ/CgDONT//Im9JfyQAnGN+7kVy0h8NAPuan3eR25L+iADYx/yci9yX9EcFwLrm51vkMUl/ZACsY36u
-        RZ6T9EcHwOvMz7PIdUl/iAA83/wMi7w26Y8TgMebn12R9ZL+YAG43/y8iuyT9IcMwNfmZ1TkjKQ/cgAU
-        vhQl/QcAaDI/hyLdSf85AE4yP3ci8lXSfyCAHczPmIg8Ouk/HMCV5udItsuvX/8Bp40G1KEC5/0AAAAA
-        SUVORK5CYII=
 </value>
   </data>
 </root>

@@ -26,10 +26,13 @@ namespace UiBot
             // Load commands into the ListBox
             LoadCommandsIntoListBox();
 
-            // Wire up the event handlers
-            loadCommandButton.Click += loadCommandButton_Click;
+            // Register the SelectedIndexChanged event for the ListBox
+            commandListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
+
+            // Wire up other event handlers
             removeCommandButton.Click += removeCommandButton_Click;
         }
+
 
         private void QuestMenu_Load(object sender, EventArgs e)
         {
@@ -76,8 +79,8 @@ namespace UiBot
                 return;
             }
 
-            // Parse methods (assuming comma-separated methods)
-            var methods = methodsText.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            // Split methods by spaces outside parentheses for saving
+            var methods = SplitMethods(methodsText); // Split the text into individual methods
 
             // Create a new command
             var newCommand = new Command
@@ -94,11 +97,69 @@ namespace UiBot
 
             // Save commands back to file
             SaveCommandsToFile(commands);
-            
+
             MessageBox.Show("Command saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Update the ListBox
             LoadCommandsIntoListBox();
+        }
+
+        // Helper method to split methods without breaking content inside parentheses
+        private List<string> SplitMethods(string methodsText)
+        {
+            var methods = new List<string>();
+            var currentMethod = "";
+            int parenthesesDepth = 0;
+
+            foreach (var c in methodsText)
+            {
+                if (c == '(')
+                {
+                    parenthesesDepth++;
+                }
+                else if (c == ')')
+                {
+                    parenthesesDepth--;
+                }
+
+                // Split only on spaces outside parentheses
+                if (c == ' ' && parenthesesDepth == 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(currentMethod))
+                    {
+                        methods.Add(currentMethod.Trim());
+                        currentMethod = "";
+                    }
+                }
+                else
+                {
+                    currentMethod += c;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(currentMethod))
+            {
+                methods.Add(currentMethod.Trim());
+            }
+
+            return methods;
+        }
+
+        private string ReplaceCommasOutsideParentheses(string input, bool replaceWithSpace)
+        {
+            // Regex to match commas or spaces outside parentheses
+            var pattern = @"(\s)(?=(?:[^\(\)]|\([^\(\)]*\))*$)";
+
+            if (replaceWithSpace)
+            {
+                // Replace commas outside parentheses with spaces
+                return System.Text.RegularExpressions.Regex.Replace(input, pattern, ",");
+            }
+            else
+            {
+                // Replace spaces outside parentheses with commas for proper saving
+                return input.Replace(" ", ",");
+            }
         }
 
         private Dictionary<string, Command> LoadCommands()
@@ -150,10 +211,12 @@ namespace UiBot
                 // Update text boxes with selected command details
                 nametextBox.Text = selectedCommand;
                 costtextBox.Text = command.BitCost.ToString();
-                commandtextBox.Text = string.Join(",", command.Methods);
+
+                // Join the methods with spaces for display in the text box
+                var methodsText = string.Join(" ", command.Methods);  // Join methods with spaces
+                commandtextBox.Text = methodsText;
             }
         }
-
 
         private void openCustomJson_Click(object sender, EventArgs e)
         {

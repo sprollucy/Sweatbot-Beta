@@ -164,7 +164,7 @@ namespace UiBot
                 if (command != null)
                 {
                     // Simulate command execution
-                    commandHandler.ExecuteCommand(commandName, null, "testChannel"); // Channel is not used here
+                    commandHandler.ExecuteCommandAsync(commandName, null, "testChannel"); // Channel is not used here
                     Console.WriteLine($"Command executed locally: {commandName}");
                 }
             }
@@ -231,7 +231,7 @@ namespace UiBot
                                 try
                                 {
                                     // Execute the command
-                                    commandHandler.ExecuteCommand(commandName, client, e.ChatMessage.Channel);
+                                    commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
 
                                     // Deduct the bit cost of the command
                                     MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
@@ -374,16 +374,45 @@ namespace UiBot
             switch (e.Command.CommandText.ToLower())
             {
                 case "help":
-                    // Calculate the time elapsed since the last "help" command execution
-                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHelpCommandTimer;
 
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
 
-                        client.SendMessage(channelId, "!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices");
+                        // Construct the base message using StringBuilder
+                        StringBuilder message = new StringBuilder();
+                        message.Append("!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices.");
+
+                        if (Properties.Settings.Default.isCustomCommandsEnabled)
+                        {
+                            message.Append(" Use !ccommand to see if any custom commands are available.");
+                        }
+
+                        // Check if the user is a moderator
+                        if (e.Command.ChatMessage.IsModerator)
+                        {
+                            if (Properties.Settings.Default.isModBitsEnabled)
+                            {
+                                message.Append(", !addbits");
+                            }
+
+                            if (Properties.Settings.Default.isModRefundEnabled)
+                            {
+                                message.Append(", !refund");
+                            }
+                        }
+
+                        // Check if the user is a broadcaster
+                        if (e.Command.ChatMessage.IsBroadcaster)
+                        {
+                                message.Append(", !addbits, !refund");                          
+                        }
+
+                        client.SendMessage(channelId, message.ToString());
                     }
                     break;
+
+
 
                 case "how2use":
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHow2useTimer;
@@ -481,7 +510,7 @@ namespace UiBot
                         enabledCommandDetails.Sort((x, y) => x.Cost.CompareTo(y.Cost));
 
                         // Construct the message dynamically with ordered enabled commands
-                        List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label} - {detail.Cost}").ToList();
+                        List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label}({detail.Cost})").ToList();
 
                         if (enabledCommandCosts.Count > 0)
                         {
@@ -2021,21 +2050,6 @@ namespace UiBot
             {
                 switch (e.Command.CommandText.ToLower())
                 {
-                    case "help":
-                        StringBuilder message = new StringBuilder("");
-
-                        if (Properties.Settings.Default.isModBitsEnabled)
-                        {
-                            message.Append(", !addbits");
-                        }
-
-                        if (Properties.Settings.Default.isModRefundEnabled)
-                        {
-                            message.Append(", !refund");
-                        }
-
-                        client.SendMessage(channelId, message.ToString());
-                        break;
 
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
@@ -2123,7 +2137,6 @@ namespace UiBot
                             client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
                         }
                         break;
-
                 }
             }
         }
