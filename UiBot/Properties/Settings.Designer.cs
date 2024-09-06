@@ -694,7 +694,5 @@ namespace UiBot.Properties {
                 this["isDebugOn"] = value;
             }
         }
-
-        }
     }
-
+}

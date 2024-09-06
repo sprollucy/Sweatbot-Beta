@@ -1223,19 +1223,19 @@
             enableBonusMulti.BackColor = Color.FromArgb(220, 215, 201);
             enableBonusMulti.Location = new Point(594, 341);
             enableBonusMulti.Name = "enableBonusMulti";
-            enableBonusMulti.Size = new Size(183, 19);
+            enableBonusMulti.Size = new Size(132, 19);
             enableBonusMulti.TabIndex = 86;
-            enableBonusMulti.Text = "Enable bit donation multiplier";
+            enableBonusMulti.Text = "Enable bit multiplier";
             enableBonusMulti.UseVisualStyleBackColor = false;
             enableBonusMulti.CheckedChanged += enableBonusMulti_CheckedChanged;
             // 
             // bonusMultiplierBox
             // 
-            bonusMultiplierBox.Location = new Point(783, 339);
+            bonusMultiplierBox.Location = new Point(739, 339);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
-            bonusMultiplierBox.Size = new Size(31, 23);
+            bonusMultiplierBox.Size = new Size(23, 23);
             bonusMultiplierBox.TabIndex = 106;
-            bonusMultiplierBox.Text = "2";
+            bonusMultiplierBox.Text = "20";
             // 
             // contextMenuStrip1
             // 

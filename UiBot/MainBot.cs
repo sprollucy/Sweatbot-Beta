@@ -1,3 +1,4 @@
+﻿
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -363,6 +364,11 @@ namespace UiBot
                         StringBuilder message = new StringBuilder();
                         message.Append("!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices.");
 
+                        if (Properties.Settings.Default.isCustomCommandsEnabled)
+                        {
+                            message.Append(" Use !ccommand to see if any custom commands are available.");
+                        }
+
                         // Check if the user is a moderator
                         if (e.Command.ChatMessage.IsModerator)
                         {
@@ -394,7 +400,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
+                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost or !ccommand to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
                     }
                     break;
 
@@ -426,51 +432,41 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
                     {
-                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "bitcost" execution time
-
-                        // Fetch all commands with costs from commandHandler
-                        var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
-                        List<string> allCommandList = new List<string>();
-
-                        if (allCommandsWithCosts.Any())
-                        {
-                            allCommandList = allCommandsWithCosts
-                                .Select(cmd => $"!{cmd.Key}({cmd.Value})")
-                                .ToList();
-                        }
+                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "help" execution time
 
                         // Define the mappings of textbox names to their corresponding labels and enabled states
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
-        {
-            { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
-            { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
-            { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
-            { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
-            { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
-            { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
-            { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
-            { "GrenadeCostBox", ("360grenade", () => Properties.Settings.Default.isGrenadeTossEnabled) },
-            { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
-            { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
-            { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
-            { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
-            { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
-            { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
-            { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) },
-            { "dropmagCostBox", ("dropmag", () => Properties.Settings.Default.isDropMagEnabled) },
-            { "praisesunCostBox", ("praisesun", () => Properties.Settings.Default.isPraiseSunEnabled) },
-            { "touchgrassCostBox", ("touchgrass", () => Properties.Settings.Default.isTouchGrassEnabled) },
-            { "knifeoutCostBox", ("knifeout", () => Properties.Settings.Default.isKnifeOutEnabled) },
-            { "jumpCostBox", ("jump", () => Properties.Settings.Default.isJumpEnabled) },
-            { "windowsmuteCostBox", ("mutewindows", () => Properties.Settings.Default.isMuteWindowsEnabled) },
-            { "walkCostBox", ("walk", () => Properties.Settings.Default.isWalkEnabled) },
-            { "hotmicCostBox", ("hotmic", () => Properties.Settings.Default.isHotMicEnabled) },
-            { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
-            { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-            { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
-            { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
-            { "soundCostTextBox", ("audioplay", () => Properties.Settings.Default.isAudclipEnabled) }
-        };
+                        {
+                                { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
+                                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
+                                { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
+                                { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
+                                { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
+                                { "OneClickCooldownTextBox", ("pop", () => Properties.Settings.Default.IsPopEnabled) },
+                                { "DropBagCooldownTextBox", ("dropbag", () => Properties.Settings.Default.isDropBagEnabled) },
+                                { "GrenadeCostBox", ("360grenade", () => Properties.Settings.Default.isGrenadeTossEnabled) },
+                                { "CrouchBoxCost", ("crouch", () => Properties.Settings.Default.isCrouchEnabled) },
+                                { "magDumpCost", ("magdump", () => Properties.Settings.Default.isMagDumpEnabled) },
+                                { "HoldAimCost", ("holdaim", () => Properties.Settings.Default.isHoldAimEnabled) },
+                                { "mag360Cost", ("360magdump", () => Properties.Settings.Default.isMagDump360Enabled) },
+                                { "proneCostBox", ("prone", () => Properties.Settings.Default.isProneEnabled) },
+                                { "voiceLineCostBox", ("voiceline", () => Properties.Settings.Default.isVoiceLineEnabled) },
+                                { "reloadCostBox", ("reload", () => Properties.Settings.Default.isReloadEnabled) },
+                                { "dropmagCostBox", ("dropmag", () => Properties.Settings.Default.isDropMagEnabled) },
+                                { "praisesunCostBox", ("praisesun", () => Properties.Settings.Default.isPraiseSunEnabled) },
+                                { "touchgrassCostBox", ("touchgrass", () => Properties.Settings.Default.isTouchGrassEnabled) },
+                                { "knifeoutCostBox", ("knifeout", () => Properties.Settings.Default.isKnifeOutEnabled) },
+                                { "jumpCostBox", ("jump", () => Properties.Settings.Default.isJumpEnabled) },
+                                { "windowsmuteCostBox", ("mutewindows", () => Properties.Settings.Default.isMuteWindowsEnabled) },
+                                { "walkCostBox", ("walk", () => Properties.Settings.Default.isWalkEnabled) },
+                                { "hotmicCostBox", ("hotmic", () => Properties.Settings.Default.isHotMicEnabled) },
+                                { "normgrenadeCostBox", ("grenadetoss", () => Properties.Settings.Default.isNormGrenadeEnabled) },
+                                { "weaponswapCostBox", ("weaponswap", () => Properties.Settings.Default.isWeaponSwapEnabled) },
+                                { "firemodeCostBox", ("firemode", () => Properties.Settings.Default.isWeaponSwapEnabled) },
+                                { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
+                                { "soundCostTextBox", ("audioplay", () => Properties.Settings.Default.isAudclipEnabled) }
+
+                        };
 
                         // Define a list to hold enabled command details
                         List<(string Label, int Cost)> enabledCommandDetails = new List<(string Label, int Cost)>();
@@ -497,18 +493,52 @@ namespace UiBot
                         // Construct the message dynamically with ordered enabled commands
                         List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label}({detail.Cost})").ToList();
 
-                        // Construct the final message
-                        string allCommandsMessage = allCommandList.Count > 0 ? $"Available commands: {string.Join(", ", allCommandList)}" : "No commands available.";
-                        string enabledCommandsMessage = enabledCommandCosts.Count > 0
-                            ? $"{string.Join(", ", enabledCommandCosts)}"
-                            : $"";
+                        // Create messages based on the conditions
+                        string standardCommandsMessage = string.Empty;
+                        string customCommandsMessage = string.Empty;
 
-                        // Send both messages in one go
-                        string finalMessage = $"{allCommandsMessage}. {enabledCommandsMessage}";
-                        client.SendMessage(channelId, finalMessage);
+                        if (!Properties.Settings.Default.isCommandsPaused)
+                        {
+                            if (enabledCommandCosts.Count > 0)
+                            {
+                                standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, Available commands: {string.Join(", ", enabledCommandCosts)}";
+                            }
+                            else
+                            {
+                                standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, No standard commands are available.";
+                            }
+
+                            if (Properties.Settings.Default.isCustomCommandsEnabled)
+                            {
+                                var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+                                if (allCommandsWithCosts.Any())
+                                {
+                                    var commandList = allCommandsWithCosts
+                                        .Select(cmd => $"!{cmd.Key}({cmd.Value})")
+                                        .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
+                                        .ToList();
+
+                                    customCommandsMessage = $"Available custom commands: {string.Join(", ", commandList)}";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, All commands are paused";
+                        }
+
+                        // Send messages if they are not empty
+                        if (!string.IsNullOrEmpty(standardCommandsMessage))
+                        {
+                            client.SendMessage(channelId, standardCommandsMessage);
+                        }
+
+                        if (!string.IsNullOrEmpty(customCommandsMessage))
+                        {
+                            client.SendMessage(channelId, customCommandsMessage);
+                        }
                     }
                     break;
-
 
                 case "traders":
                     if (Properties.Settings.Default.isTradersEnabled)
@@ -530,52 +560,67 @@ namespace UiBot
 
                                 if (traderResetResponse != null && traderResetResponse.Data != null && traderResetResponse.Data.Traders != null)
                                 {
+                                    // Define a dictionary for trader enable statuses
+                                    var traderEnabledStatus = new Dictionary<string, bool>
+                    {
+                        { "Prapor", Properties.Settings.Default.isTraderPraporEnabled },
+                        { "Therapist", Properties.Settings.Default.isTraderTherapistEnabled },
+                        { "Mechanic", Properties.Settings.Default.isTraderMechanicEnabled },
+                        { "Peacekeeper", Properties.Settings.Default.isTraderPeacekeeperEnabled },
+                        { "Fence", Properties.Settings.Default.isTraderFenceEnabled },
+                        { "Ragman", Properties.Settings.Default.isTraderRagmanEnabled },
+                        { "Skier", Properties.Settings.Default.isTraderSkierEnabled },
+                        { "Jaeger", Properties.Settings.Default.isTraderJaegerEnabled },
+                        { "Lightkeeper", Properties.Settings.Default.isTraderLightkeeperEnabled }
+                    };
+
+                                    // Iterate through the traders
                                     foreach (var trader in traderResetResponse.Data.Traders)
                                     {
                                         string traderName = trader.Name;
                                         string resetTime = trader.ResetTime;
 
-                                        // Parse the reset time as a DateTime
-                                        if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
+                                        // Check if the trader is enabled
+                                        if (traderEnabledStatus.TryGetValue(traderName, out bool isEnabled) && isEnabled)
                                         {
-                                            // Get the local time zone
-                                            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
-
-                                            // Convert the reset time from UTC to local time
-                                            DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
-
-                                            // Calculate the time remaining until the reset time
-                                            TimeSpan timeRemaining = localResetTime - DateTime.Now;
-
-                                            // Check if the time remaining is negative
-                                            if (timeRemaining < TimeSpan.Zero)
+                                            // Parse the reset time as a DateTime
+                                            if (DateTime.TryParse(resetTime, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime resetDateTime))
                                             {
-                                                // The reset time has passed; set the time remaining to zero
-                                                timeRemaining = TimeSpan.Zero;
-                                            }
+                                                // Get the local time zone
+                                                TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
 
-                                            // Debugging: Print resetTime and timeRemaining
-                                            Console.WriteLine($"Trader Name: {traderName}, Reset Time: {resetTime}");
-                                            Console.WriteLine($"Time Remaining: {timeRemaining}");
+                                                // Convert the reset time from UTC to local time
+                                                DateTime localResetTime = TimeZoneInfo.ConvertTimeFromUtc(resetDateTime, localTimeZone);
 
-                                            // Format the time difference as hours and minutes
-                                            string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
+                                                // Calculate the time remaining until the reset time
+                                                TimeSpan timeRemaining = localResetTime - DateTime.Now;
 
-                                            // Send a separate alert if there are 5 minutes or less remaining
-                                            if (timeRemaining <= TimeSpan.FromMinutes(5))
-                                            {
-                                                client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
+                                                // Check if the time remaining is negative
+                                                if (timeRemaining < TimeSpan.Zero)
+                                                {
+                                                    // The reset time has passed; set the time remaining to zero
+                                                    timeRemaining = TimeSpan.Zero;
+                                                }
+
+                                                // Format the time difference as hours and minutes
+                                                string formattedTimeRemaining = $"{(int)timeRemaining.TotalHours} hours {timeRemaining.Minutes} minutes";
+
+                                                // Send a separate alert if there are 5 minutes or less remaining
+                                                if (timeRemaining <= TimeSpan.FromMinutes(5))
+                                                {
+                                                    client.SendMessage(channelId, $"@{channelId} {traderName} has 5 minutes or less remaining! Countdown: {formattedTimeRemaining}");
+                                                }
+                                                else
+                                                {
+                                                    // Send the regular countdown message
+                                                    client.SendMessage(channelId, $"Trader Name: {traderName}, Countdown: {formattedTimeRemaining}");
+                                                }
                                             }
                                             else
                                             {
-                                                // Send the regular countdown message
-                                                client.SendMessage(channelId, $"Trader Name: {traderName}, Countdown: {formattedTimeRemaining}");
+                                                // Handle the case where the reset time cannot be parsed
+                                                client.SendMessage(channelId, $"Failed to parse reset time for trader '{traderName}'.");
                                             }
-                                        }
-                                        else
-                                        {
-                                            // Handle the case where the reset time cannot be parsed
-                                            client.SendMessage(channelId, $"Failed to parse reset time for trader '{traderName}'.");
                                         }
                                     }
                                 }
@@ -596,6 +641,7 @@ namespace UiBot
                         }
                     }
                     break;
+
 
 
                 //Bit Commands
