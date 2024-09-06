@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingMenu));
             groupBox1 = new GroupBox();
             accessBox = new TextBox();
             label1 = new Label();
@@ -41,7 +40,7 @@
             pictureBox10 = new PictureBox();
             pictureBox1 = new PictureBox();
             channelOpen = new Button();
-            textBox3 = new TextBox();
+            changelogBox = new TextBox();
             label5 = new Label();
             githubLink = new LinkLabel();
             versionNumber = new Label();
@@ -192,18 +191,17 @@
             channelOpen.UseVisualStyleBackColor = true;
             channelOpen.Click += channelOpen_Click;
             // 
-            // textBox3
+            // changelogBox
             // 
-            textBox3.BackColor = Color.FromArgb(220, 215, 201);
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(635, 58);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.ScrollBars = ScrollBars.Vertical;
-            textBox3.Size = new Size(406, 345);
-            textBox3.TabIndex = 1;
-            textBox3.Text = resources.GetString("textBox3.Text");
+            changelogBox.BackColor = Color.FromArgb(220, 215, 201);
+            changelogBox.BorderStyle = BorderStyle.None;
+            changelogBox.Location = new Point(635, 58);
+            changelogBox.Multiline = true;
+            changelogBox.Name = "changelogBox";
+            changelogBox.ReadOnly = true;
+            changelogBox.ScrollBars = ScrollBars.Vertical;
+            changelogBox.Size = new Size(406, 345);
+            changelogBox.TabIndex = 1;
             // 
             // label5
             // 
@@ -419,7 +417,7 @@
             Controls.Add(groupBox2);
             Controls.Add(linkLabel1);
             Controls.Add(label4);
-            Controls.Add(textBox3);
+            Controls.Add(changelogBox);
             Controls.Add(label5);
             Controls.Add(githubLink);
             Controls.Add(versionNumber);
@@ -462,7 +460,7 @@
         private Button helpButton;
         private TextBox accessBox;
         private Button channelOpen;
-        private TextBox textBox3;
+        private TextBox changelogBox;
         private Label label5;
         private LinkLabel githubLink;
         private Label versionNumber;

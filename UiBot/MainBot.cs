@@ -362,11 +362,11 @@ namespace UiBot
 
                         // Construct the base message using StringBuilder
                         StringBuilder message = new StringBuilder();
-                        message.Append("!how2use, !about, !traders, !mybits. Use !bitcost to check which commands are available and to see the prices.");
+                        message.Append("!how2use, !about, !mybits !bitcost");
 
-                        if (Properties.Settings.Default.isCustomCommandsEnabled)
+                        if (Properties.Settings.Default.isTradersEnabled)
                         {
-                            message.Append(" Use !ccommand to see if any custom commands are available.");
+                            message.Append(" !traders");
                         }
 
                         // Check if the user is a moderator

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommandBuilderMenu));
             nametextBox = new TextBox();
             costtextBox = new TextBox();
             commandtextBox = new TextBox();
@@ -39,7 +38,7 @@
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             saveButton = new Button();
-            richTextBox1 = new RichTextBox();
+            commanduseBox = new RichTextBox();
             pictureBox4 = new PictureBox();
             openCustomJson = new Button();
             label5 = new Label();
@@ -184,16 +183,17 @@
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
             // 
-            // richTextBox1
+            // commanduseBox
             // 
-            richTextBox1.BackColor = Color.FromArgb(220, 215, 201);
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(514, 219);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(527, 346);
-            richTextBox1.TabIndex = 10;
-            richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            commanduseBox.BackColor = Color.FromArgb(220, 215, 201);
+            commanduseBox.BorderStyle = BorderStyle.None;
+            commanduseBox.Location = new Point(513, 233);
+            commanduseBox.Name = "commanduseBox";
+            commanduseBox.ReadOnly = true;
+            commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
+            commanduseBox.Size = new Size(528, 332);
+            commanduseBox.TabIndex = 10;
+            commanduseBox.Text = "";
             // 
             // pictureBox4
             // 
@@ -618,7 +618,7 @@
             Controls.Add(commandListBox);
             Controls.Add(label5);
             Controls.Add(openCustomJson);
-            Controls.Add(richTextBox1);
+            Controls.Add(commanduseBox);
             Controls.Add(saveButton);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -661,7 +661,7 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Button saveButton;
-        private RichTextBox richTextBox1;
+        private RichTextBox commanduseBox;
         private PictureBox pictureBox4;
         private Button openCustomJson;
         private Label label5;

@@ -25,6 +25,7 @@ namespace UiBot
 
             // Load commands into the ListBox
             LoadCommandsIntoListBox();
+            LoadUsageBox();
 
             // Register the SelectedIndexChanged event for the ListBox
             commandListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
@@ -379,6 +380,15 @@ namespace UiBot
                 .Replace("Direction", direction); // Replace Direction with the value from directionBox
         }
 
+        private void LoadUsageBox()
+        {
+            string pathtoFile = Path.Combine("Data", "Custom Commands and Usage.txt");
+
+            if (File.Exists(pathtoFile))
+            {
+                commanduseBox.Text = File.ReadAllText(pathtoFile);
+            }
+        }
 
         private void restartButton_Click(object sender, EventArgs e)
         {

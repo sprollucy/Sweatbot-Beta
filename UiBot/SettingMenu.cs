@@ -6,7 +6,6 @@ namespace UiBot
 
     public partial class SettingMenu : Form
     {
-        Process[] gname = Process.GetProcessesByName("GooseDesktop");
         public SettingMenu()
         {
             string packageVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
@@ -26,10 +25,19 @@ namespace UiBot
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
             enableDebug.Checked = Properties.Settings.Default.isDebugOn;
 
-
+            LoadChangelog();
         }
 
+        // Load the changelog from the file and display it in changelogBox
+        private void LoadChangelog()
+        {
+            string changelogFilePath = Path.Combine("Changelog.txt");
 
+            if (File.Exists(changelogFilePath))
+            {
+                changelogBox.Text = File.ReadAllText(changelogFilePath);
+            }
+        }
 
         private void SettingMenu_Load(object sender, EventArgs e)
         {
