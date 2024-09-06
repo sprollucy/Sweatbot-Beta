@@ -78,6 +78,11 @@
             label9 = new Label();
             label8 = new Label();
             pictureBox5 = new PictureBox();
+            disabledcommandsListBox = new ListBox();
+            disablecommandButton = new Button();
+            restorecommandButton = new Button();
+            label12 = new Label();
+            label13 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -175,7 +180,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(218, 234);
+            saveButton.Location = new Point(218, 250);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(108, 23);
             saveButton.TabIndex = 9;
@@ -206,7 +211,7 @@
             // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(218, 321);
+            openCustomJson.Location = new Point(218, 337);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -220,7 +225,7 @@
             label5.BackColor = Color.FromArgb(220, 215, 201);
             label5.Font = new Font("Segoe UI", 12F);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(78, 401);
+            label5.Location = new Point(152, 458);
             label5.Name = "label5";
             label5.Size = new Size(238, 42);
             label5.TabIndex = 14;
@@ -232,14 +237,14 @@
             commandListBox.BackColor = Color.FromArgb(220, 215, 201);
             commandListBox.FormattingEnabled = true;
             commandListBox.ItemHeight = 15;
-            commandListBox.Location = new Point(55, 234);
+            commandListBox.Location = new Point(55, 250);
             commandListBox.Name = "commandListBox";
             commandListBox.Size = new Size(157, 154);
             commandListBox.TabIndex = 15;
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(218, 292);
+            removeCommandButton.Location = new Point(218, 308);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(108, 23);
             removeCommandButton.TabIndex = 17;
@@ -274,7 +279,7 @@
             pictureBox7.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox7.Location = new Point(55, 207);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(280, 239);
+            pictureBox7.Size = new Size(434, 293);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.TabIndex = 20;
             pictureBox7.TabStop = false;
@@ -285,7 +290,7 @@
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
             pictureBox8.Location = new Point(55, 207);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(280, 24);
+            pictureBox8.Size = new Size(434, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox8.TabIndex = 21;
             pictureBox8.TabStop = false;
@@ -303,7 +308,7 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(218, 263);
+            restartButton.Location = new Point(218, 279);
             restartButton.Name = "restartButton";
             restartButton.Size = new Size(108, 23);
             restartButton.TabIndex = 23;
@@ -601,6 +606,54 @@
             pictureBox5.TabIndex = 12;
             pictureBox5.TabStop = false;
             // 
+            // disabledcommandsListBox
+            // 
+            disabledcommandsListBox.BackColor = Color.FromArgb(220, 215, 201);
+            disabledcommandsListBox.FormattingEnabled = true;
+            disabledcommandsListBox.ItemHeight = 15;
+            disabledcommandsListBox.Location = new Point(332, 250);
+            disabledcommandsListBox.Name = "disabledcommandsListBox";
+            disabledcommandsListBox.Size = new Size(157, 154);
+            disabledcommandsListBox.TabIndex = 26;
+            // 
+            // disablecommandButton
+            // 
+            disablecommandButton.Location = new Point(73, 408);
+            disablecommandButton.Name = "disablecommandButton";
+            disablecommandButton.Size = new Size(111, 47);
+            disablecommandButton.TabIndex = 27;
+            disablecommandButton.Text = "Disable Selected Command";
+            disablecommandButton.UseVisualStyleBackColor = true;
+            // 
+            // restorecommandButton
+            // 
+            restorecommandButton.Location = new Point(361, 408);
+            restorecommandButton.Name = "restorecommandButton";
+            restorecommandButton.Size = new Size(110, 47);
+            restorecommandButton.TabIndex = 28;
+            restorecommandButton.Text = "Enable Selected Command";
+            restorecommandButton.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.BackColor = Color.FromArgb(220, 215, 201);
+            label12.Location = new Point(55, 234);
+            label12.Name = "label12";
+            label12.Size = new Size(114, 15);
+            label12.TabIndex = 29;
+            label12.Text = "Enabled Commands";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.BackColor = Color.FromArgb(220, 215, 201);
+            label13.Location = new Point(332, 234);
+            label13.Name = "label13";
+            label13.Size = new Size(117, 15);
+            label13.TabIndex = 30;
+            label13.Text = "Disabled Commands";
+            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -608,6 +661,11 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1042, 564);
             ControlBox = false;
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(restorecommandButton);
+            Controls.Add(disablecommandButton);
+            Controls.Add(disabledcommandsListBox);
             Controls.Add(panel1);
             Controls.Add(restartButton);
             Controls.Add(label7);
@@ -702,5 +760,10 @@
         private Label label8;
         private PictureBox pictureBox9;
         private PictureBox pictureBox5;
+        private ListBox disabledcommandsListBox;
+        private Button disablecommandButton;
+        private Button restorecommandButton;
+        private Label label12;
+        private Label label13;
     }
 }

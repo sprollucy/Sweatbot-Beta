@@ -104,8 +104,8 @@ namespace UiBot
         public DateTime lastBitcostCommandTimer = DateTime.MinValue;
         public DateTime lastHow2useTimer = DateTime.MinValue;
 
-        public string configFilePath = Path.Combine("Data", "CommandConfigData.json"); // Adjust the file path as needed
-        string dropFilePath = Path.Combine("Data", "DropPositionData.json"); // Adjust the file path as needed
+        public string configFilePath = Path.Combine("Data", "bin", "CommandConfigData.json"); // Adjust the file path as needed
+        string dropFilePath = Path.Combine("Data", "bin", "DropPositionData.json"); // Adjust the file path as needed
 
         public TimeSpan GetRemainingRandomKeyPressesCooldown()
         {
@@ -917,7 +917,7 @@ namespace UiBot
         public static void BitMultiplier()
         {
             string bonusMultiplierBox;
-            string configFilePath = Path.Combine("Data", "CommandConfigData.json");
+            string configFilePath = Path.Combine("Data", "bin", "CommandConfigData.json");
 
             try
             {

@@ -9,7 +9,8 @@ namespace UiBot
 {
     public partial class CommandBuilderMenu : Form
     {
-        private readonly string _commandsFilePath = Path.Combine("Data", "CustomCommands.json");
+        private readonly string _commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
+        private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
 
         public CommandBuilderMenu()
         {
@@ -23,16 +24,22 @@ namespace UiBot
                 Directory.CreateDirectory(directory);
             }
 
-            // Load commands into the ListBox
+            // Load commands into the ListBoxes
             LoadCommandsIntoListBox();
+            LoadDisabledCommandsIntoListBox();
             LoadUsageBox();
 
             // Register the SelectedIndexChanged event for the ListBox
             commandListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
+            disabledcommandsListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
 
             // Wire up other event handlers
             removeCommandButton.Click += removeCommandButton_Click;
+            disablecommandButton.Click += disablecommandButton_Click;
+            restorecommandButton.Click += restorecommandButton_Click;
+
         }
+
 
         private void holdkeyButton_Click(object sender, EventArgs e)
         {
@@ -142,6 +149,102 @@ namespace UiBot
             commandtextBox.Text += GetCommandText(" MuteVolume=dur ");
         }
 
+        private void disablecommandButton_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = commandListBox.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedCommand))
+            {
+                MessageBox.Show("Please select a command to disable.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Load existing commands and disabled commands
+            var commands = LoadCommands();
+            var disabledCommands = LoadDisabledCommands();
+
+            if (commands.ContainsKey(selectedCommand))
+            {
+                // Move the command from active to disabled
+                var command = commands[selectedCommand];
+                commands.Remove(selectedCommand);
+                disabledCommands[selectedCommand] = command;
+
+                // Save the updated dictionaries back to their respective files
+                SaveCommandsToFile(commands);
+                SaveDisabledCommandsToFile(disabledCommands);
+
+                // Update the ListBoxes
+                LoadCommandsIntoListBox();
+                LoadDisabledCommandsIntoListBox();
+
+                // Clear the text boxes
+                nametextBox.Clear();
+                costtextBox.Clear();
+                commandtextBox.Clear();
+
+                MessageBox.Show("Command disabled successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("The selected command does not exist in the active commands list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void restorecommandButton_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = disabledcommandsListBox.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedCommand))
+            {
+                MessageBox.Show("Please select a command to restore.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Load existing commands and disabled commands
+            var commands = LoadCommands();
+            var disabledCommands = LoadDisabledCommands();
+
+            if (disabledCommands.ContainsKey(selectedCommand))
+            {
+                // Move the command from disabled to active
+                var command = disabledCommands[selectedCommand];
+                disabledCommands.Remove(selectedCommand);
+                commands[selectedCommand] = command;
+
+                // Save the updated dictionaries back to their respective files
+                SaveCommandsToFile(commands);
+                SaveDisabledCommandsToFile(disabledCommands);
+
+                // Update the ListBoxes
+                LoadCommandsIntoListBox();
+                LoadDisabledCommandsIntoListBox();
+
+                // Clear the text boxes
+                nametextBox.Clear();
+                costtextBox.Clear();
+                commandtextBox.Clear();
+
+                MessageBox.Show("Command restored successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("The selected command does not exist in the disabled commands list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveDisabledCommandsToFile(Dictionary<string, Command> disabledCommands)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(disabledCommands, Formatting.Indented);
+                File.WriteAllText(_disabledCommandsFilePath, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving disabled commands: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
@@ -260,6 +363,16 @@ namespace UiBot
             var json = File.ReadAllText(_commandsFilePath);
             return JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
         }
+        private Dictionary<string, Command> LoadDisabledCommands()
+        {
+            if (!File.Exists(_disabledCommandsFilePath))
+            {
+                return new Dictionary<string, Command>();
+            }
+
+            var json = File.ReadAllText(_disabledCommandsFilePath);
+            return JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
+        }
 
         private void SaveCommandsToFile(Dictionary<string, Command> commands)
         {
@@ -274,7 +387,6 @@ namespace UiBot
             }
         }
 
-
         private void LoadCommandsIntoListBox()
         {
             commandListBox.Items.Clear();
@@ -284,6 +396,17 @@ namespace UiBot
                 commandListBox.Items.Add(commandName);
             }
         }
+
+        private void LoadDisabledCommandsIntoListBox()
+        {
+            disabledcommandsListBox.Items.Clear();
+            var disabledCommands = LoadDisabledCommands();
+            foreach (var DcommandName in disabledCommands.Keys)
+            {
+                disabledcommandsListBox.Items.Add(DcommandName);
+            }
+        }
+
 
         private void commandListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -382,7 +505,7 @@ namespace UiBot
 
         private void LoadUsageBox()
         {
-            string pathtoFile = Path.Combine("Data", "Custom Commands and Usage.txt");
+            string pathtoFile = Path.Combine("Data", "bin", "Custom Commands and Usage.txt");
 
             if (File.Exists(pathtoFile))
             {

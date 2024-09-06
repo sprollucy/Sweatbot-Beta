@@ -51,8 +51,7 @@ namespace UiBot
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
             LogHandler.LoadUserBitsFromJson("user_bits.json");
-            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-            string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+            string commandsFilePath = Path.Combine("Data", "bin",  "CustomCommands.json");
             commandHandler = new CustomCommandHandler(commandsFilePath);
 
         }
@@ -153,7 +152,7 @@ namespace UiBot
             if (commandHandler == null)
             {
                 string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-                string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+                string commandsFilePath = Path.Combine("CustomCommands.json");
                 commandHandler = new CustomCommandHandler(commandsFilePath);
             }
 
@@ -551,7 +550,7 @@ namespace UiBot
                             await traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
 
                             // Read the reset time data from resetTime.json
-                            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("Data/resetTime.json");
+                            var resetTimeData = traderResetInfoService.ReadJsonDataFromFile("Data/bin/resetTime.json");
 
                             if (!string.IsNullOrEmpty(resetTimeData))
                             {
@@ -2176,7 +2175,7 @@ namespace UiBot
         public void LoadCredentialsFromJSON()
         {
             // Correct the path to be relative
-            string jsonFilePath = Path.Combine("Data", "Logon.json");
+            string jsonFilePath = Path.Combine("Data", "bin","Logon.json");
 
             if (File.Exists(jsonFilePath))
             {
@@ -2205,7 +2204,7 @@ namespace UiBot
         {
             try
             {
-                string jsonFilePath = Path.Combine("Data", "CommandConfigData.json");
+                string jsonFilePath = Path.Combine("Data", "bin", "CommandConfigData.json");
 
                 if (File.Exists(jsonFilePath))
                 {

@@ -99,7 +99,7 @@ namespace UiBot
         // Load existing data from the JSON file
         private LoginData LoadCounterData()
         {
-            string jsonFilePath = Path.Combine("Data", "Logon.json");
+            string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
             LoginData existingData = new LoginData();
 
             if (File.Exists(jsonFilePath))

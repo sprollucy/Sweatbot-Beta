@@ -170,8 +170,7 @@ namespace UiBot
 
         private void LoadCommands()
         {
-            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-            string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
+            string commandsFilePath = Path.Combine("Data" ,"bin" , "CustomCommands.json");
 
             if (File.Exists(commandsFilePath))
             {
