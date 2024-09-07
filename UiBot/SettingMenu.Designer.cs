@@ -336,7 +336,7 @@
             defaultCommandButton.TabIndex = 39;
             defaultCommandButton.Text = "Restore default commands";
             defaultCommandButton.UseVisualStyleBackColor = true;
-            defaultCommandButton.Click += button2_Click;
+            defaultCommandButton.Click += defaultCommandButton_Click;
             // 
             // enableUpdateCheck
             // 

@@ -371,7 +371,7 @@ namespace UiBot
 
             // Serialize and save the dictionary to a JSON file in the "Data" folder
             string json = JsonConvert.SerializeObject(textData);
-            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data", "bin");
             Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
             string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
             File.WriteAllText(filePath, json);
@@ -381,7 +381,7 @@ namespace UiBot
         public void LoadSettings()
         {
             // Construct the file path to the JSON file in the "Data" folder
-            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data", "bin");
             string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
 
             // Check if the JSON file exists

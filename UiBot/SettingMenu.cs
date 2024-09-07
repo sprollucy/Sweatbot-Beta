@@ -178,20 +178,33 @@ namespace UiBot
 
         private void bitrestoreButton_Click(object sender, EventArgs e)
         {
-            string backupFilePath = Path.Combine("Data", "user_bits_backup.txt");
+            string backupDirectory = Path.Combine("Backup");
+            string backupFileNamePattern = "user_bits_backup_*.json"; // Wildcard pattern for the backup files
             string jsonFilePath = Path.Combine("Data", "user_bits.json");
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
             try
             {
-                // Read the content from the backup file
-                string backupContent = File.ReadAllText(backupFilePath);
+                // Get all matching backup files
+                string[] backupFiles = Directory.GetFiles(backupDirectory, backupFileNamePattern);
+
+                if (backupFiles.Length == 0)
+                {
+                    MessageBox.Show("No backup files found.");
+                    return;
+                }
+
+                // Sort files by creation time descending and select the latest one
+                string latestBackupFile = backupFiles.OrderByDescending(f => f).First();
+
+                // Read the content from the latest backup file
+                string backupContent = File.ReadAllText(latestBackupFile);
 
                 // Write the backup content back to the JSON file
                 File.WriteAllText(jsonFilePath, backupContent);
 
-                MessageBox.Show($"Restoration completed for {jsonFilePath} at {DateTime.Now}");
+                MessageBox.Show($"Restoration completed from {latestBackupFile} to {jsonFilePath} Please restart for changes to take effect.");
             }
             catch (Exception ex)
             {
@@ -199,28 +212,40 @@ namespace UiBot
             }
         }
 
-
         private void restoreCommandButton_Click(object sender, EventArgs e)
         {
-            // Define the list of backup file paths
-            string[] backupFilePaths = { Path.Combine("Data", "CommandConfigData_backup.txt"), Path.Combine("Data", "DropPositionData_backup.txt") };
+            // Define backup patterns
+            string[] backupFileNamePatterns = { "CommandConfigData_backup_*.json", "DropPositionData_backup_*.json" };
 
-            // Define the list of corresponding JSON file paths
-            string[] jsonFilePaths = { Path.Combine("Data", "CommandConfigData.json"), Path.Combine("Data", "DropPositionData.json") };
+            // Define the corresponding JSON file paths
+            string[] jsonFilePaths = { Path.Combine("Data", "bin", "CommandConfigData.json"), Path.Combine("Data", "bin", "DropPositionData.json") };
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
             try
             {
-                for (int i = 0; i < backupFilePaths.Length; i++)
+                for (int i = 0; i < backupFileNamePatterns.Length; i++)
                 {
-                    // Read the content from the backup file
-                    string backupContent = File.ReadAllText(backupFilePaths[i]);
+                    // Get all matching backup files for the current file type
+                    string backupDirectory = Path.Combine("Backup");
+                    string[] backupFiles = Directory.GetFiles(backupDirectory, backupFileNamePatterns[i]);
+
+                    if (backupFiles.Length == 0)
+                    {
+                        MessageBox.Show($"No backup files found for {jsonFilePaths[i]}.");
+                        continue;
+                    }
+
+                    // Sort files by creation time descending and select the latest one
+                    string latestBackupFile = backupFiles.OrderByDescending(f => f).First();
+
+                    // Read the content from the latest backup file
+                    string backupContent = File.ReadAllText(latestBackupFile);
 
                     // Write the backup content back to the JSON file
                     File.WriteAllText(jsonFilePaths[i], backupContent);
 
-                    MessageBox.Show($"Restoration completed for {jsonFilePaths[i]} at {DateTime.Now}");
+                    MessageBox.Show($"Restoration completed from {latestBackupFile} to {jsonFilePaths[i]} Please restart for changes to take effect.");
                 }
             }
             catch (Exception ex)
@@ -229,11 +254,10 @@ namespace UiBot
             }
         }
 
-
-        private void button2_Click(object sender, EventArgs e)
+        private void defaultCommandButton_Click(object sender, EventArgs e)
         {
-            string backupFilePath = Path.Combine("Data", "Default_Commands.txt");
-            string jsonFilePath = Path.Combine("Data", "CommandConfigData.json");
+            string backupFilePath = Path.Combine("Data", "bin", "Default_Commands.txt");
+            string jsonFilePath = Path.Combine("Data", "bin", "CommandConfigData.json");
 
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 

@@ -7,8 +7,7 @@ using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
-using TwitchLib.PubSub;
-using TwitchLib.PubSub.Events;
+
 
 
 
@@ -38,7 +37,6 @@ namespace UiBot
         private ConnectionCredentials creds;
         TwitchClient client;
         private bool isBotConnected = false;
-        private static TwitchPubSub pubSub;
         private static string channelId;
 
         //spam command
@@ -70,12 +68,10 @@ namespace UiBot
                 Console.WriteLine("[Sweat Bot]: Disconnected");
 
                 client.Disconnect();
-                pubSub.Disconnect();
 
                 // Unsubscribe from events
                 client.OnConnected -= Client_OnConnected;
                 client.OnError -= Client_OnError;
-                pubSub.OnFollow -= PubSub_OnFollow;
 
                 isBotConnected = false;
             }
@@ -87,7 +83,6 @@ namespace UiBot
             {
                 Console.WriteLine($"[Sweat Bot]: Connecting to {channelId}...");
                 InitializeTwitchClient();
-                InitializePubSub();
                 StartAutoMessage();
 
             }
@@ -136,13 +131,6 @@ namespace UiBot
             }
         }
 
-        private void InitializePubSub()
-        {
-            pubSub = new TwitchPubSub();
-            pubSub.OnFollow += PubSub_OnFollow;
-            pubSub.ListenToFollows(channelId);
-            pubSub.Connect();
-        }
         // Property to get the connection status
         public bool IsConnected => isBotConnected;
 
@@ -188,12 +176,12 @@ namespace UiBot
 
                 // Load user bits
                 string userBitsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "user_bits.json");
-                LogHandler.LoadUserBitsFromJson(userBitsFilePath);
 
                 // Check if the message is a command
                 if (e.ChatMessage.Message.StartsWith("!"))
                 {
                     string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
+                    LogHandler.LoadUserBitsFromJson(userBitsFilePath);
 
                     // Process other commands
                     int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
@@ -213,12 +201,13 @@ namespace UiBot
                                     // Execute the command
                                     commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
 
-                                    // Deduct the bit cost of the command
-                                    MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
 
                                     // Log the command execution
                                     string timestamp1 = DateTime.Now.ToString("HH:mm:ss");
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp1);
+                                    
+                                    // Deduct the bit cost of the command
+                                    MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson(userBitsFilePath);
@@ -301,13 +290,6 @@ namespace UiBot
                 }
             }
 
-        }
-
-        private void PubSub_OnFollow(object sender, OnFollowArgs e)
-        {
-            string followerUsername = e.DisplayName;
-            Console.WriteLine($"New follower: {followerUsername}");
-            client.SendMessage(channelId, $"{followerUsername} Thank you for following");
         }
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
