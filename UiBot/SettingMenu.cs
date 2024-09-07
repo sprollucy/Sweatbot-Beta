@@ -8,7 +8,8 @@ namespace UiBot
     {
         public SettingMenu()
         {
-            string packageVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+            string packageVersion = Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0];
 
             InitializeComponent();
             this.TopLevel = false;

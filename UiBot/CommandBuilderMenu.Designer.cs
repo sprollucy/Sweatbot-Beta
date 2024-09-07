@@ -35,8 +35,6 @@
             label3 = new Label();
             label4 = new Label();
             pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            pictureBox3 = new PictureBox();
             saveButton = new Button();
             commanduseBox = new RichTextBox();
             pictureBox4 = new PictureBox();
@@ -84,8 +82,6 @@
             label12 = new Label();
             label13 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -151,40 +147,18 @@
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Location = new Point(55, 36);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 24);
+            pictureBox1.Size = new Size(957, 42);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.FromArgb(162, 123, 92);
-            pictureBox2.BackgroundImageLayout = ImageLayout.None;
-            pictureBox2.Location = new Point(218, 36);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(794, 24);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 7;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.FromArgb(162, 123, 92);
-            pictureBox3.BackgroundImageLayout = ImageLayout.None;
-            pictureBox3.Location = new Point(161, 36);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(51, 24);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 8;
-            pictureBox3.TabStop = false;
-            // 
             // saveButton
             // 
-            saveButton.Location = new Point(218, 250);
+            saveButton.Location = new Point(203, 78);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(108, 23);
+            saveButton.Size = new Size(132, 31);
             saveButton.TabIndex = 9;
-            saveButton.Text = "Save";
+            saveButton.Text = "Save Command";
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
             // 
@@ -211,7 +185,7 @@
             // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(218, 337);
+            openCustomJson.Location = new Point(218, 308);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -244,7 +218,7 @@
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(218, 308);
+            removeCommandButton.Location = new Point(218, 279);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(108, 23);
             removeCommandButton.TabIndex = 17;
@@ -308,7 +282,7 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(218, 279);
+            restartButton.Location = new Point(218, 250);
             restartButton.Name = "restartButton";
             restartButton.Size = new Size(108, 23);
             restartButton.TabIndex = 23;
@@ -318,7 +292,7 @@
             // 
             // holdkeyButton
             // 
-            holdkeyButton.Location = new Point(171, 3);
+            holdkeyButton.Location = new Point(163, 3);
             holdkeyButton.Name = "holdkeyButton";
             holdkeyButton.Size = new Size(75, 23);
             holdkeyButton.TabIndex = 24;
@@ -328,6 +302,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(220, 215, 201);
             panel1.Controls.Add(directionBox);
             panel1.Controls.Add(muteButton);
             panel1.Controls.Add(aplaysoundButton);
@@ -344,6 +319,7 @@
             panel1.Controls.Add(playsoundButton);
             panel1.Controls.Add(durBox);
             panel1.Controls.Add(rightholdButton);
+            panel1.Controls.Add(saveButton);
             panel1.Controls.Add(leftholdButton);
             panel1.Controls.Add(rightButton);
             panel1.Controls.Add(leftButton);
@@ -354,9 +330,9 @@
             panel1.Controls.Add(holdkeyButton);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label8);
-            panel1.Location = new Point(55, 84);
+            panel1.Location = new Point(55, 79);
             panel1.Name = "panel1";
-            panel1.Size = new Size(971, 117);
+            panel1.Size = new Size(957, 122);
             panel1.TabIndex = 25;
             // 
             // directionBox
@@ -368,7 +344,7 @@
             // 
             // muteButton
             // 
-            muteButton.Location = new Point(882, 33);
+            muteButton.Location = new Point(874, 33);
             muteButton.Name = "muteButton";
             muteButton.Size = new Size(75, 40);
             muteButton.TabIndex = 41;
@@ -378,7 +354,7 @@
             // 
             // aplaysoundButton
             // 
-            aplaysoundButton.Location = new Point(801, 32);
+            aplaysoundButton.Location = new Point(793, 32);
             aplaysoundButton.Name = "aplaysoundButton";
             aplaysoundButton.Size = new Size(75, 40);
             aplaysoundButton.TabIndex = 40;
@@ -388,7 +364,7 @@
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(690, 32);
+            arightholdButton.Location = new Point(682, 32);
             arightholdButton.Name = "arightholdButton";
             arightholdButton.Size = new Size(105, 40);
             arightholdButton.TabIndex = 39;
@@ -406,7 +382,7 @@
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(584, 32);
+            aleftholdButton.Location = new Point(576, 32);
             aleftholdButton.Name = "aleftholdButton";
             aleftholdButton.Size = new Size(100, 40);
             aleftholdButton.TabIndex = 38;
@@ -416,7 +392,7 @@
             // 
             // arightButton
             // 
-            arightButton.Location = new Point(503, 32);
+            arightButton.Location = new Point(495, 32);
             arightButton.Name = "arightButton";
             arightButton.Size = new Size(75, 40);
             arightButton.TabIndex = 37;
@@ -434,7 +410,7 @@
             // 
             // aleftButton
             // 
-            aleftButton.Location = new Point(422, 32);
+            aleftButton.Location = new Point(414, 32);
             aleftButton.Name = "aleftButton";
             aleftButton.Size = new Size(75, 40);
             aleftButton.TabIndex = 36;
@@ -444,7 +420,7 @@
             // 
             // aturnButton
             // 
-            aturnButton.Location = new Point(331, 32);
+            aturnButton.Location = new Point(323, 32);
             aturnButton.Name = "aturnButton";
             aturnButton.Size = new Size(85, 40);
             aturnButton.TabIndex = 35;
@@ -463,7 +439,7 @@
             // 
             // ahitkeyButton
             // 
-            ahitkeyButton.Location = new Point(250, 32);
+            ahitkeyButton.Location = new Point(242, 32);
             ahitkeyButton.Name = "ahitkeyButton";
             ahitkeyButton.Size = new Size(75, 40);
             ahitkeyButton.TabIndex = 34;
@@ -473,7 +449,7 @@
             // 
             // delayButton
             // 
-            delayButton.Location = new Point(882, 3);
+            delayButton.Location = new Point(874, 3);
             delayButton.Name = "delayButton";
             delayButton.Size = new Size(75, 23);
             delayButton.TabIndex = 33;
@@ -483,7 +459,7 @@
             // 
             // playsoundButton
             // 
-            playsoundButton.Location = new Point(801, 3);
+            playsoundButton.Location = new Point(793, 3);
             playsoundButton.Name = "playsoundButton";
             playsoundButton.Size = new Size(75, 23);
             playsoundButton.TabIndex = 32;
@@ -501,7 +477,7 @@
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(690, 3);
+            rightholdButton.Location = new Point(682, 3);
             rightholdButton.Name = "rightholdButton";
             rightholdButton.Size = new Size(105, 23);
             rightholdButton.TabIndex = 31;
@@ -511,7 +487,7 @@
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(584, 3);
+            leftholdButton.Location = new Point(576, 3);
             leftholdButton.Name = "leftholdButton";
             leftholdButton.Size = new Size(100, 23);
             leftholdButton.TabIndex = 30;
@@ -521,7 +497,7 @@
             // 
             // rightButton
             // 
-            rightButton.Location = new Point(503, 3);
+            rightButton.Location = new Point(495, 3);
             rightButton.Name = "rightButton";
             rightButton.Size = new Size(75, 23);
             rightButton.TabIndex = 29;
@@ -531,7 +507,7 @@
             // 
             // leftButton
             // 
-            leftButton.Location = new Point(422, 3);
+            leftButton.Location = new Point(414, 3);
             leftButton.Name = "leftButton";
             leftButton.Size = new Size(75, 23);
             leftButton.TabIndex = 28;
@@ -541,7 +517,7 @@
             // 
             // turnButton
             // 
-            turnButton.Location = new Point(331, 3);
+            turnButton.Location = new Point(323, 3);
             turnButton.Name = "turnButton";
             turnButton.Size = new Size(85, 23);
             turnButton.TabIndex = 27;
@@ -560,7 +536,7 @@
             // 
             // hitkeyButton
             // 
-            hitkeyButton.Location = new Point(250, 3);
+            hitkeyButton.Location = new Point(242, 3);
             hitkeyButton.Name = "hitkeyButton";
             hitkeyButton.Size = new Size(75, 23);
             hitkeyButton.TabIndex = 26;
@@ -570,7 +546,7 @@
             // 
             // aholdkeyButton
             // 
-            aholdkeyButton.Location = new Point(171, 32);
+            aholdkeyButton.Location = new Point(163, 32);
             aholdkeyButton.Name = "aholdkeyButton";
             aholdkeyButton.Size = new Size(75, 40);
             aholdkeyButton.TabIndex = 25;
@@ -677,7 +653,6 @@
             Controls.Add(label5);
             Controls.Add(openCustomJson);
             Controls.Add(commanduseBox);
-            Controls.Add(saveButton);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -685,8 +660,6 @@
             Controls.Add(costtextBox);
             Controls.Add(nametextBox);
             Controls.Add(pictureBox1);
-            Controls.Add(pictureBox2);
-            Controls.Add(pictureBox3);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox7);
@@ -694,8 +667,6 @@
             Name = "CommandBuilderMenu";
             Text = "QuestMenu";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
@@ -716,8 +687,6 @@
         private Label label3;
         private Label label4;
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
         private Button saveButton;
         private RichTextBox commanduseBox;
         private PictureBox pictureBox4;

@@ -231,7 +231,7 @@
             // 
             versionNumber.AutoSize = true;
             versionNumber.BackColor = Color.FromArgb(156, 155, 151);
-            versionNumber.Location = new Point(860, 538);
+            versionNumber.Location = new Point(897, 538);
             versionNumber.Name = "versionNumber";
             versionNumber.RightToLeft = RightToLeft.No;
             versionNumber.Size = new Size(89, 15);
