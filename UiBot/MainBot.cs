@@ -48,6 +48,7 @@ namespace UiBot
         {
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
+            LogHandler.DebugToFile();
             LogHandler.LoadUserBitsFromJson("user_bits.json");
             string commandsFilePath = Path.Combine("Data", "bin",  "CustomCommands.json");
             commandHandler = new CustomCommandHandler(commandsFilePath);

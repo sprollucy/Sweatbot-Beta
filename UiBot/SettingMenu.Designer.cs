@@ -59,6 +59,7 @@
             pictureBox6 = new PictureBox();
             enableDebug = new CheckBox();
             groupBox4 = new GroupBox();
+            enablewriteDebug = new CheckBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -395,6 +396,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(enablewriteDebug);
             groupBox4.Controls.Add(enableDebug);
             groupBox4.Location = new Point(54, 333);
             groupBox4.Name = "groupBox4";
@@ -402,6 +404,17 @@
             groupBox4.TabIndex = 111;
             groupBox4.TabStop = false;
             groupBox4.Text = "Debug Settings";
+            // 
+            // enablewriteDebug
+            // 
+            enablewriteDebug.AutoSize = true;
+            enablewriteDebug.Location = new Point(198, 22);
+            enablewriteDebug.Name = "enablewriteDebug";
+            enablewriteDebug.Size = new Size(204, 19);
+            enablewriteDebug.TabIndex = 111;
+            enablewriteDebug.Text = "Write Debug to File (Must Restart)";
+            enablewriteDebug.UseVisualStyleBackColor = true;
+            enablewriteDebug.CheckedChanged += enablewriteDebug_CheckedChanged;
             // 
             // SettingMenu
             // 
@@ -481,5 +494,6 @@
         private PictureBox pictureBox6;
         private CheckBox enableDebug;
         private GroupBox groupBox4;
+        private CheckBox enablewriteDebug;
     }
 }

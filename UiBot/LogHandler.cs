@@ -193,6 +193,11 @@ namespace UiBot
             LogHandler.WriteUserBitsToJson("user_bits.json");
         }
 
+        public static void DebugToFile()
+        {
+
+        }
+
         //Mod Whitelist
 
         private static HashSet<string> modWhitelist;

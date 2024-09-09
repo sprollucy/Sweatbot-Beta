@@ -12,6 +12,8 @@ namespace UiBot
     {
         private MainBot bot;
         private CommandHandler commandHandler; // Add this field
+        private TextBoxWriter textBoxWriter;
+
 
         public ConnectMenu()
         {
@@ -31,8 +33,9 @@ namespace UiBot
 
         private void InitializeConsole()
         {
-            // Redirect standard output to the consoleTextBox
-            Console.SetOut(new TextBoxWriter(consoleTextBox));
+            // Redirect standard output to the consoleTextBox and optionally to the file if isDebugToFile is true
+            textBoxWriter = new TextBoxWriter(consoleTextBox, Properties.Settings.Default.isWriteDebugOn);
+            Console.SetOut(textBoxWriter);
             Console.WriteLine("Console initialized.");
         }
 
@@ -40,10 +43,24 @@ namespace UiBot
         private class TextBoxWriter : System.IO.TextWriter
         {
             private TextBox textBox;
+            private StreamWriter fileWriter;
+            private bool isDebugToFile;
 
-            public TextBoxWriter(TextBox textBox)
+            public TextBoxWriter(TextBox textBox, bool isDebugToFile)
             {
                 this.textBox = textBox;
+                this.isDebugToFile = isDebugToFile;
+
+                if (isDebugToFile && Properties.Settings.Default.isDebugOn)
+                {
+                    // Ensure the Log folder exists
+                    Directory.CreateDirectory("Logs");
+                    // Open the file in append mode
+                    fileWriter = new StreamWriter(Path.Combine("Logs", "Debug File.txt"), true)
+                    {
+                        AutoFlush = true // Ensure the buffer is flushed to the file immediately
+                    };
+                }
             }
 
             public override void Write(char value)
@@ -51,6 +68,11 @@ namespace UiBot
                 if (textBox.IsHandleCreated)
                 {
                     textBox.Invoke(new Action(() => textBox.AppendText(value.ToString())));
+                }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.Write(value); // Write to file if enabled
                 }
             }
 
@@ -60,6 +82,11 @@ namespace UiBot
                 {
                     textBox.Invoke(new Action(() => textBox.AppendText(value)));
                 }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.Write(value); // Write to file if enabled
+                }
             }
 
             public override void WriteLine(string value)
@@ -68,9 +95,20 @@ namespace UiBot
                 {
                     textBox.Invoke(new Action(() => textBox.AppendText(value + Environment.NewLine)));
                 }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.WriteLine(value); // Write to file if enabled
+                }
             }
 
             public override System.Text.Encoding Encoding => System.Text.Encoding.UTF8;
+
+            // Close the file stream when done
+            public void Close()
+            {
+                fileWriter?.Close();
+            }
         }
 
         private void MessageTextBox_KeyPress(object sender, KeyPressEventArgs e)
