@@ -184,45 +184,51 @@ namespace UiBot
                     string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
                     LogHandler.LoadUserBitsFromJson(userBitsFilePath);
 
-                    // Process other commands
-                    int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
-                        ? MainBot.userBits[e.ChatMessage.DisplayName]
-                        : 0;
-
+                    // Check if the command is enabled
                     if (commandHandler.GetCommand(commandName) != null)
                     {
+                        var command = commandHandler.GetCommand(commandName);
+
+                        // Check if the command is enabled
+                        if (commandName == "test" && !Properties.Settings.Default.IsTurnEnabled)
+                        {
+                            // Inform the user that the command is disabled
+                            client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
+                            return;
+                        }
+
+                        // Process other commands
+                        int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
+                            ? MainBot.userBits[e.ChatMessage.DisplayName]
+                            : 0;
+
                         // Check if the user has enough bits to execute the command
                         if (commandHandler.CanExecuteCommand(commandName, userBits))
                         {
-                            var command = commandHandler.GetCommand(commandName);
-                            if (command != null)
+                            try
                             {
-                                try
-                                {
-                                    // Execute the command
-                                    commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+                                // Execute the command
+                                commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
 
+                                // Log the command execution
+                                string timestamp1 = DateTime.Now.ToString("HH:mm:ss");
+                                LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp1);
 
-                                    // Log the command execution
-                                    string timestamp1 = DateTime.Now.ToString("HH:mm:ss");
-                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp1);
-                                    
-                                    // Deduct the bit cost of the command
-                                    MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
+                                // Deduct the bit cost of the command
+                                MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
 
-                                    // Save the updated bit data
-                                    LogHandler.WriteUserBitsToJson(userBitsFilePath);
+                                // Save the updated bit data
+                                LogHandler.WriteUserBitsToJson(userBitsFilePath);
 
-                                    // Inform the user that the command was executed
-                                    client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, {commandName} used! You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.");
-                                    Console.WriteLine($"[{timestamp1}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Log and inform the user of the error
-                                    Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
-                                    client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
-                                }
+                                // Inform the user that the command was executed
+                                client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, {commandName} used! You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.");
+                                Console.WriteLine($"[{timestamp1}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log and inform the user of the error
+                                Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
+                                client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
                             }
                         }
                         else

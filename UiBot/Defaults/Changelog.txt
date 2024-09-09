@@ -1,3 +1,6 @@
+1.0.0.71-alpha
+-Added write debug to settings menu. Used to Log anything that shows up in the console to a debug file in the Logs folder
+
 1.0.0.70-alpha
 -Added HitKeyLoop
 -Added HitKeyLoopAsync
