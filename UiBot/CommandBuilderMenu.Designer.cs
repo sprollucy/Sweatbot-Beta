@@ -37,7 +37,6 @@
             pictureBox1 = new PictureBox();
             saveButton = new Button();
             commanduseBox = new RichTextBox();
-            pictureBox4 = new PictureBox();
             openCustomJson = new Button();
             label5 = new Label();
             commandListBox = new ListBox();
@@ -50,6 +49,9 @@
             restartButton = new Button();
             holdkeyButton = new Button();
             panel1 = new Panel();
+            amuteButton = new Button();
+            ahitkeyloopButton = new Button();
+            hitkeyloopButton = new Button();
             directionBox = new TextBox();
             muteButton = new Button();
             aplaysoundButton = new Button();
@@ -81,8 +83,11 @@
             restorecommandButton = new Button();
             label12 = new Label();
             label13 = new Label();
+            arightloopButton = new Button();
+            aleftloopButton = new Button();
+            rightloopButton = new Button();
+            leftloopButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -108,7 +113,7 @@
             // 
             commandtextBox.Location = new Point(218, 55);
             commandtextBox.Name = "commandtextBox";
-            commandtextBox.Size = new Size(794, 23);
+            commandtextBox.Size = new Size(812, 23);
             commandtextBox.TabIndex = 3;
             // 
             // label2
@@ -147,14 +152,14 @@
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Location = new Point(55, 36);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(957, 42);
+            pictureBox1.Size = new Size(975, 42);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(242, 83);
+            saveButton.Location = new Point(3, 120);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(166, 31);
             saveButton.TabIndex = 9;
@@ -166,26 +171,17 @@
             // 
             commanduseBox.BackColor = Color.FromArgb(220, 215, 201);
             commanduseBox.BorderStyle = BorderStyle.None;
-            commanduseBox.Location = new Point(513, 233);
+            commanduseBox.Location = new Point(513, 265);
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            commanduseBox.Size = new Size(528, 332);
+            commanduseBox.Size = new Size(528, 300);
             commanduseBox.TabIndex = 10;
             commanduseBox.Text = "";
             // 
-            // pictureBox4
-            // 
-            pictureBox4.Location = new Point(503, 219);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(667, 397);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 11;
-            pictureBox4.TabStop = false;
-            // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(218, 308);
+            openCustomJson.Location = new Point(218, 339);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -199,7 +195,7 @@
             label5.BackColor = Color.FromArgb(220, 215, 201);
             label5.Font = new Font("Segoe UI", 12F);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(152, 458);
+            label5.Location = new Point(152, 489);
             label5.Name = "label5";
             label5.Size = new Size(238, 42);
             label5.TabIndex = 14;
@@ -211,14 +207,14 @@
             commandListBox.BackColor = Color.FromArgb(220, 215, 201);
             commandListBox.FormattingEnabled = true;
             commandListBox.ItemHeight = 15;
-            commandListBox.Location = new Point(55, 250);
+            commandListBox.Location = new Point(55, 281);
             commandListBox.Name = "commandListBox";
             commandListBox.Size = new Size(157, 154);
             commandListBox.TabIndex = 15;
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(218, 279);
+            removeCommandButton.Location = new Point(218, 310);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(108, 23);
             removeCommandButton.TabIndex = 17;
@@ -230,10 +226,10 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(162, 123, 92);
-            label6.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label6.Location = new Point(503, 207);
+            label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label6.Location = new Point(506, 239);
             label6.Name = "label6";
-            label6.Size = new Size(211, 23);
+            label6.Size = new Size(179, 19);
             label6.TabIndex = 18;
             label6.Text = "Commands and Usage";
             // 
@@ -241,9 +237,9 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(503, 207);
+            pictureBox6.Location = new Point(503, 239);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(545, 26);
+            pictureBox6.Size = new Size(545, 23);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 19;
             pictureBox6.TabStop = false;
@@ -251,7 +247,7 @@
             // pictureBox7
             // 
             pictureBox7.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox7.Location = new Point(55, 207);
+            pictureBox7.Location = new Point(55, 238);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(434, 293);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -262,7 +258,7 @@
             // 
             pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
-            pictureBox8.Location = new Point(55, 207);
+            pictureBox8.Location = new Point(55, 238);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(434, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -274,7 +270,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(162, 123, 92);
             label7.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label7.Location = new Point(58, 208);
+            label7.Location = new Point(58, 239);
             label7.Name = "label7";
             label7.Size = new Size(120, 19);
             label7.TabIndex = 22;
@@ -282,7 +278,7 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(218, 250);
+            restartButton.Location = new Point(218, 281);
             restartButton.Name = "restartButton";
             restartButton.Size = new Size(108, 23);
             restartButton.TabIndex = 23;
@@ -292,7 +288,7 @@
             // 
             // holdkeyButton
             // 
-            holdkeyButton.Location = new Point(163, 3);
+            holdkeyButton.Location = new Point(186, 3);
             holdkeyButton.Name = "holdkeyButton";
             holdkeyButton.Size = new Size(75, 23);
             holdkeyButton.TabIndex = 24;
@@ -303,6 +299,13 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(220, 215, 201);
+            panel1.Controls.Add(arightloopButton);
+            panel1.Controls.Add(aleftloopButton);
+            panel1.Controls.Add(rightloopButton);
+            panel1.Controls.Add(leftloopButton);
+            panel1.Controls.Add(amuteButton);
+            panel1.Controls.Add(ahitkeyloopButton);
+            panel1.Controls.Add(hitkeyloopButton);
             panel1.Controls.Add(directionBox);
             panel1.Controls.Add(muteButton);
             panel1.Controls.Add(aplaysoundButton);
@@ -332,19 +335,49 @@
             panel1.Controls.Add(label8);
             panel1.Location = new Point(55, 79);
             panel1.Name = "panel1";
-            panel1.Size = new Size(957, 122);
+            panel1.Size = new Size(975, 154);
             panel1.TabIndex = 25;
+            // 
+            // amuteButton
+            // 
+            amuteButton.Location = new Point(897, 78);
+            amuteButton.Name = "amuteButton";
+            amuteButton.Size = new Size(75, 40);
+            amuteButton.TabIndex = 52;
+            amuteButton.Text = "Sync Mute Windows";
+            amuteButton.UseVisualStyleBackColor = true;
+            amuteButton.Click += amuteButton_Click;
+            // 
+            // ahitkeyloopButton
+            // 
+            ahitkeyloopButton.Location = new Point(346, 78);
+            ahitkeyloopButton.Name = "ahitkeyloopButton";
+            ahitkeyloopButton.Size = new Size(85, 40);
+            ahitkeyloopButton.TabIndex = 51;
+            ahitkeyloopButton.Text = "Sync Hit Key Loop";
+            ahitkeyloopButton.UseVisualStyleBackColor = true;
+            ahitkeyloopButton.Click += ahitkeyloopButton_Click;
+            // 
+            // hitkeyloopButton
+            // 
+            hitkeyloopButton.Location = new Point(265, 78);
+            hitkeyloopButton.Name = "hitkeyloopButton";
+            hitkeyloopButton.Size = new Size(75, 40);
+            hitkeyloopButton.TabIndex = 50;
+            hitkeyloopButton.Text = "Hit Key Loop";
+            hitkeyloopButton.UseVisualStyleBackColor = true;
+            hitkeyloopButton.Click += hitkeyloopButton_Click;
             // 
             // directionBox
             // 
-            directionBox.Location = new Point(0, 91);
+            directionBox.Location = new Point(2, 91);
             directionBox.Name = "directionBox";
-            directionBox.Size = new Size(52, 23);
+            directionBox.Size = new Size(39, 23);
             directionBox.TabIndex = 45;
             // 
             // muteButton
             // 
-            muteButton.Location = new Point(874, 33);
+            muteButton.Location = new Point(897, 33);
             muteButton.Name = "muteButton";
             muteButton.Size = new Size(75, 40);
             muteButton.TabIndex = 41;
@@ -354,7 +387,7 @@
             // 
             // aplaysoundButton
             // 
-            aplaysoundButton.Location = new Point(793, 32);
+            aplaysoundButton.Location = new Point(816, 32);
             aplaysoundButton.Name = "aplaysoundButton";
             aplaysoundButton.Size = new Size(75, 40);
             aplaysoundButton.TabIndex = 40;
@@ -364,7 +397,7 @@
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(682, 32);
+            arightholdButton.Location = new Point(705, 32);
             arightholdButton.Name = "arightholdButton";
             arightholdButton.Size = new Size(105, 40);
             arightholdButton.TabIndex = 39;
@@ -374,15 +407,15 @@
             // 
             // speedBox
             // 
-            speedBox.Location = new Point(0, 62);
+            speedBox.Location = new Point(2, 62);
             speedBox.Name = "speedBox";
-            speedBox.Size = new Size(52, 23);
+            speedBox.Size = new Size(39, 23);
             speedBox.TabIndex = 44;
             speedBox.Text = "10";
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(576, 32);
+            aleftholdButton.Location = new Point(599, 32);
             aleftholdButton.Name = "aleftholdButton";
             aleftholdButton.Size = new Size(100, 40);
             aleftholdButton.TabIndex = 38;
@@ -392,25 +425,25 @@
             // 
             // arightButton
             // 
-            arightButton.Location = new Point(495, 32);
+            arightButton.Location = new Point(518, 32);
             arightButton.Name = "arightButton";
             arightButton.Size = new Size(75, 40);
             arightButton.TabIndex = 37;
-            arightButton.Text = "Sync Left Click";
+            arightButton.Text = "Sync Right Click";
             arightButton.UseVisualStyleBackColor = true;
             arightButton.Click += arightButton_Click;
             // 
             // keyBox
             // 
-            keyBox.Location = new Point(0, 33);
+            keyBox.Location = new Point(2, 33);
             keyBox.Name = "keyBox";
-            keyBox.Size = new Size(52, 23);
+            keyBox.Size = new Size(39, 23);
             keyBox.TabIndex = 43;
             keyBox.Text = "A";
             // 
             // aleftButton
             // 
-            aleftButton.Location = new Point(414, 32);
+            aleftButton.Location = new Point(437, 32);
             aleftButton.Name = "aleftButton";
             aleftButton.Size = new Size(75, 40);
             aleftButton.TabIndex = 36;
@@ -420,7 +453,7 @@
             // 
             // aturnButton
             // 
-            aturnButton.Location = new Point(323, 32);
+            aturnButton.Location = new Point(346, 32);
             aturnButton.Name = "aturnButton";
             aturnButton.Size = new Size(85, 40);
             aturnButton.TabIndex = 35;
@@ -431,7 +464,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(58, 94);
+            label11.Location = new Point(45, 94);
             label11.Name = "label11";
             label11.Size = new Size(139, 15);
             label11.TabIndex = 49;
@@ -439,7 +472,7 @@
             // 
             // ahitkeyButton
             // 
-            ahitkeyButton.Location = new Point(242, 32);
+            ahitkeyButton.Location = new Point(265, 32);
             ahitkeyButton.Name = "ahitkeyButton";
             ahitkeyButton.Size = new Size(75, 40);
             ahitkeyButton.TabIndex = 34;
@@ -449,7 +482,7 @@
             // 
             // delayButton
             // 
-            delayButton.Location = new Point(874, 3);
+            delayButton.Location = new Point(897, 3);
             delayButton.Name = "delayButton";
             delayButton.Size = new Size(75, 23);
             delayButton.TabIndex = 33;
@@ -459,7 +492,7 @@
             // 
             // playsoundButton
             // 
-            playsoundButton.Location = new Point(793, 3);
+            playsoundButton.Location = new Point(816, 3);
             playsoundButton.Name = "playsoundButton";
             playsoundButton.Size = new Size(75, 23);
             playsoundButton.TabIndex = 32;
@@ -469,15 +502,15 @@
             // 
             // durBox
             // 
-            durBox.Location = new Point(0, 4);
+            durBox.Location = new Point(2, 4);
             durBox.Name = "durBox";
-            durBox.Size = new Size(52, 23);
+            durBox.Size = new Size(39, 23);
             durBox.TabIndex = 42;
             durBox.Text = "1000";
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(682, 3);
+            rightholdButton.Location = new Point(705, 3);
             rightholdButton.Name = "rightholdButton";
             rightholdButton.Size = new Size(105, 23);
             rightholdButton.TabIndex = 31;
@@ -487,7 +520,7 @@
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(576, 3);
+            leftholdButton.Location = new Point(599, 3);
             leftholdButton.Name = "leftholdButton";
             leftholdButton.Size = new Size(100, 23);
             leftholdButton.TabIndex = 30;
@@ -497,7 +530,7 @@
             // 
             // rightButton
             // 
-            rightButton.Location = new Point(495, 3);
+            rightButton.Location = new Point(518, 3);
             rightButton.Name = "rightButton";
             rightButton.Size = new Size(75, 23);
             rightButton.TabIndex = 29;
@@ -507,7 +540,7 @@
             // 
             // leftButton
             // 
-            leftButton.Location = new Point(414, 3);
+            leftButton.Location = new Point(437, 3);
             leftButton.Name = "leftButton";
             leftButton.Size = new Size(75, 23);
             leftButton.TabIndex = 28;
@@ -517,7 +550,7 @@
             // 
             // turnButton
             // 
-            turnButton.Location = new Point(323, 3);
+            turnButton.Location = new Point(346, 3);
             turnButton.Name = "turnButton";
             turnButton.Size = new Size(85, 23);
             turnButton.TabIndex = 27;
@@ -528,15 +561,15 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(58, 67);
+            label10.Location = new Point(45, 67);
             label10.Name = "label10";
-            label10.Size = new Size(39, 15);
+            label10.Size = new Size(73, 15);
             label10.TabIndex = 48;
-            label10.Text = "Speed";
+            label10.Text = "Speed/Delay";
             // 
             // hitkeyButton
             // 
-            hitkeyButton.Location = new Point(242, 3);
+            hitkeyButton.Location = new Point(265, 3);
             hitkeyButton.Name = "hitkeyButton";
             hitkeyButton.Size = new Size(75, 23);
             hitkeyButton.TabIndex = 26;
@@ -546,7 +579,7 @@
             // 
             // aholdkeyButton
             // 
-            aholdkeyButton.Location = new Point(163, 32);
+            aholdkeyButton.Location = new Point(186, 32);
             aholdkeyButton.Name = "aholdkeyButton";
             aholdkeyButton.Size = new Size(75, 40);
             aholdkeyButton.TabIndex = 25;
@@ -557,7 +590,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(58, 36);
+            label9.Location = new Point(45, 36);
             label9.Name = "label9";
             label9.Size = new Size(57, 15);
             label9.TabIndex = 47;
@@ -566,18 +599,18 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(58, 7);
+            label8.Location = new Point(45, 7);
             label8.Name = "label8";
-            label8.Size = new Size(90, 15);
+            label8.Size = new Size(139, 15);
             label8.TabIndex = 46;
-            label8.Text = "Duration(in ms)";
+            label8.Text = "Amount/Duration(in ms)";
             // 
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox5.Location = new Point(503, 219);
+            pictureBox5.Location = new Point(503, 255);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(558, 362);
+            pictureBox5.Size = new Size(558, 326);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 12;
             pictureBox5.TabStop = false;
@@ -587,14 +620,14 @@
             disabledcommandsListBox.BackColor = Color.FromArgb(220, 215, 201);
             disabledcommandsListBox.FormattingEnabled = true;
             disabledcommandsListBox.ItemHeight = 15;
-            disabledcommandsListBox.Location = new Point(332, 250);
+            disabledcommandsListBox.Location = new Point(332, 281);
             disabledcommandsListBox.Name = "disabledcommandsListBox";
             disabledcommandsListBox.Size = new Size(157, 154);
             disabledcommandsListBox.TabIndex = 26;
             // 
             // disablecommandButton
             // 
-            disablecommandButton.Location = new Point(73, 408);
+            disablecommandButton.Location = new Point(73, 439);
             disablecommandButton.Name = "disablecommandButton";
             disablecommandButton.Size = new Size(111, 47);
             disablecommandButton.TabIndex = 27;
@@ -603,7 +636,7 @@
             // 
             // restorecommandButton
             // 
-            restorecommandButton.Location = new Point(361, 408);
+            restorecommandButton.Location = new Point(361, 439);
             restorecommandButton.Name = "restorecommandButton";
             restorecommandButton.Size = new Size(110, 47);
             restorecommandButton.TabIndex = 28;
@@ -614,7 +647,7 @@
             // 
             label12.AutoSize = true;
             label12.BackColor = Color.FromArgb(220, 215, 201);
-            label12.Location = new Point(55, 234);
+            label12.Location = new Point(55, 265);
             label12.Name = "label12";
             label12.Size = new Size(114, 15);
             label12.TabIndex = 29;
@@ -624,11 +657,51 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.FromArgb(220, 215, 201);
-            label13.Location = new Point(332, 234);
+            label13.Location = new Point(332, 265);
             label13.Name = "label13";
             label13.Size = new Size(117, 15);
             label13.TabIndex = 30;
             label13.Text = "Disabled Commands";
+            // 
+            // arightloopButton
+            // 
+            arightloopButton.Location = new Point(541, 107);
+            arightloopButton.Name = "arightloopButton";
+            arightloopButton.Size = new Size(98, 40);
+            arightloopButton.TabIndex = 56;
+            arightloopButton.Text = "Sync Loop Right Click";
+            arightloopButton.UseVisualStyleBackColor = true;
+            arightloopButton.Click += arightloopButton_Click;
+            // 
+            // aleftloopButton
+            // 
+            aleftloopButton.Location = new Point(437, 107);
+            aleftloopButton.Name = "aleftloopButton";
+            aleftloopButton.Size = new Size(98, 40);
+            aleftloopButton.TabIndex = 55;
+            aleftloopButton.Text = "Sync Loop Left Click";
+            aleftloopButton.UseVisualStyleBackColor = true;
+            aleftloopButton.Click += aleftloopButton_Click;
+            // 
+            // rightloopButton
+            // 
+            rightloopButton.Location = new Point(541, 78);
+            rightloopButton.Name = "rightloopButton";
+            rightloopButton.Size = new Size(98, 23);
+            rightloopButton.TabIndex = 54;
+            rightloopButton.Text = "Loop Right Click";
+            rightloopButton.UseVisualStyleBackColor = true;
+            rightloopButton.Click += rightloopButton_Click;
+            // 
+            // leftloopButton
+            // 
+            leftloopButton.Location = new Point(437, 78);
+            leftloopButton.Name = "leftloopButton";
+            leftloopButton.Size = new Size(98, 23);
+            leftloopButton.TabIndex = 53;
+            leftloopButton.Text = "Loop Left Click";
+            leftloopButton.UseVisualStyleBackColor = true;
+            leftloopButton.Click += leftloopButton_Click;
             // 
             // CommandBuilderMenu
             // 
@@ -661,13 +734,11 @@
             Controls.Add(nametextBox);
             Controls.Add(pictureBox1);
             Controls.Add(pictureBox5);
-            Controls.Add(pictureBox4);
             Controls.Add(pictureBox7);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CommandBuilderMenu";
             Text = "QuestMenu";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
@@ -689,7 +760,6 @@
         private PictureBox pictureBox1;
         private Button saveButton;
         private RichTextBox commanduseBox;
-        private PictureBox pictureBox4;
         private Button openCustomJson;
         private Label label5;
         private ListBox commandListBox;
@@ -734,5 +804,12 @@
         private Button restorecommandButton;
         private Label label12;
         private Label label13;
+        private Button ahitkeyloopButton;
+        private Button hitkeyloopButton;
+        private Button amuteButton;
+        private Button arightloopButton;
+        private Button aleftloopButton;
+        private Button rightloopButton;
+        private Button leftloopButton;
     }
 }

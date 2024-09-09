@@ -45,6 +45,7 @@ public class CustomCommandHandler
     {
         { "holdkey", HoldKey },
         { "hitkey", HitKey },
+        { "hitkeyloop", HitKeyLoop },
         { "leftclick", LeftClick },
         { "rightclick", RightClick },
         { "turnmouse", TurnMouse },
@@ -52,22 +53,28 @@ public class CustomCommandHandler
         { "rightclickhold", RightClickHold },
         { "leftclickhold", LeftClickHold },
         { "mutevolume", MuteVolume },
-        { "delay", Delay }
+        { "delay", Delay },
+        { "leftclickloop", LeftClickLoop },
+        { "rightclickloop", RightClickLoop }
     };
 
         _asyncMethodMap = new Dictionary<string, Func<TwitchClient, string, string, Task>>
     {
         { "holdkeyasync", HoldKeyAsync },
         { "hitkeyasync", HitKeyAsync },
+        { "hitkeyloopasync", HitKeyLoopAsync },
         { "leftclickasync", LeftClickAsync },
         { "rightclickasync", RightClickAsync },
         { "turnmouseasync", TurnMouseAsync },
         { "playsoundclipasync", PlaySoundClipAsync },
         { "rightclickholdasync", RightClickHoldAsync },
-        { "leftclickholdasync", LeftClickHoldAsync }
-
+        { "mutevolumeasync", MuteVolumeAsync },
+        { "leftclickholdasync", LeftClickHoldAsync },
+        { "leftclickloopasync", LeftClickLoopAsync },
+        { "rightclickloopasync", RightClickLoopAsync }
     };
     }
+
 
 
     public Dictionary<string, int> GetAllCommandsWithCosts()
@@ -376,6 +383,122 @@ public class CustomCommandHandler
         }
     }
 
+    private void HitKeyLoop(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for HitKeyLoop.");
+            return;
+        }
+
+        // Match format A(numberOfTimes, delayInMilliseconds)
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)\((\d+),\s*(\d+)\)");
+        if (!match.Success)
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Key(NumberOfTimes, DelayInMilliseconds).");
+            return;
+        }
+
+        string key = match.Groups[1].Value.ToUpper();
+        if (!int.TryParse(match.Groups[2].Value, out int times) || !int.TryParse(match.Groups[3].Value, out int delay))
+        {
+            Console.WriteLine("Invalid number of times or delay specified.");
+            return;
+        }
+
+        byte vkCode;
+        try
+        {
+            vkCode = (byte)ToVirtualKey(key);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error mapping key: {ex.Message}");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Hitting key '{key}' (VK Code: {vkCode:X}) {times} times with {delay}ms delay.");
+        }
+
+        try
+        {
+            for (int i = 0; i < times; i++)
+            {
+                // Press the key
+                keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+                // Release the key
+                keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
+
+                // Delay between key presses
+                Thread.Sleep(delay);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in HitKeyLoop: {ex.Message}");
+        }
+    }
+
+    private async Task HitKeyLoopAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for HitKeyLoopAsync.");
+            return;
+        }
+
+        // Match format A(numberOfTimes, delayInMilliseconds)
+        var match = Regex.Match(parameter, @"([a-zA-Z0-9]+)\((\d+),\s*(\d+)\)");
+        if (!match.Success)
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Key(NumberOfTimes, DelayInMilliseconds).");
+            return;
+        }
+
+        string key = match.Groups[1].Value.ToUpper();
+        if (!int.TryParse(match.Groups[2].Value, out int times) || !int.TryParse(match.Groups[3].Value, out int delay))
+        {
+            Console.WriteLine("Invalid number of times or delay specified.");
+            return;
+        }
+
+        byte vkCode;
+        try
+        {
+            vkCode = (byte)ToVirtualKey(key);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error mapping key: {ex.Message}");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Async Hitting key '{key}' (VK Code: {vkCode:X}) {times} times with {delay}ms delay.");
+        }
+
+        try
+        {
+            for (int i = 0; i < times; i++)
+            {
+                // Press the key
+                keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+                // Release the key
+                keybd_event(vkCode, 0, KEYEVENTF_KEYUP, 0);
+
+                // Async delay between key presses
+                await Task.Delay(delay);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in HitKeyLoopAsync: {ex.Message}");
+        }
+    }
+
     private void TurnMouse(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
@@ -617,6 +740,127 @@ public class CustomCommandHandler
         mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
     }
 
+    private void LeftClickLoop(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for LeftClickLoop.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"\((\d+),\s*(\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int clickCount) || !int.TryParse(match.Groups[2].Value, out int delay))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: LeftClickLoop(ClickCount, DelayInMilliseconds).");
+            return;
+        }
+
+        for (int i = 0; i < clickCount; i++)
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Left click {i + 1}/{clickCount}");
+            }
+            // Simulate a left mouse button click
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
+            // Sleep for the specified delay between clicks
+            System.Threading.Thread.Sleep(delay);
+        }
+    }
+
+    private void RightClickLoop(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for RightClickLoop.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"\((\d+),\s*(\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int clickCount) || !int.TryParse(match.Groups[2].Value, out int delay))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: RightClickLoop(ClickCount, DelayInMilliseconds).");
+            return;
+        }
+
+        for (int i = 0; i < clickCount; i++)
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Right click {i + 1}/{clickCount}");
+            }
+            // Simulate pressing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+            // Simulate releasing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+
+            // Sleep for the specified delay between clicks
+            System.Threading.Thread.Sleep(delay);
+        }
+    }
+    private async Task LeftClickLoopAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for LeftClickLoopAsync.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"\((\d+),\s*(\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int clickCount) || !int.TryParse(match.Groups[2].Value, out int delay))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: LeftClickLoopAsync(ClickCount, DelayInMilliseconds).");
+            return;
+        }
+
+        for (int i = 0; i < clickCount; i++)
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Async Left click {i + 1}/{clickCount}");
+            }
+            // Simulate a left mouse button click
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
+            // Asynchronous delay between clicks
+            await Task.Delay(delay);
+        }
+    }
+
+    private async Task RightClickLoopAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for RightClickLoopAsync.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"\((\d+),\s*(\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int clickCount) || !int.TryParse(match.Groups[2].Value, out int delay))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: RightClickLoopAsync(ClickCount, DelayInMilliseconds).");
+            return;
+        }
+
+        for (int i = 0; i < clickCount; i++)
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Async Right click {i + 1}/{clickCount}");
+            }
+            // Simulate pressing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+            // Simulate releasing the right mouse button
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+
+            // Asynchronous delay between clicks
+            await Task.Delay(delay);
+        }
+    }
+
     private void RightClickHold(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
@@ -781,11 +1025,48 @@ public class CustomCommandHandler
         }
     }
 
+    private async Task MuteVolumeAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MuteVolume.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"Muting Windows for {duration} milliseconds.");
+            }
+
+            // Simulate pressing the mute key
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
+
+            // Wait for the specified duration asynchronously
+            await Task.Delay(duration);
+
+            // Simulate releasing the mute key
+            keybd_event(VK_VOLUME_MUTE, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, UIntPtr.Zero);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MuteVolume: {ex.Message}");
+        }
+    }
+
     private void Delay(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for LeftClickHold.");
+            Console.WriteLine("No parameters specified for Delay.");
             return;
         }
 

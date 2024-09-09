@@ -65,6 +65,17 @@ namespace UiBot
             commandtextBox.Text += GetCommandText(" HitKeyAsync=KeyIn ");
         }
 
+        private void hitkeyloopButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HitKeyLoop=KeyIn(dur,Speed) ");
+        }
+
+        private void ahitkeyloopButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" HitKeyLoopAsync=KeyIn(dur,Speed) ");
+        }
         private void leftButton_Click(object sender, EventArgs e)
         {
             // Append the text to commandtextBox
@@ -87,6 +98,26 @@ namespace UiBot
         {
             // Append the text to commandtextBox
             commandtextBox.Text += " RightClickAsync ";
+        }
+
+        private void leftloopButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText(" LeftClickLoop=KeyIn(dur,Speed) ");
+        }
+
+        private void aleftloopButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText(" LeftClickLoopAsync=KeyIn(dur,Speed) ");
+        }
+
+        private void rightloopButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText(" RightClickLoop=KeyIn(dur,Speed) ");
+        }
+
+        private void arightloopButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText(" RightClickLoopAsync=KeyIn(dur,Speed) ");
         }
 
         private void turnButton_Click(object sender, EventArgs e)
@@ -140,13 +171,18 @@ namespace UiBot
         private void delayButton_Click(object sender, EventArgs e)
         {
             // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" Delay=dur ");
+            commandtextBox.Text += GetCommandText(" Delay=Speed ");
         }
 
         private void muteButton_Click(object sender, EventArgs e)
         {
             // Append the text to commandtextBox
             commandtextBox.Text += GetCommandText(" MuteVolume=dur ");
+        }
+
+        private void amuteButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText(" MuteVolumeAsync=dur ");
         }
 
         private void disablecommandButton_Click(object sender, EventArgs e)
