@@ -1,0 +1,120 @@
+How it Works
+------------
+
+Whenever a user cheers bits in your chat, the bot will automatically record and store how many they have cheer'd as long as the bot is running. Users can then use commands with the prefix "!" to activate enabled commands. When they use a command it will automatically remove their "bits" from a file.
+
+For the more interested:
+The program works by mainly sending virtual keypresses and mouse events directly to window. When a user uses a "!" command the bot in the chat will listen for that command, if that command exist it will execute through the command.
+
+
+How to Get Started with Sweat Bot
+---------------------------------
+
+Note: Drop Config.exe is broken at the moment so Kit Drop does not work
+
+1. Create a Bot Account
+
+Go to Twitch.tv and create the account you want to use as the bot.
+
+2. Mod the Bot
+
+In your Twitch chat, type /mod <bot_name> to mod the bot you created.
+
+3. Generate an Access Token
+
+Use a tool like twitchtokengenerator.com or Twitch’s tool to generate an Access Token with the permissions your bot needs.
+Copy the token into the "Access Token" field in the app, then hit "Save".
+
+WARNING: Never share your Access Token with anyone. Your account may be compromised if you do.
+
+4. Open the Bot
+
+Launch the Sweat Bot.exe file.
+
+Note: Currently my exe is unsigned so a warning "Windows protected your pc" may pop up. Click either more info and then run anyway. If Windows Security detects it as a dangerous file you will have to open Windows Defender and find it under the quarantine area and allow it
+
+5. Configure Settings
+
+Click the settings wheel in the bottom left.
+Enter the channel token for the bot, click "Save".
+Enter the channel name where you want the bot to join and click "Save".
+
+6. Set Up Commands
+
+Click the Command Menu (the button with three lines) to configure the bot’s commands.
+Set command costs and which ones you want enabled(see first note). hit "Save", then "Restart".
+To enable custom commands (still a WIP), check "Enable Custom Commands" and open the Command Builder(see notes below)
+
+
+Notes: 
+The commands were original thought about with Escape from Tarkov in mine, But using the Custom commands you can name them anything you want and tailor them to whatever game you play
+
+For custom commands to show up on twitch, you have to restart the program
+
+You can adjust the price or add to the command input and it will update the current command.
+Changing the name will write it to a new command.
+
+To remove commands, you’ll need to either delete them manually or edit the CustomCommands.json file in the "Data" folder.
+Default commands are listed in the Command List, which you can use as templates to create your own. Just click on one of the items on the Command List and it will show in the fields above. 
+
+For testing custom commands, you can type them into the console in the Connect Menu. To test in the game put a Delay command at the start of your custom command so you have time to tab into the game before the rest of the command start
+
+You can format and send separate messages in auto messages using \\.
+
+7. Connect the Bot
+
+Open the Connect Menu and click "Connect".
+Then, open Twitch and type !help in the chat to verify the bot is working.
+Use !bitcost to see what commands are active.
+
+
+Viewer Commands
+---------------
+
+help - List available commands
+
+how2use - How to use
+
+about - About the app
+
+mybits - Check how many bits a user has stored
+
+bitcost - List all available Sweat Bot commands and their cost in chat
+
+
+Mod/Broadcaster Commands
+------------------------
+
+help - List available commands
+
+addbits - Adds bits to a user. Username must be a exact match to target user(Must be enabled for moderators to use in Command Menu)
+	!addbits @user amount eg. !addbits @Sprollucy 500
+
+refund - Refund user for last command they used. Username must be a exact match to target user(Must be enabled for moderators to use in Command Menu)
+	!refund @user eg. !refund @Sprollucy
+
+
+Updating the App
+----------------
+
+Usually, you only need to replace the Sweat Bot.exe when updating, unless otherwise specified. Custom commands and prices are saved in the "Data" folder which will stay if not overwritten.
+
+To transfer your settings after an update
+
+Run the new version once.
+Go to C:\Users\User\AppData\Local\Sweat_Bot.
+Find the current version folder and copy user.config.
+Paste it into the newest version’s folder, overwriting the existing user.config.
+
+Adding Custom Sounds
+--------------------
+
+Note: All sound files must be in .wav format
+Take the sound clips you want to add and put them in the Sound Clips folder. That's it! Files can be accessed with the !playsound
+
+Goose Command Setup
+-------------------
+Goose does cause performance issues. Good for in menus
+Download the required files from this site: samperson.itch.io/desktop-goose
+Once downloaded, place all the files inside a folder named "Goose".
+Delete the "FOR MOD-MAKERS" folder, as it will cause a pop-up to appear each time the command runs.
