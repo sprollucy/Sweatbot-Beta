@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.69alpha**
+# **Sweat Bot 1.0.0.70alpha**
 
 Sweat Bot is a simple, open-source Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -24,7 +24,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 - **Quick Setup**: Just check a box and configure the cost/inputs for commands.
 - **Trader Reset Timer**: Tracks when items are restocked for hardcore Tarkov players.
 - **Twitch Integration**: Twitch chat commands trigger keypresses and mouse events.
-- **Bit Integration**: Users cheer bits and spend them on in-game actions.
+- **Bit Integration**: Users cheer bits and spend them on in-game actions. You can make it free even!
 - **Custom Command Builder**: Easily create, price, and customize commands with a simple UI.
 
 ---
@@ -42,16 +42,12 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ## **Upcoming Custom Command Functions**
 *(Not guaranteed, but under consideration)*
 
-- MuteVolumeAsync
-- LoopKey
-- LoopLeftClick
-- LoopRightClick
 - OpenFile
 - Maybe ShutdownPc
 
 ---
 
-### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.69a)
+### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.70a)
 
 ---
 
@@ -148,17 +144,16 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ---
 
-## **Latest Changelog: v1.0.0.69-alpha**
+## **Latest Changelog: v1.0.0.70-alpha**
 
-- Restructured refund logging. Previously didn't save the user who did the command
-- Added custom command system! Now you can build out custom commands if the ones provided aren't enough. Currently exposed commands are HitKey, HoldKey, LeftClick, LeftClickHold, RightClick, RightClickHold, Delay, MuteVolume, TurnMouse, PlaySoundClip, HitKeyAsync, HoldKeyAsync, LeftClickAsync, LeftClickHoldAsync, RightClickAsync, RightClickHoldAsync, TurnMouseAsync, PlaySoundClipAsync. There are example and descriptions of the commands inside the Data folder in a file called CustomCommands.json. You can modify the cost and chain multiple methods together! Currently supports all English keys.
-- Updated Connect Menu text box to let you use your custom commands offline for testing purposes 
-- Changed !bitcost to print out Custom commands. 
-- Added a text box that shows the loaded custom commands on the connect menu. Ugly but functional for now
-- Added (experimental)Custom Command Builder menu. This should make it easier to create new commands with less formatting errors. Will need feedback.
-- Updated backups to not write over themselves anymore. Now they have a time stamp for each backup
-- Adjusted how !help works
-- Updated styling slightly
-- Added debug mode for custom commands. Can be toggled on in the Settings Menu. 
-- Fixed trader menu configuration so it only prints the ones enabled when you do the !traders command
-- A ton of bug fixing
+- Added HitKeyLoop
+- Added HitKeyLoopAsync
+- Added MuteVolumeAsync
+- Added LeftClickLoop
+- Added LeftClickLoopAsync
+- Added RightClickLoop
+- Added RightClickLoopAsync
+- Fixed debug spelling errors
+- Updated interface to support new functions
+- Adjusted disabled and enabled command list to only show what item you have selected
+- Fixed command field not showing selected disabled command
