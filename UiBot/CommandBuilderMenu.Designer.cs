@@ -154,9 +154,9 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(203, 78);
+            saveButton.Location = new Point(242, 83);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(132, 31);
+            saveButton.Size = new Size(166, 31);
             saveButton.TabIndex = 9;
             saveButton.Text = "Save Command";
             saveButton.UseVisualStyleBackColor = true;
