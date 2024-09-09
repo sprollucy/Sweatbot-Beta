@@ -31,7 +31,7 @@ namespace UiBot
 
             // Register the SelectedIndexChanged event for the ListBox
             commandListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
-            disabledcommandsListBox.SelectedIndexChanged += commandListBox_SelectedIndexChanged;
+            disabledcommandsListBox.SelectedIndexChanged += disabledcommandListBox_SelectedIndexChanged;
 
             // Wire up other event handlers
             removeCommandButton.Click += removeCommandButton_Click;
@@ -410,6 +410,8 @@ namespace UiBot
 
         private void commandListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+
             var selectedCommand = commandListBox.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(selectedCommand))
             {
@@ -426,6 +428,39 @@ namespace UiBot
                 // Join the methods with spaces for display in the text box
                 var methodsText = string.Join(" ", command.Methods);  // Join methods with spaces
                 commandtextBox.Text = methodsText;
+            }
+
+            if (disabledcommandsListBox.SelectedIndex != -1)
+            {
+                disabledcommandsListBox.ClearSelected();
+
+            }
+        }
+        private void disabledcommandListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            var selectedCommand = disabledcommandsListBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedCommand))
+            {
+                return;
+            }
+
+            var commands = LoadDisabledCommands();
+            if (commands.TryGetValue(selectedCommand, out Command command))
+            {
+                // Update text boxes with selected command details
+                nametextBox.Text = selectedCommand;
+                costtextBox.Text = command.BitCost.ToString();
+
+                // Join the methods with spaces for display in the text box
+                var methodsText = string.Join(" ", command.Methods);  // Join methods with spaces
+                commandtextBox.Text = methodsText;
+            }
+
+            if (commandListBox.SelectedIndex != -1)
+            {
+                commandListBox.ClearSelected();
+
             }
         }
 
