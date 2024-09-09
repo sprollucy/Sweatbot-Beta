@@ -47,7 +47,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 
-### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.69a)
+### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.70a)
 
 ---
 
