@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlMenu));
             wiggleCooldownTextBox = new TextBox();
             gooseCooldownTextBox = new TextBox();
             randomKeyCooldownTextBox = new TextBox();
@@ -128,7 +126,6 @@
             openModWhitelist = new Button();
             enableBonusMulti = new CheckBox();
             bonusMultiplierBox = new TextBox();
-            contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
@@ -971,7 +968,7 @@
             // 
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(220, 215, 201);
-            enableModBits.Location = new Point(594, 219);
+            enableModBits.Location = new Point(594, 151);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -983,7 +980,7 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(220, 215, 201);
-            enableTradersCommand.Location = new Point(594, 194);
+            enableTradersCommand.Location = new Point(594, 126);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -995,7 +992,7 @@
             // 
             enableChatBonus.AutoSize = true;
             enableChatBonus.BackColor = Color.FromArgb(220, 215, 201);
-            enableChatBonus.Location = new Point(594, 292);
+            enableChatBonus.Location = new Point(594, 224);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
             enableChatBonus.TabIndex = 59;
@@ -1005,7 +1002,7 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.Location = new Point(739, 310);
+            bonusTextBox.Location = new Point(739, 242);
             bonusTextBox.Name = "bonusTextBox";
             bonusTextBox.Size = new Size(55, 23);
             bonusTextBox.TabIndex = 60;
@@ -1015,7 +1012,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(220, 215, 201);
-            label4.Location = new Point(596, 313);
+            label4.Location = new Point(596, 245);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -1027,9 +1024,9 @@
             label1.ForeColor = Color.Red;
             label1.Location = new Point(595, 35);
             label1.Name = "label1";
-            label1.Size = new Size(375, 90);
+            label1.Size = new Size(375, 30);
             label1.TabIndex = 28;
-            label1.Text = resources.GetString("label1.Text");
+            label1.Text = "Currently you need to save and restart the app after changing the cost\r\nof the commands. ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -1043,7 +1040,7 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.Location = new Point(595, 481);
+            autoMessageBox.Location = new Point(595, 413);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
             autoMessageBox.Size = new Size(228, 106);
@@ -1052,7 +1049,7 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.Location = new Point(872, 480);
+            autoSendMessageCD.Location = new Point(872, 412);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(54, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -1063,7 +1060,7 @@
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
             autoMessageLabel.Font = new Font("Cambria", 15.75F);
-            autoMessageLabel.Location = new Point(595, 409);
+            autoMessageLabel.Location = new Point(595, 341);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
             autoMessageLabel.TabIndex = 25;
@@ -1073,7 +1070,7 @@
             // 
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(220, 215, 201);
-            enableAutoMessageCheck.Location = new Point(594, 452);
+            enableAutoMessageCheck.Location = new Point(594, 384);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -1084,7 +1081,7 @@
             // pictureBox3
             // 
             pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox3.Location = new Point(585, 401);
+            pictureBox3.Location = new Point(585, 333);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(402, 236);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1094,7 +1091,7 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox4.Location = new Point(585, 143);
+            pictureBox4.Location = new Point(585, 75);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(402, 236);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1106,7 +1103,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
             label3.Font = new Font("Cambria", 15.75F);
-            label3.Location = new Point(595, 151);
+            label3.Location = new Point(595, 83);
             label3.Name = "label3";
             label3.Size = new Size(301, 25);
             label3.TabIndex = 80;
@@ -1116,7 +1113,7 @@
             // 
             textBox4.BackColor = Color.FromArgb(220, 215, 201);
             textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Location = new Point(804, 453);
+            textBox4.Location = new Point(804, 385);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(182, 16);
             textBox4.TabIndex = 82;
@@ -1127,7 +1124,7 @@
             // 
             modRefund.AutoSize = true;
             modRefund.BackColor = Color.FromArgb(220, 215, 201);
-            modRefund.Location = new Point(594, 242);
+            modRefund.Location = new Point(594, 174);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
             modRefund.TabIndex = 83;
@@ -1139,7 +1136,7 @@
             // 
             modWhitelistCheck.AutoSize = true;
             modWhitelistCheck.BackColor = Color.FromArgb(220, 215, 201);
-            modWhitelistCheck.Location = new Point(594, 267);
+            modWhitelistCheck.Location = new Point(594, 199);
             modWhitelistCheck.Name = "modWhitelistCheck";
             modWhitelistCheck.Size = new Size(254, 19);
             modWhitelistCheck.TabIndex = 84;
@@ -1150,7 +1147,7 @@
             // openModWhitelist
             // 
             openModWhitelist.Font = new Font("Segoe UI", 9F);
-            openModWhitelist.Location = new Point(851, 264);
+            openModWhitelist.Location = new Point(851, 196);
             openModWhitelist.Name = "openModWhitelist";
             openModWhitelist.Size = new Size(95, 23);
             openModWhitelist.TabIndex = 85;
@@ -1162,7 +1159,7 @@
             // 
             enableBonusMulti.AutoSize = true;
             enableBonusMulti.BackColor = Color.FromArgb(220, 215, 201);
-            enableBonusMulti.Location = new Point(594, 341);
+            enableBonusMulti.Location = new Point(594, 273);
             enableBonusMulti.Name = "enableBonusMulti";
             enableBonusMulti.Size = new Size(132, 19);
             enableBonusMulti.TabIndex = 86;
@@ -1172,22 +1169,17 @@
             // 
             // bonusMultiplierBox
             // 
-            bonusMultiplierBox.Location = new Point(739, 339);
+            bonusMultiplierBox.Location = new Point(739, 271);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
             bonusMultiplierBox.Size = new Size(23, 23);
             bonusMultiplierBox.TabIndex = 106;
             bonusMultiplierBox.Text = "20";
             // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
-            // 
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox5.BackgroundImageLayout = ImageLayout.None;
-            pictureBox5.Location = new Point(585, 402);
+            pictureBox5.Location = new Point(585, 334);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(401, 32);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1198,7 +1190,7 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(585, 143);
+            pictureBox6.Location = new Point(585, 75);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(401, 33);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1364,7 +1356,6 @@
         private Button openModWhitelist;
         private CheckBox enableBonusMulti;
         private TextBox bonusMultiplierBox;
-        private ContextMenuStrip contextMenuStrip1;
         private TextBox dropmagCostBox;
         private CheckBox enableDropMag;
         private CheckBox enableBotToggle;
