@@ -452,7 +452,6 @@ namespace UiBot
         private void commandListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-
             var selectedCommand = commandListBox.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(selectedCommand))
             {

@@ -105,7 +105,6 @@
             randomKeyInputs = new TextBox();
             restart_AppButton = new Button();
             label2 = new Label();
-            pictureBox2 = new PictureBox();
             enableModBits = new CheckBox();
             enableTradersCommand = new CheckBox();
             enableChatBonus = new CheckBox();
@@ -129,14 +128,16 @@
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
+            label8 = new Label();
+            pictureBox2 = new PictureBox();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // wiggleCooldownTextBox
@@ -325,9 +326,9 @@
             panel1.Controls.Add(randomKeyCooldownTextBox);
             panel1.Controls.Add(turnCooldownTextBox);
             panel1.Controls.Add(oneClickCooldownTextBox);
-            panel1.Location = new Point(53, 78);
+            panel1.Location = new Point(53, 129);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 932);
+            panel1.Size = new Size(514, 847);
             panel1.TabIndex = 20;
             // 
             // customCommandsBox
@@ -954,16 +955,6 @@
             label2.TabIndex = 29;
             label2.Text = "Command Toggles";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox2.Location = new Point(53, 35);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(514, 429);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 21;
-            pictureBox2.TabStop = false;
-            // 
             // enableModBits
             // 
             enableModBits.AutoSize = true;
@@ -1208,6 +1199,26 @@
             pictureBox7.TabIndex = 109;
             pictureBox7.TabStop = false;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.FromArgb(220, 215, 201);
+            label8.Location = new Point(67, 83);
+            label8.Name = "label8";
+            label8.Size = new Size(480, 45);
+            label8.TabIndex = 111;
+            label8.Text = "Most commands were originally thought of with Escape from Tarkov in mind but work for\r\nmost games.\r\nIf they don't fit your needs, check out the Command Builder to create your own!";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.FromArgb(220, 215, 201);
+            pictureBox2.Location = new Point(53, 35);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(514, 110);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 21;
+            pictureBox2.TabStop = false;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1216,6 +1227,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(label8);
             Controls.Add(restart_AppButton);
             Controls.Add(saveButton);
             Controls.Add(label2);
@@ -1249,13 +1261,13 @@
             Text = "ControlMenu";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1290,7 +1302,6 @@
         private Label label2;
         private TextBox textBox1;
         private TextBox textBox3;
-        private PictureBox pictureBox2;
         private CheckBox enableTradersCommand;
         private CheckBox enableMagDump;
         private TextBox grenadeCostBox;
@@ -1364,5 +1375,7 @@
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
         private PictureBox pictureBox7;
+        private Label label8;
+        private PictureBox pictureBox2;
     }
 }

@@ -390,8 +390,6 @@ namespace UiBot
                     }
                     break;
 
-
-
                 case "how2use":
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHow2useTimer;
 
@@ -2221,6 +2219,8 @@ namespace UiBot
         }
         public void StartAutoMessage()
         {
+            Thread.Sleep(1000);
+
             // Convert the interval to milliseconds
             int intervalMilliseconds = autoSendMessageCD * 1000;
 

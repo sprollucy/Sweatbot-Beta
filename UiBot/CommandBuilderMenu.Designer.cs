@@ -429,9 +429,9 @@
             // 
             // arightloopButton
             // 
-            arightloopButton.Location = new Point(3, 166);
+            arightloopButton.Location = new Point(256, 123);
             arightloopButton.Name = "arightloopButton";
-            arightloopButton.Size = new Size(98, 40);
+            arightloopButton.Size = new Size(104, 40);
             arightloopButton.TabIndex = 56;
             arightloopButton.Text = "Sync Loop Right Click";
             arightloopButton.UseVisualStyleBackColor = true;
@@ -441,7 +441,7 @@
             // 
             aleftloopButton.Location = new Point(256, 48);
             aleftloopButton.Name = "aleftloopButton";
-            aleftloopButton.Size = new Size(98, 40);
+            aleftloopButton.Size = new Size(104, 40);
             aleftloopButton.TabIndex = 55;
             aleftloopButton.Text = "Sync Loop Left Click";
             aleftloopButton.UseVisualStyleBackColor = true;
@@ -449,9 +449,9 @@
             // 
             // rightloopButton
             // 
-            rightloopButton.Location = new Point(3, 137);
+            rightloopButton.Location = new Point(256, 94);
             rightloopButton.Name = "rightloopButton";
-            rightloopButton.Size = new Size(98, 23);
+            rightloopButton.Size = new Size(104, 23);
             rightloopButton.TabIndex = 54;
             rightloopButton.Text = "Loop Right Click";
             rightloopButton.UseVisualStyleBackColor = true;
@@ -461,7 +461,7 @@
             // 
             leftloopButton.Location = new Point(256, 19);
             leftloopButton.Name = "leftloopButton";
-            leftloopButton.Size = new Size(98, 23);
+            leftloopButton.Size = new Size(104, 23);
             leftloopButton.TabIndex = 53;
             leftloopButton.Text = "Loop Left Click";
             leftloopButton.UseVisualStyleBackColor = true;
@@ -519,7 +519,7 @@
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(213, 166);
+            arightholdButton.Location = new Point(109, 169);
             arightholdButton.Name = "arightholdButton";
             arightholdButton.Size = new Size(105, 40);
             arightholdButton.TabIndex = 39;
@@ -529,7 +529,7 @@
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(107, 166);
+            aleftholdButton.Location = new Point(3, 169);
             aleftholdButton.Name = "aleftholdButton";
             aleftholdButton.Size = new Size(100, 40);
             aleftholdButton.TabIndex = 38;
@@ -599,7 +599,7 @@
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(213, 137);
+            rightholdButton.Location = new Point(109, 140);
             rightholdButton.Name = "rightholdButton";
             rightholdButton.Size = new Size(105, 23);
             rightholdButton.TabIndex = 31;
@@ -609,7 +609,7 @@
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(107, 137);
+            leftholdButton.Location = new Point(3, 140);
             leftholdButton.Name = "leftholdButton";
             leftholdButton.Size = new Size(100, 23);
             leftholdButton.TabIndex = 30;
