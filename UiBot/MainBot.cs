@@ -190,12 +190,12 @@ namespace UiBot
                         var command = commandHandler.GetCommand(commandName);
 
                         // Check if the command is enabled
-                        if (commandName == "test" && !Properties.Settings.Default.IsTurnEnabled)
-                        {
+                        //if (commandName == "test" && !Properties.Settings.Default.IsTurnEnabled)
+                        //{
                             // Inform the user that the command is disabled
-                            client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
-                            return;
-                        }
+                          //  client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
+                           // return;
+                        //}
 
                         // Process other commands
                         int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)

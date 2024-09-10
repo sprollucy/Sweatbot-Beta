@@ -208,7 +208,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(156, 155, 151);
-            label5.Location = new Point(72, 500);
+            label5.Location = new Point(72, 547);
             label5.Name = "label5";
             label5.Size = new Size(251, 15);
             label5.TabIndex = 30;
@@ -219,7 +219,7 @@
             // 
             githubLink.AutoSize = true;
             githubLink.BackColor = Color.FromArgb(156, 155, 151);
-            githubLink.Location = new Point(329, 500);
+            githubLink.Location = new Point(329, 547);
             githubLink.Name = "githubLink";
             githubLink.Size = new Size(43, 15);
             githubLink.TabIndex = 29;
@@ -232,7 +232,7 @@
             // 
             versionNumber.AutoSize = true;
             versionNumber.BackColor = Color.FromArgb(156, 155, 151);
-            versionNumber.Location = new Point(897, 538);
+            versionNumber.Location = new Point(897, 585);
             versionNumber.Name = "versionNumber";
             versionNumber.RightToLeft = RightToLeft.No;
             versionNumber.Size = new Size(89, 15);
@@ -245,7 +245,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            label7.Location = new Point(70, 530);
+            label7.Location = new Point(70, 577);
             label7.Name = "label7";
             label7.Size = new Size(551, 25);
             label7.TabIndex = 27;
@@ -256,7 +256,7 @@
             // 
             pictureBox2.BackColor = Color.FromArgb(156, 155, 151);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
-            pictureBox2.Location = new Point(0, 485);
+            pictureBox2.Location = new Point(0, 532);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(1046, 85);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -278,7 +278,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(156, 155, 151);
-            label4.Location = new Point(72, 515);
+            label4.Location = new Point(72, 562);
             label4.Name = "label4";
             label4.Size = new Size(324, 15);
             label4.TabIndex = 35;
@@ -288,7 +288,7 @@
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.BackColor = Color.FromArgb(156, 155, 151);
-            linkLabel1.Location = new Point(402, 515);
+            linkLabel1.Location = new Point(402, 562);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(42, 15);
             linkLabel1.TabIndex = 36;
@@ -324,7 +324,7 @@
             groupBox2.Controls.Add(bitrestoreButton);
             groupBox2.Location = new Point(54, 171);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(417, 96);
+            groupBox2.Size = new Size(417, 84);
             groupBox2.TabIndex = 39;
             groupBox2.TabStop = false;
             groupBox2.Text = "Restore settings";
@@ -343,6 +343,8 @@
             // 
             enableUpdateCheck.AutoSize = true;
             enableUpdateCheck.BackColor = Color.FromArgb(201, 198, 189);
+            enableUpdateCheck.Checked = true;
+            enableUpdateCheck.CheckState = CheckState.Checked;
             enableUpdateCheck.Location = new Point(198, 25);
             enableUpdateCheck.Name = "enableUpdateCheck";
             enableUpdateCheck.Size = new Size(197, 19);
@@ -355,7 +357,7 @@
             // 
             groupBox3.Controls.Add(checkUpdateButton);
             groupBox3.Controls.Add(enableUpdateCheck);
-            groupBox3.Location = new Point(54, 272);
+            groupBox3.Location = new Point(54, 261);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(417, 55);
             groupBox3.TabIndex = 40;
@@ -398,7 +400,7 @@
             // 
             groupBox4.Controls.Add(enablewriteDebug);
             groupBox4.Controls.Add(enableDebug);
-            groupBox4.Location = new Point(54, 333);
+            groupBox4.Location = new Point(54, 322);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(417, 55);
             groupBox4.TabIndex = 111;
@@ -421,7 +423,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(201, 198, 189);
-            ClientSize = new Size(1041, 602);
+            ClientSize = new Size(1041, 616);
             ControlBox = false;
             Controls.Add(groupBox4);
             Controls.Add(changelogLabel);

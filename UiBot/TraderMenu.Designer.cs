@@ -250,7 +250,7 @@
             // 
             praporRemainingTime.AutoSize = true;
             praporRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            praporRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            praporRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             praporRemainingTime.Location = new Point(3, 66);
             praporRemainingTime.Name = "praporRemainingTime";
             praporRemainingTime.Size = new Size(173, 21);
@@ -261,7 +261,7 @@
             // 
             praporResetLabel.AutoSize = true;
             praporResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            praporResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            praporResetLabel.Font = new Font("Segoe UI", 11F);
             praporResetLabel.Location = new Point(3, 32);
             praporResetLabel.Name = "praporResetLabel";
             praporResetLabel.Size = new Size(126, 20);
@@ -272,7 +272,7 @@
             // 
             praporLabel.AutoSize = true;
             praporLabel.BackColor = Color.FromArgb(162, 123, 92);
-            praporLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            praporLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             praporLabel.Location = new Point(3, 3);
             praporLabel.Name = "praporLabel";
             praporLabel.Size = new Size(118, 22);
@@ -304,7 +304,7 @@
             // 
             therapistRemainingTime.AutoSize = true;
             therapistRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            therapistRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            therapistRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             therapistRemainingTime.Location = new Point(3, 66);
             therapistRemainingTime.Name = "therapistRemainingTime";
             therapistRemainingTime.Size = new Size(188, 21);
@@ -315,7 +315,7 @@
             // 
             therapistResetLabel.AutoSize = true;
             therapistResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            therapistResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            therapistResetLabel.Font = new Font("Segoe UI", 11F);
             therapistResetLabel.Location = new Point(3, 32);
             therapistResetLabel.Name = "therapistResetLabel";
             therapistResetLabel.Size = new Size(139, 20);
@@ -326,7 +326,7 @@
             // 
             therapistLabel.AutoSize = true;
             therapistLabel.BackColor = Color.FromArgb(162, 123, 92);
-            therapistLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            therapistLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             therapistLabel.Location = new Point(3, 3);
             therapistLabel.Name = "therapistLabel";
             therapistLabel.Size = new Size(137, 22);
@@ -358,7 +358,7 @@
             // 
             peacekeeperRemainingTime.AutoSize = true;
             peacekeeperRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            peacekeeperRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            peacekeeperRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             peacekeeperRemainingTime.Location = new Point(3, 66);
             peacekeeperRemainingTime.Name = "peacekeeperRemainingTime";
             peacekeeperRemainingTime.Size = new Size(218, 21);
@@ -369,7 +369,7 @@
             // 
             peacekeeperResetLabel.AutoSize = true;
             peacekeeperResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            peacekeeperResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            peacekeeperResetLabel.Font = new Font("Segoe UI", 11F);
             peacekeeperResetLabel.Location = new Point(3, 32);
             peacekeeperResetLabel.Name = "peacekeeperResetLabel";
             peacekeeperResetLabel.Size = new Size(166, 20);
@@ -380,7 +380,7 @@
             // 
             peacekeeperLabel.AutoSize = true;
             peacekeeperLabel.BackColor = Color.FromArgb(162, 123, 92);
-            peacekeeperLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            peacekeeperLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             peacekeeperLabel.Location = new Point(3, 3);
             peacekeeperLabel.Name = "peacekeeperLabel";
             peacekeeperLabel.Size = new Size(168, 22);
@@ -412,7 +412,7 @@
             // 
             ragmanRemainingTime.AutoSize = true;
             ragmanRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            ragmanRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ragmanRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             ragmanRemainingTime.Location = new Point(3, 66);
             ragmanRemainingTime.Name = "ragmanRemainingTime";
             ragmanRemainingTime.Size = new Size(178, 21);
@@ -423,7 +423,7 @@
             // 
             ragmanResetLabel.AutoSize = true;
             ragmanResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            ragmanResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            ragmanResetLabel.Font = new Font("Segoe UI", 11F);
             ragmanResetLabel.Location = new Point(3, 32);
             ragmanResetLabel.Name = "ragmanResetLabel";
             ragmanResetLabel.Size = new Size(132, 20);
@@ -434,7 +434,7 @@
             // 
             ragmanLabel.AutoSize = true;
             ragmanLabel.BackColor = Color.FromArgb(162, 123, 92);
-            ragmanLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            ragmanLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             ragmanLabel.Location = new Point(3, 3);
             ragmanLabel.Name = "ragmanLabel";
             ragmanLabel.Size = new Size(124, 22);
@@ -466,7 +466,7 @@
             // 
             fenceRemainingTime.AutoSize = true;
             fenceRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            fenceRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            fenceRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             fenceRemainingTime.Location = new Point(3, 66);
             fenceRemainingTime.Name = "fenceRemainingTime";
             fenceRemainingTime.Size = new Size(164, 21);
@@ -477,7 +477,7 @@
             // 
             fenceResetLabel.AutoSize = true;
             fenceResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            fenceResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            fenceResetLabel.Font = new Font("Segoe UI", 11F);
             fenceResetLabel.Location = new Point(3, 32);
             fenceResetLabel.Name = "fenceResetLabel";
             fenceResetLabel.Size = new Size(117, 20);
@@ -488,7 +488,7 @@
             // 
             fenceLabel.AutoSize = true;
             fenceLabel.BackColor = Color.FromArgb(162, 123, 92);
-            fenceLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fenceLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             fenceLabel.Location = new Point(3, 3);
             fenceLabel.Name = "fenceLabel";
             fenceLabel.Size = new Size(103, 22);
@@ -520,7 +520,7 @@
             // 
             mechanicRemainingTime.AutoSize = true;
             mechanicRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            mechanicRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            mechanicRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             mechanicRemainingTime.Location = new Point(3, 66);
             mechanicRemainingTime.Name = "mechanicRemainingTime";
             mechanicRemainingTime.Size = new Size(192, 21);
@@ -531,7 +531,7 @@
             // 
             mechanicResetLabel.AutoSize = true;
             mechanicResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            mechanicResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            mechanicResetLabel.Font = new Font("Segoe UI", 11F);
             mechanicResetLabel.Location = new Point(3, 32);
             mechanicResetLabel.Name = "mechanicResetLabel";
             mechanicResetLabel.Size = new Size(144, 20);
@@ -542,7 +542,7 @@
             // 
             mechanicLabel.AutoSize = true;
             mechanicLabel.BackColor = Color.FromArgb(162, 123, 92);
-            mechanicLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            mechanicLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             mechanicLabel.Location = new Point(3, 3);
             mechanicLabel.Name = "mechanicLabel";
             mechanicLabel.Size = new Size(140, 22);
@@ -574,7 +574,7 @@
             // 
             lightkeeperRemainingTime.AutoSize = true;
             lightkeeperRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            lightkeeperRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lightkeeperRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             lightkeeperRemainingTime.Location = new Point(3, 66);
             lightkeeperRemainingTime.Name = "lightkeeperRemainingTime";
             lightkeeperRemainingTime.Size = new Size(207, 21);
@@ -585,7 +585,7 @@
             // 
             lightkeeperResetLabel.AutoSize = true;
             lightkeeperResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            lightkeeperResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lightkeeperResetLabel.Font = new Font("Segoe UI", 11F);
             lightkeeperResetLabel.Location = new Point(3, 32);
             lightkeeperResetLabel.Name = "lightkeeperResetLabel";
             lightkeeperResetLabel.Size = new Size(156, 20);
@@ -596,7 +596,7 @@
             // 
             lightkeeperLabel.AutoSize = true;
             lightkeeperLabel.BackColor = Color.FromArgb(162, 123, 92);
-            lightkeeperLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lightkeeperLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             lightkeeperLabel.Location = new Point(3, 3);
             lightkeeperLabel.Name = "lightkeeperLabel";
             lightkeeperLabel.Size = new Size(158, 22);
@@ -628,7 +628,7 @@
             // 
             jaegerRemainingTime.AutoSize = true;
             jaegerRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            jaegerRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            jaegerRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             jaegerRemainingTime.Location = new Point(3, 66);
             jaegerRemainingTime.Name = "jaegerRemainingTime";
             jaegerRemainingTime.Size = new Size(169, 21);
@@ -639,7 +639,7 @@
             // 
             jaegerResetLabel.AutoSize = true;
             jaegerResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            jaegerResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            jaegerResetLabel.Font = new Font("Segoe UI", 11F);
             jaegerResetLabel.Location = new Point(3, 32);
             jaegerResetLabel.Name = "jaegerResetLabel";
             jaegerResetLabel.Size = new Size(123, 20);
@@ -650,7 +650,7 @@
             // 
             jaegerLabel.AutoSize = true;
             jaegerLabel.BackColor = Color.FromArgb(162, 123, 92);
-            jaegerLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            jaegerLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             jaegerLabel.Location = new Point(3, 3);
             jaegerLabel.Name = "jaegerLabel";
             jaegerLabel.Size = new Size(112, 22);
@@ -682,7 +682,7 @@
             // 
             skierRemainingTime.AutoSize = true;
             skierRemainingTime.BackColor = Color.FromArgb(181, 176, 163);
-            skierRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            skierRemainingTime.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             skierRemainingTime.Location = new Point(3, 66);
             skierRemainingTime.Name = "skierRemainingTime";
             skierRemainingTime.Size = new Size(157, 21);
@@ -693,7 +693,7 @@
             // 
             skierResetLabel.AutoSize = true;
             skierResetLabel.BackColor = Color.FromArgb(181, 176, 163);
-            skierResetLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            skierResetLabel.Font = new Font("Segoe UI", 11F);
             skierResetLabel.Location = new Point(3, 32);
             skierResetLabel.Name = "skierResetLabel";
             skierResetLabel.Size = new Size(111, 20);
@@ -704,7 +704,7 @@
             // 
             skierLabel.AutoSize = true;
             skierLabel.BackColor = Color.FromArgb(162, 123, 92);
-            skierLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            skierLabel.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             skierLabel.Location = new Point(3, 3);
             skierLabel.Name = "skierLabel";
             skierLabel.Size = new Size(102, 22);
@@ -724,6 +724,8 @@
             // disableSound
             // 
             disableSound.AutoSize = true;
+            disableSound.Checked = true;
+            disableSound.CheckState = CheckState.Checked;
             disableSound.Location = new Point(823, 410);
             disableSound.Name = "disableSound";
             disableSound.RightToLeft = RightToLeft.No;

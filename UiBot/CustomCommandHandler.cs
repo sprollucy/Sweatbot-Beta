@@ -296,7 +296,6 @@ public class CustomCommandHandler
         }
     }
 
-
     private void HitKey(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
