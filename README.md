@@ -153,7 +153,12 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added LeftClickLoopAsync
 - Added RightClickLoop
 - Added RightClickLoopAsync
+- Added MousePos
 - Fixed debug spelling errors
 - Updated interface to support new functions
 - Adjusted disabled and enabled command list to only show what item you have selected
 - Fixed command field not showing selected disabled command
+- Added write debug to settings menu. Used to Log anything that shows up in the console to a debug file in the Logs folder
+- Added a way to find the mouse position of wherever the mouse is. Under the command builder menu, Select the box with "X: 0, Y: 0" then move the mouse to wherever you want it and hit shift. Then if you use the "Move Mouse to Position" button it will automatically add the position in
+- Removed dropkit as its easier to do with Custom Commands
+- Redesigned the Command Builder Menu for readability
