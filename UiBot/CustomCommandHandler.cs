@@ -76,8 +76,6 @@ public class CustomCommandHandler
     };
     }
 
-
-
     public Dictionary<string, int> GetAllCommandsWithCosts()
     {
         return _commands.ToDictionary(
@@ -85,7 +83,6 @@ public class CustomCommandHandler
             cmd => cmd.Value.BitCost
         );
     }
-
 
     public static Dictionary<string, Command> LoadCommandsFromFile(string filePath)
     {
@@ -105,7 +102,6 @@ public class CustomCommandHandler
 
         return commands;
     }
-
 
     public Command GetCommand(string commandName)
     {
@@ -181,13 +177,11 @@ public class CustomCommandHandler
             }
         }
 
-        // Execute synchronous methods in sequence
         foreach (var task in sequentialTasks)
         {
             await task();
         }
 
-        // Execute asynchronous methods in parallel
         await Task.WhenAll(asyncTasks.Select(t => t()));
     }
 
