@@ -49,6 +49,7 @@ public class CustomCommandHandler
         { "leftclick", LeftClick },
         { "rightclick", RightClick },
         { "turnmouse", TurnMouse },
+        { "mousepos", MousePos },
         { "playsoundclip", PlaySoundClip },
         { "rightclickhold", RightClickHold },
         { "leftclickhold", LeftClickHold },
@@ -692,6 +693,29 @@ public class CustomCommandHandler
         {
             Console.WriteLine($"Error turning mouse: {ex.Message}");
         }
+    }
+
+    private void MousePos(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MousePos.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+),(\d+)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int x) || !int.TryParse(match.Groups[2].Value, out int y))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: x,y.");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Moving mouse to position ({x}, {y}).");
+        }
+
+        SetCursorPos(x, y);
     }
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)

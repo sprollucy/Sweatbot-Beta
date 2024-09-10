@@ -426,7 +426,6 @@ namespace UiBot
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
                         {
                                 { "WiggleCooldownTextBox", ("wiggle", () => Properties.Settings.Default.IsWiggleEnabled) },
-                                { "DropCooldownTextBox", ("dropkit", () => Properties.Settings.Default.IsDropEnabled) },
                                 { "GooseCooldownTextBox", ("goose", () => Properties.Settings.Default.IsGooseEnabled) },
                                 { "RandomKeyCooldownTextBox", ("randomkeys", () => Properties.Settings.Default.IsKeyEnabled) },
                                 { "TurnCooldownTextBox", ("turn", () => Properties.Settings.Default.IsTurnEnabled) },
@@ -1087,52 +1086,6 @@ namespace UiBot
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
                                     client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
-                                    Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
-
-                                }
-                                else
-                                {
-                                    // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
-                                }
-                            }
-                            else
-                            {
-                                // Send message indicating invalid cooldown value
-                                client.SendMessage(channelId, "Invalid cost value.");
-                            }
-                        }
-                        else
-                        {
-                            // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
-                        }
-                    }
-                    break;
-
-                case "dropkit":
-                    if (Properties.Settings.Default.IsDropEnabled && !Properties.Settings.Default.isCommandsPaused)
-                    {
-
-                        // Check if the user's bits are loaded
-                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
-                        {
-                            // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.DropCooldownTextBox.Text, out int bitCost))
-                            {
-                                // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
-                                {
-                                    LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "dropkit", bitCost, userBits, timestamp);
-
-                                    // Deduct the cost of the command
-                                    userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
-
-                                    chatCommandMethods.SimulateButtonPressAndMouseMovement();
-
-                                    // Save the updated bit data
-                                    LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropkit used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }

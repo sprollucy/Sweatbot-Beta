@@ -49,6 +49,13 @@
             restartButton = new Button();
             holdkeyButton = new Button();
             panel1 = new Panel();
+            label14 = new Label();
+            mouseposTextBox = new TextBox();
+            mouseposButton = new Button();
+            arightloopButton = new Button();
+            aleftloopButton = new Button();
+            rightloopButton = new Button();
+            leftloopButton = new Button();
             amuteButton = new Button();
             ahitkeyloopButton = new Button();
             hitkeyloopButton = new Button();
@@ -83,10 +90,6 @@
             restorecommandButton = new Button();
             label12 = new Label();
             label13 = new Label();
-            arightloopButton = new Button();
-            aleftloopButton = new Button();
-            rightloopButton = new Button();
-            leftloopButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -159,9 +162,9 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(3, 120);
+            saveButton.Location = new Point(689, 107);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(166, 31);
+            saveButton.Size = new Size(166, 40);
             saveButton.TabIndex = 9;
             saveButton.Text = "Save Command";
             saveButton.UseVisualStyleBackColor = true;
@@ -181,7 +184,7 @@
             // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(218, 339);
+            openCustomJson.Location = new Point(218, 310);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -214,9 +217,9 @@
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(218, 310);
+            removeCommandButton.Location = new Point(58, 439);
             removeCommandButton.Name = "removeCommandButton";
-            removeCommandButton.Size = new Size(108, 23);
+            removeCommandButton.Size = new Size(74, 45);
             removeCommandButton.TabIndex = 17;
             removeCommandButton.Text = "Delete Command";
             removeCommandButton.UseVisualStyleBackColor = true;
@@ -299,6 +302,9 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(220, 215, 201);
+            panel1.Controls.Add(label14);
+            panel1.Controls.Add(mouseposTextBox);
+            panel1.Controls.Add(mouseposButton);
             panel1.Controls.Add(arightloopButton);
             panel1.Controls.Add(aleftloopButton);
             panel1.Controls.Add(rightloopButton);
@@ -338,6 +344,73 @@
             panel1.Size = new Size(975, 154);
             panel1.TabIndex = 25;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(96, 127);
+            label14.Name = "label14";
+            label14.Size = new Size(230, 15);
+            label14.TabIndex = 59;
+            label14.Text = "Click box then hit Shift for Mouse Position";
+            // 
+            // mouseposTextBox
+            // 
+            mouseposTextBox.Location = new Point(3, 124);
+            mouseposTextBox.Name = "mouseposTextBox";
+            mouseposTextBox.Size = new Size(87, 23);
+            mouseposTextBox.TabIndex = 58;
+            mouseposTextBox.Text = "X: 0, Y: 0";
+            // 
+            // mouseposButton
+            // 
+            mouseposButton.Location = new Point(346, 78);
+            mouseposButton.Name = "mouseposButton";
+            mouseposButton.Size = new Size(85, 40);
+            mouseposButton.TabIndex = 57;
+            mouseposButton.Text = "Move Mouse to Position";
+            mouseposButton.UseVisualStyleBackColor = true;
+            mouseposButton.Click += mouseposButton_Click;
+            // 
+            // arightloopButton
+            // 
+            arightloopButton.Location = new Point(541, 107);
+            arightloopButton.Name = "arightloopButton";
+            arightloopButton.Size = new Size(98, 40);
+            arightloopButton.TabIndex = 56;
+            arightloopButton.Text = "Sync Loop Right Click";
+            arightloopButton.UseVisualStyleBackColor = true;
+            arightloopButton.Click += arightloopButton_Click;
+            // 
+            // aleftloopButton
+            // 
+            aleftloopButton.Location = new Point(437, 107);
+            aleftloopButton.Name = "aleftloopButton";
+            aleftloopButton.Size = new Size(98, 40);
+            aleftloopButton.TabIndex = 55;
+            aleftloopButton.Text = "Sync Loop Left Click";
+            aleftloopButton.UseVisualStyleBackColor = true;
+            aleftloopButton.Click += aleftloopButton_Click;
+            // 
+            // rightloopButton
+            // 
+            rightloopButton.Location = new Point(541, 78);
+            rightloopButton.Name = "rightloopButton";
+            rightloopButton.Size = new Size(98, 23);
+            rightloopButton.TabIndex = 54;
+            rightloopButton.Text = "Loop Right Click";
+            rightloopButton.UseVisualStyleBackColor = true;
+            rightloopButton.Click += rightloopButton_Click;
+            // 
+            // leftloopButton
+            // 
+            leftloopButton.Location = new Point(437, 78);
+            leftloopButton.Name = "leftloopButton";
+            leftloopButton.Size = new Size(98, 23);
+            leftloopButton.TabIndex = 53;
+            leftloopButton.Text = "Loop Left Click";
+            leftloopButton.UseVisualStyleBackColor = true;
+            leftloopButton.Click += leftloopButton_Click;
+            // 
             // amuteButton
             // 
             amuteButton.Location = new Point(897, 78);
@@ -350,9 +423,9 @@
             // 
             // ahitkeyloopButton
             // 
-            ahitkeyloopButton.Location = new Point(346, 78);
+            ahitkeyloopButton.Location = new Point(267, 78);
             ahitkeyloopButton.Name = "ahitkeyloopButton";
-            ahitkeyloopButton.Size = new Size(85, 40);
+            ahitkeyloopButton.Size = new Size(73, 40);
             ahitkeyloopButton.TabIndex = 51;
             ahitkeyloopButton.Text = "Sync Hit Key Loop";
             ahitkeyloopButton.UseVisualStyleBackColor = true;
@@ -360,7 +433,7 @@
             // 
             // hitkeyloopButton
             // 
-            hitkeyloopButton.Location = new Point(265, 78);
+            hitkeyloopButton.Location = new Point(186, 78);
             hitkeyloopButton.Name = "hitkeyloopButton";
             hitkeyloopButton.Size = new Size(75, 40);
             hitkeyloopButton.TabIndex = 50;
@@ -627,18 +700,18 @@
             // 
             // disablecommandButton
             // 
-            disablecommandButton.Location = new Point(73, 439);
+            disablecommandButton.Location = new Point(138, 439);
             disablecommandButton.Name = "disablecommandButton";
-            disablecommandButton.Size = new Size(111, 47);
+            disablecommandButton.Size = new Size(72, 45);
             disablecommandButton.TabIndex = 27;
-            disablecommandButton.Text = "Disable Selected Command";
+            disablecommandButton.Text = "Disable Command";
             disablecommandButton.UseVisualStyleBackColor = true;
             // 
             // restorecommandButton
             // 
             restorecommandButton.Location = new Point(361, 439);
             restorecommandButton.Name = "restorecommandButton";
-            restorecommandButton.Size = new Size(110, 47);
+            restorecommandButton.Size = new Size(110, 45);
             restorecommandButton.TabIndex = 28;
             restorecommandButton.Text = "Enable Selected Command";
             restorecommandButton.UseVisualStyleBackColor = true;
@@ -662,46 +735,6 @@
             label13.Size = new Size(117, 15);
             label13.TabIndex = 30;
             label13.Text = "Disabled Commands";
-            // 
-            // arightloopButton
-            // 
-            arightloopButton.Location = new Point(541, 107);
-            arightloopButton.Name = "arightloopButton";
-            arightloopButton.Size = new Size(98, 40);
-            arightloopButton.TabIndex = 56;
-            arightloopButton.Text = "Sync Loop Right Click";
-            arightloopButton.UseVisualStyleBackColor = true;
-            arightloopButton.Click += arightloopButton_Click;
-            // 
-            // aleftloopButton
-            // 
-            aleftloopButton.Location = new Point(437, 107);
-            aleftloopButton.Name = "aleftloopButton";
-            aleftloopButton.Size = new Size(98, 40);
-            aleftloopButton.TabIndex = 55;
-            aleftloopButton.Text = "Sync Loop Left Click";
-            aleftloopButton.UseVisualStyleBackColor = true;
-            aleftloopButton.Click += aleftloopButton_Click;
-            // 
-            // rightloopButton
-            // 
-            rightloopButton.Location = new Point(541, 78);
-            rightloopButton.Name = "rightloopButton";
-            rightloopButton.Size = new Size(98, 23);
-            rightloopButton.TabIndex = 54;
-            rightloopButton.Text = "Loop Right Click";
-            rightloopButton.UseVisualStyleBackColor = true;
-            rightloopButton.Click += rightloopButton_Click;
-            // 
-            // leftloopButton
-            // 
-            leftloopButton.Location = new Point(437, 78);
-            leftloopButton.Name = "leftloopButton";
-            leftloopButton.Size = new Size(98, 23);
-            leftloopButton.TabIndex = 53;
-            leftloopButton.Text = "Loop Left Click";
-            leftloopButton.UseVisualStyleBackColor = true;
-            leftloopButton.Click += leftloopButton_Click;
             // 
             // CommandBuilderMenu
             // 
@@ -811,5 +844,8 @@
         private Button aleftloopButton;
         private Button rightloopButton;
         private Button leftloopButton;
+        private Button mouseposButton;
+        private TextBox mouseposTextBox;
+        private Label label14;
     }
 }

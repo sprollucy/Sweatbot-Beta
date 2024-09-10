@@ -11,11 +11,15 @@ namespace UiBot
     {
         private readonly string _commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
+        private int mouseX;
+        private int mouseY;
 
         public CommandBuilderMenu()
         {
             InitializeComponent();
             this.TopLevel = false;
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(this.CommandBuilderMenu_KeyDown);
 
             // Ensure the Data directory exists
             var directory = Path.GetDirectoryName(_commandsFilePath);
@@ -39,7 +43,20 @@ namespace UiBot
             restorecommandButton.Click += restorecommandButton_Click;
 
         }
+        private void CommandBuilderMenu_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Check if the Shift key is pressed
+            if (e.Shift)
+            {
+                // Get the current mouse position
+                var mousePosition = Cursor.Position;
+                mouseX = mousePosition.X;
+                mouseY = mousePosition.Y;
 
+                // Display the mouse position in the mouseposTextBox
+                mouseposTextBox.Text = $"X: {mousePosition.X}, Y: {mousePosition.Y}";
+            }
+        }
 
         private void holdkeyButton_Click(object sender, EventArgs e)
         {
@@ -183,6 +200,11 @@ namespace UiBot
         private void amuteButton_Click(object sender, EventArgs e)
         {
             commandtextBox.Text += GetCommandText(" MuteVolumeAsync=dur ");
+        }
+
+        private void mouseposButton_Click(object sender, EventArgs e)
+        {
+            commandtextBox.Text += GetCommandText($" MousePos({mouseX},{mouseY}) ");
         }
 
         private void disablecommandButton_Click(object sender, EventArgs e)

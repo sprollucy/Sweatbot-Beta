@@ -27,7 +27,6 @@ namespace UiBot
             chkEnableGoose.Checked = Properties.Settings.Default.IsGooseEnabled;
             enableWiggle.Checked = Properties.Settings.Default.IsWiggleEnabled;
             enableRandomKey.Checked = Properties.Settings.Default.IsKeyEnabled;
-            enableKitDrop.Checked = Properties.Settings.Default.IsDropEnabled;
             randomTurn.Checked = Properties.Settings.Default.IsTurnEnabled;
             oneClickCheck.Checked = Properties.Settings.Default.IsPopEnabled;
             enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
@@ -71,7 +70,6 @@ namespace UiBot
         {
             // Add your TextBox controls to the dictionary with unique keys
             textBoxes["wiggleCooldown"] = WiggleCooldownTextBox;
-            textBoxes["dropCooldown"] = DropCooldownTextBox;
             textBoxes["turnCooldown"] = TurnCooldownTextBox;
             textBoxes["gooseCooldown"] = GooseCooldownTextBox;
             textBoxes["randomKeyCooldown"] = RandomKeyCooldownTextBox;
@@ -82,7 +80,6 @@ namespace UiBot
             textBoxes["soundCostBox"] = SoundTextBox;
             textBoxes["dropbagCooldown"] = dropbagCooldownTextBox;
             textBoxes["dropbagKey"] = dropbagKeyBox;
-            textBoxes["dropKey"] = DropKeyTextBox;
             textBoxes["granadeToss"] = GrenadeCostBox;
             textBoxes["grenadeTossKey"] = GrenadeKeyBox;
             textBoxes["crouchKey"] = CrouchKeyBox;
@@ -126,11 +123,6 @@ namespace UiBot
             get { return wiggleCooldownTextBox; }
             set { wiggleCooldownTextBox = value; }
         }
-        public TextBox DropCooldownTextBox
-        {
-            get { return dropCooldownTextBox; }
-            set { dropCooldownTextBox = value; }
-        }
         public TextBox TurnCooldownTextBox
         {
             get { return turnCooldownTextBox; }
@@ -171,12 +163,6 @@ namespace UiBot
         {
             get { return dropbagKeyBox; }
             set { dropbagKeyBox = value; }
-        }
-
-        public TextBox DropKeyTextBox
-        {
-            get { return dropKeyTextBox; }
-            set { dropKeyTextBox = value; }
         }
 
         public TextBox AutoMessageBox
@@ -436,12 +422,6 @@ namespace UiBot
             Properties.Settings.Default.IsKeyEnabled = enableRandomKey.Checked;
             Properties.Settings.Default.Save();
 
-        }
-
-        private void enableKitDrop_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.IsDropEnabled = enableKitDrop.Checked;
-            Properties.Settings.Default.Save();
         }
 
         private void randomTurn_CheckedChanged(object sender, EventArgs e)

@@ -86,18 +86,6 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsDropEnabled {
-            get {
-                return ((bool)(this["IsDropEnabled"]));
-            }
-            set {
-                this["IsDropEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IsTurnEnabled {
             get {
                 return ((bool)(this["IsTurnEnabled"]));
