@@ -394,23 +394,6 @@ namespace UiBot
             return methods;
         }
 
-        private string ReplaceCommasOutsideParentheses(string input, bool replaceWithSpace)
-        {
-            // Regex to match commas or spaces outside parentheses
-            var pattern = @"(\s)(?=(?:[^\(\)]|\([^\(\)]*\))*$)";
-
-            if (replaceWithSpace)
-            {
-                // Replace commas outside parentheses with spaces
-                return System.Text.RegularExpressions.Regex.Replace(input, pattern, ",");
-            }
-            else
-            {
-                // Replace spaces outside parentheses with commas for proper saving
-                return input.Replace(" ", ",");
-            }
-        }
-
         private Dictionary<string, Command> LoadCommands()
         {
             if (!File.Exists(_commandsFilePath))
