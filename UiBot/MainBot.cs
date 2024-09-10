@@ -202,7 +202,6 @@ namespace UiBot
                             ? MainBot.userBits[e.ChatMessage.DisplayName]
                             : 0;
 
-                        // Check if the user has enough bits to execute the command
                         if (commandHandler.CanExecuteCommand(commandName, userBits))
                         {
                             try
@@ -220,8 +219,18 @@ namespace UiBot
                                 // Save the updated bit data
                                 LogHandler.WriteUserBitsToJson(userBitsFilePath);
 
+                                string message = "";
+
+                                // Only add remaining bits info if BitCost is greater than 0
+                                if (command.BitCost > 0)
+                                {
+                                    message += $" You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.";
+                                }
+
                                 // Inform the user that the command was executed
-                                client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, {commandName} used! You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.");
+                                client.SendMessage(e.ChatMessage.Channel, message);
+
+                                // Log command details to the console
                                 Console.WriteLine($"[{timestamp1}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
                             }
                             catch (Exception ex)

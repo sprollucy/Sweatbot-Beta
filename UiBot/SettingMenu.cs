@@ -69,7 +69,7 @@ namespace UiBot
             existingData.BotToken = userInput1;
 
             // Specify the path to the JSON file
-            string jsonFilePath = Path.Combine("Data", "Logon.json");
+            string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
 
             // Serialize and save the updated data to the JSON file
             string jsonData = JsonConvert.SerializeObject(existingData, Formatting.Indented);
@@ -89,7 +89,7 @@ namespace UiBot
             existingData.ChannelName = userInput2;
 
             // Specify the path to the JSON file
-            string jsonFilePath = Path.Combine("Data", "Logon.json");
+            string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
 
             // Serialize and save the updated data to the JSON file
             string jsonData = JsonConvert.SerializeObject(existingData, Formatting.Indented);
