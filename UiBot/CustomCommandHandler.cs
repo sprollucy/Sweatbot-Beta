@@ -130,9 +130,7 @@ public class CustomCommandHandler
             return;
         }
 
-        var sequentialTasks = new List<Func<Task>>();
-        var asyncTasks = new List<Func<Task>>();
-
+        // Execute tasks in the exact order they are defined in command.Methods
         foreach (var methodName in command.Methods)
         {
             string method;
@@ -160,30 +158,25 @@ public class CustomCommandHandler
                 }
             }
 
+            // Handle synchronous actions
             if (_syncMethodMap.TryGetValue(method, out var syncAction))
             {
-                sequentialTasks.Add(async () =>
-                {
-                    await Task.Run(() => syncAction(client, channel, parameters));
-                });
+                // Execute sync method as a blocking task
+                await Task.Run(() => syncAction(client, channel, parameters));
             }
+            // Handle asynchronous actions
             else if (_asyncMethodMap.TryGetValue(method, out var asyncAction))
             {
-                asyncTasks.Add(() => asyncAction(client, channel, parameters));
+                // Execute async method
+                await asyncAction(client, channel, parameters);
             }
             else
             {
                 Console.WriteLine($"Method {method} not recognized.");
             }
         }
-
-        foreach (var task in sequentialTasks)
-        {
-            await task();
-        }
-
-        await Task.WhenAll(asyncTasks.Select(t => t()));
     }
+
 
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
