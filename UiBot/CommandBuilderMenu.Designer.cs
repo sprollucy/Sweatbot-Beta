@@ -99,6 +99,7 @@
             panel4 = new Panel();
             label16 = new Label();
             pictureBox4 = new PictureBox();
+            adelayButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -811,6 +812,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(220, 215, 201);
+            panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
             panel4.Controls.Add(playsoundButton);
             panel4.Controls.Add(aplaysoundButton);
@@ -843,6 +845,16 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
+            // 
+            // adelayButton
+            // 
+            adelayButton.Location = new Point(3, 48);
+            adelayButton.Name = "adelayButton";
+            adelayButton.Size = new Size(75, 40);
+            adelayButton.TabIndex = 59;
+            adelayButton.Text = "Sync Delay";
+            adelayButton.UseVisualStyleBackColor = true;
+            adelayButton.Click += adelayButton_Click;
             // 
             // CommandBuilderMenu
             // 
@@ -976,5 +988,6 @@
         private Label label16;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
+        private Button adelayButton;
     }
 }

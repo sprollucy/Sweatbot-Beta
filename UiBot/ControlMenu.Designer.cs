@@ -130,6 +130,10 @@
             pictureBox7 = new PictureBox();
             label8 = new Label();
             pictureBox2 = new PictureBox();
+            label9 = new Label();
+            pictureBox8 = new PictureBox();
+            checkEnableBitMsg = new CheckBox();
+            pictureBox9 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -138,6 +142,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             SuspendLayout();
             // 
             // wiggleCooldownTextBox
@@ -1031,7 +1037,7 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.Location = new Point(595, 413);
+            autoMessageBox.Location = new Point(595, 515);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
             autoMessageBox.Size = new Size(228, 106);
@@ -1040,7 +1046,7 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.Location = new Point(872, 412);
+            autoSendMessageCD.Location = new Point(872, 514);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(54, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -1051,7 +1057,7 @@
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
             autoMessageLabel.Font = new Font("Cambria", 15.75F);
-            autoMessageLabel.Location = new Point(595, 341);
+            autoMessageLabel.Location = new Point(595, 443);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
             autoMessageLabel.TabIndex = 25;
@@ -1061,7 +1067,7 @@
             // 
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(220, 215, 201);
-            enableAutoMessageCheck.Location = new Point(594, 384);
+            enableAutoMessageCheck.Location = new Point(594, 486);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -1072,7 +1078,7 @@
             // pictureBox3
             // 
             pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox3.Location = new Point(585, 333);
+            pictureBox3.Location = new Point(585, 435);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(402, 236);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1104,7 +1110,7 @@
             // 
             textBox4.BackColor = Color.FromArgb(220, 215, 201);
             textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Location = new Point(804, 385);
+            textBox4.Location = new Point(804, 487);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(182, 16);
             textBox4.TabIndex = 82;
@@ -1170,7 +1176,7 @@
             // 
             pictureBox5.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox5.BackgroundImageLayout = ImageLayout.None;
-            pictureBox5.Location = new Point(585, 334);
+            pictureBox5.Location = new Point(585, 436);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(401, 32);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1219,6 +1225,50 @@
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.FromArgb(162, 123, 92);
+            label9.Font = new Font("Cambria", 15.75F);
+            label9.Location = new Point(595, 329);
+            label9.Name = "label9";
+            label9.Size = new Size(136, 25);
+            label9.TabIndex = 114;
+            label9.Text = "Configuration";
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox8.BackgroundImageLayout = ImageLayout.None;
+            pictureBox8.Location = new Point(585, 322);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(401, 32);
+            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.TabIndex = 118;
+            pictureBox8.TabStop = false;
+            // 
+            // checkEnableBitMsg
+            // 
+            checkEnableBitMsg.AutoSize = true;
+            checkEnableBitMsg.BackColor = Color.FromArgb(220, 215, 201);
+            checkEnableBitMsg.Location = new Point(594, 372);
+            checkEnableBitMsg.Name = "checkEnableBitMsg";
+            checkEnableBitMsg.Size = new Size(295, 19);
+            checkEnableBitMsg.TabIndex = 115;
+            checkEnableBitMsg.Text = "Enable remaining bits message after command use";
+            checkEnableBitMsg.UseVisualStyleBackColor = false;
+            checkEnableBitMsg.CheckedChanged += checkEnableBitMsg_CheckedChanged;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.BackColor = Color.FromArgb(220, 215, 201);
+            pictureBox9.Location = new Point(585, 321);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(402, 92);
+            pictureBox9.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox9.TabIndex = 116;
+            pictureBox9.TabStop = false;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1227,6 +1277,10 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(label9);
+            Controls.Add(pictureBox8);
+            Controls.Add(checkEnableBitMsg);
+            Controls.Add(pictureBox9);
             Controls.Add(label8);
             Controls.Add(restart_AppButton);
             Controls.Add(saveButton);
@@ -1268,6 +1322,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1377,5 +1433,9 @@
         private PictureBox pictureBox7;
         private Label label8;
         private PictureBox pictureBox2;
+        private Label label9;
+        private PictureBox pictureBox8;
+        private CheckBox checkEnableBitMsg;
+        private PictureBox pictureBox9;
     }
 }

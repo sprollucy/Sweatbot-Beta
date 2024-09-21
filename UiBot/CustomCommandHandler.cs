@@ -9,32 +9,35 @@ using UiBot;
 public class CustomCommandHandler
 {
     private readonly Dictionary<string, Command> _commands;
-    private readonly Dictionary<string, Action<TwitchClient, string, string>> _methodMap;
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _syncMethodMap;
     private readonly Dictionary<string, Func<TwitchClient, string, string, Task>> _asyncMethodMap;
 
+    private Random random = new Random();  // Class-level Random object
+    private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
+
+    // User32.dll imports for mouse and keyboard events
     [DllImport("user32.dll", SetLastError = true)]
     public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
 
     [DllImport("user32.dll", SetLastError = true)]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
     [DllImport("user32.dll", SetLastError = true)]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
     [DllImport("user32.dll")]
     public static extern bool SetCursorPos(int X, int Y);
-    private Random random = new Random(); // Class-level Random object
 
-    // event constants
+    // Event constants for mouse and keyboard actions
     public const int MOUSEEVENTF_LEFTDOWN = 0x02;
     public const int MOUSEEVENTF_LEFTUP = 0x04;
-    private const int KEYEVENTF_KEYDOWN = 0x0000; 
-    private const int KEYEVENTF_KEYUP = 0x0002;
     public const int MOUSEEVENTF_MOVE = 0x0001;
     public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
     public const int MOUSEEVENTF_RIGHTUP = 0x0010;
-    const int VK_VOLUME_MUTE = 0xAD;
-    const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+    private const int KEYEVENTF_KEYDOWN = 0x0000;
+    private const int KEYEVENTF_KEYUP = 0x0002;
+    private const int VK_VOLUME_MUTE = 0xAD;
+    private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
 
 
     public CustomCommandHandler(string filePath)
@@ -70,6 +73,7 @@ public class CustomCommandHandler
         { "playsoundclipasync", PlaySoundClipAsync },
         { "rightclickholdasync", RightClickHoldAsync },
         { "mutevolumeasync", MuteVolumeAsync },
+        { "delayasync", DelayAsync },
         { "leftclickholdasync", LeftClickHoldAsync },
         { "leftclickloopasync", LeftClickLoopAsync },
         { "rightclickloopasync", RightClickLoopAsync }
@@ -130,7 +134,8 @@ public class CustomCommandHandler
             return;
         }
 
-        // Execute tasks in the exact order they are defined in command.Methods
+        List<Task> runningTasks = new List<Task>();  // List to track asynchronous tasks
+
         foreach (var methodName in command.Methods)
         {
             string method;
@@ -167,16 +172,26 @@ public class CustomCommandHandler
             // Handle asynchronous actions
             else if (_asyncMethodMap.TryGetValue(method, out var asyncAction))
             {
-                // Execute async method
-                await asyncAction(client, channel, parameters);
+                // Handle delay explicitly
+                if (method == "delayasync" && int.TryParse(parameters, out int delayMilliseconds))
+                {
+                    await Task.Delay(delayMilliseconds);
+                }
+                else
+                {
+                    // Add the async method to the list of running tasks (doesn't block the main thread)
+                    runningTasks.Add(asyncAction(client, channel, parameters));
+                }
             }
             else
             {
                 Console.WriteLine($"Method {method} not recognized.");
             }
         }
-    }
 
+        // Wait for all running asynchronous tasks to complete (if needed)
+        await Task.WhenAll(runningTasks);
+    }
 
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
@@ -358,7 +373,6 @@ public class CustomCommandHandler
 
         try
         {
-            await Task.Delay(100); // Small delay before sending key events
                                    // Press the key
             keybd_event(vkCode, 0, KEYEVENTF_KEYDOWN, 0);
             // Release the key
@@ -1101,6 +1115,45 @@ public class CustomCommandHandler
             Console.WriteLine($"Error in Delay: {ex.Message}");
         }
     }
+
+    private async Task DelayAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for Delay.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                // Calculate time since last command was executed
+                var now = DateTime.Now;
+                var timeSinceLastCommand = (now - _lastCommandExecutionTime).TotalMilliseconds;
+
+                // Print the delay information with time since last command
+                Console.WriteLine($"Delay for {duration} milliseconds. Time since last command: {timeSinceLastCommand} ms.");
+
+                // Update the last execution time to the current time
+                _lastCommandExecutionTime = now;
+            }
+
+            await Task.Delay(duration);  // Asynchronously wait for the specified duration
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in Delay: {ex.Message}");
+        }
+    }
+
 
     private void PlaySoundClip(TwitchClient client, string channel, string parameter = null)
     {

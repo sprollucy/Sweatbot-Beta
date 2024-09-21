@@ -59,6 +59,8 @@ namespace UiBot
             enableWeaponSwap.Checked = Properties.Settings.Default.isWeaponSwapEnabled;
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
             customCommandsBox.Checked = Properties.Settings.Default.isCustomCommandsEnabled;
+            checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
+
         }
 
         private void ControlMenu_load(object sender, EventArgs e)
@@ -629,6 +631,12 @@ namespace UiBot
         private void customCommandsBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isCustomCommandsEnabled = customCommandsBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkEnableBitMsg_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
             Properties.Settings.Default.Save();
         }
     }

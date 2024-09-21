@@ -1,3 +1,8 @@
+1.0.0.71-alpha
+-Added toggle to print out remaining bits after using a command
+-Added Async Delay
+-Bugfixing for Custom commands
+
 1.0.0.70-alpha
 -Added HitKeyLoop
 -Added HitKeyLoopAsync

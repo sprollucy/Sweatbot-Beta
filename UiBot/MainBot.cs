@@ -222,7 +222,7 @@ namespace UiBot
                                 string message = "";
 
                                 // Only add remaining bits info if BitCost is greater than 0
-                                if (command.BitCost > 0)
+                                if (command.BitCost > 0 && Properties.Settings.Default.isBitMsgEnabled)
                                 {
                                     message += $" You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.";
                                 }
@@ -675,7 +675,10 @@ namespace UiBot
                                         Properties.Settings.Default.Save();
 
                                         // Send confirmation message
-                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[e.Command.ChatMessage.DisplayName]} bits remaining.");
+                                        if (Properties.Settings.Default.isBitMsgEnabled)
+                                        {
+                                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[e.Command.ChatMessage.DisplayName]} bits remaining.");
+                                        }
                                         Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                         // Save the updated bit data
@@ -729,7 +732,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropbag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -793,7 +799,10 @@ namespace UiBot
 
                                         // Save the updated bit data
                                         LogHandler.WriteUserBitsToJson("user_bits.json");
-                                        Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{gooseCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
+                                        if (Properties.Settings.Default.isBitMsgEnabled)
+                                        {
+                                            Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{gooseCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
+                                        }
                                         // Schedule a task to stop the Goose process after the random runtime.
                                         Task.Run(() =>
                                         {
@@ -863,7 +872,10 @@ namespace UiBot
                                 }
                                 // Save the updated bit data
                                 LogHandler.WriteUserBitsToJson("user_bits.json");
-                                Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{killGooseCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
+                                if (Properties.Settings.Default.isBitMsgEnabled)
+                                {
+                                    Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{killGooseCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
+                                }
                             }
                             else
                             {
@@ -907,7 +919,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, wiggle used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, wiggle used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -956,7 +971,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, turn used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, turn used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1001,7 +1019,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, randomkeys used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, randomkeys used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1047,7 +1068,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360grenade used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360grenade used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1092,7 +1116,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, 360magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1139,7 +1166,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, pop used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, pop used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1186,7 +1216,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, crouch used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, crouch used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1232,7 +1265,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, voiceline used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, voiceline used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1278,7 +1314,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, reload used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, reload used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1324,7 +1363,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropmag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, dropmag used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1370,7 +1412,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, prone used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, prone used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1416,7 +1461,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, magdump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1462,7 +1510,10 @@ namespace UiBot
 
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, holdaim used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, holdaim used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1507,7 +1558,10 @@ namespace UiBot
                                     chatCommandMethods.LookUp(3000);
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, praisesun used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, praisesun used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1552,7 +1606,10 @@ namespace UiBot
                                     chatCommandMethods.LookDown(3000);
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, touchgrass used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, touchgrass used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1596,7 +1653,10 @@ namespace UiBot
                                     chatCommandMethods.KnivesOnly();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, knifeout used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, knifeout used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1641,7 +1701,10 @@ namespace UiBot
                                     SendKeys.SendWait(" ");
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, jump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, jump used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1686,7 +1749,10 @@ namespace UiBot
                                     chatCommandMethods.MuteWindows();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, mutewindows used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, mutewindows used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1731,7 +1797,10 @@ namespace UiBot
                                     chatCommandMethods.Walk();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, walk used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, walk used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1776,7 +1845,10 @@ namespace UiBot
                                     chatCommandMethods.HotMic();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, hotmic used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, hotmic used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1821,7 +1893,10 @@ namespace UiBot
                                     chatCommandMethods.GrenadeToss();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, grenadetoss used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, grenadetoss used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1865,7 +1940,10 @@ namespace UiBot
                                     chatCommandMethods.SwapWeapon();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, weaponswap used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, weaponswap used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1910,7 +1988,10 @@ namespace UiBot
                                     chatCommandMethods.FireMode();
                                     // Save the updated bit data
                                     LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, firemode used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    if (Properties.Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, firemode used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                    }
                                     Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                 }
@@ -1987,7 +2068,10 @@ namespace UiBot
                                             if (success)
                                             {
                                                 LogHandler.WriteUserBitsToJson("user_bits.json");
-                                                client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, audioplay used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                                if (Properties.Settings.Default.isBitMsgEnabled)
+                                                {
+                                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, audioplay used! You have {userBits[e.Command.ChatMessage.DisplayName]} bits");
+                                                }
                                                 Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
 
                                             }

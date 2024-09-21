@@ -190,6 +190,11 @@ namespace UiBot
             // Append the text to commandtextBox
             commandtextBox.Text += GetCommandText(" Delay=Speed ");
         }
+        private void adelayButton_Click(object sender, EventArgs e)
+        {
+            // Append the text to commandtextBox
+            commandtextBox.Text += GetCommandText(" DelayAsync=Speed ");
+        }
 
         private void muteButton_Click(object sender, EventArgs e)
         {
@@ -592,6 +597,5 @@ namespace UiBot
         {
             Application.Restart();
         }
-
     }
 }
