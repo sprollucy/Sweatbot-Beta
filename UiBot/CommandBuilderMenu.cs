@@ -42,6 +42,8 @@ namespace UiBot
             disablecommandButton.Click += disablecommandButton_Click;
             restorecommandButton.Click += restorecommandButton_Click;
 
+            confCheckBox.Checked = Properties.Settings.Default.isConfirmationDisabled;
+
         }
         private void CommandBuilderMenu_KeyDown(object sender, KeyEventArgs e)
         {
@@ -246,7 +248,10 @@ namespace UiBot
                 costtextBox.Clear();
                 commandtextBox.Clear();
 
-                MessageBox.Show("Command disabled successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(!Properties.Settings.Default.isConfirmationDisabled)
+                {
+                    MessageBox.Show("Command disabled successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {
@@ -288,7 +293,10 @@ namespace UiBot
                 costtextBox.Clear();
                 commandtextBox.Clear();
 
-                MessageBox.Show("Command restored successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (Properties.Settings.Default.isConfirmationDisabled)
+                {
+                    MessageBox.Show("Command restored successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {
@@ -352,7 +360,10 @@ namespace UiBot
             // Save commands back to file
             SaveCommandsToFile(commands);
 
-            MessageBox.Show("Command saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!Properties.Settings.Default.isConfirmationDisabled)
+            {
+                MessageBox.Show("Command saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             // Update the ListBox
             LoadCommandsIntoListBox();
@@ -560,7 +571,10 @@ namespace UiBot
                 costtextBox.Clear();
                 commandtextBox.Clear();
 
-                MessageBox.Show("Command removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!Properties.Settings.Default.isConfirmationDisabled)
+                {
+                    MessageBox.Show("Command removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {
@@ -596,6 +610,11 @@ namespace UiBot
         private void restartButton_Click(object sender, EventArgs e)
         {
             Application.Restart();
+        }
+
+        private void confCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isConfirmationDisabled = confCheckBox.Checked;
         }
     }
 }

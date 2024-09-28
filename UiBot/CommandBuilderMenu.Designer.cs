@@ -97,9 +97,10 @@
             label15 = new Label();
             pictureBox2 = new PictureBox();
             panel4 = new Panel();
+            adelayButton = new Button();
             label16 = new Label();
             pictureBox4 = new PictureBox();
-            adelayButton = new Button();
+            confCheckBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -214,7 +215,7 @@
             label5.BackColor = Color.FromArgb(220, 215, 201);
             label5.Font = new Font("Segoe UI", 12F);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(152, 561);
+            label5.Location = new Point(250, 561);
             label5.Name = "label5";
             label5.Size = new Size(238, 42);
             label5.TabIndex = 14;
@@ -825,6 +826,16 @@
             panel4.Size = new Size(246, 102);
             panel4.TabIndex = 33;
             // 
+            // adelayButton
+            // 
+            adelayButton.Location = new Point(3, 48);
+            adelayButton.Name = "adelayButton";
+            adelayButton.Size = new Size(75, 40);
+            adelayButton.TabIndex = 59;
+            adelayButton.Text = "Sync Delay";
+            adelayButton.UseVisualStyleBackColor = true;
+            adelayButton.Click += adelayButton_Click;
+            // 
             // label16
             // 
             label16.AutoSize = true;
@@ -846,15 +857,17 @@
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
             // 
-            // adelayButton
+            // confCheckBox
             // 
-            adelayButton.Location = new Point(3, 48);
-            adelayButton.Name = "adelayButton";
-            adelayButton.Size = new Size(75, 40);
-            adelayButton.TabIndex = 59;
-            adelayButton.Text = "Sync Delay";
-            adelayButton.UseVisualStyleBackColor = true;
-            adelayButton.Click += adelayButton_Click;
+            confCheckBox.AutoSize = true;
+            confCheckBox.BackColor = Color.FromArgb(220, 215, 201);
+            confCheckBox.Location = new Point(58, 576);
+            confCheckBox.Name = "confCheckBox";
+            confCheckBox.Size = new Size(185, 19);
+            confCheckBox.TabIndex = 34;
+            confCheckBox.Text = "Disable confirmation message";
+            confCheckBox.UseVisualStyleBackColor = false;
+            confCheckBox.CheckedChanged += confCheckBox_CheckedChanged;
             // 
             // CommandBuilderMenu
             // 
@@ -864,6 +877,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1042, 610);
             ControlBox = false;
+            Controls.Add(confCheckBox);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -989,5 +1003,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private Button adelayButton;
+        private CheckBox confCheckBox;
     }
 }

@@ -706,5 +706,17 @@ namespace UiBot.Properties {
                 this["isBitMsgEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isConfirmationDisabled {
+            get {
+                return ((bool)(this["isConfirmationDisabled"]));
+            }
+            set {
+                this["isConfirmationDisabled"] = value;
+            }
+        }
     }
 }

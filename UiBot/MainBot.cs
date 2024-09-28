@@ -497,10 +497,6 @@ namespace UiBot
                             {
                                 standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, Available commands: {string.Join(", ", enabledCommandCosts)}";
                             }
-                            else
-                            {
-                                standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, No standard commands are available.";
-                            }
 
                             if (Properties.Settings.Default.isCustomCommandsEnabled)
                             {

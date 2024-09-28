@@ -102,9 +102,9 @@
             label1.Font = new Font("Segoe UI Light", 9F);
             label1.Location = new Point(23, 108);
             label1.Name = "label1";
-            label1.Size = new Size(228, 15);
+            label1.Size = new Size(370, 15);
             label1.TabIndex = 3;
-            label1.Text = "Information will automatically reload on start";
+            label1.Text = "Information will automatically reload on start. Must restart after changing";
             // 
             // button3
             // 
