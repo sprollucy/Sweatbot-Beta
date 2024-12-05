@@ -1,5 +1,5 @@
 ﻿
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -49,7 +49,7 @@ namespace UiBot
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
             LogHandler.LoadUserBitsFromJson("user_bits.json");
-            string commandsFilePath = Path.Combine("Data", "bin",  "CustomCommands.json");
+            string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
             commandHandler = new CustomCommandHandler(commandsFilePath);
 
         }
@@ -195,9 +195,9 @@ namespace UiBot
                         // Check if the command is enabled
                         //if (commandName == "test" && !Properties.Settings.Default.IsTurnEnabled)
                         //{
-                            // Inform the user that the command is disabled
-                          //  client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
-                           // return;
+                        // Inform the user that the command is disabled
+                        //  client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
+                        // return;
                         //}
 
                         // Process other commands
@@ -476,17 +476,17 @@ namespace UiBot
                             }
 
 
-                                var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
-                                if (allCommandsWithCosts.Any())
-                                {
-                                    var commandList = allCommandsWithCosts
-                                        .Select(cmd => $"!{cmd.Key}({cmd.Value})")
-                                        .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
-                                        .ToList();
+                            var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+                            if (allCommandsWithCosts.Any())
+                            {
+                                var commandList = allCommandsWithCosts
+                                    .Select(cmd => $"!{cmd.Key}({cmd.Value})")
+                                    .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
+                                    .ToList();
 
-                                    customCommandsMessage = $"{string.Join(", ", commandList)}";
-                                }
-                            
+                                customCommandsMessage = $"{string.Join(", ", commandList)}";
+                            }
+
                         }
                         else
                         {
@@ -781,7 +781,7 @@ namespace UiBot
         public void LoadCredentialsFromJSON()
         {
             // Correct the path to be relative
-            string jsonFilePath = Path.Combine("Data", "bin","Logon.json");
+            string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
 
             if (File.Exists(jsonFilePath))
             {
