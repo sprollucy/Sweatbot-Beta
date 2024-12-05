@@ -94,6 +94,7 @@
             label1 = new Label();
             pictureBox3 = new PictureBox();
             panel3 = new Panel();
+            amouseposButton = new Button();
             label15 = new Label();
             pictureBox2 = new PictureBox();
             panel4 = new Panel();
@@ -179,7 +180,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(83, 199);
+            saveButton.Location = new Point(60, 203);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(166, 40);
             saveButton.TabIndex = 9;
@@ -201,7 +202,7 @@
             // 
             // openCustomJson
             // 
-            openCustomJson.Location = new Point(218, 392);
+            openCustomJson.Location = new Point(218, 363);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(108, 23);
             openCustomJson.TabIndex = 13;
@@ -298,9 +299,9 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(218, 363);
+            restartButton.Location = new Point(232, 203);
             restartButton.Name = "restartButton";
-            restartButton.Size = new Size(108, 23);
+            restartButton.Size = new Size(68, 40);
             restartButton.TabIndex = 23;
             restartButton.Text = "Restart";
             restartButton.UseVisualStyleBackColor = true;
@@ -329,6 +330,7 @@
             panel1.Controls.Add(saveButton);
             panel1.Controls.Add(label10);
             panel1.Controls.Add(label9);
+            panel1.Controls.Add(restartButton);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label5);
             panel1.Location = new Point(55, 64);
@@ -422,7 +424,7 @@
             // 
             // mouseposButton
             // 
-            mouseposButton.Location = new Point(265, 21);
+            mouseposButton.Location = new Point(3, 94);
             mouseposButton.Name = "mouseposButton";
             mouseposButton.Size = new Size(85, 67);
             mouseposButton.TabIndex = 57;
@@ -432,7 +434,7 @@
             // 
             // arightloopButton
             // 
-            arightloopButton.Location = new Point(109, 195);
+            arightloopButton.Location = new Point(255, 195);
             arightloopButton.Name = "arightloopButton";
             arightloopButton.Size = new Size(104, 40);
             arightloopButton.TabIndex = 56;
@@ -442,7 +444,7 @@
             // 
             // aleftloopButton
             // 
-            aleftloopButton.Location = new Point(3, 195);
+            aleftloopButton.Location = new Point(149, 195);
             aleftloopButton.Name = "aleftloopButton";
             aleftloopButton.Size = new Size(104, 40);
             aleftloopButton.TabIndex = 55;
@@ -452,7 +454,7 @@
             // 
             // rightloopButton
             // 
-            rightloopButton.Location = new Point(109, 166);
+            rightloopButton.Location = new Point(255, 166);
             rightloopButton.Name = "rightloopButton";
             rightloopButton.Size = new Size(104, 23);
             rightloopButton.TabIndex = 54;
@@ -462,7 +464,7 @@
             // 
             // leftloopButton
             // 
-            leftloopButton.Location = new Point(3, 166);
+            leftloopButton.Location = new Point(149, 166);
             leftloopButton.Name = "leftloopButton";
             leftloopButton.Size = new Size(104, 23);
             leftloopButton.TabIndex = 53;
@@ -522,7 +524,7 @@
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(109, 123);
+            arightholdButton.Location = new Point(255, 123);
             arightholdButton.Name = "arightholdButton";
             arightholdButton.Size = new Size(105, 40);
             arightholdButton.TabIndex = 39;
@@ -532,7 +534,7 @@
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(3, 123);
+            aleftholdButton.Location = new Point(149, 123);
             aleftholdButton.Name = "aleftholdButton";
             aleftholdButton.Size = new Size(100, 40);
             aleftholdButton.TabIndex = 38;
@@ -542,7 +544,7 @@
             // 
             // arightButton
             // 
-            arightButton.Location = new Point(175, 48);
+            arightButton.Location = new Point(285, 48);
             arightButton.Name = "arightButton";
             arightButton.Size = new Size(75, 40);
             arightButton.TabIndex = 37;
@@ -552,7 +554,7 @@
             // 
             // aleftButton
             // 
-            aleftButton.Location = new Point(94, 48);
+            aleftButton.Location = new Point(204, 48);
             aleftButton.Name = "aleftButton";
             aleftButton.Size = new Size(75, 40);
             aleftButton.TabIndex = 36;
@@ -602,7 +604,7 @@
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(109, 94);
+            rightholdButton.Location = new Point(255, 94);
             rightholdButton.Name = "rightholdButton";
             rightholdButton.Size = new Size(105, 23);
             rightholdButton.TabIndex = 31;
@@ -612,7 +614,7 @@
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(3, 94);
+            leftholdButton.Location = new Point(149, 94);
             leftholdButton.Name = "leftholdButton";
             leftholdButton.Size = new Size(100, 23);
             leftholdButton.TabIndex = 30;
@@ -622,7 +624,7 @@
             // 
             // rightButton
             // 
-            rightButton.Location = new Point(175, 19);
+            rightButton.Location = new Point(285, 19);
             rightButton.Name = "rightButton";
             rightButton.Size = new Size(75, 23);
             rightButton.TabIndex = 29;
@@ -632,7 +634,7 @@
             // 
             // leftButton
             // 
-            leftButton.Location = new Point(94, 19);
+            leftButton.Location = new Point(204, 19);
             leftButton.Name = "leftButton";
             leftButton.Size = new Size(75, 23);
             leftButton.TabIndex = 28;
@@ -768,6 +770,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(220, 215, 201);
+            panel3.Controls.Add(amouseposButton);
             panel3.Controls.Add(label15);
             panel3.Controls.Add(turnButton);
             panel3.Controls.Add(aturnButton);
@@ -789,6 +792,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(363, 244);
             panel3.TabIndex = 32;
+            // 
+            // amouseposButton
+            // 
+            amouseposButton.Location = new Point(3, 166);
+            amouseposButton.Name = "amouseposButton";
+            amouseposButton.Size = new Size(85, 67);
+            amouseposButton.TabIndex = 58;
+            amouseposButton.Text = "Sync Move Mouse to Position";
+            amouseposButton.UseVisualStyleBackColor = true;
+            amouseposButton.Click += amouseposButton_Click;
             // 
             // label15
             // 
@@ -888,7 +901,6 @@
             Controls.Add(disablecommandButton);
             Controls.Add(disabledcommandsListBox);
             Controls.Add(panel1);
-            Controls.Add(restartButton);
             Controls.Add(label7);
             Controls.Add(pictureBox8);
             Controls.Add(label6);
@@ -1004,5 +1016,6 @@
         private PictureBox pictureBox4;
         private Button adelayButton;
         private CheckBox confCheckBox;
+        private Button amouseposButton;
     }
 }

@@ -44,39 +44,42 @@ public class CustomCommandHandler
     {
         _commands = LoadCommandsFromFile(filePath);
 
+        // Sync method map
         _syncMethodMap = new Dictionary<string, Action<TwitchClient, string, string>>
     {
-        { "holdkey", HoldKey },
-        { "hitkey", HitKey },
-        { "hitkeyloop", HitKeyLoop },
-        { "leftclick", LeftClick },
-        { "rightclick", RightClick },
-        { "turnmouse", TurnMouse },
-        { "mousepos", MousePos },
-        { "playsoundclip", PlaySoundClip },
-        { "rightclickhold", RightClickHold },
-        { "leftclickhold", LeftClickHold },
-        { "mutevolume", MuteVolume },
+        { "kh", HoldKey },
+        { "kp", HitKey },
+        { "kploop", HitKeyLoop },
+        { "lc", LeftClick },
+        { "rc", RightClick },
+        { "tm", TurnMouse },
+        { "mpos", MousePos },
+        { "psound", PlaySoundClip },
+        { "rchold", RightClickHold },
+        { "lchold", LeftClickHold },
+        { "mutevol", MuteVolume },
         { "delay", Delay },
-        { "leftclickloop", LeftClickLoop },
-        { "rightclickloop", RightClickLoop }
+        { "lcloop", LeftClickLoop },
+        { "rcloop", RightClickLoop }
     };
 
+        // Async method map
         _asyncMethodMap = new Dictionary<string, Func<TwitchClient, string, string, Task>>
     {
-        { "holdkeyasync", HoldKeyAsync },
-        { "hitkeyasync", HitKeyAsync },
-        { "hitkeyloopasync", HitKeyLoopAsync },
-        { "leftclickasync", LeftClickAsync },
-        { "rightclickasync", RightClickAsync },
-        { "turnmouseasync", TurnMouseAsync },
-        { "playsoundclipasync", PlaySoundClipAsync },
-        { "rightclickholdasync", RightClickHoldAsync },
-        { "mutevolumeasync", MuteVolumeAsync },
+        { "khasync", HoldKeyAsync },
+        { "kpasync", HitKeyAsync },
+        { "kploopasync", HitKeyLoopAsync },
+        { "lcasync", LeftClickAsync },
+        { "rcasync", RightClickAsync },
+        { "tmasync", TurnMouseAsync },
+        { "mposasync", MousePosAsync },
+        { "psoundasync", PlaySoundClipAsync },
+        { "rcholdasync", RightClickHoldAsync },
+        { "lcholdasync", LeftClickHoldAsync },
+        { "mutevolasync", MuteVolumeAsync },
         { "delayasync", DelayAsync },
-        { "leftclickholdasync", LeftClickHoldAsync },
-        { "leftclickloopasync", LeftClickLoopAsync },
-        { "rightclickloopasync", RightClickLoopAsync }
+        { "lcloopasync", LeftClickLoopAsync },
+        { "rcloopasync", RightClickLoopAsync }
     };
     }
 
@@ -718,6 +721,31 @@ public class CustomCommandHandler
 
         SetCursorPos(x, y);
     }
+
+    private async Task MousePosAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MousePos.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+),(\d+)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int x) || !int.TryParse(match.Groups[2].Value, out int y))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: x,y.");
+            return;
+        }
+
+        if (UiBot.Properties.Settings.Default.isDebugOn)
+        {
+            Console.WriteLine($"Moving mouse to position ({x}, {y}).");
+        }
+
+        // Run SetCursorPos on a separate thread to avoid blocking.
+        await Task.Run(() => SetCursorPos(x, y));
+    }
+
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
     {

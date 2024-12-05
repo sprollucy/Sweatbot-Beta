@@ -99,7 +99,7 @@
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(53, 35);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 184);
+            panel1.Size = new Size(514, 191);
             panel1.TabIndex = 20;
             // 
             // restart_AppButton
@@ -116,7 +116,7 @@
             // 
             enableBotToggle.AutoSize = true;
             enableBotToggle.BackColor = Color.FromArgb(220, 215, 201);
-            enableBotToggle.Location = new Point(12, 85);
+            enableBotToggle.Location = new Point(12, 61);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
             enableBotToggle.TabIndex = 109;
@@ -137,7 +137,7 @@
             // 
             // bottoggleCostBox
             // 
-            bottoggleCostBox.Location = new Point(217, 83);
+            bottoggleCostBox.Location = new Point(217, 59);
             bottoggleCostBox.Name = "bottoggleCostBox";
             bottoggleCostBox.Size = new Size(100, 23);
             bottoggleCostBox.TabIndex = 108;
@@ -147,7 +147,9 @@
             // 
             checkEnableBitMsg.AutoSize = true;
             checkEnableBitMsg.BackColor = Color.FromArgb(220, 215, 201);
-            checkEnableBitMsg.Location = new Point(12, 139);
+            checkEnableBitMsg.Checked = true;
+            checkEnableBitMsg.CheckState = CheckState.Checked;
+            checkEnableBitMsg.Location = new Point(12, 88);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -159,7 +161,7 @@
             // 
             textBox1.BackColor = Color.FromArgb(220, 215, 201);
             textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Location = new Point(169, 86);
+            textBox1.Location = new Point(169, 62);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(63, 16);
             textBox1.TabIndex = 44;
@@ -170,7 +172,7 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(220, 215, 201);
-            enableTradersCommand.Location = new Point(12, 114);
+            enableTradersCommand.Location = new Point(12, 113);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -183,11 +185,11 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(220, 215, 201);
             label1.ForeColor = Color.Red;
-            label1.Location = new Point(68, 47);
+            label1.Location = new Point(235, 36);
             label1.Name = "label1";
-            label1.Size = new Size(375, 30);
+            label1.Size = new Size(276, 15);
             label1.TabIndex = 28;
-            label1.Text = "Currently you need to save and restart the app after changing the cost\r\nof the commands. ";
+            label1.Text = "You must restart for changes to show up on twitch!";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
@@ -341,9 +343,9 @@
             label3.Font = new Font("Cambria", 15.75F);
             label3.Location = new Point(12, 9);
             label3.Name = "label3";
-            label3.Size = new Size(301, 25);
+            label3.Size = new Size(190, 25);
             label3.TabIndex = 80;
-            label3.Text = "Moderator Control and Bonuses";
+            label3.Text = "Moderator Controls";
             // 
             // textBox4
             // 
@@ -360,6 +362,8 @@
             // 
             modRefund.AutoSize = true;
             modRefund.BackColor = Color.FromArgb(220, 215, 201);
+            modRefund.Checked = true;
+            modRefund.CheckState = CheckState.Checked;
             modRefund.Location = new Point(10, 72);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
@@ -397,7 +401,7 @@
             saveMessageButton.Name = "saveMessageButton";
             saveMessageButton.Size = new Size(182, 44);
             saveMessageButton.TabIndex = 119;
-            saveMessageButton.Text = "Save";
+            saveMessageButton.Text = "Save (must restart)";
             saveMessageButton.UseVisualStyleBackColor = true;
             saveMessageButton.Click += saveMessageButton_Click;
             // 

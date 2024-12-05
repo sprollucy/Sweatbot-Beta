@@ -99,7 +99,7 @@ namespace UiBot
             setMouseEvents(pictureBox2);
             setMouseEvents(connectButton);
             setMouseEvents(commandMenu);
-            setMouseEvents(pictureBox5);
+            setMouseEvents(eftTrader);
             setMouseEvents(commandBuilder);
             //setMouseEvents(pictureBox7);
             //setMouseEvents(pictureBox8);
@@ -109,10 +109,21 @@ namespace UiBot
 
         public void CheckStart()
         {
-            var traderResetInfoService = new TraderResetInfoService();
-            traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
+            if (Properties.Settings.Default.isTraderMenuEnabled)
+            {
+                eftTrader.Visible = true; // Ensure the picture box is visible (optional, depending on your requirement)
+                label4.Visible = true;
+                var traderResetInfoService = new TraderResetInfoService();
+                traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
+            }
+            else
+            {
+                eftTrader.Visible = false; // Optionally hide the picture box if it's disabled
+                label4.Visible = false;
 
+            }
         }
+
 
         private void TransitionTimer_Tick(object sender, EventArgs e)
         {

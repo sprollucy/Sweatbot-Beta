@@ -155,30 +155,33 @@ namespace UiBot
             }
         }
 
-        private void connectButton_Click(object sender, EventArgs e)
-        {
-            bot.Connect();
-        }
-
         private void ConnectMenu_Load(object sender, EventArgs e)
         {
             // Load and display commands on form load
             LoadCommands();
             DisplayCommands();
+            UpdateButtonVisibility(false);
+
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            bot.Connect(); // Attempt to connect
+            UpdateButtonVisibility(true); // Show the Disconnect button
         }
 
         private void disconnectButton_Click(object sender, EventArgs e)
         {
-            bot.Disconnect();
+            bot.Disconnect(); // Attempt to disconnect
+            UpdateButtonVisibility(false); // Hide the Disconnect button
         }
 
-        private void stopGoose_Click(object sender, EventArgs e)
+        private void UpdateButtonVisibility(bool isConnected)
         {
-            foreach (Process process in Process.GetProcessesByName("GooseDesktop"))
-            {
-                process.Kill();
-            }
+            disconnectButton.Visible = isConnected;
+            connectButton.Enabled = !isConnected; // Optionally disable the Connect button while connected
         }
+
 
         private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
@@ -246,7 +249,7 @@ namespace UiBot
 
                 // Join each command with a newline character
                 string commandListMessage = string.Join(Environment.NewLine, commandList);
-                customCommandBox.Text = $"Available commands:\n{commandListMessage}";
+                customCommandBox.Text = $"{commandListMessage}";
             }
             else
             {

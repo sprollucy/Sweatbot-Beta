@@ -33,7 +33,6 @@
             pictureBox2 = new PictureBox();
             connectButton = new PictureBox();
             commandMenu = new PictureBox();
-            pictureBox5 = new PictureBox();
             commandBuilder = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox8 = new PictureBox();
@@ -51,11 +50,11 @@
             minBox = new PictureBox();
             label5 = new Label();
             label9 = new Label();
+            eftTrader = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandBuilder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -63,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)minBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)eftTrader).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -110,18 +110,6 @@
             commandMenu.TabIndex = 3;
             commandMenu.TabStop = false;
             commandMenu.Click += commandMenu_Click;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(0, 238);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(47, 50);
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox5.TabIndex = 4;
-            pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
             // 
             // commandBuilder
             // 
@@ -314,6 +302,18 @@
             label9.TabIndex = 21;
             label9.Text = "Command";
             // 
+            // eftTrader
+            // 
+            eftTrader.BackColor = Color.FromArgb(63, 78, 79);
+            eftTrader.Image = (Image)resources.GetObject("eftTrader.Image");
+            eftTrader.Location = new Point(0, 238);
+            eftTrader.Name = "eftTrader";
+            eftTrader.Size = new Size(47, 50);
+            eftTrader.SizeMode = PictureBoxSizeMode.Zoom;
+            eftTrader.TabIndex = 4;
+            eftTrader.TabStop = false;
+            eftTrader.Click += pictureBox5_Click;
+            // 
             // ModernMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -328,7 +328,7 @@
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
             Controls.Add(commandBuilder);
-            Controls.Add(pictureBox5);
+            Controls.Add(eftTrader);
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
             Controls.Add(pictureBox2);
@@ -350,7 +350,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandBuilder).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
@@ -358,6 +357,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)minBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)eftTrader).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -368,7 +368,6 @@
         private PictureBox pictureBox2;
         private PictureBox connectButton;
         private PictureBox commandMenu;
-        private PictureBox pictureBox5;
         private PictureBox commandBuilder;
         private PictureBox pictureBox7;
         private PictureBox pictureBox8;
@@ -386,5 +385,6 @@
         private PictureBox minBox;
         private Label label5;
         private Label label9;
+        private PictureBox eftTrader;
     }
 }

@@ -52,7 +52,6 @@
             bitrestoreButton = new Button();
             restoreCommandButton = new Button();
             groupBox2 = new GroupBox();
-            defaultCommandButton = new Button();
             enableUpdateCheck = new CheckBox();
             groupBox3 = new GroupBox();
             checkUpdateButton = new Button();
@@ -60,6 +59,8 @@
             enableDebug = new CheckBox();
             groupBox4 = new GroupBox();
             enablewriteDebug = new CheckBox();
+            enableEFTtrade = new CheckBox();
+            groupBox5 = new GroupBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -68,6 +69,7 @@
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -319,7 +321,6 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(defaultCommandButton);
             groupBox2.Controls.Add(restoreCommandButton);
             groupBox2.Controls.Add(bitrestoreButton);
             groupBox2.Location = new Point(54, 171);
@@ -328,16 +329,6 @@
             groupBox2.TabIndex = 39;
             groupBox2.TabStop = false;
             groupBox2.Text = "Restore settings";
-            // 
-            // defaultCommandButton
-            // 
-            defaultCommandButton.Location = new Point(230, 51);
-            defaultCommandButton.Name = "defaultCommandButton";
-            defaultCommandButton.Size = new Size(165, 23);
-            defaultCommandButton.TabIndex = 39;
-            defaultCommandButton.Text = "Restore default commands";
-            defaultCommandButton.UseVisualStyleBackColor = true;
-            defaultCommandButton.Click += defaultCommandButton_Click;
             // 
             // enableUpdateCheck
             // 
@@ -418,6 +409,29 @@
             enablewriteDebug.UseVisualStyleBackColor = true;
             enablewriteDebug.CheckedChanged += enablewriteDebug_CheckedChanged;
             // 
+            // enableEFTtrade
+            // 
+            enableEFTtrade.AutoSize = true;
+            enableEFTtrade.Checked = true;
+            enableEFTtrade.CheckState = CheckState.Checked;
+            enableEFTtrade.Location = new Point(18, 22);
+            enableEFTtrade.Name = "enableEFTtrade";
+            enableEFTtrade.Size = new Size(193, 19);
+            enableEFTtrade.TabIndex = 112;
+            enableEFTtrade.Text = "Enable Tarkov trade timer menu";
+            enableEFTtrade.UseVisualStyleBackColor = true;
+            enableEFTtrade.CheckedChanged += enableEFTtrade_CheckedChanged;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(enableEFTtrade);
+            groupBox5.Location = new Point(54, 383);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(417, 55);
+            groupBox5.TabIndex = 112;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Other Game Menus (requires restart)";
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -425,6 +439,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1041, 616);
             ControlBox = false;
+            Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(changelogLabel);
             Controls.Add(pictureBox6);
@@ -456,6 +471,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -487,7 +504,6 @@
         private Button bitrestoreButton;
         private Button restoreCommandButton;
         private GroupBox groupBox2;
-        private Button defaultCommandButton;
         private CheckBox enableUpdateCheck;
         private GroupBox groupBox3;
         private Button button2;
@@ -497,5 +513,7 @@
         private CheckBox enableDebug;
         private GroupBox groupBox4;
         private CheckBox enablewriteDebug;
+        private CheckBox enableEFTtrade;
+        private GroupBox groupBox5;
     }
 }

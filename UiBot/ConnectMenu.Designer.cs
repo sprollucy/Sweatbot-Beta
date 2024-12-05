@@ -59,14 +59,16 @@
             // 
             // messageTextBox
             // 
+            messageTextBox.BorderStyle = BorderStyle.None;
             messageTextBox.Location = new Point(53, 369);
             messageTextBox.Name = "messageTextBox";
-            messageTextBox.Size = new Size(574, 23);
+            messageTextBox.Size = new Size(574, 16);
             messageTextBox.TabIndex = 0;
             // 
             // consoleTextBox
             // 
             consoleTextBox.BackColor = Color.FromArgb(156, 154, 151);
+            consoleTextBox.BorderStyle = BorderStyle.None;
             consoleTextBox.Font = new Font("Arial", 12F);
             consoleTextBox.Location = new Point(53, 63);
             consoleTextBox.Multiline = true;
@@ -101,7 +103,7 @@
             pictureBox1.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox1.Location = new Point(1, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(163, 326);
+            pictureBox1.Size = new Size(163, 157);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -121,7 +123,7 @@
             panel1.Controls.Add(pictureBox3);
             panel1.Location = new Point(633, 35);
             panel1.Name = "panel1";
-            panel1.Size = new Size(403, 339);
+            panel1.Size = new Size(403, 389);
             panel1.TabIndex = 12;
             // 
             // label4
@@ -153,9 +155,9 @@
             label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label1.Location = new Point(3, 3);
             label1.Name = "label1";
-            label1.Size = new Size(136, 23);
+            label1.Size = new Size(122, 23);
             label1.TabIndex = 12;
-            label1.Text = "Quick Toggles";
+            label1.Text = "Quick Menu";
             // 
             // pictureBox8
             // 
@@ -182,18 +184,14 @@
             // 
             // stopGoose
             // 
-            stopGoose.BackgroundImageLayout = ImageLayout.None;
-            stopGoose.Location = new Point(31, 234);
+            stopGoose.Location = new Point(0, 0);
             stopGoose.Name = "stopGoose";
-            stopGoose.Size = new Size(103, 23);
-            stopGoose.TabIndex = 13;
-            stopGoose.Text = "Kill Goose";
-            stopGoose.UseVisualStyleBackColor = true;
-            stopGoose.Click += stopGoose_Click;
+            stopGoose.Size = new Size(75, 23);
+            stopGoose.TabIndex = 33;
             // 
             // twitchOpen
             // 
-            twitchOpen.Location = new Point(31, 263);
+            twitchOpen.Location = new Point(31, 88);
             twitchOpen.Name = "twitchOpen";
             twitchOpen.Size = new Size(103, 23);
             twitchOpen.TabIndex = 28;
@@ -203,7 +201,7 @@
             // 
             // backupButton
             // 
-            backupButton.Location = new Point(31, 292);
+            backupButton.Location = new Point(31, 117);
             backupButton.Name = "backupButton";
             backupButton.Size = new Size(103, 23);
             backupButton.TabIndex = 29;
@@ -218,7 +216,7 @@
             customCommandBox.Location = new Point(174, 29);
             customCommandBox.Name = "customCommandBox";
             customCommandBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            customCommandBox.Size = new Size(205, 297);
+            customCommandBox.Size = new Size(205, 357);
             customCommandBox.TabIndex = 30;
             customCommandBox.Text = "";
             // 
@@ -227,7 +225,7 @@
             pictureBox3.BackColor = Color.FromArgb(220, 215, 201);
             pictureBox3.Location = new Point(170, 3);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(210, 325);
+            pictureBox3.Size = new Size(210, 383);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 31;
             pictureBox3.TabStop = false;
@@ -236,7 +234,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.Red;
-            label2.Location = new Point(292, 409);
+            label2.Location = new Point(235, 402);
             label2.Name = "label2";
             label2.Size = new Size(326, 15);
             label2.TabIndex = 13;
@@ -249,16 +247,16 @@
             label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label3.Location = new Point(60, 40);
             label3.Name = "label3";
-            label3.Size = new Size(156, 23);
+            label3.Size = new Size(82, 23);
             label3.TabIndex = 29;
-            label3.Text = "Output Window";
+            label3.Text = "Console";
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.FromArgb(162, 123, 92);
-            pictureBox2.Location = new Point(53, 35);
+            pictureBox2.Location = new Point(53, 37);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(574, 37);
+            pictureBox2.Size = new Size(574, 27);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 29;
             pictureBox2.TabStop = false;
@@ -285,9 +283,9 @@
             Controls.Add(panel1);
             Controls.Add(disconnectButton);
             Controls.Add(connectButton);
-            Controls.Add(consoleTextBox);
             Controls.Add(messageTextBox);
             Controls.Add(pictureBox2);
+            Controls.Add(consoleTextBox);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ConnectMenu";
             Text = "ConnectMenu";

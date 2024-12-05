@@ -75,6 +75,10 @@ namespace UiBot
 
                 isBotConnected = false;
             }
+            else
+            {
+                Console.WriteLine("[Sweat Bot]: Not connected");
+            }
         }
 
         internal void Connect()
@@ -333,10 +337,9 @@ namespace UiBot
         //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            var traderResetInfoService = new TraderResetInfoService();
 
+            var traderResetInfoService = new TraderResetInfoService();
             Process[] pname = Process.GetProcessesByName("notepad");
-            Process[] gname = Process.GetProcessesByName("GooseDesktop");
 
             //antispam cooldowns
             int helpCooldownDuration = 30;
@@ -604,8 +607,6 @@ namespace UiBot
                         }
                     }
                     break;
-
-
 
                 //Bit Commands
 

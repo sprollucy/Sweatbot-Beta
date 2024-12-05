@@ -60,159 +60,43 @@ namespace UiBot
             }
         }
 
-        private void holdkeyButton_Click(object sender, EventArgs e)
+        private void AppendCommandText(string command)
         {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HoldKey=KeyIn(dur) ");
+            commandtextBox.Text += GetCommandText(command);
         }
 
-        private void aholdkeyButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HoldKeyAsync=KeyIn(dur) ");
-        }
+        // Synchronous commands
+        private void holdkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KH=KeyIn(dur) ");
+        private void hitkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KP=KeyIn ");
+        private void hitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText(" KPLoop=KeyIn(dur,Speed) ");
+        private void leftButton_Click(object sender, EventArgs e) => commandtextBox.Text += " LC ";
+        private void rightButton_Click(object sender, EventArgs e) => commandtextBox.Text += " RC ";
+        private void leftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoop=(dur,Speed) ");
+        private void rightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoop=(dur,Speed) ");
+        private void turnButton_Click(object sender, EventArgs e) => AppendCommandText(" TM=Direction(dur,Speed) ");
+        private void playsoundButton_Click(object sender, EventArgs e) => commandtextBox.Text += " PSOUND=filename.wav ";
+        private void leftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHOLD=dur ");
+        private void rightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHOLD=dur ");
+        private void delayButton_Click(object sender, EventArgs e) => AppendCommandText(" Delay=Speed ");
+        private void muteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVol=dur ");
+        private void mouseposButton_Click(object sender, EventArgs e) => commandtextBox.Text += GetCommandText($" MPos({mouseX},{mouseY}) ");
 
-        private void hitkeyButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HitKey=KeyIn ");
-        }
+        // Asynchronous commands
+        private void aholdkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KHAsync=KeyIn(dur) ");
+        private void ahitkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KPAsync=KeyIn ");
+        private void ahitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText(" KPLoopAsync=KeyIn(dur,Speed) ");
+        private void aleftButton_Click(object sender, EventArgs e) => commandtextBox.Text += " LCAsync ";
+        private void arightButton_Click(object sender, EventArgs e) => commandtextBox.Text += " RCAsync ";
+        private void aleftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoopAsync=(dur,Speed) ");
+        private void arightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoopAsync=(dur,Speed) ");
+        private void aturnButton_Click(object sender, EventArgs e) => AppendCommandText(" TMAsync=Direction(dur,Speed) ");
+        private void aplaysoundButton_Click(object sender, EventArgs e) => commandtextBox.Text += " PSOUNDAsync=filename.wav ";
+        private void aleftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHoldAsync=dur ");
+        private void arightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHoldAsync=dur ");
+        private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText(" DelayAsync=Speed ");
+        private void amuteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVolAsync=dur ");
+        private void amouseposButton_Click(object sender, EventArgs e) => commandtextBox.Text += GetCommandText($" MPosAsync({mouseX},{mouseY}) ");
 
-        private void ahitkeyButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HitKeyAsync=KeyIn ");
-        }
-
-        private void hitkeyloopButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HitKeyLoop=KeyIn(dur,Speed) ");
-        }
-
-        private void ahitkeyloopButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" HitKeyLoopAsync=KeyIn(dur,Speed) ");
-        }
-        private void leftButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " LeftClick ";
-        }
-
-        private void aleftButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " LeftClickAsync ";
-        }
-
-        private void rightButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " RightClick ";
-        }
-
-        private void arightButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " RightClickAsync ";
-        }
-
-        private void leftloopButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText(" LeftClickLoop=KeyIn(dur,Speed) ");
-        }
-
-        private void aleftloopButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText(" LeftClickLoopAsync=KeyIn(dur,Speed) ");
-        }
-
-        private void rightloopButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText(" RightClickLoop=KeyIn(dur,Speed) ");
-        }
-
-        private void arightloopButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText(" RightClickLoopAsync=KeyIn(dur,Speed) ");
-        }
-
-        private void turnButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" TurnMouse=Direction(dur,Speed) ");
-        }
-
-        private void aturnButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" TurnMouseAsync=Direction(dur,Speed) ");
-        }
-
-        private void playsoundButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " PlaySoundClip=filename.wav ";
-        }
-
-        private void aplaysoundButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += " PlaySoundClipAsync=filename.wav ";
-        }
-
-        private void leftholdButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" LeftClickHold=dur ");
-        }
-
-        private void aleftholdButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" LeftClickHoldAsync=dur ");
-        }
-
-        private void rightholdButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" RightClickHold=dur ");
-        }
-
-        private void arightholdButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" RightClickHoldAsync=dur ");
-        }
-
-        private void delayButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" Delay=Speed ");
-        }
-        private void adelayButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" DelayAsync=Speed ");
-        }
-
-        private void muteButton_Click(object sender, EventArgs e)
-        {
-            // Append the text to commandtextBox
-            commandtextBox.Text += GetCommandText(" MuteVolume=dur ");
-        }
-
-        private void amuteButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText(" MuteVolumeAsync=dur ");
-        }
-
-        private void mouseposButton_Click(object sender, EventArgs e)
-        {
-            commandtextBox.Text += GetCommandText($" MousePos({mouseX},{mouseY}) ");
-        }
 
         private void disablecommandButton_Click(object sender, EventArgs e)
         {
@@ -248,7 +132,7 @@ namespace UiBot
                 costtextBox.Clear();
                 commandtextBox.Clear();
 
-                if(!Properties.Settings.Default.isConfirmationDisabled)
+                if (!Properties.Settings.Default.isConfirmationDisabled)
                 {
                     MessageBox.Show("Command disabled successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -618,5 +502,6 @@ namespace UiBot
             Properties.Settings.Default.Save();
 
         }
+
     }
 }

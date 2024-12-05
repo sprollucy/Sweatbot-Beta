@@ -370,5 +370,17 @@ namespace UiBot.Properties {
                 this["isConfirmationDisabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isTraderMenuEnabled {
+            get {
+                return ((bool)(this["isTraderMenuEnabled"]));
+            }
+            set {
+                this["isTraderMenuEnabled"] = value;
+            }
+        }
     }
 }

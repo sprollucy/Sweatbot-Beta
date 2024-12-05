@@ -34,10 +34,14 @@ namespace UiBot
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
             checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
 
-        }
-
-        private void ControlMenu_load(object sender, EventArgs e)
-        {
+            if(Properties.Settings.Default.isTraderMenuEnabled)
+            {
+                enableTradersCommand.Visible = true;
+            }
+            else
+            {
+                enableTradersCommand.Visible = false;
+            }
 
         }
 
@@ -46,9 +50,7 @@ namespace UiBot
             // Add your TextBox controls to the dictionary with unique keys
             textBoxes["autoMessageBox"] = AutoMessageBox;
             textBoxes["autoSendMessageCD"] = AutoSendMessageCD;
-
             textBoxes["bonusTextBox"] = BonusTextBox;
-
             textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
             textBoxes["bottoggleCostBox"] = BotToggleCostBox;
         }

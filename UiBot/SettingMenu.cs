@@ -26,6 +26,7 @@ namespace UiBot
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
             enableDebug.Checked = Properties.Settings.Default.isDebugOn;
             enablewriteDebug.Checked = Properties.Settings.Default.isWriteDebugOn;
+            enableEFTtrade.Checked = Properties.Settings.Default.isTraderMenuEnabled;
 
             LoadChangelog();
         }
@@ -255,29 +256,6 @@ namespace UiBot
             }
         }
 
-        private void defaultCommandButton_Click(object sender, EventArgs e)
-        {
-            string backupFilePath = Path.Combine("Data", "bin", "Default_Commands.txt");
-            string jsonFilePath = Path.Combine("Data", "bin", "CommandConfigData.json");
-
-            Console.WriteLine($"Restoration triggered at {DateTime.Now}");
-
-            try
-            {
-                // Read the content from the backup file
-                string backupContent = File.ReadAllText(backupFilePath);
-
-                // Write the backup content back to the JSON file
-                File.WriteAllText(jsonFilePath, backupContent);
-
-                MessageBox.Show($"Restoration completed for {jsonFilePath} at {DateTime.Now}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error during restoration: {ex.Message}");
-            }
-        }
-
         private void enableUpdateCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isUpdateCheckEnabled = enableUpdateCheck.Checked;
@@ -299,6 +277,12 @@ namespace UiBot
         private void enablewriteDebug_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isWriteDebugOn = enablewriteDebug.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableEFTtrade_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isTraderMenuEnabled = enableEFTtrade.Checked;
             Properties.Settings.Default.Save();
         }
     }

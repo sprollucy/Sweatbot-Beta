@@ -1,3 +1,15 @@
+1.0.0.72-alpha
+-Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain
+-Updated debug system
+-Fixed crash caused if the custom command json was missing
+-Fixed "Disable confirmation message" toggle not saving after restart
+-Adjusted menu names and layouts
+-Added save button to Auto Message
+-Added toggle in settings to hide Trader Menu
+-Adjusted scripting language syntax and how to use file
+-Added MPosAsync
+
+
 1.0.0.71-alpha
 -Added toggle to print out remaining bits after using a command
 -Added Async Delay
