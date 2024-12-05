@@ -25,18 +25,6 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsGooseEnabled {
-            get {
-                return ((bool)(this["IsGooseEnabled"]));
-            }
-            set {
-                this["IsGooseEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AccessToken {
             get {
@@ -56,66 +44,6 @@ namespace UiBot.Properties {
             }
             set {
                 this["ChannelName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsWiggleEnabled {
-            get {
-                return ((bool)(this["IsWiggleEnabled"]));
-            }
-            set {
-                this["IsWiggleEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsKeyEnabled {
-            get {
-                return ((bool)(this["IsKeyEnabled"]));
-            }
-            set {
-                this["IsKeyEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsTurnEnabled {
-            get {
-                return ((bool)(this["IsTurnEnabled"]));
-            }
-            set {
-                this["IsTurnEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsPopEnabled {
-            get {
-                return ((bool)(this["IsPopEnabled"]));
-            }
-            set {
-                this["IsPopEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isNormalCommandsEnabled {
-            get {
-                return ((bool)(this["isNormalCommandsEnabled"]));
-            }
-            set {
-                this["isNormalCommandsEnabled"] = value;
             }
         }
         
@@ -289,42 +217,6 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string keyToSend {
-            get {
-                return ((string)(this["keyToSend"]));
-            }
-            set {
-                this["keyToSend"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isDropMagEnabled {
-            get {
-                return ((bool)(this["isDropMagEnabled"]));
-            }
-            set {
-                this["isDropMagEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isDropBagEnabled {
-            get {
-                return ((bool)(this["isDropBagEnabled"]));
-            }
-            set {
-                this["isDropBagEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isTradersEnabled {
             get {
@@ -332,54 +224,6 @@ namespace UiBot.Properties {
             }
             set {
                 this["isTradersEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isGrenadeTossEnabled {
-            get {
-                return ((bool)(this["isGrenadeTossEnabled"]));
-            }
-            set {
-                this["isGrenadeTossEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isCrouchEnabled {
-            get {
-                return ((bool)(this["isCrouchEnabled"]));
-            }
-            set {
-                this["isCrouchEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isMagDumpEnabled {
-            get {
-                return ((bool)(this["isMagDumpEnabled"]));
-            }
-            set {
-                this["isMagDumpEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isHoldAimEnabled {
-            get {
-                return ((bool)(this["isHoldAimEnabled"]));
-            }
-            set {
-                this["isHoldAimEnabled"] = value;
             }
         }
         
@@ -410,180 +254,12 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isMagDump360Enabled {
-            get {
-                return ((bool)(this["isMagDump360Enabled"]));
-            }
-            set {
-                this["isMagDump360Enabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isProneEnabled {
-            get {
-                return ((bool)(this["isProneEnabled"]));
-            }
-            set {
-                this["isProneEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isVoiceLineEnabled {
-            get {
-                return ((bool)(this["isVoiceLineEnabled"]));
-            }
-            set {
-                this["isVoiceLineEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isReloadEnabled {
-            get {
-                return ((bool)(this["isReloadEnabled"]));
-            }
-            set {
-                this["isReloadEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isPraiseSunEnabled {
-            get {
-                return ((bool)(this["isPraiseSunEnabled"]));
-            }
-            set {
-                this["isPraiseSunEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isTouchGrassEnabled {
-            get {
-                return ((bool)(this["isTouchGrassEnabled"]));
-            }
-            set {
-                this["isTouchGrassEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isModBitsEnabled {
             get {
                 return ((bool)(this["isModBitsEnabled"]));
             }
             set {
                 this["isModBitsEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isKnifeOutEnabled {
-            get {
-                return ((bool)(this["isKnifeOutEnabled"]));
-            }
-            set {
-                this["isKnifeOutEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isJumpEnabled {
-            get {
-                return ((bool)(this["isJumpEnabled"]));
-            }
-            set {
-                this["isJumpEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isMuteWindowsEnabled {
-            get {
-                return ((bool)(this["isMuteWindowsEnabled"]));
-            }
-            set {
-                this["isMuteWindowsEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isWalkEnabled {
-            get {
-                return ((bool)(this["isWalkEnabled"]));
-            }
-            set {
-                this["isWalkEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isHotMicEnabled {
-            get {
-                return ((bool)(this["isHotMicEnabled"]));
-            }
-            set {
-                this["isHotMicEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isNormGrenadeEnabled {
-            get {
-                return ((bool)(this["isNormGrenadeEnabled"]));
-            }
-            set {
-                this["isNormGrenadeEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isWeaponSwapEnabled {
-            get {
-                return ((bool)(this["isWeaponSwapEnabled"]));
-            }
-            set {
-                this["isWeaponSwapEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isFireModeEnabled {
-            get {
-                return ((bool)(this["isFireModeEnabled"]));
-            }
-            set {
-                this["isFireModeEnabled"] = value;
             }
         }
         
@@ -626,18 +302,6 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isAudclipEnabled {
-            get {
-                return ((bool)(this["isAudclipEnabled"]));
-            }
-            set {
-                this["isAudclipEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isSweatbotEnabled {
             get {
                 return ((bool)(this["isSweatbotEnabled"]));
@@ -656,18 +320,6 @@ namespace UiBot.Properties {
             }
             set {
                 this["isUpdateCheckEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isCustomCommandsEnabled {
-            get {
-                return ((bool)(this["isCustomCommandsEnabled"]));
-            }
-            set {
-                this["isCustomCommandsEnabled"] = value;
             }
         }
         

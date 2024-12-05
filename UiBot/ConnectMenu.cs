@@ -183,6 +183,14 @@ namespace UiBot
         private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isCommandsPaused = pauseCommands.Checked;
+            if (pauseCommands.Checked)
+            {
+                Console.WriteLine("Commands are paused.");
+            }
+            else
+            {
+                Console.WriteLine("Commands are not paused.");
+            }
             Properties.Settings.Default.Save();
         }
 

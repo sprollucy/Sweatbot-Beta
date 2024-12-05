@@ -246,7 +246,7 @@ namespace UiBot
                 this.Controls.Add(settingMenu);
                 settingMenu.Show();
                 isSettingMenuVisible = true;
-                currentTab.Text = "Settings Menu";
+                currentTab.Text = "Settings";
             }
         }
 
@@ -300,7 +300,7 @@ namespace UiBot
                 this.Controls.Add(controlMenu);
                 controlMenu.Show();
                 isControlMenuVisible = true;
-                currentTab.Text = "Command Menu";
+                currentTab.Text = "Command Settings";
 
             }
         }

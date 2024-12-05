@@ -131,9 +131,9 @@
             label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label4.Location = new Point(170, 3);
             label4.Name = "label4";
-            label4.Size = new Size(188, 23);
+            label4.Size = new Size(191, 23);
             label4.TabIndex = 30;
-            label4.Text = "Custom Commands";
+            label4.Text = "Enabled Commands";
             // 
             // pictureBox4
             // 
