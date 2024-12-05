@@ -293,7 +293,7 @@ namespace UiBot
                 costtextBox.Clear();
                 commandtextBox.Clear();
 
-                if (Properties.Settings.Default.isConfirmationDisabled)
+                if (!Properties.Settings.Default.isConfirmationDisabled)
                 {
                     MessageBox.Show("Command restored successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -615,6 +615,8 @@ namespace UiBot
         private void confCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isConfirmationDisabled = confCheckBox.Checked;
+            Properties.Settings.Default.Save();
+
         }
     }
 }

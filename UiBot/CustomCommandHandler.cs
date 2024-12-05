@@ -92,7 +92,8 @@ public class CustomCommandHandler
     {
         if (!File.Exists(filePath))
         {
-            throw new FileNotFoundException("Commands file not found.", filePath);
+            File.WriteAllText(filePath, "{}");
+            Console.WriteLine("CustomCommands.json not found. Creating file");
         }
 
         var json = File.ReadAllText(filePath);

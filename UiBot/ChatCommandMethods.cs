@@ -887,7 +887,7 @@ namespace UiBot
         {
             // Get the current date and timestamp for the log
             string date = DateTime.Now.ToString("M-d-yy");
-            string timestamp = DateTime.Now.ToString("HH:mm:ss");
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             // Construct the log file path with the date in its name
             string logFileName = $"{date} bitlog.txt";
@@ -955,7 +955,7 @@ namespace UiBot
 
         public static void AddBitCommand(TwitchClient client, OnChatCommandReceivedArgs e)
         {
-            string timestamp = DateTime.Now.ToString("HH:mm:ss");
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             string[] args = e.Command.ArgumentsAsString.Split(' ');
             if (args.Length == 2)

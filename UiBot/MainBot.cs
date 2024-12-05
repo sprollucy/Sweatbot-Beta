@@ -48,7 +48,6 @@ namespace UiBot
         {
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
-            LogHandler.DebugToFile();
             LogHandler.LoadUserBitsFromJson("user_bits.json");
             string commandsFilePath = Path.Combine("Data", "bin",  "CustomCommands.json");
             commandHandler = new CustomCommandHandler(commandsFilePath);
@@ -249,7 +248,7 @@ namespace UiBot
                 }
             }
 
-            string timestamp = DateTime.Now.ToString("HH:mm:ss");
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             if (Properties.Settings.Default.isChatBonusEnabled)
             {
@@ -346,7 +345,7 @@ namespace UiBot
             int bitcostCooldownDuration = 30;
             int lastHow2useTimerDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
-            string timestamp = DateTime.Now.ToString("HH:mm:ss");
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
@@ -415,10 +414,12 @@ namespace UiBot
                     if (userBits.ContainsKey(requester))
                     {
                         client.SendMessage(channelId, $"{requester}, you have {userBits[requester]} bits");
+                        Console.WriteLine($"{requester}, you have {userBits[requester]} bits");
                     }
                     else
                     {
                         client.SendMessage(channelId, $"{requester}, you have no bits");
+                        Console.WriteLine($"{requester}, you have no bits");
                     }
                     break;
 

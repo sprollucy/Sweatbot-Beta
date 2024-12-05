@@ -134,6 +134,7 @@
             pictureBox8 = new PictureBox();
             checkEnableBitMsg = new CheckBox();
             pictureBox9 = new PictureBox();
+            saveMessageButton = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1269,6 +1270,16 @@
             pictureBox9.TabIndex = 116;
             pictureBox9.TabStop = false;
             // 
+            // saveMessageButton
+            // 
+            saveMessageButton.Location = new Point(860, 543);
+            saveMessageButton.Name = "saveMessageButton";
+            saveMessageButton.Size = new Size(75, 23);
+            saveMessageButton.TabIndex = 119;
+            saveMessageButton.Text = "Save";
+            saveMessageButton.UseVisualStyleBackColor = true;
+            saveMessageButton.Click += saveMessageButton_Click;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1277,6 +1288,7 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1058, 1068);
             ControlBox = false;
+            Controls.Add(saveMessageButton);
             Controls.Add(label9);
             Controls.Add(pictureBox8);
             Controls.Add(checkEnableBitMsg);
@@ -1437,5 +1449,6 @@
         private PictureBox pictureBox8;
         private CheckBox checkEnableBitMsg;
         private PictureBox pictureBox9;
+        private Button saveMessageButton;
     }
 }

@@ -13,6 +13,7 @@ namespace UiBot
         private MainBot bot;
         private CommandHandler commandHandler; // Add this field
         private TextBoxWriter textBoxWriter;
+        string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
 
         public ConnectMenu()
@@ -36,7 +37,7 @@ namespace UiBot
             // Redirect standard output to the consoleTextBox and optionally to the file if isDebugToFile is true
             textBoxWriter = new TextBoxWriter(consoleTextBox, Properties.Settings.Default.isWriteDebugOn);
             Console.SetOut(textBoxWriter);
-            Console.WriteLine("Console initialized.");
+            Console.WriteLine($"[{timestamp}]Console initialized.");
         }
 
         // Custom TextWriter to redirect Console output to a TextBox
