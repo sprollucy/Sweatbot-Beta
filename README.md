@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.71alpha**
+# **Sweat Bot 1.0.0.72 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -146,25 +146,20 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ## **Latest Changelog**
 
+1.0.0.72-alpha
+- Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain
+- Updated debug system
+- Fixed crash caused if the custom command json was missing
+- Fixed "Disable confirmation message" toggle not saving after restart
+- Adjusted menu names and layouts
+- Added save button to Auto Message
+- Added toggle in settings to hide Trader Menu
+- Adjusted scripting language syntax and how to use file
+- Added MPosAsync
+- Added quick commands under the Command Builder menu
+- Removed goose folder. Planning on adding a way to launch exe files
+
 1.0.0.71-alpha
 - Added toggle to print out remaining bits after using a command
 - Added Async Delay
 - Bugfixing for Custom commands
-
-1.0.0.70-alpha
-- Added HitKeyLoop
-- Added HitKeyLoopAsync
-- Added MuteVolumeAsync
-- Added LeftClickLoop
-- Added LeftClickLoopAsync
-- Added RightClickLoop
-- Added RightClickLoopAsync
-- Added MousePos
-- Fixed debug spelling errors
-- Updated interface to support new functions
-- Adjusted disabled and enabled command list to only show what item you have selected
-- Fixed command field not showing selected disabled command
-- Added write debug to settings menu. Used to Log anything that shows up in the console to a debug file in the Logs folder
-- Added a way to find the mouse position of wherever the mouse is. Under the command builder menu, Select the box with "X: 0, Y: 0" then move the mouse to wherever you want it and hit shift. Then if you use the "Move Mouse to Position" button it will automatically add the position in
-- Removed dropkit as its easier to do with Custom Commands
-- Redesigned the Command Builder Menu for readability
