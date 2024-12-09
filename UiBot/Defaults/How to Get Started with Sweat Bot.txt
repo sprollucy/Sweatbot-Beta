@@ -10,8 +10,6 @@ The program works by mainly sending virtual keypresses and mouse events directly
 How to Get Started with Sweat Bot
 ---------------------------------
 
-Note: Drop Config.exe is broken at the moment so Kit Drop does not work
-
 1. Create a Bot Account
 
 Go to Twitch.tv and create the account you want to use as the bot.
@@ -41,14 +39,11 @@ Enter the channel name where you want the bot to join and click "Save".
 
 6. Set Up Commands
 
-Click the Command Menu (the button with three lines) to configure the bot’s commands.
+Click the Command Builder Menu(wip) (square with a wrench) to configure the bot’s commands.
 Set command costs and which ones you want enabled(see first note). hit "Save", then "Restart".
-To enable custom commands (still a WIP), check "Enable Custom Commands" and open the Command Builder(see notes below)
 
 
 Notes: 
-The commands were original thought about with Escape from Tarkov in mine, But using the Custom commands you can name them anything you want and tailor them to whatever game you play
-
 For custom commands to show up on twitch, you have to restart the program
 
 You can adjust the price or add to the command input and it will update the current command.

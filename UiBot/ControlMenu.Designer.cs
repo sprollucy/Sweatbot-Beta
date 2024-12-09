@@ -208,7 +208,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(162, 123, 92);
             label5.Font = new Font("Cambria", 15.75F);
-            label5.Location = new Point(12, 9);
+            label5.Location = new Point(12, 8);
             label5.Name = "label5";
             label5.Size = new Size(134, 25);
             label5.TabIndex = 120;
@@ -218,7 +218,7 @@
             // 
             pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
-            pictureBox8.Location = new Point(0, 1);
+            pictureBox8.Location = new Point(0, 0);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(514, 33);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -318,7 +318,7 @@
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
             autoMessageLabel.Font = new Font("Cambria", 15.75F);
-            autoMessageLabel.Location = new Point(12, 9);
+            autoMessageLabel.Location = new Point(12, 8);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(135, 25);
             autoMessageLabel.TabIndex = 25;
@@ -341,7 +341,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
             label3.Font = new Font("Cambria", 15.75F);
-            label3.Location = new Point(12, 9);
+            label3.Location = new Point(12, 8);
             label3.Name = "label3";
             label3.Size = new Size(190, 25);
             label3.TabIndex = 80;
@@ -424,7 +424,7 @@
             // 
             pictureBox7.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox7.BackgroundImageLayout = ImageLayout.None;
-            pictureBox7.Location = new Point(0, 1);
+            pictureBox7.Location = new Point(0, 0);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(514, 33);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -464,7 +464,7 @@
             // 
             pictureBox3.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
-            pictureBox3.Location = new Point(0, 1);
+            pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(514, 33);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;

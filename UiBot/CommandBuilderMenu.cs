@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Diagnostics;
-using System.IO;
-using System.Windows.Forms;
+
 using Newtonsoft.Json;
 
 namespace UiBot
@@ -427,6 +425,29 @@ namespace UiBot
             }
         }
 
+        private void openDisabledJson_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(_disabledCommandsFilePath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = _disabledCommandsFilePath,
+                        UseShellExecute = true // This will use the default application associated with the file type
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("The file 'CustomCommands.json' does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while trying to open the file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void removeCommandButton_Click(object sender, EventArgs e)
         {
             var selectedCommand = commandListBox.SelectedItem?.ToString();
@@ -503,5 +524,51 @@ namespace UiBot
 
         }
 
+        private void walkButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickWalk(LoadCommandsIntoListBox);
+        }
+
+        private void spinButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickSpin(LoadCommandsIntoListBox);
+
+        }
+
+        private void wiggleButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickWiggle(LoadCommandsIntoListBox);
+
+        }
+
+        private void crouchButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickCrouch(LoadCommandsIntoListBox);
+
+        }
+
+        private void firemodeButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickFireMode(LoadCommandsIntoListBox);
+
+        }
+
+        private void mdumpButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickMDump(LoadCommandsIntoListBox);
+
+        }
+
+        private void hotmicButton_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickHotMic(LoadCommandsIntoListBox);
+
+        }
+
+        private void alftf4Button_Click(object sender, EventArgs e)
+        {
+            QuickAddCommands.QuickALTF4(LoadCommandsIntoListBox);
+
+        }
     }
 }

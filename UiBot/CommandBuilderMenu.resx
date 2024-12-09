@@ -117,4 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>How to use the command
+inspector/builder found 
+at the bottom of the page
+
+When you use Quick Add Command,
+make sure to select it from the 
+"Enabled Commands" list on the left 
+side. 
+
+After selecting, verify the cost and keybind is correct in the Command Inspector section below.
+</value>
+  </data>
 </root>

@@ -8,6 +8,9 @@
 -Added toggle in settings to hide Trader Menu
 -Adjusted scripting language syntax and how to use file
 -Added MPosAsync
+-Added quick commands under the Command Builder menu
+-Removed goose folder. Planning on adding a way to launch exe files
+
 
 
 1.0.0.71-alpha

@@ -2,11 +2,6 @@
 using System.Media;
 
 
-/*
- *  TODO **
- *  Have the sounds wait before the trader menu is done loading
- */
-
 namespace UiBot
 {
     public partial class TraderMenu : Form

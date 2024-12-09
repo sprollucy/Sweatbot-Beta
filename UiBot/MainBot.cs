@@ -9,8 +9,6 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 
 
-
-
 /* TODO **
  * 
  */

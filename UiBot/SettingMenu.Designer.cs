@@ -94,6 +94,7 @@
             // 
             accessBox.Location = new Point(101, 22);
             accessBox.Name = "accessBox";
+            accessBox.PlaceholderText = "Token";
             accessBox.Size = new Size(100, 23);
             accessBox.TabIndex = 12;
             accessBox.TextChanged += accessBox_TextChanged;
@@ -162,6 +163,7 @@
             // 
             channelBox2.Location = new Point(101, 52);
             channelBox2.Name = "channelBox2";
+            channelBox2.PlaceholderText = "Channel";
             channelBox2.Size = new Size(100, 23);
             channelBox2.TabIndex = 2;
             channelBox2.TextChanged += channelBox2_TextChanged;

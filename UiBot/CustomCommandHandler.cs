@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System.Media;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions; // For parsing command string
-using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using TwitchLib.Client;
-using UiBot;
 
 public class CustomCommandHandler
 {
@@ -745,7 +742,6 @@ public class CustomCommandHandler
         // Run SetCursorPos on a separate thread to avoid blocking.
         await Task.Run(() => SetCursorPos(x, y));
     }
-
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
     {

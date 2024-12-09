@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Reflection;
+
 namespace UiBot
 {
-
     public partial class SettingMenu : Form
     {
         public SettingMenu()
