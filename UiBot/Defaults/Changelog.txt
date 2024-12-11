@@ -1,3 +1,8 @@
+1.0.0.73-alpha
+-Fixed bug with toggling on or off sweatbot by chat command
+-Added bonus for following
+-Added bonus for subscribing
+
 1.0.0.72-alpha
 -Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain
 -Updated debug system
@@ -10,8 +15,6 @@
 -Added MPosAsync
 -Added quick commands under the Command Builder menu
 -Removed goose folder. Planning on adding a way to launch exe files
-
-
 
 1.0.0.71-alpha
 -Added toggle to print out remaining bits after using a command

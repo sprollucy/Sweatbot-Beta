@@ -59,6 +59,12 @@
             openModWhitelist = new Button();
             saveMessageButton = new Button();
             panel2 = new Panel();
+            subTextBox = new TextBox();
+            label7 = new Label();
+            enableSubBonus = new CheckBox();
+            followTextBox = new TextBox();
+            label6 = new Label();
+            enableFollowBonus = new CheckBox();
             pictureBox7 = new PictureBox();
             panel3 = new Panel();
             panel4 = new Panel();
@@ -137,9 +143,10 @@
             // 
             // bottoggleCostBox
             // 
-            bottoggleCostBox.Location = new Point(217, 59);
+            bottoggleCostBox.BorderStyle = BorderStyle.None;
+            bottoggleCostBox.Location = new Point(216, 61);
             bottoggleCostBox.Name = "bottoggleCostBox";
-            bottoggleCostBox.Size = new Size(100, 23);
+            bottoggleCostBox.Size = new Size(39, 16);
             bottoggleCostBox.TabIndex = 108;
             bottoggleCostBox.Text = "300";
             // 
@@ -241,7 +248,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(220, 215, 201);
-            label4.Location = new Point(143, 52);
+            label4.Location = new Point(143, 51);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -249,9 +256,10 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.Location = new Point(286, 50);
+            bonusTextBox.BorderStyle = BorderStyle.None;
+            bonusTextBox.Location = new Point(298, 51);
             bonusTextBox.Name = "bonusTextBox";
-            bonusTextBox.Size = new Size(55, 23);
+            bonusTextBox.Size = new Size(33, 16);
             bonusTextBox.TabIndex = 60;
             bonusTextBox.Text = "100";
             // 
@@ -259,21 +267,23 @@
             // 
             enableBonusMulti.AutoSize = true;
             enableBonusMulti.BackColor = Color.FromArgb(220, 215, 201);
-            enableBonusMulti.Location = new Point(12, 75);
+            enableBonusMulti.Location = new Point(12, 119);
             enableBonusMulti.Name = "enableBonusMulti";
             enableBonusMulti.Size = new Size(132, 19);
             enableBonusMulti.TabIndex = 86;
-            enableBonusMulti.Text = "Enable bit multiplier";
+            enableBonusMulti.Text = "Enable Bit Multiplier";
             enableBonusMulti.UseVisualStyleBackColor = false;
             enableBonusMulti.CheckedChanged += enableBonusMulti_CheckedChanged;
             // 
             // bonusMultiplierBox
             // 
-            bonusMultiplierBox.Location = new Point(150, 73);
+            bonusMultiplierBox.BorderStyle = BorderStyle.None;
+            bonusMultiplierBox.Location = new Point(143, 120);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
-            bonusMultiplierBox.Size = new Size(23, 23);
+            bonusMultiplierBox.Size = new Size(23, 16);
             bonusMultiplierBox.TabIndex = 106;
             bonusMultiplierBox.Text = "2";
+            bonusMultiplierBox.TextChanged += bonusMultiplierBox_TextChanged;
             // 
             // enableModBits
             // 
@@ -408,6 +418,12 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(220, 215, 201);
+            panel2.Controls.Add(subTextBox);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(enableSubBonus);
+            panel2.Controls.Add(followTextBox);
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(enableFollowBonus);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(pictureBox8);
             panel2.Controls.Add(bonusMultiplierBox);
@@ -417,8 +433,70 @@
             panel2.Controls.Add(enableChatBonus);
             panel2.Location = new Point(53, 240);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 192);
+            panel2.Size = new Size(514, 243);
             panel2.TabIndex = 121;
+            // 
+            // subTextBox
+            // 
+            subTextBox.BorderStyle = BorderStyle.None;
+            subTextBox.Location = new Point(298, 95);
+            subTextBox.Name = "subTextBox";
+            subTextBox.Size = new Size(33, 16);
+            subTextBox.TabIndex = 125;
+            subTextBox.Text = "100";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(220, 215, 201);
+            label7.Location = new Point(143, 95);
+            label7.Name = "label7";
+            label7.Size = new Size(155, 15);
+            label7.TabIndex = 126;
+            label7.Text = "How many for subscribing? ";
+            // 
+            // enableSubBonus
+            // 
+            enableSubBonus.AutoSize = true;
+            enableSubBonus.BackColor = Color.FromArgb(220, 215, 201);
+            enableSubBonus.Location = new Point(12, 94);
+            enableSubBonus.Name = "enableSubBonus";
+            enableSubBonus.Size = new Size(120, 19);
+            enableSubBonus.TabIndex = 124;
+            enableSubBonus.Text = "Enable Sub Bonus";
+            enableSubBonus.UseVisualStyleBackColor = false;
+            enableSubBonus.CheckedChanged += enableSubBonus_CheckedChanged;
+            // 
+            // followTextBox
+            // 
+            followTextBox.BorderStyle = BorderStyle.None;
+            followTextBox.Location = new Point(298, 73);
+            followTextBox.Name = "followTextBox";
+            followTextBox.Size = new Size(33, 16);
+            followTextBox.TabIndex = 122;
+            followTextBox.Text = "100";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.FromArgb(220, 215, 201);
+            label6.Location = new Point(143, 73);
+            label6.Name = "label6";
+            label6.Size = new Size(141, 15);
+            label6.TabIndex = 123;
+            label6.Text = "How many for following?";
+            // 
+            // enableFollowBonus
+            // 
+            enableFollowBonus.AutoSize = true;
+            enableFollowBonus.BackColor = Color.FromArgb(220, 215, 201);
+            enableFollowBonus.Location = new Point(12, 72);
+            enableFollowBonus.Name = "enableFollowBonus";
+            enableFollowBonus.Size = new Size(135, 19);
+            enableFollowBonus.TabIndex = 121;
+            enableFollowBonus.Text = "Enable Follow Bonus";
+            enableFollowBonus.UseVisualStyleBackColor = false;
+            enableFollowBonus.CheckedChanged += enableFollowBonus_CheckedChanged;
             // 
             // pictureBox7
             // 
@@ -540,5 +618,11 @@
         private Panel panel3;
         private Panel panel4;
         private PictureBox pictureBox3;
+        private TextBox subTextBox;
+        private Label label7;
+        private CheckBox enableSubBonus;
+        private TextBox followTextBox;
+        private Label label6;
+        private CheckBox enableFollowBonus;
     }
 }

@@ -373,13 +373,37 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool isTraderMenuEnabled {
             get {
                 return ((bool)(this["isTraderMenuEnabled"]));
             }
             set {
                 this["isTraderMenuEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isFollowBonusEnabled {
+            get {
+                return ((bool)(this["isFollowBonusEnabled"]));
+            }
+            set {
+                this["isFollowBonusEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSubBonusEnabled {
+            get {
+                return ((bool)(this["isSubBonusEnabled"]));
+            }
+            set {
+                this["isSubBonusEnabled"] = value;
             }
         }
     }

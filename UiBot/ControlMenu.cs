@@ -1,11 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
-
-/* TODO **
- * Add extra customization into commands like how long the action goes on for
- * Add multiple messages that can be sent at different times
- * rename all cooldown boxes to cost boxes 
-*/
 namespace UiBot
 {
     public partial class ControlMenu : Form
@@ -16,11 +10,7 @@ namespace UiBot
         public ControlMenu()
         {
             InitializeComponent();
-
-            // Initialize TextBoxes dictionary
             InitializeTextBoxes();
-
-            // Load the settings from JSON on application startup
             LoadSettings();
 
             this.TopLevel = false;
@@ -31,10 +21,12 @@ namespace UiBot
             modRefund.Checked = Properties.Settings.Default.isModRefundEnabled;
             modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
             enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
+            enableFollowBonus.Checked = Properties.Settings.Default.isFollowBonusEnabled;
+            enableSubBonus.Checked = Properties.Settings.Default.isSubBonusEnabled;
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
             checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
 
-            if(Properties.Settings.Default.isTraderMenuEnabled)
+            if (Properties.Settings.Default.isTraderMenuEnabled)
             {
                 enableTradersCommand.Visible = true;
             }
@@ -51,9 +43,12 @@ namespace UiBot
             textBoxes["autoMessageBox"] = AutoMessageBox;
             textBoxes["autoSendMessageCD"] = AutoSendMessageCD;
             textBoxes["bonusTextBox"] = BonusTextBox;
+            textBoxes["followTextBox"] = FollowTextBox;
+            textBoxes["subTextBox"] = SubTextBox;
             textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
             textBoxes["bottoggleCostBox"] = BotToggleCostBox;
         }
+
         public TextBox BotToggleCostBox
         {
             get { return bottoggleCostBox; }
@@ -75,6 +70,18 @@ namespace UiBot
         {
             get { return bonusTextBox; }
             set { bonusTextBox = value; }
+        }
+
+        public TextBox FollowTextBox
+        {
+            get { return followTextBox; }
+            set { followTextBox = value; }
+        }
+
+        public TextBox SubTextBox
+        {
+            get { return subTextBox; }
+            set { subTextBox = value; }
         }
 
         public TextBox BonusMultiplierBox
@@ -156,6 +163,18 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
+        private void enableFollowBonus_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isFollowBonusEnabled = enableFollowBonus.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableSubBonus_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSubBonusEnabled = enableSubBonus.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();
@@ -231,6 +250,11 @@ namespace UiBot
             Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
             string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
             File.WriteAllText(filePath, json);
+        }
+
+        private void bonusMultiplierBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

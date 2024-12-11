@@ -1,17 +1,14 @@
 ﻿
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using TwitchLib.PubSub.Events;
+using TwitchLib.PubSub;
 
-
-/* TODO **
- * 
- */
 
 namespace UiBot
 {
@@ -22,6 +19,7 @@ namespace UiBot
         ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
         ControlMenu controlMenu = new ControlMenu();
         private static CustomCommandHandler commandHandler;
+        public static TwitchPubSub PubSub;
 
         //dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
@@ -37,6 +35,9 @@ namespace UiBot
         private bool isBotConnected = false;
         private static string channelId;
 
+        // Property to get the connection status
+        public bool IsConnected => isBotConnected;
+
         //spam command
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
         private System.Threading.Timer timer;
@@ -49,7 +50,6 @@ namespace UiBot
             LogHandler.LoadUserBitsFromJson("user_bits.json");
             string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
             commandHandler = new CustomCommandHandler(commandsFilePath);
-
         }
 
         public void Dispose()
@@ -85,6 +85,7 @@ namespace UiBot
             {
                 Console.WriteLine($"[Sweat Bot]: Connecting to {channelId}...");
                 InitializeTwitchClient();
+                InitializePubSub();
                 StartAutoMessage();
 
             }
@@ -118,10 +119,15 @@ namespace UiBot
                 {
                     client = new TwitchClient();
                     client.Initialize(creds, channelId);
+
+                    // Subscribe to the OnNewSubscriber event
+                    client.OnNewSubscriber += Client_OnNewSubscriber;
+
                     client.OnConnected += Client_OnConnected;
                     client.OnError += Client_OnError;
                     client.OnMessageReceived += Client_OnMessageReceived;
                     client.OnChatCommandReceived += Client_OnChatCommandReceived;
+
                     client.AddChatCommandIdentifier('$');
                     client.OnConnected += (sender, e) => isBotConnected = true;
                     client.Connect();
@@ -133,10 +139,109 @@ namespace UiBot
             }
         }
 
-        // Property to get the connection status
-        public bool IsConnected => isBotConnected;
+        private void InitializePubSub()
+        {
+            if (PubSub == null)
+            {
+                PubSub = new TwitchPubSub();
+                PubSub.OnFollow += PubSub_OnFollow;
 
-        // Method to process commands locally
+
+                // Ensure PubSub is connected
+                PubSub.Connect();
+            }
+        }
+
+        private void PubSub_OnFollow(object sender, OnFollowArgs e)
+        {
+            if (Properties.Settings.Default.isFollowBonusEnabled)
+            {
+                string followerName = e.Username;
+                int bitsAwarded = 100; // Default value
+
+                // Try to get the value from the FollowTextBox, similar to how you handle ChatBonus
+                if (int.TryParse(controlMenu.FollowTextBox.Text, out int followBonus))
+                {
+                    bitsAwarded = followBonus;  // Update bitsAwarded with the value from FollowTextBox
+                }
+                else
+                {
+                    // Handle error if the value from the FollowTextBox is invalid
+                    client.SendMessage(channelId, $"{followerName}, invalid follow bonus amount. Using default value.");
+                    bitsAwarded = 100;  // Default value in case of invalid input
+                }
+
+                string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+
+                // Check if the user already exists in the bits dictionary
+                if (!userBits.ContainsKey(followerName))
+                {
+                    userBits[followerName] = bitsAwarded;
+                }
+                else
+                {
+                    userBits[followerName] += bitsAwarded;
+                }
+
+                // Save updated bits data to the file
+                LogHandler.WriteUserBitsToJson("user_bits.json");
+
+                // Log the follow event and awarded bits
+                LogHandler.LogBits(followerName, bitsAwarded, timestamp);
+
+                // Send a thank-you message to the chat
+                client.SendMessage(channelId, $"{followerName} is now following! You have been awarded {bitsAwarded} bits. You now have {userBits[followerName]} bits.");
+
+                // Optionally print to console
+                Console.WriteLine($"[{timestamp}] {followerName} followed and was awarded {bitsAwarded} bits. Total bits: {userBits[followerName]}");
+            }
+        }
+
+        private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
+        {
+            if (Properties.Settings.Default.isSubBonusEnabled)
+            {
+                string subscriberName = e.Subscriber.DisplayName;
+                int bitsAwarded = 500; // Default value
+
+                // Try to get the value from the SubTextBox, similar to how you handle FollowTextBox
+                if (int.TryParse(controlMenu.SubTextBox.Text, out int subBonus))
+                {
+                    bitsAwarded = subBonus;  // Update bitsAwarded with the value from SubTextBox
+                }
+                else
+                {
+                    // Handle error if the value from the SubTextBox is invalid
+                    client.SendMessage(channelId, $"{subscriberName}, invalid subscription bonus amount. Using default value.");
+                    bitsAwarded = 500;  // Default value in case of invalid input
+                }
+
+                string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+
+                // Check if the user already exists in the bits dictionary
+                if (!userBits.ContainsKey(subscriberName))
+                {
+                    userBits[subscriberName] = bitsAwarded;
+                }
+                else
+                {
+                    userBits[subscriberName] += bitsAwarded;
+                }
+
+                // Save updated bits data to the file
+                LogHandler.WriteUserBitsToJson("user_bits.json");
+
+                // Log the subscription and awarded bits
+                LogHandler.LogBits(subscriberName, bitsAwarded, timestamp);
+
+                // Send a thank-you message to the chat
+                client.SendMessage(channelId, $"{subscriberName}, thank you for subscribing! You have been awarded {bitsAwarded} bits. You now have {userBits[subscriberName]} bits.");
+
+                // Optionally print to console
+                Console.WriteLine($"[{timestamp}] {subscriberName} subscribed and was awarded {bitsAwarded} bits. Total bits: {userBits[subscriberName]}");
+            }
+        }
+
         public void ProcessLocalCommand(string commandName)
         {
             if (commandHandler == null)
@@ -160,7 +265,7 @@ namespace UiBot
             }
             else
             {
-                Console.WriteLine($"Cannot execute command '{commandName}'. Not enough bits or command does not exist.");
+                Console.WriteLine($"Cannot execute command '{commandName}'. Command does not exist or is broken.");
             }
         }
 
@@ -189,14 +294,6 @@ namespace UiBot
                     if (commandHandler.GetCommand(commandName) != null)
                     {
                         var command = commandHandler.GetCommand(commandName);
-
-                        // Check if the command is enabled
-                        //if (commandName == "test" && !Properties.Settings.Default.IsTurnEnabled)
-                        //{
-                        // Inform the user that the command is disabled
-                        //  client.SendMessage(e.ChatMessage.Channel, $"The command '{commandName}' is currently disabled.");
-                        // return;
-                        //}
 
                         // Process other commands
                         int userBits = MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName)
@@ -269,7 +366,6 @@ namespace UiBot
                     {
                         // Error parsing bonus amount, use a default value or handle the error accordingly
                         client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, invalid bonus amount format. Using default value.");
-                        bonusAmount = 100; // Set a default bonus amount
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
                         LogHandler.WriteUserBitsToJson("user_bits.json");
                     }
@@ -292,7 +388,7 @@ namespace UiBot
                     LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    Console.WriteLine($"Applied multiplier {multiplier}, resulting in {bitsGiven} bits given.");
+                    Console.WriteLine($"A {multiplier}x multiplier is active, resulting in {bitsGiven} bits given.");
 
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
@@ -306,7 +402,6 @@ namespace UiBot
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
             }
-
         }
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
@@ -337,11 +432,11 @@ namespace UiBot
         {
 
             var traderResetInfoService = new TraderResetInfoService();
-            Process[] pname = Process.GetProcessesByName("notepad");
+            string Chatter = e.Command.ChatMessage.DisplayName;
 
             //antispam cooldowns
             int helpCooldownDuration = 30;
-            int aboutCooldownDuration = 10;
+            int aboutCooldownDuration = 60;
             int tradersCooldownDuration = 90;
             int bitcostCooldownDuration = 30;
             int lastHow2useTimerDuration = 30;
@@ -411,16 +506,15 @@ namespace UiBot
                     break;
 
                 case "mybits":
-                    string requester = e.Command.ChatMessage.DisplayName;
-                    if (userBits.ContainsKey(requester))
+                    if (userBits.ContainsKey(Chatter))
                     {
-                        client.SendMessage(channelId, $"{requester}, you have {userBits[requester]} bits");
-                        Console.WriteLine($"{requester}, you have {userBits[requester]} bits");
+                        client.SendMessage(channelId, $"{Chatter}, you have {userBits[Chatter]} bits");
+                        Console.WriteLine($"{Chatter}, you have {userBits[Chatter]} bits");
                     }
                     else
                     {
-                        client.SendMessage(channelId, $"{requester}, you have no bits");
-                        Console.WriteLine($"{requester}, you have no bits");
+                        client.SendMessage(channelId, $"{Chatter}, you have no bits");
+                        Console.WriteLine($"{Chatter}, you have no bits");
                     }
                     break;
 
@@ -429,7 +523,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
                     {
-                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now;
 
                         // Define the mappings of textbox names to their corresponding labels and enabled states
                         var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
@@ -470,9 +564,8 @@ namespace UiBot
                         {
                             if (enabledCommandCosts.Count > 0)
                             {
-                                standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, Available commands: {string.Join(", ", enabledCommandCosts)}";
+                                standardCommandsMessage = $"{Chatter}, Available commands: {string.Join(", ", enabledCommandCosts)}";
                             }
-
 
                             var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
                             if (allCommandsWithCosts.Any())
@@ -484,11 +577,10 @@ namespace UiBot
 
                                 customCommandsMessage = $"{string.Join(", ", commandList)}";
                             }
-
                         }
                         else
                         {
-                            standardCommandsMessage = $"{e.Command.ChatMessage.DisplayName}, All commands are paused";
+                            standardCommandsMessage = $"{Chatter}, All commands are paused";
                         }
 
                         // Combine the two messages into a single message
@@ -500,7 +592,6 @@ namespace UiBot
                             // Send the combined message
                             client.SendMessage(channelId, combinedMessage);
                         }
-
                     }
                     break;
 
@@ -611,12 +702,12 @@ namespace UiBot
                 case "sweatbot":
                     // Check the current state of isChatCommandPaused
                     bool currentPauseState = Properties.Settings.Default.isCommandsPaused;
-                    string currentPauseStateString = currentPauseState ? "off" : "on";
+                    string currentPauseStateString = currentPauseState ? "on" : "off";
 
                     if (Properties.Settings.Default.isSweatbotEnabled)
                     {
                         // Check if the user's bits are loaded
-                        if (userBits.ContainsKey(e.Command.ChatMessage.DisplayName))
+                        if (userBits.ContainsKey(Chatter))
                         {
                             client.SendMessage(channelId, $"Sweatbot is {currentPauseStateString}. Use !sweatbot on or off to change that");
 
@@ -624,7 +715,7 @@ namespace UiBot
                             if (int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCost))
                             {
                                 // Check if the user has enough bits
-                                if (userBits[e.Command.ChatMessage.DisplayName] >= bitCost)
+                                if (userBits[Chatter] >= bitCost)
                                 {
                                     // Determine the desired state based on the command message
                                     bool desiredState = e.Command.ChatMessage.Message.ToLower().Contains("on");
@@ -633,10 +724,10 @@ namespace UiBot
                                     if (e.Command.ChatMessage.Message.ToLower().Contains("on") || e.Command.ChatMessage.Message.ToLower().Contains("off"))
                                     {
                                         // Log the command usage
-                                        LogHandler.LogCommand(e.Command.ChatMessage.DisplayName, "sweatbot", bitCost, userBits, timestamp);
+                                        LogHandler.LogCommand(Chatter, "sweatbot", bitCost, userBits, timestamp);
 
                                         // Deduct the cost of the command
-                                        userBits[e.Command.ChatMessage.DisplayName] -= bitCost;
+                                        userBits[Chatter] -= bitCost;
 
                                         // Update the isChatCommandPaused value
                                         Properties.Settings.Default.isCommandsPaused = !desiredState;
@@ -645,9 +736,9 @@ namespace UiBot
                                         // Send confirmation message
                                         if (Properties.Settings.Default.isBitMsgEnabled)
                                         {
-                                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[e.Command.ChatMessage.DisplayName]} bits remaining.");
+                                            client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} bits remaining.");
                                         }
-                                        Console.WriteLine($"[{timestamp}] [{e.Command.ChatMessage.DisplayName}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[e.Command.ChatMessage.DisplayName]}");
+                                        Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[Chatter]}");
 
                                         // Save the updated bit data
                                         LogHandler.WriteUserBitsToJson("user_bits.json");
@@ -656,7 +747,7 @@ namespace UiBot
                                 else
                                 {
                                     // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                    client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
                                 }
                             }
                             else
@@ -668,7 +759,7 @@ namespace UiBot
                         else
                         {
                             // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, your bit data is not found!");
+                            client.SendMessage(channelId, $"{Chatter}, your bit data is not found!");
                         }
                     }
                     else
@@ -688,7 +779,7 @@ namespace UiBot
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(e.Command.ChatMessage.DisplayName))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
                                 ChatCommandMethods.AddBitCommand(client, e);
                             }
@@ -702,7 +793,7 @@ namespace UiBot
                     case "refund":
                         if (Properties.Settings.Default.isModRefundEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(e.Command.ChatMessage.DisplayName))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
                                 string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -733,23 +824,8 @@ namespace UiBot
             {
                 switch (e.Command.CommandText.ToLower())
                 {
-                    case "help":
-                        client.SendMessage(channelId, "!hi, !addbits, !refund");
-                        break;
                     case "hi":
                         client.SendMessage(channelId, "Hi");
-                        break;
-                    case "note":
-                        if (pname.Length > 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Process notePad = new Process();
-                            notePad.StartInfo.FileName = "notepad.exe";
-                            notePad.Start();
-                        }
                         break;
 
                     case "addbits":

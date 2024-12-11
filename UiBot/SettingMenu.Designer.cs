@@ -214,16 +214,16 @@
             label5.BackColor = Color.FromArgb(156, 155, 151);
             label5.Location = new Point(72, 547);
             label5.Name = "label5";
-            label5.Size = new Size(251, 15);
+            label5.Size = new Size(280, 15);
             label5.TabIndex = 30;
-            label5.Text = "Created by Sprollucy with the help of ChatGPT";
+            label5.Text = "Created by Sprollucy with the help of AI and Friends";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // githubLink
             // 
             githubLink.AutoSize = true;
             githubLink.BackColor = Color.FromArgb(156, 155, 151);
-            githubLink.Location = new Point(329, 547);
+            githubLink.Location = new Point(351, 547);
             githubLink.Name = "githubLink";
             githubLink.Size = new Size(43, 15);
             githubLink.TabIndex = 29;

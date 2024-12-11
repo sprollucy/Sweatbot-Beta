@@ -215,6 +215,7 @@
             customCommandBox.BorderStyle = BorderStyle.None;
             customCommandBox.Location = new Point(174, 29);
             customCommandBox.Name = "customCommandBox";
+            customCommandBox.ReadOnly = true;
             customCommandBox.ScrollBars = RichTextBoxScrollBars.Vertical;
             customCommandBox.Size = new Size(205, 357);
             customCommandBox.TabIndex = 30;

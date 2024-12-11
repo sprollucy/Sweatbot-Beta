@@ -10,13 +10,12 @@ namespace UiBot
         private TextBoxWriter textBoxWriter;
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
-
         public ConnectMenu()
         {
             ControlMenu controlMenu = new ControlMenu();
             SettingMenu settingMenu = new SettingMenu();
             bot = new MainBot();
-            commandHandler = new CommandHandler(); // Initialize the command handler
+            commandHandler = new CommandHandler();
             InitializeComponent();
             InitializeConsole();
             controlMenu.LoadSettings();
