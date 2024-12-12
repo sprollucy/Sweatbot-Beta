@@ -406,5 +406,29 @@ namespace UiBot.Properties {
                 this["isSubBonusEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isBitCostEnabled {
+            get {
+                return ((bool)(this["isBitCostEnabled"]));
+            }
+            set {
+                this["isBitCostEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isEconomyOn {
+            get {
+                return ((bool)(this["isEconomyOn"]));
+            }
+            set {
+                this["isEconomyOn"] = value;
+            }
+        }
     }
 }

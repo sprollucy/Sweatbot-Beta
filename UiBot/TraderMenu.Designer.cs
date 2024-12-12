@@ -726,6 +726,7 @@
             disableSound.AutoSize = true;
             disableSound.Checked = true;
             disableSound.CheckState = CheckState.Checked;
+            disableSound.ForeColor = SystemColors.ControlLight;
             disableSound.Location = new Point(823, 410);
             disableSound.Name = "disableSound";
             disableSound.RightToLeft = RightToLeft.No;
@@ -749,7 +750,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(201, 198, 189);
+            BackColor = Color.FromArgb(55, 55, 55);
             ClientSize = new Size(1058, 487);
             ControlBox = false;
             Controls.Add(configTraderButton);

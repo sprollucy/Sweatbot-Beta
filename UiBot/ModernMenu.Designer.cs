@@ -51,6 +51,7 @@
             label5 = new Label();
             label9 = new Label();
             eftTrader = new PictureBox();
+            conStatus = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
@@ -143,7 +144,7 @@
             // 
             // closeBox
             // 
-            closeBox.BackColor = Color.FromArgb(44, 54, 57);
+            closeBox.BackColor = Color.FromArgb(63, 78, 79);
             closeBox.Image = (Image)resources.GetObject("closeBox.Image");
             closeBox.Location = new Point(1022, 0);
             closeBox.Name = "closeBox";
@@ -155,7 +156,7 @@
             // 
             // pictureBox10
             // 
-            pictureBox10.BackColor = Color.FromArgb(44, 54, 57);
+            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox10.Location = new Point(0, 0);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(1042, 20);
@@ -256,7 +257,7 @@
             // currentTab
             // 
             currentTab.AutoSize = true;
-            currentTab.BackColor = Color.FromArgb(44, 54, 57);
+            currentTab.BackColor = Color.FromArgb(63, 78, 79);
             currentTab.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
             currentTab.Image = (Image)resources.GetObject("currentTab.Image");
             currentTab.ImageAlign = ContentAlignment.MiddleRight;
@@ -270,7 +271,7 @@
             // 
             // minBox
             // 
-            minBox.BackColor = Color.FromArgb(44, 54, 57);
+            minBox.BackColor = Color.FromArgb(63, 78, 79);
             minBox.Image = (Image)resources.GetObject("minBox.Image");
             minBox.Location = new Point(1002, 0);
             minBox.Name = "minBox";
@@ -314,17 +315,25 @@
             eftTrader.TabStop = false;
             eftTrader.Click += pictureBox5_Click;
             // 
+            // conStatus
+            // 
+            conStatus.AutoSize = true;
+            conStatus.BackColor = Color.FromArgb(63, 78, 79);
+            conStatus.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            conStatus.Location = new Point(905, 2);
+            conStatus.Name = "conStatus";
+            conStatus.Size = new Size(97, 18);
+            conStatus.TabIndex = 22;
+            conStatus.Text = "Not Connected!";
+            conStatus.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // ModernMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(201, 198, 189);
+            BackColor = Color.FromArgb(55, 55, 55);
             ClientSize = new Size(1042, 611);
-            Controls.Add(minBox);
-            Controls.Add(currentTab);
-            Controls.Add(closeBox);
-            Controls.Add(pictureBox10);
-            Controls.Add(settingsButton);
+            Controls.Add(conStatus);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
             Controls.Add(commandBuilder);
@@ -332,7 +341,6 @@
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
             Controls.Add(pictureBox2);
-            Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -341,6 +349,12 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(label9);
+            Controls.Add(minBox);
+            Controls.Add(currentTab);
+            Controls.Add(closeBox);
+            Controls.Add(settingsButton);
+            Controls.Add(label8);
+            Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
@@ -386,5 +400,6 @@
         private Label label5;
         private Label label9;
         private PictureBox eftTrader;
+        private Label conStatus;
     }
 }

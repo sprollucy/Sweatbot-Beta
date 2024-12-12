@@ -2,6 +2,9 @@
 -Fixed bug with toggling on or off sweatbot by chat command
 -Added bonus for following
 -Added bonus for subscribing
+-Switched ui to dark mode
+-Added connection status indicator
+-Added toggle for !bitcost command
 
 1.0.0.72-alpha
 -Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain

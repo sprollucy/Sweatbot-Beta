@@ -48,7 +48,7 @@
             // 
             // pictureBox9
             // 
-            pictureBox9.BackColor = Color.FromArgb(44, 54, 57);
+            pictureBox9.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
             pictureBox9.Location = new Point(230, 0);
             pictureBox9.Name = "pictureBox9";
@@ -60,7 +60,7 @@
             // 
             // pictureBox10
             // 
-            pictureBox10.BackColor = Color.FromArgb(44, 54, 57);
+            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox10.Location = new Point(-2, 0);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(250, 20);
@@ -70,6 +70,7 @@
             // enablePrapor
             // 
             enablePrapor.AutoSize = true;
+            enablePrapor.ForeColor = SystemColors.ControlLight;
             enablePrapor.Location = new Point(12, 70);
             enablePrapor.Name = "enablePrapor";
             enablePrapor.Size = new Size(99, 19);
@@ -81,6 +82,7 @@
             // enableTherapist
             // 
             enableTherapist.AutoSize = true;
+            enableTherapist.ForeColor = SystemColors.ControlLight;
             enableTherapist.Location = new Point(12, 95);
             enableTherapist.Name = "enableTherapist";
             enableTherapist.Size = new Size(112, 19);
@@ -92,6 +94,7 @@
             // enablePeacekeeper
             // 
             enablePeacekeeper.AutoSize = true;
+            enablePeacekeeper.ForeColor = SystemColors.ControlLight;
             enablePeacekeeper.Location = new Point(13, 120);
             enablePeacekeeper.Name = "enablePeacekeeper";
             enablePeacekeeper.Size = new Size(130, 19);
@@ -103,6 +106,7 @@
             // enableMechanic
             // 
             enableMechanic.AutoSize = true;
+            enableMechanic.ForeColor = SystemColors.ControlLight;
             enableMechanic.Location = new Point(13, 145);
             enableMechanic.Name = "enableMechanic";
             enableMechanic.Size = new Size(116, 19);
@@ -114,6 +118,7 @@
             // enableFence
             // 
             enableFence.AutoSize = true;
+            enableFence.ForeColor = SystemColors.ControlLight;
             enableFence.Location = new Point(13, 170);
             enableFence.Name = "enableFence";
             enableFence.Size = new Size(95, 19);
@@ -125,6 +130,7 @@
             // enableRagman
             // 
             enableRagman.AutoSize = true;
+            enableRagman.ForeColor = SystemColors.ControlLight;
             enableRagman.Location = new Point(13, 195);
             enableRagman.Name = "enableRagman";
             enableRagman.Size = new Size(108, 19);
@@ -136,6 +142,7 @@
             // enableSkier
             // 
             enableSkier.AutoSize = true;
+            enableSkier.ForeColor = SystemColors.ControlLight;
             enableSkier.Location = new Point(12, 220);
             enableSkier.Name = "enableSkier";
             enableSkier.Size = new Size(89, 19);
@@ -147,6 +154,7 @@
             // enableJaeger
             // 
             enableJaeger.AutoSize = true;
+            enableJaeger.ForeColor = SystemColors.ControlLight;
             enableJaeger.Location = new Point(13, 245);
             enableJaeger.Name = "enableJaeger";
             enableJaeger.Size = new Size(97, 19);
@@ -158,6 +166,7 @@
             // enableLightkeeper
             // 
             enableLightkeeper.AutoSize = true;
+            enableLightkeeper.ForeColor = SystemColors.ControlLight;
             enableLightkeeper.Location = new Point(13, 270);
             enableLightkeeper.Name = "enableLightkeeper";
             enableLightkeeper.Size = new Size(126, 19);
@@ -169,7 +178,8 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Cambria", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            label1.ForeColor = SystemColors.ControlLight;
             label1.Location = new Point(7, 23);
             label1.Name = "label1";
             label1.Size = new Size(237, 38);
@@ -180,6 +190,7 @@
             // enableCustomTraders
             // 
             enableCustomTraders.AutoSize = true;
+            enableCustomTraders.ForeColor = SystemColors.ControlLight;
             enableCustomTraders.Location = new Point(13, 314);
             enableCustomTraders.Name = "enableCustomTraders";
             enableCustomTraders.Size = new Size(146, 34);
@@ -192,7 +203,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(220, 215, 201);
+            BackColor = Color.FromArgb(55, 55, 55);
             ClientSize = new Size(250, 370);
             ControlBox = false;
             Controls.Add(enableCustomTraders);

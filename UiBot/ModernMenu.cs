@@ -6,6 +6,7 @@ namespace UiBot
     public partial class ModernMenu : Form
     {
         private bool isEnlarged = false;
+        public static bool isConnected;
         private int originalWidth;
         private int enlargedWidth;
         private TimeSpan transitionDuration = TimeSpan.FromMilliseconds(250); // Adjust the duration as needed
@@ -28,10 +29,14 @@ namespace UiBot
         private int labelsOriginalLeft;
         private int labelsTargetLeft;
         private Timer labelsSlideTimer;
+        private MainBot bot;
+        public static ModernMenu Instance { get; private set; }
 
         public ModernMenu()
         {
             InitializeComponent();
+            bot = new MainBot();
+            Instance = this; // Assign the static instance
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.AutoScaleMode = AutoScaleMode.Dpi;
@@ -74,7 +79,7 @@ namespace UiBot
 
             originalWidth = pictureBox1.Width;
             enlargedWidth = originalWidth + 130; // Adjust the enlarged width as needed
-            transitionTimer = new Timer { Interval = 5 }; // Adjust the interval for smoother transition
+            transitionTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother transition
             transitionTimer.Tick += TransitionTimer_Tick;
             originalPictureBox2BackColor = pictureBox2.BackColor; // Store the original background color
             labelsOriginalLeft = label1.Left;
@@ -87,7 +92,7 @@ namespace UiBot
             {
                 pictureBox.MouseEnter += (s, e) =>
                 {
-                    pictureBox.BackColor = Color.FromArgb(162, 123, 92); // Change this ARGB color to your desired color
+                    pictureBox.BackColor = Color.FromArgb(156, 155, 151); // Change this ARGB color to your desired color
                 };
 
                 pictureBox.MouseLeave += (s, e) =>
@@ -122,6 +127,22 @@ namespace UiBot
                 label4.Visible = false;
 
             }
+        }
+
+        public void UpdateConnection()
+        {
+            if (isConnected)
+            {
+                conStatus.Text = "Connected";
+                conStatus.ForeColor = Color.Green;
+
+            }
+            else
+            {
+                conStatus.Text = "Not Connected";
+                conStatus.ForeColor = Color.Salmon;
+            }
+
         }
 
 

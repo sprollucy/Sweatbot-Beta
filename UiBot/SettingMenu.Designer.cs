@@ -37,9 +37,8 @@
             label3 = new Label();
             button1 = new Button();
             channelBox2 = new TextBox();
-            pictureBox10 = new PictureBox();
-            pictureBox1 = new PictureBox();
             channelOpen = new Button();
+            pictureBox1 = new PictureBox();
             changelogBox = new TextBox();
             label5 = new Label();
             githubLink = new LinkLabel();
@@ -62,7 +61,6 @@
             enableEFTtrade = new CheckBox();
             groupBox5 = new GroupBox();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox2.SuspendLayout();
@@ -74,6 +72,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.FromArgb(156, 155, 151);
             groupBox1.Controls.Add(accessBox);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(button3);
@@ -82,7 +81,9 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(channelBox2);
+            groupBox1.Controls.Add(channelOpen);
             groupBox1.Font = new Font("Segoe UI", 9F);
+            groupBox1.ForeColor = SystemColors.ControlText;
             groupBox1.Location = new Point(54, 25);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(417, 140);
@@ -92,6 +93,7 @@
             // 
             // accessBox
             // 
+            accessBox.BackColor = SystemColors.ControlLight;
             accessBox.Location = new Point(101, 22);
             accessBox.Name = "accessBox";
             accessBox.PlaceholderText = "Token";
@@ -102,15 +104,17 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Light", 9F);
-            label1.Location = new Point(23, 108);
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlText;
+            label1.Location = new Point(12, 108);
             label1.Name = "label1";
-            label1.Size = new Size(370, 15);
+            label1.Size = new Size(394, 15);
             label1.TabIndex = 3;
             label1.Text = "Information will automatically reload on start. Must restart after changing";
             // 
             // button3
             // 
+            button3.ForeColor = SystemColors.ControlText;
             button3.Location = new Point(207, 51);
             button3.Name = "button3";
             button3.Size = new Size(75, 23);
@@ -122,6 +126,7 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.ForeColor = SystemColors.ControlText;
             label2.Location = new Point(18, 25);
             label2.Name = "label2";
             label2.Size = new Size(77, 15);
@@ -132,6 +137,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 9F);
+            checkBox1.ForeColor = SystemColors.ControlText;
             checkBox1.Location = new Point(288, 25);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(121, 19);
@@ -143,6 +149,7 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.ForeColor = SystemColors.ControlText;
             label3.Location = new Point(9, 55);
             label3.Name = "label3";
             label3.Size = new Size(86, 15);
@@ -151,6 +158,7 @@
             // 
             // button1
             // 
+            button1.ForeColor = SystemColors.ControlText;
             button1.Location = new Point(207, 22);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
@@ -161,6 +169,7 @@
             // 
             // channelBox2
             // 
+            channelBox2.BackColor = SystemColors.ControlLight;
             channelBox2.Location = new Point(101, 52);
             channelBox2.Name = "channelBox2";
             channelBox2.PlaceholderText = "Channel";
@@ -168,14 +177,16 @@
             channelBox2.TabIndex = 2;
             channelBox2.TextChanged += channelBox2_TextChanged;
             // 
-            // pictureBox10
+            // channelOpen
             // 
-            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox10.Location = new Point(43, -1);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(757, 20);
-            pictureBox10.TabIndex = 24;
-            pictureBox10.TabStop = false;
+            channelOpen.ForeColor = SystemColors.ControlText;
+            channelOpen.Location = new Point(288, 51);
+            channelOpen.Name = "channelOpen";
+            channelOpen.Size = new Size(90, 23);
+            channelOpen.TabIndex = 13;
+            channelOpen.Text = "Open Twitch";
+            channelOpen.UseVisualStyleBackColor = true;
+            channelOpen.Click += channelOpen_Click;
             // 
             // pictureBox1
             // 
@@ -186,19 +197,9 @@
             pictureBox1.TabIndex = 23;
             pictureBox1.TabStop = false;
             // 
-            // channelOpen
-            // 
-            channelOpen.Location = new Point(342, 77);
-            channelOpen.Name = "channelOpen";
-            channelOpen.Size = new Size(90, 23);
-            channelOpen.TabIndex = 13;
-            channelOpen.Text = "Open Twitch";
-            channelOpen.UseVisualStyleBackColor = true;
-            channelOpen.Click += channelOpen_Click;
-            // 
             // changelogBox
             // 
-            changelogBox.BackColor = Color.FromArgb(220, 215, 201);
+            changelogBox.BackColor = Color.FromArgb(156, 155, 151);
             changelogBox.BorderStyle = BorderStyle.None;
             changelogBox.Location = new Point(635, 58);
             changelogBox.Multiline = true;
@@ -212,6 +213,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(156, 155, 151);
+            label5.ForeColor = SystemColors.ControlText;
             label5.Location = new Point(72, 547);
             label5.Name = "label5";
             label5.Size = new Size(280, 15);
@@ -236,6 +238,7 @@
             // 
             versionNumber.AutoSize = true;
             versionNumber.BackColor = Color.FromArgb(156, 155, 151);
+            versionNumber.ForeColor = SystemColors.ControlText;
             versionNumber.Location = new Point(897, 585);
             versionNumber.Name = "versionNumber";
             versionNumber.RightToLeft = RightToLeft.No;
@@ -249,6 +252,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.ControlText;
             label7.Location = new Point(70, 577);
             label7.Name = "label7";
             label7.Size = new Size(551, 25);
@@ -270,7 +274,7 @@
             // changelogLabel
             // 
             changelogLabel.AutoSize = true;
-            changelogLabel.BackColor = Color.FromArgb(162, 123, 92);
+            changelogLabel.BackColor = Color.FromArgb(63, 78, 79);
             changelogLabel.Font = new Font("Cambria", 15.75F);
             changelogLabel.Location = new Point(635, 32);
             changelogLabel.Name = "changelogLabel";
@@ -282,6 +286,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(156, 155, 151);
+            label4.ForeColor = SystemColors.ControlText;
             label4.Location = new Point(72, 562);
             label4.Name = "label4";
             label4.Size = new Size(324, 15);
@@ -303,6 +308,7 @@
             // 
             // bitrestoreButton
             // 
+            bitrestoreButton.ForeColor = SystemColors.ControlText;
             bitrestoreButton.Location = new Point(18, 22);
             bitrestoreButton.Name = "bitrestoreButton";
             bitrestoreButton.Size = new Size(201, 23);
@@ -313,6 +319,7 @@
             // 
             // restoreCommandButton
             // 
+            restoreCommandButton.ForeColor = SystemColors.ControlText;
             restoreCommandButton.Location = new Point(18, 51);
             restoreCommandButton.Name = "restoreCommandButton";
             restoreCommandButton.Size = new Size(201, 23);
@@ -323,9 +330,11 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(restoreCommandButton);
+            groupBox2.BackColor = Color.FromArgb(156, 155, 151);
             groupBox2.Controls.Add(bitrestoreButton);
-            groupBox2.Location = new Point(54, 171);
+            groupBox2.Controls.Add(restoreCommandButton);
+            groupBox2.ForeColor = SystemColors.ControlText;
+            groupBox2.Location = new Point(54, 165);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(417, 84);
             groupBox2.TabIndex = 39;
@@ -335,9 +344,10 @@
             // enableUpdateCheck
             // 
             enableUpdateCheck.AutoSize = true;
-            enableUpdateCheck.BackColor = Color.FromArgb(201, 198, 189);
+            enableUpdateCheck.BackColor = Color.FromArgb(156, 155, 151);
             enableUpdateCheck.Checked = true;
             enableUpdateCheck.CheckState = CheckState.Checked;
+            enableUpdateCheck.ForeColor = SystemColors.ControlText;
             enableUpdateCheck.Location = new Point(198, 25);
             enableUpdateCheck.Name = "enableUpdateCheck";
             enableUpdateCheck.Size = new Size(197, 19);
@@ -348,9 +358,11 @@
             // 
             // groupBox3
             // 
+            groupBox3.BackColor = Color.FromArgb(156, 155, 151);
             groupBox3.Controls.Add(checkUpdateButton);
             groupBox3.Controls.Add(enableUpdateCheck);
-            groupBox3.Location = new Point(54, 261);
+            groupBox3.ForeColor = SystemColors.ControlText;
+            groupBox3.Location = new Point(54, 249);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(417, 55);
             groupBox3.TabIndex = 40;
@@ -359,7 +371,8 @@
             // 
             // checkUpdateButton
             // 
-            checkUpdateButton.Location = new Point(18, 22);
+            checkUpdateButton.ForeColor = SystemColors.ControlText;
+            checkUpdateButton.Location = new Point(18, 21);
             checkUpdateButton.Name = "checkUpdateButton";
             checkUpdateButton.Size = new Size(136, 23);
             checkUpdateButton.TabIndex = 37;
@@ -369,7 +382,7 @@
             // 
             // pictureBox6
             // 
-            pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox6.BackColor = Color.FromArgb(63, 78, 79);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
             pictureBox6.Location = new Point(635, 32);
             pictureBox6.Name = "pictureBox6";
@@ -381,6 +394,7 @@
             // enableDebug
             // 
             enableDebug.AutoSize = true;
+            enableDebug.ForeColor = SystemColors.ControlText;
             enableDebug.Location = new Point(18, 22);
             enableDebug.Name = "enableDebug";
             enableDebug.Size = new Size(133, 19);
@@ -391,9 +405,11 @@
             // 
             // groupBox4
             // 
+            groupBox4.BackColor = Color.FromArgb(156, 155, 151);
             groupBox4.Controls.Add(enablewriteDebug);
             groupBox4.Controls.Add(enableDebug);
-            groupBox4.Location = new Point(54, 322);
+            groupBox4.ForeColor = SystemColors.ControlText;
+            groupBox4.Location = new Point(54, 304);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(417, 55);
             groupBox4.TabIndex = 111;
@@ -403,6 +419,7 @@
             // enablewriteDebug
             // 
             enablewriteDebug.AutoSize = true;
+            enablewriteDebug.ForeColor = SystemColors.ControlText;
             enablewriteDebug.Location = new Point(198, 22);
             enablewriteDebug.Name = "enablewriteDebug";
             enablewriteDebug.Size = new Size(204, 19);
@@ -416,6 +433,7 @@
             enableEFTtrade.AutoSize = true;
             enableEFTtrade.Checked = true;
             enableEFTtrade.CheckState = CheckState.Checked;
+            enableEFTtrade.ForeColor = SystemColors.ControlText;
             enableEFTtrade.Location = new Point(18, 22);
             enableEFTtrade.Name = "enableEFTtrade";
             enableEFTtrade.Size = new Size(193, 19);
@@ -426,8 +444,10 @@
             // 
             // groupBox5
             // 
+            groupBox5.BackColor = Color.FromArgb(156, 155, 151);
             groupBox5.Controls.Add(enableEFTtrade);
-            groupBox5.Location = new Point(54, 383);
+            groupBox5.ForeColor = SystemColors.ControlText;
+            groupBox5.Location = new Point(54, 358);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(417, 55);
             groupBox5.TabIndex = 112;
@@ -438,7 +458,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(201, 198, 189);
+            BackColor = Color.FromArgb(55, 55, 55);
             ClientSize = new Size(1041, 616);
             ControlBox = false;
             Controls.Add(groupBox5);
@@ -454,17 +474,15 @@
             Controls.Add(githubLink);
             Controls.Add(versionNumber);
             Controls.Add(label7);
-            Controls.Add(channelOpen);
-            Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
             Controls.Add(groupBox1);
             Controls.Add(pictureBox2);
+            ForeColor = SystemColors.ControlLight;
             FormBorderStyle = FormBorderStyle.None;
             Name = "SettingMenu";
             Text = "SettingMenu";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             groupBox2.ResumeLayout(false);
@@ -489,7 +507,6 @@
         private Label label3;
         private Button button1;
         private TextBox channelBox2;
-        private PictureBox pictureBox10;
         private PictureBox pictureBox1;
         private Button helpButton;
         private TextBox accessBox;

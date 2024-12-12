@@ -1,5 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Diagnostics;
+using Timer = System.Windows.Forms.Timer;
 
 namespace UiBot
 {
@@ -8,6 +15,8 @@ namespace UiBot
         private MainBot bot;
         private CommandHandler commandHandler; // Add this field
         private TextBoxWriter textBoxWriter;
+        private Timer economyTimer;  // Timer for periodic updates
+
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
         public ConnectMenu()
@@ -21,9 +30,35 @@ namespace UiBot
             controlMenu.LoadSettings();
             this.TopLevel = false;
 
+            // Initialize the Timer
+            economyTimer = new Timer();
+            economyTimer.Interval = 15000; // 15 seconds in milliseconds
+            economyTimer.Tick += EconomyTimer_Tick;
+
+            if (Properties.Settings.Default.isEconomyOn)
+            {
+                economyTimer.Start(); // Start the timer if economy is on
+            }
+
+            DisplayTotalBitCost();
+
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
             pauseCommands.Checked = Properties.Settings.Default.isCommandsPaused;
+
+            economyCheckBox.Checked = Properties.Settings.Default.isEconomyOn;
+
+
+        }
+
+        // Event handler for Timer tick
+        private void EconomyTimer_Tick(object sender, EventArgs e)
+        {
+            // Check if economy is enabled
+            if (Properties.Settings.Default.isEconomyOn)
+            {
+                DisplayTotalBitCost(); // Update the bit cost display
+            }
         }
 
         private void InitializeConsole()
@@ -155,19 +190,21 @@ namespace UiBot
             LoadCommands();
             DisplayCommands();
             UpdateButtonVisibility(false);
-
+            UpdateConnection();
         }
 
         private void connectButton_Click(object sender, EventArgs e)
         {
             bot.Connect(); // Attempt to connect
             UpdateButtonVisibility(true); // Show the Disconnect button
+            UpdateConnection();
         }
 
         private void disconnectButton_Click(object sender, EventArgs e)
         {
             bot.Disconnect(); // Attempt to disconnect
             UpdateButtonVisibility(false); // Hide the Disconnect button
+            UpdateConnection();
         }
 
         private void UpdateButtonVisibility(bool isConnected)
@@ -176,6 +213,19 @@ namespace UiBot
             connectButton.Enabled = !isConnected; // Optionally disable the Connect button while connected
         }
 
+        private void UpdateConnection()
+        {
+            if (bot.IsConnected)
+            {
+                ModernMenu.isConnected = true;
+                ModernMenu.Instance.UpdateConnection();
+            }
+            else
+            {
+                ModernMenu.isConnected = false;
+                ModernMenu.Instance.UpdateConnection();
+            }
+        }
 
         private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
@@ -214,7 +264,7 @@ namespace UiBot
 
         private void LoadCommands()
         {
-            string commandsFilePath = Path.Combine("Data" ,"bin" , "CustomCommands.json");
+            string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
 
             if (File.Exists(commandsFilePath))
             {
@@ -251,6 +301,67 @@ namespace UiBot
             }
         }
 
+        // Method to calculate the total bit cost from user_bits.json
+        private int CalculateTotalBitCost()
+        {
+            int totalBitCost = 0;
+
+            // Load the user_bits.json file
+            string userBitsFilePath = Path.Combine("Data", "user_bits.json");
+
+            if (File.Exists(userBitsFilePath))
+            {
+                var jsonData = File.ReadAllText(userBitsFilePath);
+
+                // Deserialize JSON into a dictionary or list depending on the format
+                var userBitsData = JsonConvert.DeserializeObject<Dictionary<string, int>>(jsonData);
+
+                if (userBitsData != null)
+                {
+                    // Sum up the bit costs
+                    foreach (var item in userBitsData)
+                    {
+                        totalBitCost += item.Value; // Assuming the JSON has a format like {"command": bitCost}
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("user_bits.json file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return totalBitCost;
+        }
+
+        // Public method to display the total bit cost in the economyLabel
+        public void DisplayTotalBitCost()
+        {
+            if (economyLabel != null)
+            {
+                // Safely access economyLabel and update its text
+                int totalBitCost = CalculateTotalBitCost();
+                economyLabel.Text = $"Total Economy: {totalBitCost}";
+            }
+            else
+            {
+                Console.WriteLine("economyLabel is null.");
+            }
+        }
+
+        private void economyCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isEconomyOn = economyCheckBox.Checked;
+            Properties.Settings.Default.Save();
+            if (Properties.Settings.Default.isEconomyOn)
+            {
+                economyLabel.Visible = true;
+            }
+            else
+            {
+                economyLabel.Visible = false;
+
+            }
+        }
     }
 
     public class Command

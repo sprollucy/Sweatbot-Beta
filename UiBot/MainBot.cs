@@ -32,7 +32,7 @@ namespace UiBot
         // Handles connection
         private ConnectionCredentials creds;
         TwitchClient client;
-        private bool isBotConnected = false;
+        public bool isBotConnected = false;
         private static string channelId;
 
         // Property to get the connection status
@@ -87,6 +87,7 @@ namespace UiBot
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
+                isBotConnected = true;
 
             }
         }
@@ -359,6 +360,8 @@ namespace UiBot
                         // User is chatting for the first time, give them the specified bonus amount
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
                         client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
+                        Console.WriteLine($"[{e.ChatMessage.DisplayName}]: First Chat Bonus: {bonusAmount}");
+                        
                         LogHandler.WriteUserBitsToJson("user_bits.json");
                         LogHandler.LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
                     }
@@ -454,11 +457,16 @@ namespace UiBot
 
                         // Construct the base message using StringBuilder
                         StringBuilder message = new StringBuilder();
-                        message.Append("!how2use, !about, !mybits !bitcost");
+                        message.Append("!how2use, !about, !mybits");
 
                         if (Properties.Settings.Default.isTradersEnabled)
                         {
                             message.Append(" !traders");
+                        }
+
+                        if (Properties.Settings.Default.isBitCostEnabled)
+                        {
+                            message.Append(" !bitcost");
                         }
 
                         // Check if the user is a moderator
@@ -519,78 +527,82 @@ namespace UiBot
                     break;
 
                 case "bitcost":
-                    timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastBitcostCommandTimer;
-
-                    if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
+                    if (Properties.Settings.Default.isBitCostEnabled)
                     {
-                        chatCommandMethods.lastBitcostCommandTimer = DateTime.Now;
 
-                        // Define the mappings of textbox names to their corresponding labels and enabled states
-                        var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
+                        timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastBitcostCommandTimer;
+
+                        if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
+                        {
+                            chatCommandMethods.lastBitcostCommandTimer = DateTime.Now;
+
+                            // Define the mappings of textbox names to their corresponding labels and enabled states
+                            var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
                         {
                                 { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) }
                         };
 
-                        // Define a list to hold enabled command details
-                        List<(string Label, int Cost)> enabledCommandDetails = new List<(string Label, int Cost)>();
+                            // Define a list to hold enabled command details
+                            List<(string Label, int Cost)> enabledCommandDetails = new List<(string Label, int Cost)>();
 
-                        // Retrieve enabled command details and add them to the list
-                        foreach (var detail in textBoxDetails)
-                        {
-                            if (detail.Value.IsEnabled())
+                            // Retrieve enabled command details and add them to the list
+                            foreach (var detail in textBoxDetails)
                             {
-                                var textBox = controlMenu.Controls.Find(detail.Key, true).FirstOrDefault() as TextBox;
-                                if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+                                if (detail.Value.IsEnabled())
                                 {
-                                    string label = detail.Value.Label;
-                                    int cost = 0;
-                                    int.TryParse(textBox.Text, out cost); // Parsing cost as integer
-                                    enabledCommandDetails.Add((label, cost));
+                                    var textBox = controlMenu.Controls.Find(detail.Key, true).FirstOrDefault() as TextBox;
+                                    if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+                                    {
+                                        string label = detail.Value.Label;
+                                        int cost = 0;
+                                        int.TryParse(textBox.Text, out cost); // Parsing cost as integer
+                                        enabledCommandDetails.Add((label, cost));
+                                    }
                                 }
                             }
-                        }
 
-                        // Order the enabled commands by their costs from cheap to expensive
-                        enabledCommandDetails.Sort((x, y) => x.Cost.CompareTo(y.Cost));
+                            // Order the enabled commands by their costs from cheap to expensive
+                            enabledCommandDetails.Sort((x, y) => x.Cost.CompareTo(y.Cost));
 
-                        // Construct the message dynamically with ordered enabled commands
-                        List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label}({detail.Cost})").ToList();
+                            // Construct the message dynamically with ordered enabled commands
+                            List<string> enabledCommandCosts = enabledCommandDetails.Select(detail => $"!{detail.Label}({detail.Cost})").ToList();
 
-                        // Create messages based on the conditions
-                        string standardCommandsMessage = string.Empty;
-                        string customCommandsMessage = string.Empty;
+                            // Create messages based on the conditions
+                            string standardCommandsMessage = string.Empty;
+                            string customCommandsMessage = string.Empty;
 
-                        if (!Properties.Settings.Default.isCommandsPaused)
-                        {
-                            if (enabledCommandCosts.Count > 0)
+                            if (!Properties.Settings.Default.isCommandsPaused)
                             {
-                                standardCommandsMessage = $"{Chatter}, Available commands: {string.Join(", ", enabledCommandCosts)}";
+                                if (enabledCommandCosts.Count > 0)
+                                {
+                                    standardCommandsMessage = $"{Chatter}, Available commands: {string.Join(", ", enabledCommandCosts)}";
+                                }
+
+                                var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+                                if (allCommandsWithCosts.Any())
+                                {
+                                    var commandList = allCommandsWithCosts
+                                        .Select(cmd => $"!{cmd.Key}({cmd.Value})")
+                                        .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
+                                        .ToList();
+
+                                    customCommandsMessage = $"{string.Join(", ", commandList)}";
+                                }
+                            }
+                            else
+                            {
+                                standardCommandsMessage = $"{Chatter}, All commands are paused";
                             }
 
-                            var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
-                            if (allCommandsWithCosts.Any())
+                            // Combine the two messages into a single message
+                            if (!string.IsNullOrEmpty(standardCommandsMessage) || !string.IsNullOrEmpty(customCommandsMessage))
                             {
-                                var commandList = allCommandsWithCosts
-                                    .Select(cmd => $"!{cmd.Key}({cmd.Value})")
-                                    .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
-                                    .ToList();
+                                // Combine the messages with a separator (e.g., " | ")
+                                string combinedMessage = $"{standardCommandsMessage} {customCommandsMessage}".Trim(' ', '|');
 
-                                customCommandsMessage = $"{string.Join(", ", commandList)}";
+                                // Send the combined message
+                                client.SendMessage(channelId, combinedMessage);
                             }
-                        }
-                        else
-                        {
-                            standardCommandsMessage = $"{Chatter}, All commands are paused";
-                        }
-
-                        // Combine the two messages into a single message
-                        if (!string.IsNullOrEmpty(standardCommandsMessage) || !string.IsNullOrEmpty(customCommandsMessage))
-                        {
-                            // Combine the messages with a separator (e.g., " | ")
-                            string combinedMessage = $"{standardCommandsMessage} {customCommandsMessage}".Trim(' ', '|');
-
-                            // Send the combined message
-                            client.SendMessage(channelId, combinedMessage);
                         }
                     }
                     break;
@@ -957,8 +969,8 @@ namespace UiBot
 
             // Create a Timer object to run the method immediately and then reschedule it
             timer = new System.Threading.Timer(AutoMessageSender, null, 0, intervalMilliseconds);
-        }
+        }}
 
     }
 
-}
+

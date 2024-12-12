@@ -25,6 +25,7 @@ namespace UiBot
             enableSubBonus.Checked = Properties.Settings.Default.isSubBonusEnabled;
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
             checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
+            bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
             {
@@ -227,34 +228,17 @@ namespace UiBot
             Properties.Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
             Properties.Settings.Default.Save();
         }
-
-        private void saveMessageButton_Click(object sender, EventArgs e)
+        private void bitcostButton_CheckedChanged(object sender, EventArgs e)
         {
-            // Create a dictionary to store the text from all TextBox controls
-            Dictionary<string, string> textData = new Dictionary<string, string>();
-
-            // Iterate through the TextBoxes dictionary and save the text from each TextBox
-            foreach (var textBoxEntry in textBoxes)
-            {
-                string textBoxKey = textBoxEntry.Key;
-                TextBox textBox = textBoxEntry.Value;
-                string textBoxText = textBox.Text;
-
-                // Add the TextBox key and text to the dictionary
-                textData[textBoxKey] = textBoxText;
-            }
-
-            // Serialize and save the dictionary to a JSON file in the "Data" folder
-            string json = JsonConvert.SerializeObject(textData);
-            string dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data", "bin");
-            Directory.CreateDirectory(dataDirectory); // Ensure the directory exists
-            string filePath = Path.Combine(dataDirectory, "CommandConfigData.json");
-            File.WriteAllText(filePath, json);
+            Properties.Settings.Default.isBitCostEnabled = bitcostButton.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void bonusMultiplierBox_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+
     }
 }
