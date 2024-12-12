@@ -125,6 +125,7 @@
             label21 = new Label();
             label20 = new Label();
             pictureBox14 = new PictureBox();
+            label22 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -148,7 +149,7 @@
             // 
             // nametextBox
             // 
-            nametextBox.Location = new Point(55, 380);
+            nametextBox.Location = new Point(55, 385);
             nametextBox.Name = "nametextBox";
             nametextBox.PlaceholderText = "spin";
             nametextBox.Size = new Size(100, 23);
@@ -156,7 +157,7 @@
             // 
             // costtextBox
             // 
-            costtextBox.Location = new Point(161, 380);
+            costtextBox.Location = new Point(161, 385);
             costtextBox.Name = "costtextBox";
             costtextBox.PlaceholderText = "15";
             costtextBox.Size = new Size(51, 23);
@@ -164,7 +165,7 @@
             // 
             // commandtextBox
             // 
-            commandtextBox.Location = new Point(218, 380);
+            commandtextBox.Location = new Point(218, 385);
             commandtextBox.Name = "commandtextBox";
             commandtextBox.PlaceholderText = "TM=RAND(5000,10)";
             commandtextBox.Size = new Size(804, 23);
@@ -174,7 +175,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(162, 123, 92);
-            label2.Location = new Point(55, 362);
+            label2.Location = new Point(55, 367);
             label2.Name = "label2";
             label2.Size = new Size(39, 15);
             label2.TabIndex = 4;
@@ -184,7 +185,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
-            label3.Location = new Point(161, 362);
+            label3.Location = new Point(161, 367);
             label3.Name = "label3";
             label3.Size = new Size(31, 15);
             label3.TabIndex = 5;
@@ -194,7 +195,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(162, 123, 92);
-            label4.Location = new Point(218, 362);
+            label4.Location = new Point(218, 367);
             label4.Name = "label4";
             label4.Size = new Size(282, 15);
             label4.TabIndex = 6;
@@ -204,7 +205,7 @@
             // 
             pictureBox1.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Location = new Point(55, 361);
+            pictureBox1.Location = new Point(55, 366);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(967, 42);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -225,7 +226,7 @@
             // 
             commanduseBox.BackColor = Color.FromArgb(220, 215, 201);
             commanduseBox.BorderStyle = BorderStyle.None;
-            commanduseBox.Location = new Point(65, 684);
+            commanduseBox.Location = new Point(65, 689);
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
@@ -261,14 +262,14 @@
             commandListBox.BackColor = Color.FromArgb(220, 215, 201);
             commandListBox.FormattingEnabled = true;
             commandListBox.ItemHeight = 15;
-            commandListBox.Location = new Point(55, 65);
+            commandListBox.Location = new Point(55, 77);
             commandListBox.Name = "commandListBox";
             commandListBox.Size = new Size(157, 184);
             commandListBox.TabIndex = 15;
             // 
             // removeCommandButton
             // 
-            removeCommandButton.Location = new Point(59, 253);
+            removeCommandButton.Location = new Point(59, 265);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(74, 45);
             removeCommandButton.TabIndex = 17;
@@ -281,7 +282,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(162, 123, 92);
             label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label6.Location = new Point(58, 658);
+            label6.Location = new Point(58, 663);
             label6.Name = "label6";
             label6.Size = new Size(179, 19);
             label6.TabIndex = 18;
@@ -291,7 +292,7 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(55, 658);
+            pictureBox6.Location = new Point(55, 663);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(967, 23);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -301,7 +302,7 @@
             // pictureBox7
             // 
             pictureBox7.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox7.Location = new Point(55, 22);
+            pictureBox7.Location = new Point(55, 34);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(340, 284);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -312,7 +313,7 @@
             // 
             pictureBox8.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
-            pictureBox8.Location = new Point(55, 22);
+            pictureBox8.Location = new Point(55, 34);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(340, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -324,7 +325,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(162, 123, 92);
             label7.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label7.Location = new Point(58, 23);
+            label7.Location = new Point(58, 35);
             label7.Name = "label7";
             label7.Size = new Size(120, 19);
             label7.TabIndex = 22;
@@ -366,7 +367,7 @@
             panel1.Controls.Add(restartButton);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label5);
-            panel1.Location = new Point(55, 404);
+            panel1.Location = new Point(55, 409);
             panel1.Name = "panel1";
             panel1.Size = new Size(335, 248);
             panel1.TabIndex = 25;
@@ -708,7 +709,7 @@
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox5.Location = new Point(55, 674);
+            pictureBox5.Location = new Point(55, 679);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(967, 267);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -720,14 +721,14 @@
             disabledcommandsListBox.BackColor = Color.FromArgb(220, 215, 201);
             disabledcommandsListBox.FormattingEnabled = true;
             disabledcommandsListBox.ItemHeight = 15;
-            disabledcommandsListBox.Location = new Point(238, 65);
+            disabledcommandsListBox.Location = new Point(238, 77);
             disabledcommandsListBox.Name = "disabledcommandsListBox";
             disabledcommandsListBox.Size = new Size(157, 184);
             disabledcommandsListBox.TabIndex = 26;
             // 
             // disablecommandButton
             // 
-            disablecommandButton.Location = new Point(139, 253);
+            disablecommandButton.Location = new Point(139, 265);
             disablecommandButton.Name = "disablecommandButton";
             disablecommandButton.Size = new Size(72, 45);
             disablecommandButton.TabIndex = 27;
@@ -736,7 +737,7 @@
             // 
             // restorecommandButton
             // 
-            restorecommandButton.Location = new Point(256, 255);
+            restorecommandButton.Location = new Point(256, 267);
             restorecommandButton.Name = "restorecommandButton";
             restorecommandButton.Size = new Size(110, 45);
             restorecommandButton.TabIndex = 28;
@@ -747,7 +748,7 @@
             // 
             label12.AutoSize = true;
             label12.BackColor = Color.FromArgb(220, 215, 201);
-            label12.Location = new Point(55, 49);
+            label12.Location = new Point(55, 61);
             label12.Name = "label12";
             label12.Size = new Size(114, 15);
             label12.TabIndex = 29;
@@ -757,7 +758,7 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.FromArgb(220, 215, 201);
-            label13.Location = new Point(238, 49);
+            label13.Location = new Point(238, 61);
             label13.Name = "label13";
             label13.Size = new Size(117, 15);
             label13.TabIndex = 30;
@@ -774,7 +775,7 @@
             panel2.Controls.Add(hitkeyloopButton);
             panel2.Controls.Add(ahitkeyloopButton);
             panel2.Controls.Add(pictureBox3);
-            panel2.Location = new Point(396, 408);
+            panel2.Location = new Point(396, 413);
             panel2.Name = "panel2";
             panel2.Size = new Size(246, 122);
             panel2.TabIndex = 31;
@@ -821,7 +822,7 @@
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(659, 408);
+            panel3.Location = new Point(659, 413);
             panel3.Name = "panel3";
             panel3.Size = new Size(363, 244);
             panel3.TabIndex = 32;
@@ -868,7 +869,7 @@
             panel4.Controls.Add(delayButton);
             panel4.Controls.Add(muteButton);
             panel4.Controls.Add(pictureBox4);
-            panel4.Location = new Point(396, 536);
+            panel4.Location = new Point(396, 541);
             panel4.Name = "panel4";
             panel4.Size = new Size(246, 116);
             panel4.TabIndex = 33;
@@ -918,7 +919,7 @@
             // 
             // walkButton
             // 
-            walkButton.Location = new Point(411, 52);
+            walkButton.Location = new Point(411, 64);
             walkButton.Name = "walkButton";
             walkButton.Size = new Size(75, 23);
             walkButton.TabIndex = 35;
@@ -931,7 +932,7 @@
             label17.AutoSize = true;
             label17.BackColor = Color.FromArgb(162, 123, 92);
             label17.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label17.Location = new Point(404, 23);
+            label17.Location = new Point(404, 35);
             label17.Name = "label17";
             label17.Size = new Size(181, 19);
             label17.TabIndex = 39;
@@ -941,7 +942,7 @@
             // 
             pictureBox11.BackColor = Color.FromArgb(162, 123, 92);
             pictureBox11.BackgroundImageLayout = ImageLayout.None;
-            pictureBox11.Location = new Point(401, 22);
+            pictureBox11.Location = new Point(401, 34);
             pictureBox11.Name = "pictureBox11";
             pictureBox11.Size = new Size(206, 24);
             pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -951,7 +952,7 @@
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.FromArgb(220, 215, 201);
-            pictureBox9.Location = new Point(401, 22);
+            pictureBox9.Location = new Point(401, 34);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(206, 161);
             pictureBox9.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -960,7 +961,7 @@
             // 
             // wiggleButton
             // 
-            wiggleButton.Location = new Point(492, 52);
+            wiggleButton.Location = new Point(492, 64);
             wiggleButton.Name = "wiggleButton";
             wiggleButton.Size = new Size(104, 23);
             wiggleButton.TabIndex = 40;
@@ -970,7 +971,7 @@
             // 
             // spinButton
             // 
-            spinButton.Location = new Point(411, 81);
+            spinButton.Location = new Point(411, 93);
             spinButton.Name = "spinButton";
             spinButton.Size = new Size(75, 23);
             spinButton.TabIndex = 41;
@@ -980,7 +981,7 @@
             // 
             // crouchButton
             // 
-            crouchButton.Location = new Point(411, 110);
+            crouchButton.Location = new Point(411, 122);
             crouchButton.Name = "crouchButton";
             crouchButton.Size = new Size(75, 23);
             crouchButton.TabIndex = 42;
@@ -990,7 +991,7 @@
             // 
             // mdumpButton
             // 
-            mdumpButton.Location = new Point(492, 110);
+            mdumpButton.Location = new Point(492, 122);
             mdumpButton.Name = "mdumpButton";
             mdumpButton.Size = new Size(104, 23);
             mdumpButton.TabIndex = 43;
@@ -1000,7 +1001,7 @@
             // 
             // firemodeButton
             // 
-            firemodeButton.Location = new Point(492, 81);
+            firemodeButton.Location = new Point(492, 93);
             firemodeButton.Name = "firemodeButton";
             firemodeButton.Size = new Size(104, 23);
             firemodeButton.TabIndex = 44;
@@ -1010,7 +1011,7 @@
             // 
             // hotmicButton
             // 
-            hotmicButton.Location = new Point(492, 139);
+            hotmicButton.Location = new Point(492, 151);
             hotmicButton.Name = "hotmicButton";
             hotmicButton.Size = new Size(104, 23);
             hotmicButton.TabIndex = 45;
@@ -1020,7 +1021,7 @@
             // 
             // alftf4Button
             // 
-            alftf4Button.Location = new Point(411, 139);
+            alftf4Button.Location = new Point(411, 151);
             alftf4Button.Name = "alftf4Button";
             alftf4Button.Size = new Size(75, 23);
             alftf4Button.TabIndex = 46;
@@ -1030,11 +1031,11 @@
             // 
             // pictureBox12
             // 
-            pictureBox12.BackColor = Color.FromArgb(162, 123, 92);
+            pictureBox12.BackColor = Color.FromArgb(156, 154, 151);
             pictureBox12.BackgroundImageLayout = ImageLayout.None;
-            pictureBox12.Location = new Point(55, 313);
+            pictureBox12.Location = new Point(55, 337);
             pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(232, 42);
+            pictureBox12.Size = new Size(232, 30);
             pictureBox12.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox12.TabIndex = 47;
             pictureBox12.TabStop = false;
@@ -1042,9 +1043,9 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.BackColor = Color.FromArgb(162, 123, 92);
+            label18.BackColor = Color.FromArgb(156, 154, 151);
             label18.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label18.Location = new Point(58, 326);
+            label18.Location = new Point(55, 344);
             label18.Name = "label18";
             label18.Size = new Size(229, 19);
             label18.TabIndex = 48;
@@ -1058,7 +1059,7 @@
             panel5.Controls.Add(pictureBox13);
             panel5.Controls.Add(confCheckBox);
             panel5.Controls.Add(openCustomJson);
-            panel5.Location = new Point(613, 23);
+            panel5.Location = new Point(613, 35);
             panel5.Name = "panel5";
             panel5.Size = new Size(197, 160);
             panel5.TabIndex = 49;
@@ -1102,7 +1103,7 @@
             panel6.Controls.Add(label21);
             panel6.Controls.Add(label20);
             panel6.Controls.Add(pictureBox14);
-            panel6.Location = new Point(816, 23);
+            panel6.Location = new Point(816, 35);
             panel6.Name = "panel6";
             panel6.Size = new Size(206, 282);
             panel6.TabIndex = 53;
@@ -1153,6 +1154,18 @@
             pictureBox14.TabIndex = 50;
             pictureBox14.TabStop = false;
             // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.BackColor = Color.FromArgb(201, 198, 189);
+            label22.ForeColor = Color.Red;
+            label22.Location = new Point(293, 347);
+            label22.Name = "label22";
+            label22.Size = new Size(96, 15);
+            label22.TabIndex = 57;
+            label22.Text = "Work In Progress";
+            label22.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1161,10 +1174,10 @@
             BackColor = Color.FromArgb(201, 198, 189);
             ClientSize = new Size(1042, 1027);
             ControlBox = false;
+            Controls.Add(label22);
             Controls.Add(panel6);
             Controls.Add(panel5);
             Controls.Add(label18);
-            Controls.Add(pictureBox12);
             Controls.Add(alftf4Button);
             Controls.Add(hotmicButton);
             Controls.Add(firemodeButton);
@@ -1201,6 +1214,7 @@
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox7);
             Controls.Add(pictureBox9);
+            Controls.Add(pictureBox12);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CommandBuilderMenu";
             Text = "QuestMenu";
@@ -1330,5 +1344,6 @@
         private Label label20;
         private PictureBox pictureBox14;
         private RichTextBox richTextBox1;
+        private Label label22;
     }
 }

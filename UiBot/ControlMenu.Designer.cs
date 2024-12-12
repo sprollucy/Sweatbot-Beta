@@ -82,7 +82,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(355, 8);
+            saveButton.Location = new Point(340, 139);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 23);
             saveButton.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             // restart_AppButton
             // 
-            restart_AppButton.Location = new Point(436, 8);
+            restart_AppButton.Location = new Point(421, 139);
             restart_AppButton.Name = "restart_AppButton";
             restart_AppButton.Size = new Size(75, 23);
             restart_AppButton.TabIndex = 29;
@@ -122,7 +122,7 @@
             // 
             enableBotToggle.AutoSize = true;
             enableBotToggle.BackColor = Color.FromArgb(220, 215, 201);
-            enableBotToggle.Location = new Point(12, 61);
+            enableBotToggle.Location = new Point(12, 36);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
             enableBotToggle.TabIndex = 109;
@@ -134,17 +134,17 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(162, 123, 92);
-            label2.Font = new Font("Cambria", 15.75F);
-            label2.Location = new Point(12, 8);
+            label2.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label2.Location = new Point(12, 4);
             label2.Name = "label2";
-            label2.Size = new Size(179, 25);
+            label2.Size = new Size(153, 19);
             label2.TabIndex = 29;
             label2.Text = "Command Settings";
             // 
             // bottoggleCostBox
             // 
             bottoggleCostBox.BorderStyle = BorderStyle.None;
-            bottoggleCostBox.Location = new Point(216, 61);
+            bottoggleCostBox.Location = new Point(216, 36);
             bottoggleCostBox.Name = "bottoggleCostBox";
             bottoggleCostBox.Size = new Size(39, 16);
             bottoggleCostBox.TabIndex = 108;
@@ -156,7 +156,7 @@
             checkEnableBitMsg.BackColor = Color.FromArgb(220, 215, 201);
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
-            checkEnableBitMsg.Location = new Point(12, 88);
+            checkEnableBitMsg.Location = new Point(12, 63);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -168,7 +168,7 @@
             // 
             textBox1.BackColor = Color.FromArgb(220, 215, 201);
             textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Location = new Point(169, 62);
+            textBox1.Location = new Point(169, 37);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(63, 16);
             textBox1.TabIndex = 44;
@@ -179,7 +179,7 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(220, 215, 201);
-            enableTradersCommand.Location = new Point(12, 113);
+            enableTradersCommand.Location = new Point(12, 88);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -192,7 +192,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(220, 215, 201);
             label1.ForeColor = Color.Red;
-            label1.Location = new Point(235, 36);
+            label1.Location = new Point(235, 165);
             label1.Name = "label1";
             label1.Size = new Size(276, 15);
             label1.TabIndex = 28;
@@ -205,7 +205,7 @@
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(514, 33);
+            pictureBox2.Size = new Size(514, 24);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 120;
             pictureBox2.TabStop = false;
@@ -214,10 +214,10 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(162, 123, 92);
-            label5.Font = new Font("Cambria", 15.75F);
-            label5.Location = new Point(12, 8);
+            label5.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label5.Location = new Point(12, 4);
             label5.Name = "label5";
-            label5.Size = new Size(134, 25);
+            label5.Size = new Size(113, 19);
             label5.TabIndex = 120;
             label5.Text = "Chat Bonuses";
             // 
@@ -227,7 +227,7 @@
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
             pictureBox8.Location = new Point(0, 0);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(514, 33);
+            pictureBox8.Size = new Size(514, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox8.TabIndex = 120;
             pictureBox8.TabStop = false;
@@ -236,7 +236,7 @@
             // 
             enableChatBonus.AutoSize = true;
             enableChatBonus.BackColor = Color.FromArgb(220, 215, 201);
-            enableChatBonus.Location = new Point(12, 50);
+            enableChatBonus.Location = new Point(12, 31);
             enableChatBonus.Name = "enableChatBonus";
             enableChatBonus.Size = new Size(125, 19);
             enableChatBonus.TabIndex = 59;
@@ -248,7 +248,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(220, 215, 201);
-            label4.Location = new Point(143, 51);
+            label4.Location = new Point(143, 32);
             label4.Name = "label4";
             label4.Size = new Size(137, 15);
             label4.TabIndex = 61;
@@ -257,7 +257,7 @@
             // bonusTextBox
             // 
             bonusTextBox.BorderStyle = BorderStyle.None;
-            bonusTextBox.Location = new Point(298, 51);
+            bonusTextBox.Location = new Point(298, 32);
             bonusTextBox.Name = "bonusTextBox";
             bonusTextBox.Size = new Size(33, 16);
             bonusTextBox.TabIndex = 60;
@@ -267,7 +267,7 @@
             // 
             enableBonusMulti.AutoSize = true;
             enableBonusMulti.BackColor = Color.FromArgb(220, 215, 201);
-            enableBonusMulti.Location = new Point(12, 119);
+            enableBonusMulti.Location = new Point(12, 100);
             enableBonusMulti.Name = "enableBonusMulti";
             enableBonusMulti.Size = new Size(132, 19);
             enableBonusMulti.TabIndex = 86;
@@ -278,7 +278,7 @@
             // bonusMultiplierBox
             // 
             bonusMultiplierBox.BorderStyle = BorderStyle.None;
-            bonusMultiplierBox.Location = new Point(143, 120);
+            bonusMultiplierBox.Location = new Point(143, 101);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
             bonusMultiplierBox.Size = new Size(23, 16);
             bonusMultiplierBox.TabIndex = 106;
@@ -289,7 +289,7 @@
             // 
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(220, 215, 201);
-            enableModBits.Location = new Point(10, 49);
+            enableModBits.Location = new Point(10, 36);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -308,7 +308,7 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.Location = new Point(12, 71);
+            autoMessageBox.Location = new Point(10, 55);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
             autoMessageBox.Size = new Size(228, 106);
@@ -317,7 +317,7 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.Location = new Point(307, 93);
+            autoSendMessageCD.Location = new Point(305, 77);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(54, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -327,10 +327,10 @@
             // 
             autoMessageLabel.AutoSize = true;
             autoMessageLabel.BackColor = Color.FromArgb(162, 123, 92);
-            autoMessageLabel.Font = new Font("Cambria", 15.75F);
-            autoMessageLabel.Location = new Point(12, 8);
+            autoMessageLabel.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            autoMessageLabel.Location = new Point(12, 4);
             autoMessageLabel.Name = "autoMessageLabel";
-            autoMessageLabel.Size = new Size(135, 25);
+            autoMessageLabel.Size = new Size(115, 19);
             autoMessageLabel.TabIndex = 25;
             autoMessageLabel.Text = "Auto Message";
             // 
@@ -338,7 +338,7 @@
             // 
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(220, 215, 201);
-            enableAutoMessageCheck.Location = new Point(12, 46);
+            enableAutoMessageCheck.Location = new Point(10, 30);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -350,10 +350,10 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(162, 123, 92);
-            label3.Font = new Font("Cambria", 15.75F);
-            label3.Location = new Point(12, 8);
+            label3.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label3.Location = new Point(12, 4);
             label3.Name = "label3";
-            label3.Size = new Size(190, 25);
+            label3.Size = new Size(161, 19);
             label3.TabIndex = 80;
             label3.Text = "Moderator Controls";
             // 
@@ -361,7 +361,7 @@
             // 
             textBox4.BackColor = Color.FromArgb(220, 215, 201);
             textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Location = new Point(246, 71);
+            textBox4.Location = new Point(244, 55);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(182, 16);
             textBox4.TabIndex = 82;
@@ -374,7 +374,7 @@
             modRefund.BackColor = Color.FromArgb(220, 215, 201);
             modRefund.Checked = true;
             modRefund.CheckState = CheckState.Checked;
-            modRefund.Location = new Point(10, 72);
+            modRefund.Location = new Point(10, 59);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
             modRefund.TabIndex = 83;
@@ -386,7 +386,7 @@
             // 
             modWhitelistCheck.AutoSize = true;
             modWhitelistCheck.BackColor = Color.FromArgb(220, 215, 201);
-            modWhitelistCheck.Location = new Point(10, 97);
+            modWhitelistCheck.Location = new Point(10, 84);
             modWhitelistCheck.Name = "modWhitelistCheck";
             modWhitelistCheck.Size = new Size(254, 19);
             modWhitelistCheck.TabIndex = 84;
@@ -397,7 +397,7 @@
             // openModWhitelist
             // 
             openModWhitelist.Font = new Font("Segoe UI", 9F);
-            openModWhitelist.Location = new Point(267, 94);
+            openModWhitelist.Location = new Point(267, 81);
             openModWhitelist.Name = "openModWhitelist";
             openModWhitelist.Size = new Size(95, 23);
             openModWhitelist.TabIndex = 85;
@@ -407,7 +407,7 @@
             // 
             // saveMessageButton
             // 
-            saveMessageButton.Location = new Point(246, 133);
+            saveMessageButton.Location = new Point(244, 117);
             saveMessageButton.Name = "saveMessageButton";
             saveMessageButton.Size = new Size(182, 44);
             saveMessageButton.TabIndex = 119;
@@ -433,13 +433,13 @@
             panel2.Controls.Add(enableChatBonus);
             panel2.Location = new Point(53, 240);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 243);
+            panel2.Size = new Size(514, 192);
             panel2.TabIndex = 121;
             // 
             // subTextBox
             // 
             subTextBox.BorderStyle = BorderStyle.None;
-            subTextBox.Location = new Point(298, 95);
+            subTextBox.Location = new Point(298, 76);
             subTextBox.Name = "subTextBox";
             subTextBox.Size = new Size(33, 16);
             subTextBox.TabIndex = 125;
@@ -449,7 +449,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(220, 215, 201);
-            label7.Location = new Point(143, 95);
+            label7.Location = new Point(143, 76);
             label7.Name = "label7";
             label7.Size = new Size(155, 15);
             label7.TabIndex = 126;
@@ -459,7 +459,7 @@
             // 
             enableSubBonus.AutoSize = true;
             enableSubBonus.BackColor = Color.FromArgb(220, 215, 201);
-            enableSubBonus.Location = new Point(12, 94);
+            enableSubBonus.Location = new Point(12, 75);
             enableSubBonus.Name = "enableSubBonus";
             enableSubBonus.Size = new Size(120, 19);
             enableSubBonus.TabIndex = 124;
@@ -470,7 +470,7 @@
             // followTextBox
             // 
             followTextBox.BorderStyle = BorderStyle.None;
-            followTextBox.Location = new Point(298, 73);
+            followTextBox.Location = new Point(298, 54);
             followTextBox.Name = "followTextBox";
             followTextBox.Size = new Size(33, 16);
             followTextBox.TabIndex = 122;
@@ -480,7 +480,7 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(220, 215, 201);
-            label6.Location = new Point(143, 73);
+            label6.Location = new Point(143, 54);
             label6.Name = "label6";
             label6.Size = new Size(141, 15);
             label6.TabIndex = 123;
@@ -490,7 +490,7 @@
             // 
             enableFollowBonus.AutoSize = true;
             enableFollowBonus.BackColor = Color.FromArgb(220, 215, 201);
-            enableFollowBonus.Location = new Point(12, 72);
+            enableFollowBonus.Location = new Point(12, 53);
             enableFollowBonus.Name = "enableFollowBonus";
             enableFollowBonus.Size = new Size(135, 19);
             enableFollowBonus.TabIndex = 121;
@@ -504,7 +504,7 @@
             pictureBox7.BackgroundImageLayout = ImageLayout.None;
             pictureBox7.Location = new Point(0, 0);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(514, 33);
+            pictureBox7.Size = new Size(514, 24);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.TabIndex = 120;
             pictureBox7.TabStop = false;
@@ -544,7 +544,7 @@
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(514, 33);
+            pictureBox3.Size = new Size(514, 24);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 120;
             pictureBox3.TabStop = false;
