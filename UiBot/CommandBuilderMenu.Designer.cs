@@ -176,7 +176,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(63, 78, 79);
+            label2.BackColor = Color.FromArgb(71, 83, 92);
             label2.ForeColor = SystemColors.ControlLight;
             label2.Location = new Point(55, 367);
             label2.Name = "label2";
@@ -187,7 +187,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(63, 78, 79);
+            label3.BackColor = Color.FromArgb(71, 83, 92);
             label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(161, 367);
             label3.Name = "label3";
@@ -198,7 +198,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(63, 78, 79);
+            label4.BackColor = Color.FromArgb(71, 83, 92);
             label4.ForeColor = SystemColors.ControlLight;
             label4.Location = new Point(218, 367);
             label4.Name = "label4";
@@ -208,7 +208,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox1.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Location = new Point(55, 366);
             pictureBox1.Name = "pictureBox1";
@@ -275,7 +275,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = Color.FromArgb(63, 78, 79);
+            label6.BackColor = Color.FromArgb(71, 83, 92);
             label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.ControlLight;
             label6.Location = new Point(58, 663);
@@ -286,7 +286,7 @@
             // 
             // pictureBox6
             // 
-            pictureBox6.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
             pictureBox6.Location = new Point(55, 663);
             pictureBox6.Name = "pictureBox6";
@@ -769,7 +769,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(63, 78, 79);
+            label1.BackColor = Color.FromArgb(71, 83, 92);
             label1.ForeColor = SystemColors.ControlLight;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
@@ -779,7 +779,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox3.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
@@ -827,7 +827,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.BackColor = Color.FromArgb(63, 78, 79);
+            label15.BackColor = Color.FromArgb(71, 83, 92);
             label15.ForeColor = SystemColors.ControlLight;
             label15.Location = new Point(0, 0);
             label15.Name = "label15";
@@ -837,7 +837,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
@@ -875,7 +875,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.BackColor = Color.FromArgb(63, 78, 79);
+            label16.BackColor = Color.FromArgb(71, 83, 92);
             label16.ForeColor = SystemColors.ControlLight;
             label16.Location = new Point(0, 0);
             label16.Name = "label16";
@@ -885,7 +885,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox4.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
@@ -989,7 +989,7 @@
             // 
             // pictureBox12
             // 
-            pictureBox12.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox12.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox12.BackgroundImageLayout = ImageLayout.None;
             pictureBox12.Location = new Point(55, 337);
             pictureBox12.Name = "pictureBox12";
@@ -1001,7 +1001,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.BackColor = Color.FromArgb(63, 78, 79);
+            label18.BackColor = Color.FromArgb(71, 83, 92);
             label18.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label18.ForeColor = SystemColors.ControlLight;
             label18.Location = new Point(55, 343);
@@ -1036,7 +1036,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.BackColor = Color.FromArgb(63, 78, 79);
+            label19.BackColor = Color.FromArgb(71, 83, 92);
             label19.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label19.ForeColor = SystemColors.ControlLight;
             label19.Location = new Point(3, 0);
@@ -1047,7 +1047,7 @@
             // 
             // pictureBox13
             // 
-            pictureBox13.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox13.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox13.BackgroundImageLayout = ImageLayout.None;
             pictureBox13.Location = new Point(0, -1);
             pictureBox13.Name = "pictureBox13";
@@ -1096,7 +1096,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.BackColor = Color.FromArgb(63, 78, 79);
+            label20.BackColor = Color.FromArgb(71, 83, 92);
             label20.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label20.ForeColor = SystemColors.ControlLight;
             label20.Location = new Point(3, 0);
@@ -1107,7 +1107,7 @@
             // 
             // pictureBox14
             // 
-            pictureBox14.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox14.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox14.BackgroundImageLayout = ImageLayout.None;
             pictureBox14.Location = new Point(0, -1);
             pictureBox14.Name = "pictureBox14";
@@ -1119,7 +1119,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.BackColor = Color.FromArgb(55, 55, 55);
+            label22.BackColor = Color.FromArgb(37, 37, 37);
             label22.ForeColor = Color.Salmon;
             label22.Location = new Point(290, 346);
             label22.Name = "label22";
@@ -1149,7 +1149,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(63, 78, 79);
+            label5.BackColor = Color.FromArgb(71, 83, 92);
             label5.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ControlLight;
             label5.Location = new Point(3, 0);
@@ -1160,7 +1160,7 @@
             // 
             // pictureBox10
             // 
-            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox10.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox10.BackgroundImageLayout = ImageLayout.None;
             pictureBox10.Location = new Point(0, -1);
             pictureBox10.Name = "pictureBox10";
@@ -1189,7 +1189,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.BackColor = Color.FromArgb(63, 78, 79);
+            label17.BackColor = Color.FromArgb(71, 83, 92);
             label17.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label17.ForeColor = SystemColors.ControlLight;
             label17.Location = new Point(3, 0);
@@ -1200,7 +1200,7 @@
             // 
             // pictureBox9
             // 
-            pictureBox9.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox9.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox9.BackgroundImageLayout = ImageLayout.None;
             pictureBox9.Location = new Point(0, -1);
             pictureBox9.Name = "pictureBox9";
@@ -1214,7 +1214,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            BackColor = Color.FromArgb(55, 55, 55);
+            BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1042, 1027);
             ControlBox = false;
             Controls.Add(panel8);

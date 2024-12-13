@@ -77,7 +77,7 @@ namespace UiBot
                 isDragging = false;
             };
 
-            originalWidth = pictureBox1.Width;
+            originalWidth = slideBar.Width;
             enlargedWidth = originalWidth + 130; // Adjust the enlarged width as needed
             transitionTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother transition
             transitionTimer.Tick += TransitionTimer_Tick;
@@ -155,7 +155,7 @@ namespace UiBot
                 : (int)(enlargedWidth - (enlargedWidth - originalWidth) * progress);
 
             newWidth = Math.Min(Math.Max(newWidth, originalWidth), enlargedWidth);
-            pictureBox1.Width = newWidth;
+            slideBar.Width = newWidth;
 
             if (progress >= 1.0)
             {

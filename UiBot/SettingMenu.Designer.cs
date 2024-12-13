@@ -72,7 +72,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox1.BackColor = Color.FromArgb(37, 37, 37);
             groupBox1.Controls.Add(accessBox);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(button3);
@@ -83,7 +83,7 @@
             groupBox1.Controls.Add(channelBox2);
             groupBox1.Controls.Add(channelOpen);
             groupBox1.Font = new Font("Segoe UI", 9F);
-            groupBox1.ForeColor = SystemColors.ControlText;
+            groupBox1.ForeColor = SystemColors.ControlLight;
             groupBox1.Location = new Point(54, 25);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(417, 140);
@@ -105,7 +105,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ControlText;
+            label1.ForeColor = Color.Salmon;
             label1.Location = new Point(12, 108);
             label1.Name = "label1";
             label1.Size = new Size(394, 15);
@@ -126,7 +126,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.ForeColor = SystemColors.ControlText;
+            label2.ForeColor = SystemColors.ControlLight;
             label2.Location = new Point(18, 25);
             label2.Name = "label2";
             label2.Size = new Size(77, 15);
@@ -137,7 +137,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 9F);
-            checkBox1.ForeColor = SystemColors.ControlText;
+            checkBox1.ForeColor = SystemColors.ControlLight;
             checkBox1.Location = new Point(288, 25);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(121, 19);
@@ -149,7 +149,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ControlText;
+            label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(9, 55);
             label3.Name = "label3";
             label3.Size = new Size(86, 15);
@@ -190,7 +190,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.Red;
+            pictureBox1.BackColor = Color.FromArgb(37, 37, 37);
             pictureBox1.Location = new Point(0, 10);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(47, 47);
@@ -212,7 +212,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(156, 155, 151);
+            label5.BackColor = Color.FromArgb(135, 135, 135);
             label5.ForeColor = SystemColors.ControlText;
             label5.Location = new Point(72, 547);
             label5.Name = "label5";
@@ -224,7 +224,7 @@
             // githubLink
             // 
             githubLink.AutoSize = true;
-            githubLink.BackColor = Color.FromArgb(156, 155, 151);
+            githubLink.BackColor = Color.FromArgb(135, 135, 135);
             githubLink.Location = new Point(351, 547);
             githubLink.Name = "githubLink";
             githubLink.Size = new Size(43, 15);
@@ -237,7 +237,7 @@
             // versionNumber
             // 
             versionNumber.AutoSize = true;
-            versionNumber.BackColor = Color.FromArgb(156, 155, 151);
+            versionNumber.BackColor = Color.FromArgb(135, 135, 135);
             versionNumber.ForeColor = SystemColors.ControlText;
             versionNumber.Location = new Point(897, 585);
             versionNumber.Name = "versionNumber";
@@ -250,7 +250,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.BackColor = Color.FromArgb(156, 155, 151);
+            label7.BackColor = Color.FromArgb(135, 135, 135);
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label7.ForeColor = SystemColors.ControlText;
             label7.Location = new Point(70, 577);
@@ -262,7 +262,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(156, 155, 151);
+            pictureBox2.BackColor = Color.FromArgb(135, 135, 135);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 532);
             pictureBox2.Name = "pictureBox2";
@@ -274,7 +274,7 @@
             // changelogLabel
             // 
             changelogLabel.AutoSize = true;
-            changelogLabel.BackColor = Color.FromArgb(63, 78, 79);
+            changelogLabel.BackColor = Color.FromArgb(71, 83, 92);
             changelogLabel.Font = new Font("Cambria", 15.75F);
             changelogLabel.Location = new Point(635, 32);
             changelogLabel.Name = "changelogLabel";
@@ -285,7 +285,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(156, 155, 151);
+            label4.BackColor = Color.FromArgb(135, 135, 135);
             label4.ForeColor = SystemColors.ControlText;
             label4.Location = new Point(72, 562);
             label4.Name = "label4";
@@ -296,7 +296,7 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.BackColor = Color.FromArgb(156, 155, 151);
+            linkLabel1.BackColor = Color.FromArgb(135, 135, 135);
             linkLabel1.Location = new Point(402, 562);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(42, 15);
@@ -330,10 +330,10 @@
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox2.BackColor = Color.FromArgb(37, 37, 37);
             groupBox2.Controls.Add(bitrestoreButton);
             groupBox2.Controls.Add(restoreCommandButton);
-            groupBox2.ForeColor = SystemColors.ControlText;
+            groupBox2.ForeColor = SystemColors.ControlLight;
             groupBox2.Location = new Point(54, 165);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(417, 84);
@@ -344,10 +344,10 @@
             // enableUpdateCheck
             // 
             enableUpdateCheck.AutoSize = true;
-            enableUpdateCheck.BackColor = Color.FromArgb(156, 155, 151);
+            enableUpdateCheck.BackColor = Color.FromArgb(37, 37, 37);
             enableUpdateCheck.Checked = true;
             enableUpdateCheck.CheckState = CheckState.Checked;
-            enableUpdateCheck.ForeColor = SystemColors.ControlText;
+            enableUpdateCheck.ForeColor = SystemColors.ControlLight;
             enableUpdateCheck.Location = new Point(198, 25);
             enableUpdateCheck.Name = "enableUpdateCheck";
             enableUpdateCheck.Size = new Size(197, 19);
@@ -358,10 +358,10 @@
             // 
             // groupBox3
             // 
-            groupBox3.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox3.BackColor = Color.FromArgb(37, 37, 37);
             groupBox3.Controls.Add(checkUpdateButton);
             groupBox3.Controls.Add(enableUpdateCheck);
-            groupBox3.ForeColor = SystemColors.ControlText;
+            groupBox3.ForeColor = SystemColors.ControlLight;
             groupBox3.Location = new Point(54, 249);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(417, 55);
@@ -382,7 +382,7 @@
             // 
             // pictureBox6
             // 
-            pictureBox6.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
             pictureBox6.Location = new Point(635, 32);
             pictureBox6.Name = "pictureBox6";
@@ -394,21 +394,22 @@
             // enableDebug
             // 
             enableDebug.AutoSize = true;
-            enableDebug.ForeColor = SystemColors.ControlText;
+            enableDebug.BackColor = Color.FromArgb(37, 37, 37);
+            enableDebug.ForeColor = SystemColors.ControlLight;
             enableDebug.Location = new Point(18, 22);
             enableDebug.Name = "enableDebug";
             enableDebug.Size = new Size(133, 19);
             enableDebug.TabIndex = 110;
             enableDebug.Text = "Enable Debug Mode";
-            enableDebug.UseVisualStyleBackColor = true;
+            enableDebug.UseVisualStyleBackColor = false;
             enableDebug.CheckedChanged += enableDebug_CheckedChanged;
             // 
             // groupBox4
             // 
-            groupBox4.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox4.BackColor = Color.FromArgb(37, 37, 37);
             groupBox4.Controls.Add(enablewriteDebug);
             groupBox4.Controls.Add(enableDebug);
-            groupBox4.ForeColor = SystemColors.ControlText;
+            groupBox4.ForeColor = SystemColors.ControlLight;
             groupBox4.Location = new Point(54, 304);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(417, 55);
@@ -419,13 +420,14 @@
             // enablewriteDebug
             // 
             enablewriteDebug.AutoSize = true;
-            enablewriteDebug.ForeColor = SystemColors.ControlText;
+            enablewriteDebug.BackColor = Color.FromArgb(37, 37, 37);
+            enablewriteDebug.ForeColor = SystemColors.ControlLight;
             enablewriteDebug.Location = new Point(198, 22);
             enablewriteDebug.Name = "enablewriteDebug";
             enablewriteDebug.Size = new Size(204, 19);
             enablewriteDebug.TabIndex = 111;
             enablewriteDebug.Text = "Write Debug to File (Must Restart)";
-            enablewriteDebug.UseVisualStyleBackColor = true;
+            enablewriteDebug.UseVisualStyleBackColor = false;
             enablewriteDebug.CheckedChanged += enablewriteDebug_CheckedChanged;
             // 
             // enableEFTtrade
@@ -433,7 +435,7 @@
             enableEFTtrade.AutoSize = true;
             enableEFTtrade.Checked = true;
             enableEFTtrade.CheckState = CheckState.Checked;
-            enableEFTtrade.ForeColor = SystemColors.ControlText;
+            enableEFTtrade.ForeColor = SystemColors.ControlLight;
             enableEFTtrade.Location = new Point(18, 22);
             enableEFTtrade.Name = "enableEFTtrade";
             enableEFTtrade.Size = new Size(193, 19);
@@ -444,9 +446,9 @@
             // 
             // groupBox5
             // 
-            groupBox5.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox5.BackColor = Color.FromArgb(37, 37, 37);
             groupBox5.Controls.Add(enableEFTtrade);
-            groupBox5.ForeColor = SystemColors.ControlText;
+            groupBox5.ForeColor = SystemColors.ControlLight;
             groupBox5.Location = new Point(54, 358);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(417, 55);
@@ -458,7 +460,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(55, 55, 55);
+            BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1041, 616);
             ControlBox = false;
             Controls.Add(groupBox5);

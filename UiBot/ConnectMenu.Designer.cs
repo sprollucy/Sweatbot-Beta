@@ -115,7 +115,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(63, 78, 79);
+            label4.BackColor = Color.FromArgb(71, 83, 92);
             label4.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label4.ForeColor = SystemColors.ControlLight;
             label4.Location = new Point(173, 5);
@@ -126,7 +126,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox4.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(170, 3);
             pictureBox4.Name = "pictureBox4";
@@ -161,7 +161,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(63, 78, 79);
+            label1.BackColor = Color.FromArgb(71, 83, 92);
             label1.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label1.ForeColor = SystemColors.ControlLight;
             label1.Location = new Point(3, 0);
@@ -172,7 +172,7 @@
             // 
             // pictureBox8
             // 
-            pictureBox8.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox8.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
             pictureBox8.Location = new Point(0, -2);
             pictureBox8.Name = "pictureBox8";
@@ -228,7 +228,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(63, 78, 79);
+            label3.BackColor = Color.FromArgb(71, 83, 92);
             label3.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(56, 40);
@@ -239,7 +239,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox2.Location = new Point(53, 37);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(574, 25);
@@ -297,7 +297,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(55, 55, 55);
+            BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1058, 596);
             ControlBox = false;
             Controls.Add(economyLabel);

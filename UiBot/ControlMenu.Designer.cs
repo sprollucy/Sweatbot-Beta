@@ -189,7 +189,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
@@ -212,7 +212,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(63, 78, 79);
+            label2.BackColor = Color.FromArgb(71, 83, 92);
             label2.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.ControlLight;
             label2.Location = new Point(53, 36);
@@ -224,7 +224,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(63, 78, 79);
+            label5.BackColor = Color.FromArgb(71, 83, 92);
             label5.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ControlLight;
             label5.Location = new Point(0, 1);
@@ -235,7 +235,7 @@
             // 
             // pictureBox8
             // 
-            pictureBox8.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox8.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
             pictureBox8.Location = new Point(0, 0);
             pictureBox8.Name = "pictureBox8";
@@ -349,7 +349,7 @@
             // autoMessageLabel
             // 
             autoMessageLabel.AutoSize = true;
-            autoMessageLabel.BackColor = Color.FromArgb(63, 78, 79);
+            autoMessageLabel.BackColor = Color.FromArgb(71, 83, 92);
             autoMessageLabel.Font = new Font("Constantia", 12F, FontStyle.Bold);
             autoMessageLabel.ForeColor = SystemColors.ControlLight;
             autoMessageLabel.Location = new Point(0, 0);
@@ -374,7 +374,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(63, 78, 79);
+            label3.BackColor = Color.FromArgb(71, 83, 92);
             label3.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(0, 1);
@@ -516,7 +516,7 @@
             // 
             // pictureBox7
             // 
-            pictureBox7.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox7.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox7.BackgroundImageLayout = ImageLayout.None;
             pictureBox7.Location = new Point(0, 0);
             pictureBox7.Name = "pictureBox7";
@@ -566,7 +566,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.FromArgb(63, 78, 79);
+            pictureBox3.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
@@ -593,7 +593,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            BackColor = Color.FromArgb(55, 55, 55);
+            BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1058, 609);
             ControlBox = false;
             Controls.Add(groupBox1);

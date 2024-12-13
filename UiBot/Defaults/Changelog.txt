@@ -5,6 +5,8 @@
 -Switched ui to dark mode
 -Added connection status indicator
 -Added toggle for !bitcost command
+-Added economy tracking to quickly see how many bits are available for user. Updates every 15 seconds
+-Fixed crash when connecting and disconnecting quickly
 
 1.0.0.72-alpha
 -Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain

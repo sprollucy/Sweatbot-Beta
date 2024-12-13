@@ -52,6 +52,7 @@
             label9 = new Label();
             eftTrader = new PictureBox();
             conStatus = new Label();
+            slideBar = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
@@ -64,6 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)minBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slideBar).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -119,7 +121,7 @@
             commandBuilder.Location = new Point(0, 183);
             commandBuilder.Name = "commandBuilder";
             commandBuilder.Size = new Size(47, 50);
-            commandBuilder.SizeMode = PictureBoxSizeMode.StretchImage;
+            commandBuilder.SizeMode = PictureBoxSizeMode.Zoom;
             commandBuilder.TabIndex = 5;
             commandBuilder.TabStop = false;
             commandBuilder.Click += questTracker_Click;
@@ -178,8 +180,9 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(63, 78, 79);
+            label1.BackColor = Color.FromArgb(30, 30, 30);
             label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label1.ForeColor = SystemColors.ControlLight;
             label1.Location = new Point(-73, 32);
             label1.Name = "label1";
             label1.Size = new Size(62, 23);
@@ -189,8 +192,9 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(63, 78, 79);
+            label2.BackColor = Color.FromArgb(30, 30, 30);
             label2.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.ControlLight;
             label2.Location = new Point(-43, 86);
             label2.Name = "label2";
             label2.Size = new Size(84, 23);
@@ -200,8 +204,9 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(63, 78, 79);
+            label3.BackColor = Color.FromArgb(30, 30, 30);
             label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(-73, 141);
             label3.Name = "label3";
             label3.Size = new Size(113, 23);
@@ -211,8 +216,9 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(63, 78, 79);
+            label4.BackColor = Color.FromArgb(30, 30, 30);
             label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.ControlLight;
             label4.Location = new Point(-33, 250);
             label4.Name = "label4";
             label4.Size = new Size(78, 23);
@@ -222,8 +228,9 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = Color.FromArgb(63, 78, 79);
+            label6.BackColor = Color.FromArgb(30, 30, 30);
             label6.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label6.ForeColor = SystemColors.ControlLight;
             label6.Location = new Point(-19, 304);
             label6.Name = "label6";
             label6.Size = new Size(64, 23);
@@ -234,8 +241,9 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.BackColor = Color.FromArgb(63, 78, 79);
+            label7.BackColor = Color.FromArgb(30, 30, 30);
             label7.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.ControlLight;
             label7.Location = new Point(-19, 358);
             label7.Name = "label7";
             label7.Size = new Size(63, 23);
@@ -246,8 +254,9 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.BackColor = Color.FromArgb(63, 78, 79);
+            label8.BackColor = Color.FromArgb(30, 30, 30);
             label8.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label8.ForeColor = SystemColors.ControlLight;
             label8.Location = new Point(-35, 574);
             label8.Name = "label8";
             label8.Size = new Size(81, 23);
@@ -284,8 +293,9 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(63, 78, 79);
+            label5.BackColor = Color.FromArgb(30, 30, 30);
             label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label5.ForeColor = SystemColors.ControlLight;
             label5.Location = new Point(-42, 207);
             label5.Name = "label5";
             label5.Size = new Size(77, 23);
@@ -295,8 +305,9 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.BackColor = Color.FromArgb(63, 78, 79);
+            label9.BackColor = Color.FromArgb(30, 30, 30);
             label9.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            label9.ForeColor = SystemColors.ControlLight;
             label9.Location = new Point(-73, 188);
             label9.Name = "label9";
             label9.Size = new Size(104, 23);
@@ -327,12 +338,22 @@
             conStatus.Text = "Not Connected!";
             conStatus.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // slideBar
+            // 
+            slideBar.BackColor = Color.FromArgb(30, 30, 30);
+            slideBar.Location = new Point(0, 0);
+            slideBar.Name = "slideBar";
+            slideBar.Size = new Size(47, 618);
+            slideBar.TabIndex = 23;
+            slideBar.TabStop = false;
+            // 
             // ModernMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(55, 55, 55);
+            BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1042, 611);
+            ControlBox = false;
             Controls.Add(conStatus);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
@@ -356,6 +377,7 @@
             Controls.Add(label8);
             Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
+            Controls.Add(slideBar);
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sweat Bot";
@@ -372,6 +394,7 @@
             ((System.ComponentModel.ISupportInitialize)settingsButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)minBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slideBar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -401,5 +424,6 @@
         private Label label9;
         private PictureBox eftTrader;
         private Label conStatus;
+        private PictureBox slideBar;
     }
 }
