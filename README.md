@@ -98,10 +98,8 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
    - Enter the Twitch channel where you want the bot to join, then click **Save**.
 
 6. **Set Up Commands**  
-   - Click the Command Menu button to configure your bot’s commands.
+   - Click Command Builder Menu button to configure your bot’s commands.
    - Set the command costs and enable your desired commands, then click **Save** and **Restart**.
-
-   > **Note**: For custom commands, check **Enable Custom Commands** and use the Command Builder.
 
 ---
 
