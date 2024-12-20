@@ -1269,7 +1269,7 @@ public class CustomCommandHandler
     }
 
     // Helper method to convert key characters to virtual key codes
-    private static int ToVirtualKey(string key)
+    public static int ToVirtualKey(string key)
     {
         switch (key.ToUpper())
         {

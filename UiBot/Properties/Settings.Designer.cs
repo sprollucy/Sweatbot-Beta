@@ -430,5 +430,17 @@ namespace UiBot.Properties {
                 this["isEconomyOn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSendKeyEnabled {
+            get {
+                return ((bool)(this["isSendKeyEnabled"]));
+            }
+            set {
+                this["isSendKeyEnabled"] = value;
+            }
+        }
     }
 }

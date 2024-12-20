@@ -120,6 +120,7 @@
             pictureBox14 = new PictureBox();
             label22 = new Label();
             panel7 = new Panel();
+            textBox3 = new TextBox();
             label5 = new Label();
             pictureBox10 = new PictureBox();
             panel8 = new Panel();
@@ -330,7 +331,7 @@
             panel1.Controls.Add(label9);
             panel1.Controls.Add(restartButton);
             panel1.Controls.Add(label8);
-            panel1.Location = new Point(55, 409);
+            panel1.Location = new Point(55, 414);
             panel1.Name = "panel1";
             panel1.Size = new Size(335, 220);
             panel1.TabIndex = 25;
@@ -1123,14 +1124,15 @@
             label22.ForeColor = Color.Salmon;
             label22.Location = new Point(290, 346);
             label22.Name = "label22";
-            label22.Size = new Size(96, 15);
+            label22.Size = new Size(269, 15);
             label22.TabIndex = 57;
-            label22.Text = "Work In Progress";
+            label22.Text = "Work In Progress (May have bugs/many changes)";
             label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel7
             // 
             panel7.BackColor = Color.FromArgb(156, 155, 151);
+            panel7.Controls.Add(textBox3);
             panel7.Controls.Add(label5);
             panel7.Controls.Add(pictureBox10);
             panel7.Controls.Add(walkButton);
@@ -1145,6 +1147,18 @@
             panel7.Name = "panel7";
             panel7.Size = new Size(206, 160);
             panel7.TabIndex = 53;
+            // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.FromArgb(156, 155, 151);
+            textBox3.BorderStyle = BorderStyle.None;
+            textBox3.ForeColor = Color.Red;
+            textBox3.Location = new Point(79, 141);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(63, 16);
+            textBox3.TabIndex = 128;
+            textBox3.Text = "In Testing";
+            textBox3.TextAlign = HorizontalAlignment.Center;
             // 
             // label5
             // 
@@ -1370,5 +1384,6 @@
         private Panel panel8;
         private Label label17;
         private PictureBox pictureBox9;
+        private TextBox textBox3;
     }
 }

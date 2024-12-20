@@ -26,6 +26,8 @@ namespace UiBot
             enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
             checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
             bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
+            sendkeyButton.Checked = Properties.Settings.Default.isSendKeyEnabled;
+
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
             {
@@ -48,12 +50,25 @@ namespace UiBot
             textBoxes["subTextBox"] = SubTextBox;
             textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
             textBoxes["bottoggleCostBox"] = BotToggleCostBox;
+            textBoxes["sendkeyCostBox"] = SendKeyCostBox;
+            textBoxes["sendkeyTimeBox"] = SendKeyTimeBox;
         }
 
         public TextBox BotToggleCostBox
         {
             get { return bottoggleCostBox; }
             set { bottoggleCostBox = value; }
+        }
+        public TextBox SendKeyCostBox
+        {
+            get { return sendkeyCostBox; }
+            set { sendkeyCostBox = value; }
+        }
+
+        public TextBox SendKeyTimeBox
+        {
+            get { return sendkeyTimeBox; }
+            set { sendkeyTimeBox = value; }
         }
 
         public TextBox AutoMessageBox
@@ -239,6 +254,10 @@ namespace UiBot
 
         }
 
-
+        private void sendkeyButton_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
+            Properties.Settings.Default.Save();
+        }
     }
 }

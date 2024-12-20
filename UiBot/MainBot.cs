@@ -29,6 +29,9 @@ namespace UiBot
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
         // Handles connection
         private ConnectionCredentials creds;
         TwitchClient client;
@@ -361,7 +364,7 @@ namespace UiBot
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
                         client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
                         Console.WriteLine($"[{e.ChatMessage.DisplayName}]: First Chat Bonus: {bonusAmount}");
-                        
+
                         LogHandler.WriteUserBitsToJson("user_bits.json");
                         LogHandler.LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
                     }
@@ -498,7 +501,8 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use, just cheer Bits in the chat. The bot will keep track of how many you give. Type !bitcost or !ccommand to see what you can do with them. Then, just enter the command you want to use in the chat if you have enough Bits to spend. Use !mybits to check how many Bits you have stored!");
+                        client.SendMessage(channelId, "To use this feature, simply cheer Bits in the chat, and the bot will track how many you've given. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
+);
                     }
                     break;
 
@@ -539,7 +543,9 @@ namespace UiBot
                             // Define the mappings of textbox names to their corresponding labels and enabled states
                             var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
                         {
-                                { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) }
+                                { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
+                                { "sendkeyCostBox", ("sendkey", () => Properties.Settings.Default.isSendKeyEnabled) }
+
                         };
 
                             // Define a list to hold enabled command details
@@ -780,6 +786,95 @@ namespace UiBot
                     }
                     break;
 
+                case "sendkey":
+                    if (Properties.Settings.Default.isSendKeyEnabled)
+                    {
+                        // Check if the user's bits are loaded
+                        if (userBits.ContainsKey(Chatter))
+                        {
+                            if (int.TryParse(controlMenu.SendKeyCostBox.Text, out int bitCost))
+                            {
+                                if (int.TryParse(controlMenu.SendKeyTimeBox.Text, out int holdtime))
+                                {
+                                    // Check if the user has enough bits
+                                    if (userBits[Chatter] >= bitCost)
+                                    {
+                                        // Extract the key to be sent from the command message
+                                        string[] sendKeyCommandParts = e.Command.ChatMessage.Message.Split(' ');
+
+                                        if (sendKeyCommandParts.Length > 1)
+                                        {
+                                            string keyToSend = sendKeyCommandParts[1].ToUpper();
+
+                                            try
+                                            {
+                                                // Get the virtual key for the specified key
+                                                int virtualKey = CustomCommandHandler.ToVirtualKey(keyToSend);
+
+                                                // Simulate key press and hold asynchronously
+                                                await Task.Run(async () =>
+                                                {
+                                                    keybd_event((byte)virtualKey, 0, 0, 0); // Key down
+                                                    await Task.Delay(holdtime);          // Hold for the specified time
+                                                    keybd_event((byte)virtualKey, 0, 2, 0); // Key up
+                                                });
+
+                                                // If successful, log the command usage and deduct bits
+                                                LogHandler.LogCommand(Chatter, "sendkey", bitCost, userBits, timestamp);
+                                                userBits[Chatter] -= bitCost;
+
+                                                if (Properties.Settings.Default.isBitMsgEnabled)
+                                                {
+                                                    client.SendMessage(channelId, $"{Chatter}, You have {userBits[Chatter]} bits remaining.");
+                                                }
+
+                                                Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[Chatter]}");
+
+                                                // Save the updated bit data
+                                                LogHandler.WriteUserBitsToJson("user_bits.json");
+                                            }
+                                            catch (ArgumentException)
+                                            {
+                                                // Send an error message if the key is not supported
+                                                client.SendMessage(channelId, $"{Chatter}, the key '{keyToSend}' is not supported.");
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                // Send a general error message
+                                                client.SendMessage(channelId, $"{Chatter}, there was an error processing your command: {ex.Message}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Notify the user to specify a key
+                                            client.SendMessage(channelId, $"{Chatter}, please specify a key to send (e.g., !sendkey A).");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Send message indicating insufficient bits
+                                        client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                    }
+                                }
+                                else
+                                {
+                                    // Send message indicating invalid hold time value
+                                    client.SendMessage(channelId, "Invalid hold time value.");
+                                }
+                            }
+                            else
+                            {
+                                // Send message indicating invalid cost value
+                                client.SendMessage(channelId, "Invalid cost value.");
+                            }
+                        }
+                        else
+                        {
+                            // Send message indicating user's bits data not found
+                            client.SendMessage(channelId, $"{Chatter}, your bit data is not found!");
+                        }
+                    }
+                    break;
             }
 
             //Mod Commands
@@ -827,7 +922,6 @@ namespace UiBot
                             }
                         }
                         break;
-
                 }
             }
 
@@ -969,8 +1063,9 @@ namespace UiBot
 
             // Create a Timer object to run the method immediately and then reschedule it
             timer = new System.Threading.Timer(AutoMessageSender, null, 0, intervalMilliseconds);
-        }}
-
+        }
     }
+
+}
 
 

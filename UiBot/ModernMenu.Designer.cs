@@ -209,9 +209,9 @@
             label3.ForeColor = SystemColors.ControlLight;
             label3.Location = new Point(-73, 141);
             label3.Name = "label3";
-            label3.Size = new Size(113, 23);
+            label3.Size = new Size(104, 23);
             label3.TabIndex = 13;
-            label3.Text = "Commands";
+            label3.Text = "Command";
             // 
             // label4
             // 
@@ -296,7 +296,7 @@
             label5.BackColor = Color.FromArgb(30, 30, 30);
             label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ControlLight;
-            label5.Location = new Point(-42, 207);
+            label5.Location = new Point(-41, 207);
             label5.Name = "label5";
             label5.Size = new Size(77, 23);
             label5.TabIndex = 15;

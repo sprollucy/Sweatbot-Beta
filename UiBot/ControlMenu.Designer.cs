@@ -30,6 +30,11 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
+            sendkeyTimeBox = new TextBox();
+            textBox4 = new TextBox();
+            sendkeyCostBox = new TextBox();
+            textBox2 = new TextBox();
+            sendkeyButton = new CheckBox();
             bitcostButton = new CheckBox();
             enableBotToggle = new CheckBox();
             bottoggleCostBox = new TextBox();
@@ -69,6 +74,9 @@
             panel4 = new Panel();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
+            textBox3 = new TextBox();
+            textBox5 = new TextBox();
+            textBox6 = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -95,6 +103,12 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(textBox6);
+            panel1.Controls.Add(sendkeyTimeBox);
+            panel1.Controls.Add(textBox4);
+            panel1.Controls.Add(sendkeyCostBox);
+            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(sendkeyButton);
             panel1.Controls.Add(bitcostButton);
             panel1.Controls.Add(enableBotToggle);
             panel1.Controls.Add(bottoggleCostBox);
@@ -107,6 +121,67 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 191);
             panel1.TabIndex = 20;
+            // 
+            // sendkeyTimeBox
+            // 
+            sendkeyTimeBox.BackColor = SystemColors.ControlLight;
+            sendkeyTimeBox.BorderStyle = BorderStyle.None;
+            sendkeyTimeBox.Location = new Point(242, 138);
+            sendkeyTimeBox.Name = "sendkeyTimeBox";
+            sendkeyTimeBox.Size = new Size(38, 16);
+            sendkeyTimeBox.TabIndex = 125;
+            sendkeyTimeBox.Text = "1000";
+            sendkeyTimeBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.FromArgb(156, 155, 151);
+            textBox4.BorderStyle = BorderStyle.None;
+            textBox4.ForeColor = SystemColors.ControlText;
+            textBox4.Location = new Point(109, 138);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(131, 16);
+            textBox4.TabIndex = 126;
+            textBox4.Text = "How long to hold?(ms)";
+            textBox4.TextAlign = HorizontalAlignment.Center;
+            // 
+            // sendkeyCostBox
+            // 
+            sendkeyCostBox.BackColor = SystemColors.ControlLight;
+            sendkeyCostBox.BorderStyle = BorderStyle.None;
+            sendkeyCostBox.Location = new Point(61, 138);
+            sendkeyCostBox.Name = "sendkeyCostBox";
+            sendkeyCostBox.Size = new Size(34, 16);
+            sendkeyCostBox.TabIndex = 123;
+            sendkeyCostBox.Text = "10";
+            sendkeyCostBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.FromArgb(156, 155, 151);
+            textBox2.BorderStyle = BorderStyle.None;
+            textBox2.ForeColor = SystemColors.ControlText;
+            textBox2.Location = new Point(12, 138);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(63, 16);
+            textBox2.TabIndex = 124;
+            textBox2.Text = "Cost";
+            textBox2.TextAlign = HorizontalAlignment.Center;
+            // 
+            // sendkeyButton
+            // 
+            sendkeyButton.AutoSize = true;
+            sendkeyButton.BackColor = Color.FromArgb(156, 155, 151);
+            sendkeyButton.Checked = true;
+            sendkeyButton.CheckState = CheckState.Checked;
+            sendkeyButton.ForeColor = SystemColors.ControlText;
+            sendkeyButton.Location = new Point(12, 113);
+            sendkeyButton.Name = "sendkeyButton";
+            sendkeyButton.Size = new Size(232, 19);
+            sendkeyButton.TabIndex = 122;
+            sendkeyButton.Text = "Enable !sendkey for chat to send inputs";
+            sendkeyButton.UseVisualStyleBackColor = false;
+            sendkeyButton.CheckedChanged += sendkeyButton_CheckedChanged;
             // 
             // bitcostButton
             // 
@@ -140,7 +215,7 @@
             // 
             bottoggleCostBox.BackColor = SystemColors.ControlLight;
             bottoggleCostBox.BorderStyle = BorderStyle.None;
-            bottoggleCostBox.Location = new Point(216, 37);
+            bottoggleCostBox.Location = new Point(195, 36);
             bottoggleCostBox.Name = "bottoggleCostBox";
             bottoggleCostBox.Size = new Size(34, 16);
             bottoggleCostBox.TabIndex = 108;
@@ -167,9 +242,9 @@
             textBox1.BackColor = Color.FromArgb(156, 155, 151);
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.ForeColor = SystemColors.ControlText;
-            textBox1.Location = new Point(169, 37);
+            textBox1.Location = new Point(159, 36);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(63, 16);
+            textBox1.Size = new Size(30, 16);
             textBox1.TabIndex = 44;
             textBox1.Text = "Cost";
             textBox1.TextAlign = HorizontalAlignment.Center;
@@ -179,7 +254,7 @@
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
             enableTradersCommand.ForeColor = SystemColors.ControlText;
-            enableTradersCommand.Location = new Point(12, 113);
+            enableTradersCommand.Location = new Point(12, 160);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -276,7 +351,7 @@
             bonusTextBox.Name = "bonusTextBox";
             bonusTextBox.Size = new Size(33, 16);
             bonusTextBox.TabIndex = 60;
-            bonusTextBox.Text = "100";
+            bonusTextBox.Text = "10";
             bonusTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // enableBonusMulti
@@ -425,6 +500,8 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
+            panel2.Controls.Add(textBox5);
+            panel2.Controls.Add(textBox3);
             panel2.Controls.Add(subTextBox);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(enableSubBonus);
@@ -452,7 +529,7 @@
             subTextBox.Name = "subTextBox";
             subTextBox.Size = new Size(33, 16);
             subTextBox.TabIndex = 125;
-            subTextBox.Text = "100";
+            subTextBox.Text = "500";
             subTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label7
@@ -487,7 +564,7 @@
             followTextBox.Name = "followTextBox";
             followTextBox.Size = new Size(33, 16);
             followTextBox.TabIndex = 122;
-            followTextBox.Text = "100";
+            followTextBox.Text = "50";
             followTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label6
@@ -588,6 +665,42 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
             // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.FromArgb(156, 155, 151);
+            textBox3.BorderStyle = BorderStyle.None;
+            textBox3.ForeColor = Color.Red;
+            textBox3.Location = new Point(337, 54);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(63, 16);
+            textBox3.TabIndex = 127;
+            textBox3.Text = "In Testing";
+            textBox3.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox5
+            // 
+            textBox5.BackColor = Color.FromArgb(156, 155, 151);
+            textBox5.BorderStyle = BorderStyle.None;
+            textBox5.ForeColor = Color.Red;
+            textBox5.Location = new Point(337, 78);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(63, 16);
+            textBox5.TabIndex = 128;
+            textBox5.Text = "In Testing";
+            textBox5.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox6
+            // 
+            textBox6.BackColor = Color.FromArgb(156, 155, 151);
+            textBox6.BorderStyle = BorderStyle.None;
+            textBox6.ForeColor = Color.Red;
+            textBox6.Location = new Point(235, 36);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(63, 16);
+            textBox6.TabIndex = 129;
+            textBox6.Text = "In Testing";
+            textBox6.TextAlign = HorizontalAlignment.Center;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -667,5 +780,13 @@
         private Label label8;
         private CheckBox bitcostButton;
         private GroupBox groupBox1;
+        private CheckBox sendkeyButton;
+        private TextBox sendkeyCostBox;
+        private TextBox textBox2;
+        private TextBox sendkeyTimeBox;
+        private TextBox textBox4;
+        private TextBox textBox5;
+        private TextBox textBox3;
+        private TextBox textBox6;
     }
 }
