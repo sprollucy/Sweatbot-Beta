@@ -1,3 +1,7 @@
+1.0.0.74-alpha
+-Removed old backup button. No longer used
+-Added bit multiplier for subscribers
+
 1.0.0.73-alpha
 -Fixed bug with toggling on or off sweatbot by chat command
 -Added bonus for following

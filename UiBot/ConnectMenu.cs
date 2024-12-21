@@ -11,7 +11,9 @@ namespace UiBot
         private TextBoxWriter textBoxWriter;
         private Timer economyTimer;  // Timer for periodic updates
         private Timer memoryTimer;   // Timer for memory updates
-
+        private int previousEconomyValue;  // Initialize a variable to hold the previous economy value
+        private int totalSpent;  // Track the total amount spent
+        private int lastSpent;
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
         public ConnectMenu()
@@ -35,11 +37,14 @@ namespace UiBot
             memoryTimer = new Timer();
             memoryTimer.Interval = 2000;
             memoryTimer.Tick += MemoryTimer_Tick;
+            lastSpent = LoadTotalSpentFromJson();
+            economyLastLabel.Text = $"{lastSpent}";  // Set the economyLastLabel text to the loaded value
 
             if (Properties.Settings.Default.isEconomyOn)
             {
                 economyTimer.Start();
             }
+            LoadTotalSpentFromJson();
 
             DisplayTotalBitCost();
             RamDebug();
@@ -250,18 +255,77 @@ namespace UiBot
             return totalBitCost;
         }
 
-        // Public method to display the total bit cost in the economyLabel
         public void DisplayTotalBitCost()
         {
-            if (economyLabel != null)
+            if (economyLabel != null && economySpentLabel != null)
             {
-                // Safely access economyLabel and update its text
                 int totalBitCost = CalculateTotalBitCost();
+
+                // Display the current economy value (total bit cost)
                 economyLabel.Text = $"{totalBitCost}";
+
+                // If the total bit cost is less than the previous economy value, update the totalSpent
+                if (totalBitCost < previousEconomyValue)
+                {
+                    int amountSpent = previousEconomyValue - totalBitCost;  // Calculate the amount removed
+                    totalSpent += amountSpent;  // Accumulate the total spent amount
+
+                    economySpentLabel.Text = $"{totalSpent}";  // Update the spent label
+                }
+
+                // Update the previous economy value for the next calculation
+                previousEconomyValue = totalBitCost;
+                SaveTotalSpentToJson(totalSpent);
+
             }
             else
             {
-                Console.WriteLine("economyLabel is null.");
+                Console.WriteLine("economyLabel or economySpentLabel is null.");
+            }
+        }
+        private int LoadTotalSpentFromJson()
+        {
+            string filePath = Path.Combine("Data", "bin", "CommandConfigData.json");
+
+            // Check if the file exists
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                dynamic jsonObj = JsonConvert.DeserializeObject(json);
+
+                // Return the lastSpent value from the JSON file, defaulting to 0 if not found
+                return jsonObj.lastSpent ?? 0;
+            }
+            else
+            {
+                // If the file doesn't exist, return 0 by default
+                Console.WriteLine("File not found. Returning default totalSpent value of 0.");
+                return 0;
+            }
+        }
+        private void SaveTotalSpentToJson(int totalSpent)
+        {
+            string filePath = Path.Combine("Data", "bin", "CommandConfigData.json");
+
+            // Read the existing data from the JSON file
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                dynamic jsonObj = JsonConvert.DeserializeObject(json);
+
+                // Update the lastSpent field with the new totalSpent value
+                jsonObj.lastSpent = totalSpent;
+
+                // Serialize the updated object and save it back to the file
+                string updatedJson = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+                File.WriteAllText(filePath, updatedJson);
+            }
+            else
+            {
+                // If the file doesn't exist, create it and save the new value
+                var newData = new { lastSpent = totalSpent };
+                string newJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
+                File.WriteAllText(filePath, newJson);
             }
         }
 
@@ -324,6 +388,22 @@ namespace UiBot
             }
         }
 
+        private void ramSnapButton_Click(object sender, EventArgs e)
+        {
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Get memory usage details
+            long allocmemoryUsed = currentProcess.WorkingSet64;
+            long memoryUsed = currentProcess.PrivateMemorySize64;
+            long gcmemoryUsed = GC.GetTotalMemory(false);
+
+            // Write memory usage details to the console
+            Console.WriteLine($"[{timestamp}] Ram snapshot writen to 'Debug File.txt' in 'Logs' folder");
+            Console.WriteLine($"[RamSnap] Managed GC Memory: {gcmemoryUsed / 1024 / 1024} MB");
+            Console.WriteLine($"[RamSnap] Actual Memory Usage: {memoryUsed / 1024 / 1024} MB");
+            Console.WriteLine($"[RamSnap] Total Allocated Memory: {allocmemoryUsed / 1024 / 1024} MB");
+        }
 
         // Custom TextWriter to redirect Console output to a TextBox
         private class TextBoxWriter : System.IO.TextWriter
@@ -397,22 +477,6 @@ namespace UiBot
             }
         }
 
-        private void ramSnapButton_Click(object sender, EventArgs e)
-        {
-            // Get the current process
-            Process currentProcess = Process.GetCurrentProcess();
-
-            // Get memory usage details
-            long allocmemoryUsed = currentProcess.WorkingSet64;
-            long memoryUsed = currentProcess.PrivateMemorySize64;
-            long gcmemoryUsed = GC.GetTotalMemory(false);
-
-            // Write memory usage details to the console
-            Console.WriteLine($"[{timestamp}] Ram snapshot writen to 'Debug File.txt' in 'Logs' folder");
-            Console.WriteLine($"[RamSnap] Managed GC Memory: {gcmemoryUsed / 1024 / 1024} MB");
-            Console.WriteLine($"[RamSnap] Actual Memory Usage: {memoryUsed / 1024 / 1024} MB");
-            Console.WriteLine($"[RamSnap] Total Allocated Memory: {allocmemoryUsed / 1024 / 1024} MB");
-        }
     }
 
     public class Command

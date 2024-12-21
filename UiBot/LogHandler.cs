@@ -83,7 +83,7 @@ namespace UiBot
         public static void FileBackup()
         {
             // Define the list of file paths to backup
-            string[] jsonFilePaths = { Path.Combine("Data", "user_bits.json"), Path.Combine("Data", "bin", "CommandConfigData.json"), Path.Combine("Data", "bin", "DropPositionData.json") };
+            string[] jsonFilePaths = { Path.Combine("Data", "user_bits.json")};
 
             // Define the date and time format
             string timestamp = DateTime.Now.ToString("MM_dd_HH_mm");

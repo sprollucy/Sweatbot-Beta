@@ -55,6 +55,12 @@
             debugGroup = new GroupBox();
             ramSnapButton = new Button();
             econoPanel = new Panel();
+            economyLastLabel = new Label();
+            label7 = new Label();
+            pictureBox7 = new PictureBox();
+            label6 = new Label();
+            pictureBox6 = new PictureBox();
+            economySpentLabel = new Label();
             label5 = new Label();
             pictureBox1 = new PictureBox();
             panel1.SuspendLayout();
@@ -66,6 +72,8 @@
             panel2.SuspendLayout();
             debugGroup.SuspendLayout();
             econoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -178,9 +186,9 @@
             economyLabel.ForeColor = SystemColors.ControlText;
             economyLabel.Location = new Point(5, 27);
             economyLabel.Name = "economyLabel";
-            economyLabel.Size = new Size(33, 20);
+            economyLabel.Size = new Size(17, 20);
             economyLabel.TabIndex = 34;
-            economyLabel.Text = "100";
+            economyLabel.Text = "0";
             economyLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -368,13 +376,91 @@
             // econoPanel
             // 
             econoPanel.BackColor = Color.FromArgb(156, 155, 151);
+            econoPanel.Controls.Add(economyLastLabel);
+            econoPanel.Controls.Add(label7);
+            econoPanel.Controls.Add(pictureBox7);
+            econoPanel.Controls.Add(label6);
+            econoPanel.Controls.Add(pictureBox6);
+            econoPanel.Controls.Add(economySpentLabel);
             econoPanel.Controls.Add(label5);
             econoPanel.Controls.Add(economyLabel);
             econoPanel.Controls.Add(pictureBox1);
             econoPanel.Location = new Point(633, 228);
             econoPanel.Name = "econoPanel";
-            econoPanel.Size = new Size(163, 52);
+            econoPanel.Size = new Size(163, 148);
             econoPanel.TabIndex = 40;
+            // 
+            // economyLastLabel
+            // 
+            economyLastLabel.Anchor = AnchorStyles.None;
+            economyLastLabel.AutoSize = true;
+            economyLastLabel.Font = new Font("Segoe UI", 11F);
+            economyLastLabel.ForeColor = SystemColors.ControlText;
+            economyLastLabel.Location = new Point(5, 125);
+            economyLastLabel.Name = "economyLastLabel";
+            economyLastLabel.Size = new Size(17, 20);
+            economyLastLabel.TabIndex = 131;
+            economyLastLabel.Text = "0";
+            economyLastLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(71, 83, 92);
+            label7.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.ControlLight;
+            label7.Location = new Point(3, 100);
+            label7.Name = "label7";
+            label7.Size = new Size(147, 19);
+            label7.TabIndex = 129;
+            label7.Text = "Spent Last Session";
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox7.BackgroundImageLayout = ImageLayout.None;
+            pictureBox7.Location = new Point(0, 98);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(164, 24);
+            pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox7.TabIndex = 130;
+            pictureBox7.TabStop = false;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.FromArgb(71, 83, 92);
+            label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label6.ForeColor = SystemColors.ControlLight;
+            label6.Location = new Point(2, 51);
+            label6.Name = "label6";
+            label6.Size = new Size(148, 19);
+            label6.TabIndex = 127;
+            label6.Text = "Spent This Session";
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox6.BackgroundImageLayout = ImageLayout.None;
+            pictureBox6.Location = new Point(-1, 49);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(164, 24);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 128;
+            pictureBox6.TabStop = false;
+            // 
+            // economySpentLabel
+            // 
+            economySpentLabel.Anchor = AnchorStyles.None;
+            economySpentLabel.AutoSize = true;
+            economySpentLabel.Font = new Font("Segoe UI", 11F);
+            economySpentLabel.ForeColor = SystemColors.ControlText;
+            economySpentLabel.Location = new Point(5, 76);
+            economySpentLabel.Name = "economySpentLabel";
+            economySpentLabel.Size = new Size(17, 20);
+            economySpentLabel.TabIndex = 126;
+            economySpentLabel.Text = "0";
+            economySpentLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -384,9 +470,9 @@
             label5.ForeColor = SystemColors.ControlLight;
             label5.Location = new Point(2, 2);
             label5.Name = "label5";
-            label5.Size = new Size(123, 19);
+            label5.Size = new Size(151, 19);
             label5.TabIndex = 124;
-            label5.Text = "Total Economy";
+            label5.Text = "Bits in Circulation ";
             // 
             // pictureBox1
             // 
@@ -435,6 +521,8 @@
             debugGroup.PerformLayout();
             econoPanel.ResumeLayout(false);
             econoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -472,5 +560,11 @@
         private Panel econoPanel;
         private Label label5;
         private PictureBox pictureBox1;
+        private Label economySpentLabel;
+        private Label label6;
+        private PictureBox pictureBox6;
+        private Label economyLastLabel;
+        private Label label7;
+        private PictureBox pictureBox7;
     }
 }

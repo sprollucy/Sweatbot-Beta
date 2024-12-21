@@ -207,48 +207,6 @@ namespace UiBot
             }
         }
 
-        private void restoreCommandButton_Click(object sender, EventArgs e)
-        {
-            // Define backup patterns
-            string[] backupFileNamePatterns = { "CommandConfigData_backup_*.json", "DropPositionData_backup_*.json" };
-
-            // Define the corresponding JSON file paths
-            string[] jsonFilePaths = { Path.Combine("Data", "bin", "CommandConfigData.json"), Path.Combine("Data", "bin", "DropPositionData.json") };
-
-            Console.WriteLine($"Restoration triggered at {DateTime.Now}");
-
-            try
-            {
-                for (int i = 0; i < backupFileNamePatterns.Length; i++)
-                {
-                    // Get all matching backup files for the current file type
-                    string backupDirectory = Path.Combine("Backup");
-                    string[] backupFiles = Directory.GetFiles(backupDirectory, backupFileNamePatterns[i]);
-
-                    if (backupFiles.Length == 0)
-                    {
-                        MessageBox.Show($"No backup files found for {jsonFilePaths[i]}.");
-                        continue;
-                    }
-
-                    // Sort files by creation time descending and select the latest one
-                    string latestBackupFile = backupFiles.OrderByDescending(f => f).First();
-
-                    // Read the content from the latest backup file
-                    string backupContent = File.ReadAllText(latestBackupFile);
-
-                    // Write the backup content back to the JSON file
-                    File.WriteAllText(jsonFilePaths[i], backupContent);
-
-                    MessageBox.Show($"Restoration completed from {latestBackupFile} to {jsonFilePaths[i]} Please restart for changes to take effect.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error during restoration: {ex.Message}");
-            }
-        }
-
         private void enableUpdateCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isUpdateCheckEnabled = enableUpdateCheck.Checked;

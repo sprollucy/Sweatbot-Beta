@@ -30,6 +30,7 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
+            textBox6 = new TextBox();
             sendkeyTimeBox = new TextBox();
             textBox4 = new TextBox();
             sendkeyCostBox = new TextBox();
@@ -62,6 +63,10 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
+            enableSubBonusMulti = new CheckBox();
+            subbonusMultiplierBox = new TextBox();
+            textBox5 = new TextBox();
+            textBox3 = new TextBox();
             subTextBox = new TextBox();
             label7 = new Label();
             enableSubBonus = new CheckBox();
@@ -74,9 +79,7 @@
             panel4 = new Panel();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
-            textBox3 = new TextBox();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
+            textBox7 = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -121,6 +124,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 191);
             panel1.TabIndex = 20;
+            // 
+            // textBox6
+            // 
+            textBox6.BackColor = Color.FromArgb(156, 155, 151);
+            textBox6.BorderStyle = BorderStyle.None;
+            textBox6.ForeColor = Color.Red;
+            textBox6.Location = new Point(235, 36);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(63, 16);
+            textBox6.TabIndex = 129;
+            textBox6.Text = "In Testing";
+            textBox6.TextAlign = HorizontalAlignment.Center;
             // 
             // sendkeyTimeBox
             // 
@@ -500,6 +515,9 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
+            panel2.Controls.Add(textBox7);
+            panel2.Controls.Add(enableSubBonusMulti);
+            panel2.Controls.Add(subbonusMultiplierBox);
             panel2.Controls.Add(textBox5);
             panel2.Controls.Add(textBox3);
             panel2.Controls.Add(subTextBox);
@@ -520,6 +538,54 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(514, 192);
             panel2.TabIndex = 121;
+            // 
+            // enableSubBonusMulti
+            // 
+            enableSubBonusMulti.AutoSize = true;
+            enableSubBonusMulti.BackColor = Color.FromArgb(156, 155, 151);
+            enableSubBonusMulti.ForeColor = SystemColors.ControlText;
+            enableSubBonusMulti.Location = new Point(12, 125);
+            enableSubBonusMulti.Name = "enableSubBonusMulti";
+            enableSubBonusMulti.Size = new Size(178, 19);
+            enableSubBonusMulti.TabIndex = 131;
+            enableSubBonusMulti.Text = "Enable Bit Multiplier for Subs";
+            enableSubBonusMulti.UseVisualStyleBackColor = false;
+            enableSubBonusMulti.CheckedChanged += enableSubBonusMulti_CheckedChanged;
+            // 
+            // subbonusMultiplierBox
+            // 
+            subbonusMultiplierBox.BackColor = SystemColors.ControlLight;
+            subbonusMultiplierBox.BorderStyle = BorderStyle.None;
+            subbonusMultiplierBox.Location = new Point(192, 125);
+            subbonusMultiplierBox.Name = "subbonusMultiplierBox";
+            subbonusMultiplierBox.Size = new Size(20, 16);
+            subbonusMultiplierBox.TabIndex = 130;
+            subbonusMultiplierBox.Text = "2";
+            subbonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox5
+            // 
+            textBox5.BackColor = Color.FromArgb(156, 155, 151);
+            textBox5.BorderStyle = BorderStyle.None;
+            textBox5.ForeColor = Color.Red;
+            textBox5.Location = new Point(337, 78);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(63, 16);
+            textBox5.TabIndex = 128;
+            textBox5.Text = "In Testing";
+            textBox5.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.FromArgb(156, 155, 151);
+            textBox3.BorderStyle = BorderStyle.None;
+            textBox3.ForeColor = Color.Red;
+            textBox3.Location = new Point(337, 54);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(63, 16);
+            textBox3.TabIndex = 127;
+            textBox3.Text = "In Testing";
+            textBox3.TextAlign = HorizontalAlignment.Center;
             // 
             // subTextBox
             // 
@@ -665,41 +731,17 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
             // 
-            // textBox3
+            // textBox7
             // 
-            textBox3.BackColor = Color.FromArgb(156, 155, 151);
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.ForeColor = Color.Red;
-            textBox3.Location = new Point(337, 54);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(63, 16);
-            textBox3.TabIndex = 127;
-            textBox3.Text = "In Testing";
-            textBox3.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox5
-            // 
-            textBox5.BackColor = Color.FromArgb(156, 155, 151);
-            textBox5.BorderStyle = BorderStyle.None;
-            textBox5.ForeColor = Color.Red;
-            textBox5.Location = new Point(337, 78);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(63, 16);
-            textBox5.TabIndex = 128;
-            textBox5.Text = "In Testing";
-            textBox5.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox6
-            // 
-            textBox6.BackColor = Color.FromArgb(156, 155, 151);
-            textBox6.BorderStyle = BorderStyle.None;
-            textBox6.ForeColor = Color.Red;
-            textBox6.Location = new Point(235, 36);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(63, 16);
-            textBox6.TabIndex = 129;
-            textBox6.Text = "In Testing";
-            textBox6.TextAlign = HorizontalAlignment.Center;
+            textBox7.BackColor = Color.FromArgb(156, 155, 151);
+            textBox7.BorderStyle = BorderStyle.None;
+            textBox7.ForeColor = Color.Red;
+            textBox7.Location = new Point(217, 125);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(63, 16);
+            textBox7.TabIndex = 132;
+            textBox7.Text = "In Testing";
+            textBox7.TextAlign = HorizontalAlignment.Center;
             // 
             // ControlMenu
             // 
@@ -788,5 +830,8 @@
         private TextBox textBox5;
         private TextBox textBox3;
         private TextBox textBox6;
+        private TextBox subbonusMultiplierBox;
+        private CheckBox enableSubBonusMulti;
+        private TextBox textBox7;
     }
 }

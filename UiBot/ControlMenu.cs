@@ -27,6 +27,7 @@ namespace UiBot
             checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
             bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
             sendkeyButton.Checked = Properties.Settings.Default.isSendKeyEnabled;
+            enableSubBonusMulti.Checked = Properties.Settings.Default.isSubBonusMultiEnabled;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -49,6 +50,7 @@ namespace UiBot
             textBoxes["followTextBox"] = FollowTextBox;
             textBoxes["subTextBox"] = SubTextBox;
             textBoxes["bonusMultiplierBox"] = BonusMultiplierBox;
+            textBoxes["subbonusMultiplierBox"] = SubBonusMultiplierBox;
             textBoxes["bottoggleCostBox"] = BotToggleCostBox;
             textBoxes["sendkeyCostBox"] = SendKeyCostBox;
             textBoxes["sendkeyTimeBox"] = SendKeyTimeBox;
@@ -104,6 +106,12 @@ namespace UiBot
         {
             get { return bonusMultiplierBox; }
             set { bonusMultiplierBox = value; }
+        }
+
+        public TextBox SubBonusMultiplierBox
+        {
+            get { return subbonusMultiplierBox; }
+            set { subbonusMultiplierBox = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -257,6 +265,12 @@ namespace UiBot
         private void sendkeyButton_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
             Properties.Settings.Default.Save();
         }
     }

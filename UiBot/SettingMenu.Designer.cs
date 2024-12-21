@@ -49,7 +49,6 @@
             label4 = new Label();
             linkLabel1 = new LinkLabel();
             bitrestoreButton = new Button();
-            restoreCommandButton = new Button();
             groupBox2 = new GroupBox();
             enableUpdateCheck = new CheckBox();
             groupBox3 = new GroupBox();
@@ -316,26 +315,14 @@
             bitrestoreButton.UseVisualStyleBackColor = true;
             bitrestoreButton.Click += bitrestoreButton_Click;
             // 
-            // restoreCommandButton
-            // 
-            restoreCommandButton.ForeColor = SystemColors.ControlText;
-            restoreCommandButton.Location = new Point(18, 51);
-            restoreCommandButton.Name = "restoreCommandButton";
-            restoreCommandButton.Size = new Size(201, 23);
-            restoreCommandButton.TabIndex = 38;
-            restoreCommandButton.Text = "Restore commands from backup";
-            restoreCommandButton.UseVisualStyleBackColor = true;
-            restoreCommandButton.Click += restoreCommandButton_Click;
-            // 
             // groupBox2
             // 
             groupBox2.BackColor = Color.FromArgb(37, 37, 37);
             groupBox2.Controls.Add(bitrestoreButton);
-            groupBox2.Controls.Add(restoreCommandButton);
             groupBox2.ForeColor = SystemColors.ControlLight;
             groupBox2.Location = new Point(54, 165);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(417, 84);
+            groupBox2.Size = new Size(417, 58);
             groupBox2.TabIndex = 39;
             groupBox2.TabStop = false;
             groupBox2.Text = "Restore settings";
@@ -361,7 +348,7 @@
             groupBox3.Controls.Add(checkUpdateButton);
             groupBox3.Controls.Add(enableUpdateCheck);
             groupBox3.ForeColor = SystemColors.ControlLight;
-            groupBox3.Location = new Point(54, 249);
+            groupBox3.Location = new Point(54, 229);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(417, 55);
             groupBox3.TabIndex = 40;
@@ -408,7 +395,7 @@
             groupBox4.BackColor = Color.FromArgb(37, 37, 37);
             groupBox4.Controls.Add(enableDebug);
             groupBox4.ForeColor = SystemColors.ControlLight;
-            groupBox4.Location = new Point(54, 304);
+            groupBox4.Location = new Point(54, 284);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(417, 55);
             groupBox4.TabIndex = 111;
@@ -432,7 +419,7 @@
             groupBox5.BackColor = Color.FromArgb(37, 37, 37);
             groupBox5.Controls.Add(enableEFTtrade);
             groupBox5.ForeColor = SystemColors.ControlLight;
-            groupBox5.Location = new Point(54, 358);
+            groupBox5.Location = new Point(54, 338);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(417, 55);
             groupBox5.TabIndex = 112;
@@ -506,7 +493,6 @@
         private Label label4;
         private LinkLabel linkLabel1;
         private Button bitrestoreButton;
-        private Button restoreCommandButton;
         private GroupBox groupBox2;
         private CheckBox enableUpdateCheck;
         private GroupBox groupBox3;

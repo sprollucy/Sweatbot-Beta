@@ -430,5 +430,17 @@ namespace UiBot.Properties {
                 this["isSendKeyEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSubBonusMultiEnabled {
+            get {
+                return ((bool)(this["isSubBonusMultiEnabled"]));
+            }
+            set {
+                this["isSubBonusMultiEnabled"] = value;
+            }
+        }
     }
 }

@@ -381,16 +381,36 @@ namespace UiBot
             if (e.ChatMessage.Bits > 0)
             {
                 int bitsGiven = e.ChatMessage.Bits;
+                bool isSubscriber = e.ChatMessage.IsSubscriber;
 
-                if (Properties.Settings.Default.isBonusMultiplierEnabled)
+                // Check if both bonus multipliers are enabled
+                if (Properties.Settings.Default.isBonusMultiplierEnabled && Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
                 {
-                    ChatCommandMethods.BitMultiplier(); // Call BitMultiplier to update BitBonusMultiplier
-                    int multiplier = ChatCommandMethods.BitBonusMultiplier; // Access BitBonusMultiplier
+                    // Apply Sub Bonus Multiplier first for subscribers
+                    ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
+                    int multiplier = ChatCommandMethods.SubBitBonusMultiplier; // Access SubBitBonusMultiplier
 
-                    // Calculate bitsGiven after applying multiplier and rounding up
+                    // Calculate bits after applying the subscriber multiplier
                     bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
 
-                    // Update user bits and log the transaction
+                    // Log the transaction
+                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                    Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
+
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Sub Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                }
+                else if (Properties.Settings.Default.isBonusMultiplierEnabled)
+                {
+                    // Apply normal Bonus Multiplier if not a subscriber or only the regular multiplier is enabled
+                    ChatCommandMethods.BitMultiplier(); // Update BitBonusMultiplier
+                    int multiplier = ChatCommandMethods.BitBonusMultiplier; // Access BitBonusMultiplier
+
+                    // Calculate bits after applying the normal multiplier
+                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
+
+                    // Log the transaction
                     LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
@@ -398,16 +418,34 @@ namespace UiBot
 
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
-                else
+                else if (Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
                 {
-                    // Update user bits and log the transaction
+                    // Apply Sub Bonus Multiplier if only the subscriber bonus is enabled
+                    ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
+                    int multiplier = ChatCommandMethods.SubBitBonusMultiplier; // Access SubBitBonusMultiplier
+
+                    // Calculate bits after applying the subscriber multiplier
+                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
+
+                    // Log the transaction
                     LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    // Thank the user for giving bits and inform them of their new balance
+                    Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
+
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Sub Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                }
+                else
+                {
+                    // No multiplier is applied
+                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                    // Thank the user and inform them of their new balance
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
             }
+
         }
 
         private void Client_OnError(object sender, OnErrorEventArgs e)

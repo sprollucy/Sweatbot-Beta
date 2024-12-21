@@ -15,9 +15,11 @@ namespace UiBot
         public string ChannelName { get; set; }
         public string BotToken { get; set; }
     }
+
     public class ConfigData
     {
         public string bonusMultiplierBox { get; set; }
+        public string subbonusMultiplierBox { get; set; }
     }
 
     internal class ChatCommandMethods
@@ -47,6 +49,7 @@ namespace UiBot
 
 
         public static int BitBonusMultiplier { get; private set; }
+        public static int SubBitBonusMultiplier { get; private set; }
 
         public static void BitMultiplier()
         {
@@ -69,11 +72,45 @@ namespace UiBot
 
             if (string.IsNullOrEmpty(bonusMultiplierBox))
             {
-                Console.WriteLine("No time set.");
+                Console.WriteLine("No multiplier set.");
                 return;
             }
 
             if (!int.TryParse(bonusMultiplierBox, out int durationSeconds))
+            {
+                Console.WriteLine("Invalid multiplier duration format.");
+                return;
+            }
+
+            BitBonusMultiplier = durationSeconds;
+        }
+
+        public static void SubBitMultiplier()
+        {
+            string subbonusMultiplierBox;
+            string configFilePath = Path.Combine("Data", "bin", "CommandConfigData.json");
+
+            try
+            {
+                // Read the JSON file and parse it to extract the multiplier
+                string json = File.ReadAllText(configFilePath);
+                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                subbonusMultiplierBox = configData?.subbonusMultiplierBox;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, such as file not found or JSON parsing issues
+                Console.WriteLine($"Error reading JSON file: {ex.Message}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(subbonusMultiplierBox))
+            {
+                Console.WriteLine("No Sub multiplier set.");
+                return;
+            }
+
+            if (!int.TryParse(subbonusMultiplierBox, out int durationSeconds))
             {
                 Console.WriteLine("Invalid multiplier duration format.");
                 return;
