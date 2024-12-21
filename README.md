@@ -1,6 +1,17 @@
-# **Sweat Bot 1.0.0.72 Alpha**
+# **Sweat Bot 1.0.0.73 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
+
+## Table of Contents
+- [Features](#features)
+- [How it Works](#how-it-works)
+- [Setup Guide](#getting-started-with-sweat-bot)
+- [Commands](#viewer-commands)
+- [Screenshots](#screenshots)
+- [Download](#download)
+- [Upcoming Features](#upcomingpotential-features)
+- [Support](#support)
+- [Changelog](#latest-changelog)
 
 ### **Features**
 - Interact with your PC/games via Twitch chat.
@@ -29,6 +40,16 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 
+## **Screenshots**
+
+![Screenshot 2024-12-20 112414](https://github.com/user-attachments/assets/4a140306-8289-4efc-b762-6a4fbe625289)
+![Screenshot 2024-12-20 112423](https://github.com/user-attachments/assets/03073685-c9b4-499e-8b2b-ba1b6d14fe20)
+![Screenshot 2024-12-20 112852](https://github.com/user-attachments/assets/acccdb00-419e-4cae-92f4-5962f221f846)
+
+
+
+---
+
 ## **Upcoming/Potential Features**
 *(Not guaranteed, but under consideration)*
 
@@ -46,16 +67,14 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 - Maybe ShutdownPc
 
 ---
-
-### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.70)
+## **Download**
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.73)
 
 ---
 
 ## **Getting Started with Sweat Bot**
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
-
-> **Note**: Drop Config.exe is currently broken, so Kit Drop is not functional.
 
 ### **Step-by-Step Setup**
 
@@ -79,10 +98,8 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
    - Enter the Twitch channel where you want the bot to join, then click **Save**.
 
 6. **Set Up Commands**  
-   - Click the Command Menu button to configure your bot’s commands.
+   - Click Command Builder Menu button to configure your bot’s commands.
    - Set the command costs and enable your desired commands, then click **Save** and **Restart**.
-
-   > **Note**: For custom commands, check **Enable Custom Commands** and use the Command Builder.
 
 ---
 
@@ -146,6 +163,17 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ## **Latest Changelog**
 
+1.0.0.73-alpha
+- Fixed bug with toggling on or off sweatbot by chat command
+- Added bonus for following
+- Added bonus for subscribing
+- Switched ui to dark mode
+- Added connection status indicator
+- Added toggle for !bitcost command
+- Added economy tracking to quickly see how many bits are available for user. Updates every 15 seconds
+- Fixed crash when connecting and disconnecting quickly
+- Added !sendkey. Chat can now send individual keypresses. Set the cost and how long for it to hold the button in Command Menu. Example "!sendkey A" will press the button A 
+
 1.0.0.72-alpha
 - Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain
 - Updated debug system
@@ -158,8 +186,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added MPosAsync
 - Added quick commands under the Command Builder menu
 - Removed goose folder. Planning on adding a way to launch exe files
-
-1.0.0.71-alpha
-- Added toggle to print out remaining bits after using a command
-- Added Async Delay
-- Bugfixing for Custom commands
