@@ -37,6 +37,7 @@
             pictureBox4 = new PictureBox();
             customCommandBox = new RichTextBox();
             pictureBox3 = new PictureBox();
+            economyLabel = new Label();
             label1 = new Label();
             pictureBox8 = new PictureBox();
             pauseCommands = new CheckBox();
@@ -48,7 +49,14 @@
             pictureBox5 = new PictureBox();
             panel2 = new Panel();
             economyCheckBox = new CheckBox();
-            economyLabel = new Label();
+            manramLabel = new Label();
+            allocramLabel = new Label();
+            ramLabel = new Label();
+            debugGroup = new GroupBox();
+            ramSnapButton = new Button();
+            econoPanel = new Panel();
+            label5 = new Label();
+            pictureBox1 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -56,6 +64,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel2.SuspendLayout();
+            debugGroup.SuspendLayout();
+            econoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // messageTextBox
@@ -139,6 +150,7 @@
             // 
             customCommandBox.BackColor = Color.FromArgb(156, 155, 151);
             customCommandBox.BorderStyle = BorderStyle.None;
+            customCommandBox.Font = new Font("Segoe UI", 10F);
             customCommandBox.ForeColor = SystemColors.ControlText;
             customCommandBox.Location = new Point(170, 27);
             customCommandBox.Name = "customCommandBox";
@@ -157,6 +169,19 @@
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 31;
             pictureBox3.TabStop = false;
+            // 
+            // economyLabel
+            // 
+            economyLabel.Anchor = AnchorStyles.None;
+            economyLabel.AutoSize = true;
+            economyLabel.Font = new Font("Segoe UI", 11F);
+            economyLabel.ForeColor = SystemColors.ControlText;
+            economyLabel.Location = new Point(5, 27);
+            economyLabel.Name = "economyLabel";
+            economyLabel.Size = new Size(33, 20);
+            economyLabel.TabIndex = 34;
+            economyLabel.Text = "100";
+            economyLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -219,7 +244,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.Salmon;
-            label2.Location = new Point(300, 455);
+            label2.Location = new Point(295, 530);
             label2.Name = "label2";
             label2.Size = new Size(432, 21);
             label2.TabIndex = 13;
@@ -274,6 +299,8 @@
             // 
             economyCheckBox.AutoSize = true;
             economyCheckBox.BackColor = Color.FromArgb(156, 155, 151);
+            economyCheckBox.Checked = true;
+            economyCheckBox.CheckState = CheckState.Checked;
             economyCheckBox.ForeColor = SystemColors.ControlText;
             economyCheckBox.Location = new Point(5, 54);
             economyCheckBox.Name = "economyCheckBox";
@@ -283,24 +310,104 @@
             economyCheckBox.UseVisualStyleBackColor = false;
             economyCheckBox.CheckedChanged += economyCheckBox_CheckedChanged;
             // 
-            // economyLabel
+            // manramLabel
             // 
-            economyLabel.AutoSize = true;
-            economyLabel.ForeColor = Color.Salmon;
-            economyLabel.Location = new Point(806, 428);
-            economyLabel.Name = "economyLabel";
-            economyLabel.Size = new Size(88, 15);
-            economyLabel.TabIndex = 34;
-            economyLabel.Text = "Total Economy:";
+            manramLabel.AutoSize = true;
+            manramLabel.ForeColor = Color.Salmon;
+            manramLabel.Location = new Point(6, 19);
+            manramLabel.Name = "manramLabel";
+            manramLabel.Size = new Size(108, 15);
+            manramLabel.TabIndex = 35;
+            manramLabel.Text = "Managed Memory:";
+            // 
+            // allocramLabel
+            // 
+            allocramLabel.AutoSize = true;
+            allocramLabel.ForeColor = Color.Salmon;
+            allocramLabel.Location = new Point(6, 49);
+            allocramLabel.Name = "allocramLabel";
+            allocramLabel.Size = new Size(136, 15);
+            allocramLabel.TabIndex = 36;
+            allocramLabel.Text = "Total Allocated Memory:";
+            // 
+            // ramLabel
+            // 
+            ramLabel.AutoSize = true;
+            ramLabel.ForeColor = Color.Salmon;
+            ramLabel.Location = new Point(6, 34);
+            ramLabel.Name = "ramLabel";
+            ramLabel.Size = new Size(106, 15);
+            ramLabel.TabIndex = 37;
+            ramLabel.Text = "Actual Ram Usage:";
+            // 
+            // debugGroup
+            // 
+            debugGroup.Controls.Add(ramSnapButton);
+            debugGroup.Controls.Add(manramLabel);
+            debugGroup.Controls.Add(ramLabel);
+            debugGroup.Controls.Add(allocramLabel);
+            debugGroup.ForeColor = Color.Salmon;
+            debugGroup.Location = new Point(836, 506);
+            debugGroup.Name = "debugGroup";
+            debugGroup.Size = new Size(200, 100);
+            debugGroup.TabIndex = 38;
+            debugGroup.TabStop = false;
+            debugGroup.Text = "Memory Debug";
+            // 
+            // ramSnapButton
+            // 
+            ramSnapButton.ForeColor = SystemColors.ControlText;
+            ramSnapButton.Location = new Point(6, 69);
+            ramSnapButton.Name = "ramSnapButton";
+            ramSnapButton.Size = new Size(188, 23);
+            ramSnapButton.TabIndex = 39;
+            ramSnapButton.Text = "Snapshot ram use to file";
+            ramSnapButton.UseVisualStyleBackColor = true;
+            ramSnapButton.Click += ramSnapButton_Click;
+            // 
+            // econoPanel
+            // 
+            econoPanel.BackColor = Color.FromArgb(156, 155, 151);
+            econoPanel.Controls.Add(label5);
+            econoPanel.Controls.Add(economyLabel);
+            econoPanel.Controls.Add(pictureBox1);
+            econoPanel.Location = new Point(633, 228);
+            econoPanel.Name = "econoPanel";
+            econoPanel.Size = new Size(163, 52);
+            econoPanel.TabIndex = 40;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(71, 83, 92);
+            label5.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label5.ForeColor = SystemColors.ControlLight;
+            label5.Location = new Point(2, 2);
+            label5.Name = "label5";
+            label5.Size = new Size(123, 19);
+            label5.TabIndex = 124;
+            label5.Text = "Total Economy";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox1.BackgroundImageLayout = ImageLayout.None;
+            pictureBox1.Location = new Point(-1, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(164, 24);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 125;
+            pictureBox1.TabStop = false;
             // 
             // ConnectMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(37, 37, 37);
-            ClientSize = new Size(1058, 596);
+            ClientSize = new Size(1058, 615);
             ControlBox = false;
-            Controls.Add(economyLabel);
+            Controls.Add(econoPanel);
+            Controls.Add(debugGroup);
             Controls.Add(panel2);
             Controls.Add(pictureBox5);
             Controls.Add(label3);
@@ -324,6 +431,11 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            debugGroup.ResumeLayout(false);
+            debugGroup.PerformLayout();
+            econoPanel.ResumeLayout(false);
+            econoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -352,5 +464,13 @@
         private Panel panel2;
         private Label economyLabel;
         private CheckBox economyCheckBox;
+        private Label manramLabel;
+        private Label allocramLabel;
+        private Label ramLabel;
+        private GroupBox debugGroup;
+        private Button ramSnapButton;
+        private Panel econoPanel;
+        private Label label5;
+        private PictureBox pictureBox1;
     }
 }

@@ -338,18 +338,6 @@ namespace UiBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isWriteDebugOn {
-            get {
-                return ((bool)(this["isWriteDebugOn"]));
-            }
-            set {
-                this["isWriteDebugOn"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isBitMsgEnabled {
             get {
                 return ((bool)(this["isBitMsgEnabled"]));

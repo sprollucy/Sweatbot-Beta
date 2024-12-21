@@ -25,7 +25,6 @@ namespace UiBot
 
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
             enableDebug.Checked = Properties.Settings.Default.isDebugOn;
-            enablewriteDebug.Checked = Properties.Settings.Default.isWriteDebugOn;
             enableEFTtrade.Checked = Properties.Settings.Default.isTraderMenuEnabled;
 
             LoadChangelog();
@@ -266,12 +265,10 @@ namespace UiBot
         {
             Properties.Settings.Default.isDebugOn = enableDebug.Checked;
             Properties.Settings.Default.Save();
-        }
-
-        private void enablewriteDebug_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isWriteDebugOn = enablewriteDebug.Checked;
-            Properties.Settings.Default.Save();
+            if (Application.OpenForms["ConnectMenu"] is ConnectMenu connectMenu)
+            {
+                connectMenu.RamDebug();
+            }
         }
 
         private void enableEFTtrade_CheckedChanged(object sender, EventArgs e)

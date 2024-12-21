@@ -57,7 +57,6 @@
             pictureBox6 = new PictureBox();
             enableDebug = new CheckBox();
             groupBox4 = new GroupBox();
-            enablewriteDebug = new CheckBox();
             enableEFTtrade = new CheckBox();
             groupBox5 = new GroupBox();
             groupBox1.SuspendLayout();
@@ -407,7 +406,6 @@
             // groupBox4
             // 
             groupBox4.BackColor = Color.FromArgb(37, 37, 37);
-            groupBox4.Controls.Add(enablewriteDebug);
             groupBox4.Controls.Add(enableDebug);
             groupBox4.ForeColor = SystemColors.ControlLight;
             groupBox4.Location = new Point(54, 304);
@@ -417,24 +415,9 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Debug Settings";
             // 
-            // enablewriteDebug
-            // 
-            enablewriteDebug.AutoSize = true;
-            enablewriteDebug.BackColor = Color.FromArgb(37, 37, 37);
-            enablewriteDebug.ForeColor = SystemColors.ControlLight;
-            enablewriteDebug.Location = new Point(198, 22);
-            enablewriteDebug.Name = "enablewriteDebug";
-            enablewriteDebug.Size = new Size(204, 19);
-            enablewriteDebug.TabIndex = 111;
-            enablewriteDebug.Text = "Write Debug to File (Must Restart)";
-            enablewriteDebug.UseVisualStyleBackColor = false;
-            enablewriteDebug.CheckedChanged += enablewriteDebug_CheckedChanged;
-            // 
             // enableEFTtrade
             // 
             enableEFTtrade.AutoSize = true;
-            enableEFTtrade.Checked = true;
-            enableEFTtrade.CheckState = CheckState.Checked;
             enableEFTtrade.ForeColor = SystemColors.ControlLight;
             enableEFTtrade.Location = new Point(18, 22);
             enableEFTtrade.Name = "enableEFTtrade";
@@ -454,7 +437,7 @@
             groupBox5.Size = new Size(417, 55);
             groupBox5.TabIndex = 112;
             groupBox5.TabStop = false;
-            groupBox5.Text = "Other Game Menus (requires restart)";
+            groupBox5.Text = "Other Game Menus (Must Restart)";
             // 
             // SettingMenu
             // 
@@ -533,7 +516,6 @@
         private PictureBox pictureBox6;
         private CheckBox enableDebug;
         private GroupBox groupBox4;
-        private CheckBox enablewriteDebug;
         private CheckBox enableEFTtrade;
         private GroupBox groupBox5;
     }

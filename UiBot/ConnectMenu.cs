@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
 using Timer = System.Windows.Forms.Timer;
 
@@ -16,6 +10,7 @@ namespace UiBot
         private CommandHandler commandHandler; // Add this field
         private TextBoxWriter textBoxWriter;
         private Timer economyTimer;  // Timer for periodic updates
+        private Timer memoryTimer;   // Timer for memory updates
 
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
@@ -30,115 +25,37 @@ namespace UiBot
             controlMenu.LoadSettings();
             this.TopLevel = false;
 
+            pauseCommands.Checked = Properties.Settings.Default.isCommandsPaused;
+            economyCheckBox.Checked = Properties.Settings.Default.isEconomyOn;
+
             // Initialize the Timer
             economyTimer = new Timer();
-            economyTimer.Interval = 15000; // 15 seconds in milliseconds
+            economyTimer.Interval = 2000;
             economyTimer.Tick += EconomyTimer_Tick;
+            memoryTimer = new Timer();
+            memoryTimer.Interval = 2000;
+            memoryTimer.Tick += MemoryTimer_Tick;
 
             if (Properties.Settings.Default.isEconomyOn)
             {
-                economyTimer.Start(); // Start the timer if economy is on
+                economyTimer.Start();
             }
 
             DisplayTotalBitCost();
+            RamDebug();
 
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
-            pauseCommands.Checked = Properties.Settings.Default.isCommandsPaused;
-
-            economyCheckBox.Checked = Properties.Settings.Default.isEconomyOn;
-
 
         }
 
-        // Event handler for Timer tick
-        private void EconomyTimer_Tick(object sender, EventArgs e)
-        {
-            // Check if economy is enabled
-            if (Properties.Settings.Default.isEconomyOn)
-            {
-                DisplayTotalBitCost(); // Update the bit cost display
-            }
-        }
 
         private void InitializeConsole()
         {
             // Redirect standard output to the consoleTextBox and optionally to the file if isDebugToFile is true
-            textBoxWriter = new TextBoxWriter(consoleTextBox, Properties.Settings.Default.isWriteDebugOn);
+            textBoxWriter = new TextBoxWriter(consoleTextBox, Properties.Settings.Default.isDebugOn);
             Console.SetOut(textBoxWriter);
             Console.WriteLine($"[{timestamp}]Console initialized.");
-        }
-
-        // Custom TextWriter to redirect Console output to a TextBox
-        private class TextBoxWriter : System.IO.TextWriter
-        {
-            private TextBox textBox;
-            private StreamWriter fileWriter;
-            private bool isDebugToFile;
-
-            public TextBoxWriter(TextBox textBox, bool isDebugToFile)
-            {
-                this.textBox = textBox;
-                this.isDebugToFile = isDebugToFile;
-
-                if (isDebugToFile && Properties.Settings.Default.isDebugOn)
-                {
-                    // Ensure the Log folder exists
-                    Directory.CreateDirectory("Logs");
-                    // Open the file in append mode
-                    fileWriter = new StreamWriter(Path.Combine("Logs", "Debug File.txt"), true)
-                    {
-                        AutoFlush = true // Ensure the buffer is flushed to the file immediately
-                    };
-                }
-            }
-
-            public override void Write(char value)
-            {
-                if (textBox.IsHandleCreated)
-                {
-                    textBox.Invoke(new Action(() => textBox.AppendText(value.ToString())));
-                }
-
-                if (isDebugToFile)
-                {
-                    fileWriter?.Write(value); // Write to file if enabled
-                }
-            }
-
-            public override void Write(string value)
-            {
-                if (textBox.IsHandleCreated)
-                {
-                    textBox.Invoke(new Action(() => textBox.AppendText(value)));
-                }
-
-                if (isDebugToFile)
-                {
-                    fileWriter?.Write(value); // Write to file if enabled
-                }
-            }
-
-            public override void WriteLine(string value)
-            {
-                if (textBox.IsHandleCreated)
-                {
-                    textBox.Invoke(new Action(() => textBox.AppendText(value + Environment.NewLine)));
-                }
-
-                if (isDebugToFile)
-                {
-                    fileWriter?.WriteLine(value); // Write to file if enabled
-                }
-            }
-
-            public override System.Text.Encoding Encoding => System.Text.Encoding.UTF8;
-
-            // Close the file stream when done
-            public void Close()
-            {
-                fileWriter?.Close();
-            }
         }
 
         private void MessageTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -340,7 +257,7 @@ namespace UiBot
             {
                 // Safely access economyLabel and update its text
                 int totalBitCost = CalculateTotalBitCost();
-                economyLabel.Text = $"Total Economy: {totalBitCost}";
+                economyLabel.Text = $"{totalBitCost}";
             }
             else
             {
@@ -354,13 +271,147 @@ namespace UiBot
             Properties.Settings.Default.Save();
             if (Properties.Settings.Default.isEconomyOn)
             {
-                economyLabel.Visible = true;
+                econoPanel.Visible = true;
             }
             else
             {
-                economyLabel.Visible = false;
-
+                econoPanel.Visible= false;
             }
+        }
+
+        public void RamDebug()
+        {
+            if (Properties.Settings.Default.isDebugOn)
+            {
+                memoryTimer.Start(); // Start the memory timer
+                RamUsage();
+
+                debugGroup.Visible = true;
+            }
+            else
+            {
+                debugGroup.Visible = false;
+            }
+        }
+
+        private void RamUsage()
+        {
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Get total physical memory usage (includes managed and unmanaged memory)
+            long allocmemoryUsed = currentProcess.WorkingSet64;
+            long memoryUsed = currentProcess.PrivateMemorySize64;
+            long gcmemoryUsed = GC.GetTotalMemory(false);
+
+            // Update the label with memory usage in MB
+            ramLabel.Text = $"Actual Memory Usage: {memoryUsed / 1024 / 1024} MB";
+            manramLabel.Text = $"Managed GC Memory: {gcmemoryUsed / 1024 / 1024} MB";
+            allocramLabel.Text = $"Total Allocated Memory: {allocmemoryUsed / 1024 / 1024} MB";
+        }
+
+        private void MemoryTimer_Tick(object sender, EventArgs e)
+        {
+            RamUsage(); // Update the RAM usage display
+        }
+
+        private void EconomyTimer_Tick(object sender, EventArgs e)
+        {
+            // Check if economy is enabled
+            if (Properties.Settings.Default.isEconomyOn)
+            {
+                DisplayTotalBitCost(); // Update the bit cost display
+            }
+        }
+
+
+        // Custom TextWriter to redirect Console output to a TextBox
+        private class TextBoxWriter : System.IO.TextWriter
+        {
+            private TextBox textBox;
+            private StreamWriter fileWriter;
+            private bool isDebugToFile;
+
+            public TextBoxWriter(TextBox textBox, bool isDebugToFile)
+            {
+                this.textBox = textBox;
+                this.isDebugToFile = isDebugToFile;
+
+                if (isDebugToFile && Properties.Settings.Default.isDebugOn)
+                {
+                    // Ensure the Log folder exists
+                    Directory.CreateDirectory("Logs");
+                    // Open the file in append mode
+                    fileWriter = new StreamWriter(Path.Combine("Logs", "Debug File.txt"), true)
+                    {
+                        AutoFlush = true // Ensure the buffer is flushed to the file immediately
+                    };
+                }
+            }
+
+            public override void Write(char value)
+            {
+                if (textBox.IsHandleCreated)
+                {
+                    textBox.Invoke(new Action(() => textBox.AppendText(value.ToString())));
+                }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.Write(value); // Write to file if enabled
+                }
+            }
+
+            public override void Write(string value)
+            {
+                if (textBox.IsHandleCreated)
+                {
+                    textBox.Invoke(new Action(() => textBox.AppendText(value)));
+                }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.Write(value); // Write to file if enabled
+                }
+            }
+
+            public override void WriteLine(string value)
+            {
+                if (textBox.IsHandleCreated)
+                {
+                    textBox.Invoke(new Action(() => textBox.AppendText(value + Environment.NewLine)));
+                }
+
+                if (isDebugToFile)
+                {
+                    fileWriter?.WriteLine(value); // Write to file if enabled
+                }
+            }
+
+            public override System.Text.Encoding Encoding => System.Text.Encoding.UTF8;
+
+            // Close the file stream when done
+            public void Close()
+            {
+                fileWriter?.Close();
+            }
+        }
+
+        private void ramSnapButton_Click(object sender, EventArgs e)
+        {
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Get memory usage details
+            long allocmemoryUsed = currentProcess.WorkingSet64;
+            long memoryUsed = currentProcess.PrivateMemorySize64;
+            long gcmemoryUsed = GC.GetTotalMemory(false);
+
+            // Write memory usage details to the console
+            Console.WriteLine($"[{timestamp}] Ram snapshot writen to 'Debug File.txt' in 'Logs' folder");
+            Console.WriteLine($"[RamSnap] Managed GC Memory: {gcmemoryUsed / 1024 / 1024} MB");
+            Console.WriteLine($"[RamSnap] Actual Memory Usage: {memoryUsed / 1024 / 1024} MB");
+            Console.WriteLine($"[RamSnap] Total Allocated Memory: {allocmemoryUsed / 1024 / 1024} MB");
         }
     }
 
