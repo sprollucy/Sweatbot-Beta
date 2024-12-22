@@ -15,20 +15,19 @@ namespace UiBot
 
     internal class MainBot : IDisposable
     {
-        //References
+        // References
         ChatCommandMethods chatCommandMethods = new ChatCommandMethods();
         ControlMenu controlMenu = new ControlMenu();
         private static CustomCommandHandler commandHandler;
         public static TwitchPubSub PubSub;
 
-        //dictionary 
+        // Dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
+        private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
+
         public Dictionary<string, string> commandConfigData;
 
-        //Console import/kill
-        [DllImport("kernel32.dll")]
-        private static extern bool FreeConsole();
-
+        // Keyboard Events
         [DllImport("user32.dll", SetLastError = true)]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
@@ -38,26 +37,36 @@ namespace UiBot
         public bool isBotConnected = false;
         private static string channelId;
 
+
         // Property to get the connection status
         public bool IsConnected => isBotConnected;
 
-        //spam command
+        // spam command
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
         private System.Threading.Timer timer;
         public int autoSendMessageCD;
 
+        // Logging timestamp
+        string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+
+        // File loading
+        string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
+        string userBitsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "user_bits.json");
+
         internal MainBot()
         {
+            commandHandler = new CustomCommandHandler(commandsFilePath);
+
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
-            LogHandler.LoadUserBitsFromJson("user_bits.json");
-            string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
-            commandHandler = new CustomCommandHandler(commandsFilePath);
+            LogHandler.LoadUserBitsFromJson(userBitsFilePath);
+
         }
 
         public void Dispose()
         {
             // Dispose of any resources here
+
             Disconnect();
         }
 
@@ -175,8 +184,6 @@ namespace UiBot
                     bitsAwarded = 100;  // Default value in case of invalid input
                 }
 
-                string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
-
                 // Check if the user already exists in the bits dictionary
                 if (!userBits.ContainsKey(followerName))
                 {
@@ -220,8 +227,6 @@ namespace UiBot
                     bitsAwarded = 500;  // Default value in case of invalid input
                 }
 
-                string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
-
                 // Check if the user already exists in the bits dictionary
                 if (!userBits.ContainsKey(subscriberName))
                 {
@@ -248,13 +253,6 @@ namespace UiBot
 
         public void ProcessLocalCommand(string commandName)
         {
-            if (commandHandler == null)
-            {
-                string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-                string commandsFilePath = Path.Combine("CustomCommands.json");
-                commandHandler = new CustomCommandHandler(commandsFilePath);
-            }
-
             int userBits = 100000; // Simulate user bits
 
             if (commandHandler.CanExecuteCommand(commandName, userBits))
@@ -277,22 +275,11 @@ namespace UiBot
         {
             if (!Properties.Settings.Default.isCommandsPaused)
             {
-                // Ensure the command handler is initialized
-                if (commandHandler == null)
-                {
-                    string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-                    string commandsFilePath = Path.Combine(dataFolderPath, "CustomCommands.json");
-                    commandHandler = new CustomCommandHandler(commandsFilePath);
-                }
-
-                // Load user bits
-                string userBitsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "user_bits.json");
-
+                commandHandler.ReloadCommands(commandsFilePath);
                 // Check if the message is a command
                 if (e.ChatMessage.Message.StartsWith("!"))
                 {
                     string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
-                    LogHandler.LoadUserBitsFromJson(userBitsFilePath);
 
                     // Check if the command is enabled
                     if (commandHandler.GetCommand(commandName) != null)
@@ -312,8 +299,7 @@ namespace UiBot
                                 commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
 
                                 // Log the command execution
-                                string timestamp1 = DateTime.Now.ToString("HH:mm:ss");
-                                LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp1);
+                                LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp);
 
                                 // Deduct the bit cost of the command
                                 MainBot.userBits[e.ChatMessage.DisplayName] -= command.BitCost;
@@ -333,7 +319,7 @@ namespace UiBot
                                 client.SendMessage(e.ChatMessage.Channel, message);
 
                                 // Log command details to the console
-                                Console.WriteLine($"[{timestamp1}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
+                                Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
                             }
                             catch (Exception ex)
                             {
@@ -350,8 +336,6 @@ namespace UiBot
                     }
                 }
             }
-
-            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             if (Properties.Settings.Default.isChatBonusEnabled)
             {
@@ -445,7 +429,6 @@ namespace UiBot
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
             }
-
         }
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
@@ -474,7 +457,6 @@ namespace UiBot
         //Chat 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-
             var traderResetInfoService = new TraderResetInfoService();
             string Chatter = e.Command.ChatMessage.DisplayName;
 
@@ -485,7 +467,6 @@ namespace UiBot
             int bitcostCooldownDuration = 30;
             int lastHow2useTimerDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
-            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
@@ -510,6 +491,11 @@ namespace UiBot
                             message.Append(" !bitcost");
                         }
 
+                        if (Properties.Settings.Default.isBitGambleEnabled)
+                        {
+                            message.Append(" !sbgamble");
+                        }
+
                         // Check if the user is a moderator
                         if (e.Command.ChatMessage.IsModerator)
                         {
@@ -522,12 +508,22 @@ namespace UiBot
                             {
                                 message.Append(", !refund");
                             }
+
+                            if (Properties.Settings.Default.isModAddEnabled)
+                            {
+                                message.Append(", !sbadd");
+                            }
+
+                            if (Properties.Settings.Default.isModRemoveEnabled)
+                            {
+                                message.Append(", !sbremove");
+                            }
                         }
 
                         // Check if the user is a broadcaster
                         if (e.Command.ChatMessage.IsBroadcaster)
                         {
-                            message.Append(", !addbits, !refund");
+                            message.Append(", !addbits, !refund, !sbadd, !sbremove");
                         }
 
                         client.SendMessage(channelId, message.ToString());
@@ -571,7 +567,7 @@ namespace UiBot
                 case "bitcost":
                     if (Properties.Settings.Default.isBitCostEnabled)
                     {
-
+                        commandHandler.ReloadCommands(commandsFilePath);
                         timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastBitcostCommandTimer;
 
                         if (timeSinceLastExecution.TotalSeconds >= bitcostCooldownDuration)
@@ -885,7 +881,7 @@ namespace UiBot
                                         else
                                         {
                                             // Notify the user to specify a key
-                                            client.SendMessage(channelId, $"{Chatter}, please specify a key to send (e.g., !sendkey A).");
+                                            client.SendMessage(channelId, $"{Chatter}, please specify a key to send (e.g., !sendkey A or ESC).");
                                         }
                                     }
                                     else
@@ -913,6 +909,175 @@ namespace UiBot
                         }
                     }
                     break;
+
+                case "sbgamble":
+                    if (Properties.Settings.Default.isBitGambleEnabled)
+                    {
+                        // Check if the user has enough bits to gamble
+                        if (userBits.ContainsKey(Chatter))
+                        {
+                            // Get the amount the user wants to gamble from the message
+                            string message = e.Command.ChatMessage.Message.ToLower();
+                            int gambleAmount = 0;
+
+                            if (message.Contains(" "))
+                            {
+                                string[] commandParts = message.Split(' ');
+
+                                if (commandParts.Length > 1)
+                                {
+                                    string gambleInput = commandParts[1];
+
+                                    // Check if the user wants to gamble all their bits
+                                    if (gambleInput == "all")
+                                    {
+                                        gambleAmount = userBits[Chatter];
+                                        if (gambleAmount <= 0)
+                                        {
+                                            client.SendMessage(channelId, $"{Chatter}, you don't have any bits to gamble.");
+                                            break;
+                                        }
+                                    }
+                                    // Check if the input contains a percentage
+                                    else if (gambleInput.EndsWith("%"))
+                                    {
+                                        string percentageString = gambleInput.TrimEnd('%');
+                                        if (int.TryParse(percentageString, out int percentage) && percentage > 0 && percentage <= 100)
+                                        {
+                                            // Calculate the gamble amount as a percentage of the user's available bits
+                                            gambleAmount = (int)(userBits[Chatter] * (percentage / 100.0));
+
+                                            // If the percentage results in zero, inform the user
+                                            if (gambleAmount == 0)
+                                            {
+                                                client.SendMessage(channelId, $"{Chatter}, you can't gamble less than 1 bit.");
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Invalid percentage input
+                                            client.SendMessage(channelId, $"{Chatter}, please specify a valid percentage (1-100%).");
+                                            break;
+                                        }
+                                    }
+                                    else if (int.TryParse(gambleInput, out gambleAmount))
+                                    {
+                                        // If the input is a specific amount (not a percentage or 'all')
+                                        if (gambleAmount <= 0)
+                                        {
+                                            client.SendMessage(channelId, $"{Chatter}, you can't gamble 0 or negative bits.");
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Invalid gamble amount format
+                                        client.SendMessage(channelId, $"{Chatter}, please specify a valid amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    // Invalid command format
+                                    client.SendMessage(channelId, $"{Chatter}, please specify a valid amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                // User didn't specify an amount
+                                client.SendMessage(channelId, $"{Chatter}, please specify an amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
+                                break;
+                            }
+
+                            // Check if the user has enough bits to gamble
+                            if (userBits[Chatter] >= gambleAmount)
+                            {
+                                // Retrieve the cooldown time from BitGambleCDBox
+                                int cooldownSeconds = 0;
+                                if (int.TryParse(controlMenu.BitGambleCDBox.Text, out cooldownSeconds) && cooldownSeconds >= 0)
+                                {
+                                    // Check if the user is on cooldown
+                                    if (lastGambleTime.ContainsKey(Chatter))
+                                    {
+                                        DateTime lastGamble = lastGambleTime[Chatter];
+                                        TimeSpan timeSinceLastGamble = DateTime.Now - lastGamble;
+
+                                        if (timeSinceLastGamble.TotalSeconds < cooldownSeconds)
+                                        {
+                                            int remainingCooldown = cooldownSeconds - (int)timeSinceLastGamble.TotalSeconds;
+                                            break;
+                                        }
+                                    }
+
+                                    // Get the win chance from the ControlMenu
+                                    int winChance = 0;
+                                    if (int.TryParse(controlMenu.BitChanceBox.Text, out winChance) && winChance >= 0 && winChance <= 100)
+                                    {
+                                        // Generate a random number between 1 and 100 to determine if the user wins
+                                        Random rand = new Random();
+                                        int outcome = rand.Next(1, 101);  // Random number between 1 and 100
+
+                                        // Check if the user wins
+                                        if (outcome <= winChance)
+                                        {
+                                            // User wins, they gain double the gamble amount
+                                            int winnings = gambleAmount * 2;
+                                            userBits[Chatter] += winnings;
+
+                                            // Log the result and update the user's bits
+                                            LogHandler.LogBits(Chatter, winnings, timestamp);
+                                            LogHandler.WriteUserBitsToJson("user_bits.json");
+
+                                            // Send a success message to the user
+                                            client.SendMessage(channelId, $"{Chatter}, you won! You gambled {gambleAmount} bits and won {winnings} bits. You now have {userBits[Chatter]} bits.");
+                                            Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, won {winnings} bits. Total bits: {userBits[Chatter]}");
+                                        }
+                                        else
+                                        {
+                                            // User loses, they lose the gamble amount
+                                            userBits[Chatter] -= gambleAmount;
+
+                                            // Log the result and update the user's bits
+                                            LogHandler.LogBits(Chatter, -gambleAmount, timestamp);
+                                            LogHandler.WriteUserBitsToJson("user_bits.json");
+
+                                            // Send a failure message to the user
+                                            client.SendMessage(channelId, $"{Chatter}, you lost! You gambled {gambleAmount} bits and lost. You now have {userBits[Chatter]} bits.");
+                                            Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, lost. Total bits: {userBits[Chatter]}");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Invalid win chance value
+                                        client.SendMessage(channelId, "Invalid win chance value. Please ensure it's between 0 and 100.");
+                                    }
+
+                                    // Update the last gamble time
+                                    lastGambleTime[Chatter] = DateTime.Now;
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid cooldown time value in BitGambleCDBox.");
+                                }
+                            }
+                            else
+                            {
+                                // Not enough bits
+                                client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to gamble {gambleAmount} bits! You currently have {userBits[Chatter]} bits.");
+                            }
+                        }
+                        else
+                        {
+                            // User doesn't have any bits
+                            client.SendMessage(channelId, $"{Chatter}, you don't have any bits to gamble.");
+                        }
+                    }
+                    break;
+
+
+
             }
 
             //Mod Commands
@@ -960,6 +1125,74 @@ namespace UiBot
                             }
                         }
                         break;
+
+                    case "sbadd":
+                        if (Properties.Settings.Default.isModAddEnabled)
+                        {
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            {
+                                // Parse the arguments for !sbadd
+                                var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                                if (sbaddArgs.Length >= 3)
+                                {
+                                    string commandName = sbaddArgs[0].ToLower();  // Command name
+                                    if (int.TryParse(sbaddArgs[1], out int bitCost))
+                                    {
+                                        string methods = string.Join(" ", sbaddArgs.Skip(2));  // Join methods if there are multiple
+
+                                        // Add the command and capture any error message or success message
+                                        var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                                        string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
+
+                                        // Send the result message back to the channel
+                                        client.SendMessage(channelId, resultMessage);
+                                    }
+                                    else
+                                    {
+                                        client.SendMessage(channelId, "Invalid bit cost. Please provide a valid number.");
+                                    }
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
+                                }
+                            }
+                        }
+                        break;
+
+                    case "sbremove":
+                        if (Properties.Settings.Default.isModRemoveEnabled)
+                        {
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            {
+                                // Parse the arguments for !sbremove
+                                var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                                if (sbremoveArgs.Length == 1)
+                                {
+                                    string commandNameToRemove = sbremoveArgs[0].ToLower();  // Command name to remove
+
+                                    // Remove the command
+                                    var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                                    bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
+
+                                    if (isRemoved)
+                                    {
+                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
+                                    }
+                                    else
+                                    {
+                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
+                                    }
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
+                                }
+                            }
+                        }
+                        break;
                 }
             }
 
@@ -989,6 +1222,62 @@ namespace UiBot
                         else
                         {
                             client.SendMessage(channelId, "Invalid syntax. Usage: !refund [username]");
+                        }
+                        break;
+
+                    case "sbadd":
+                        // Parse the arguments for !sbadd
+                        var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (sbaddArgs.Length >= 3)
+                        {
+                            string commandName = sbaddArgs[0].ToLower();  // Command name
+                            if (int.TryParse(sbaddArgs[1], out int bitCost))
+                            {
+                                string methods = string.Join(" ", sbaddArgs.Skip(2));  // Join methods if there are multiple
+
+                                // Add the command and capture any error message or success message
+                                var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                                string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
+
+                                // Send the result message back to the channel
+                                client.SendMessage(channelId, resultMessage);
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid bit cost. Please provide a valid number.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
+                        }
+                        break;
+
+                    case "sbremove":
+                        // Parse the arguments for !sbremove
+                        var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (sbremoveArgs.Length == 1)
+                        {
+                            string commandNameToRemove = sbremoveArgs[0].ToLower();  // Command name to remove
+
+                            // Remove the command
+                            var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                            bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
+
+                            if (isRemoved)
+                            {
+                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
                         }
                         break;
                 }
@@ -1092,9 +1381,10 @@ namespace UiBot
                 Console.WriteLine($"Error in AutoMessageSender: {ex.Message}");
             }
         }
+
         public void StartAutoMessage()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             // Convert the interval to milliseconds
             int intervalMilliseconds = autoSendMessageCD * 1000;
@@ -1103,7 +1393,6 @@ namespace UiBot
             timer = new System.Threading.Timer(AutoMessageSender, null, 0, intervalMilliseconds);
         }
     }
-
 }
 
 

@@ -283,6 +283,7 @@ namespace UiBot
                 Console.WriteLine("economyLabel or economySpentLabel is null.");
             }
         }
+
         private int LoadTotalSpentFromJson()
         {
             string filePath = Path.Combine("Data", "bin", "CommandConfigData.json");

@@ -30,18 +30,23 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
+            bitGambleCDBox = new TextBox();
+            label11 = new Label();
+            bitChanceBox = new TextBox();
+            label10 = new Label();
+            sendkeyCostBox = new TextBox();
+            bottoggleCostBox = new TextBox();
+            label9 = new Label();
+            label1 = new Label();
+            bitGambleCheck = new CheckBox();
+            enableTradersCommand = new CheckBox();
             textBox6 = new TextBox();
             sendkeyTimeBox = new TextBox();
             textBox4 = new TextBox();
-            sendkeyCostBox = new TextBox();
-            textBox2 = new TextBox();
             sendkeyButton = new CheckBox();
             bitcostButton = new CheckBox();
             enableBotToggle = new CheckBox();
-            bottoggleCostBox = new TextBox();
             checkEnableBitMsg = new CheckBox();
-            textBox1 = new TextBox();
-            enableTradersCommand = new CheckBox();
             pictureBox2 = new PictureBox();
             restart_AppButton = new Button();
             label2 = new Label();
@@ -63,6 +68,7 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
+            textBox7 = new TextBox();
             enableSubBonusMulti = new CheckBox();
             subbonusMultiplierBox = new TextBox();
             textBox5 = new TextBox();
@@ -77,9 +83,13 @@
             panel3 = new Panel();
             label8 = new Label();
             panel4 = new Panel();
+            modRemove = new CheckBox();
+            modMake = new CheckBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
-            textBox7 = new TextBox();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox8 = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -106,24 +116,136 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(bitGambleCDBox);
+            panel1.Controls.Add(label11);
+            panel1.Controls.Add(bitChanceBox);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(sendkeyCostBox);
+            panel1.Controls.Add(bottoggleCostBox);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(bitGambleCheck);
+            panel1.Controls.Add(enableTradersCommand);
             panel1.Controls.Add(textBox6);
             panel1.Controls.Add(sendkeyTimeBox);
             panel1.Controls.Add(textBox4);
-            panel1.Controls.Add(sendkeyCostBox);
-            panel1.Controls.Add(textBox2);
             panel1.Controls.Add(sendkeyButton);
             panel1.Controls.Add(bitcostButton);
             panel1.Controls.Add(enableBotToggle);
-            panel1.Controls.Add(bottoggleCostBox);
             panel1.Controls.Add(checkEnableBitMsg);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(enableTradersCommand);
             panel1.Controls.Add(pictureBox2);
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 35);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 191);
+            panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
+            // 
+            // bitGambleCDBox
+            // 
+            bitGambleCDBox.BackColor = SystemColors.ControlLight;
+            bitGambleCDBox.BorderStyle = BorderStyle.None;
+            bitGambleCDBox.Location = new Point(352, 137);
+            bitGambleCDBox.Name = "bitGambleCDBox";
+            bitGambleCDBox.Size = new Size(28, 16);
+            bitGambleCDBox.TabIndex = 133;
+            bitGambleCDBox.Text = "10";
+            bitGambleCDBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(266, 137);
+            label11.Name = "label11";
+            label11.Size = new Size(87, 15);
+            label11.TabIndex = 137;
+            label11.Text = "Cooldown(sec)";
+            // 
+            // bitChanceBox
+            // 
+            bitChanceBox.BackColor = SystemColors.ControlLight;
+            bitChanceBox.BorderStyle = BorderStyle.None;
+            bitChanceBox.Location = new Point(232, 137);
+            bitChanceBox.Name = "bitChanceBox";
+            bitChanceBox.Size = new Size(28, 16);
+            bitChanceBox.TabIndex = 131;
+            bitChanceBox.Text = "10";
+            bitChanceBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(149, 137);
+            label10.Name = "label10";
+            label10.Size = new Size(84, 15);
+            label10.TabIndex = 136;
+            label10.Text = "Win Chance %";
+            // 
+            // sendkeyCostBox
+            // 
+            sendkeyCostBox.BackColor = SystemColors.ControlLight;
+            sendkeyCostBox.BorderStyle = BorderStyle.None;
+            sendkeyCostBox.Location = new Point(279, 112);
+            sendkeyCostBox.Name = "sendkeyCostBox";
+            sendkeyCostBox.Size = new Size(34, 16);
+            sendkeyCostBox.TabIndex = 123;
+            sendkeyCostBox.Text = "10";
+            sendkeyCostBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // bottoggleCostBox
+            // 
+            bottoggleCostBox.BackColor = SystemColors.ControlLight;
+            bottoggleCostBox.BorderStyle = BorderStyle.None;
+            bottoggleCostBox.Location = new Point(195, 37);
+            bottoggleCostBox.Name = "bottoggleCostBox";
+            bottoggleCostBox.Size = new Size(34, 16);
+            bottoggleCostBox.TabIndex = 108;
+            bottoggleCostBox.Text = "300";
+            bottoggleCostBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(162, 37);
+            label9.Name = "label9";
+            label9.Size = new Size(34, 15);
+            label9.TabIndex = 135;
+            label9.Text = "Cost:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(246, 112);
+            label1.Name = "label1";
+            label1.Size = new Size(34, 15);
+            label1.TabIndex = 134;
+            label1.Text = "Cost:";
+            // 
+            // bitGambleCheck
+            // 
+            bitGambleCheck.AutoSize = true;
+            bitGambleCheck.BackColor = Color.FromArgb(156, 155, 151);
+            bitGambleCheck.ForeColor = SystemColors.ControlText;
+            bitGambleCheck.Location = new Point(12, 136);
+            bitGambleCheck.Name = "bitGambleCheck";
+            bitGambleCheck.Size = new Size(133, 19);
+            bitGambleCheck.TabIndex = 130;
+            bitGambleCheck.Text = "Enable Bit Gambling";
+            bitGambleCheck.UseVisualStyleBackColor = false;
+            bitGambleCheck.CheckedChanged += bitGambleCheck_CheckedChanged;
+            // 
+            // enableTradersCommand
+            // 
+            enableTradersCommand.AutoSize = true;
+            enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
+            enableTradersCommand.ForeColor = SystemColors.ControlText;
+            enableTradersCommand.Location = new Point(12, 161);
+            enableTradersCommand.Name = "enableTradersCommand";
+            enableTradersCommand.Size = new Size(200, 19);
+            enableTradersCommand.TabIndex = 48;
+            enableTradersCommand.Text = "Enable Trader Command for chat";
+            enableTradersCommand.UseVisualStyleBackColor = false;
+            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
             // textBox6
             // 
@@ -141,7 +263,7 @@
             // 
             sendkeyTimeBox.BackColor = SystemColors.ControlLight;
             sendkeyTimeBox.BorderStyle = BorderStyle.None;
-            sendkeyTimeBox.Location = new Point(242, 138);
+            sendkeyTimeBox.Location = new Point(460, 112);
             sendkeyTimeBox.Name = "sendkeyTimeBox";
             sendkeyTimeBox.Size = new Size(38, 16);
             sendkeyTimeBox.TabIndex = 125;
@@ -153,35 +275,12 @@
             textBox4.BackColor = Color.FromArgb(156, 155, 151);
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.ForeColor = SystemColors.ControlText;
-            textBox4.Location = new Point(109, 138);
+            textBox4.Location = new Point(327, 112);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(131, 16);
             textBox4.TabIndex = 126;
             textBox4.Text = "How long to hold?(ms)";
             textBox4.TextAlign = HorizontalAlignment.Center;
-            // 
-            // sendkeyCostBox
-            // 
-            sendkeyCostBox.BackColor = SystemColors.ControlLight;
-            sendkeyCostBox.BorderStyle = BorderStyle.None;
-            sendkeyCostBox.Location = new Point(61, 138);
-            sendkeyCostBox.Name = "sendkeyCostBox";
-            sendkeyCostBox.Size = new Size(34, 16);
-            sendkeyCostBox.TabIndex = 123;
-            sendkeyCostBox.Text = "10";
-            sendkeyCostBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox2
-            // 
-            textBox2.BackColor = Color.FromArgb(156, 155, 151);
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.ForeColor = SystemColors.ControlText;
-            textBox2.Location = new Point(12, 138);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(63, 16);
-            textBox2.TabIndex = 124;
-            textBox2.Text = "Cost";
-            textBox2.TextAlign = HorizontalAlignment.Center;
             // 
             // sendkeyButton
             // 
@@ -190,7 +289,7 @@
             sendkeyButton.Checked = true;
             sendkeyButton.CheckState = CheckState.Checked;
             sendkeyButton.ForeColor = SystemColors.ControlText;
-            sendkeyButton.Location = new Point(12, 113);
+            sendkeyButton.Location = new Point(12, 111);
             sendkeyButton.Name = "sendkeyButton";
             sendkeyButton.Size = new Size(232, 19);
             sendkeyButton.TabIndex = 122;
@@ -205,7 +304,7 @@
             bitcostButton.Checked = true;
             bitcostButton.CheckState = CheckState.Checked;
             bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(12, 88);
+            bitcostButton.Location = new Point(12, 86);
             bitcostButton.Name = "bitcostButton";
             bitcostButton.Size = new Size(205, 19);
             bitcostButton.TabIndex = 121;
@@ -226,17 +325,6 @@
             enableBotToggle.UseVisualStyleBackColor = false;
             enableBotToggle.CheckedChanged += enableBotToggle_CheckedChanged;
             // 
-            // bottoggleCostBox
-            // 
-            bottoggleCostBox.BackColor = SystemColors.ControlLight;
-            bottoggleCostBox.BorderStyle = BorderStyle.None;
-            bottoggleCostBox.Location = new Point(195, 36);
-            bottoggleCostBox.Name = "bottoggleCostBox";
-            bottoggleCostBox.Size = new Size(34, 16);
-            bottoggleCostBox.TabIndex = 108;
-            bottoggleCostBox.Text = "300";
-            bottoggleCostBox.TextAlign = HorizontalAlignment.Center;
-            // 
             // checkEnableBitMsg
             // 
             checkEnableBitMsg.AutoSize = true;
@@ -244,38 +332,13 @@
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
             checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(12, 63);
+            checkEnableBitMsg.Location = new Point(12, 61);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
             checkEnableBitMsg.Text = "Enable remaining bits message after command use";
             checkEnableBitMsg.UseVisualStyleBackColor = false;
             checkEnableBitMsg.CheckedChanged += checkEnableBitMsg_CheckedChanged;
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.FromArgb(156, 155, 151);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.ForeColor = SystemColors.ControlText;
-            textBox1.Location = new Point(159, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(30, 16);
-            textBox1.TabIndex = 44;
-            textBox1.Text = "Cost";
-            textBox1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // enableTradersCommand
-            // 
-            enableTradersCommand.AutoSize = true;
-            enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
-            enableTradersCommand.ForeColor = SystemColors.ControlText;
-            enableTradersCommand.Location = new Point(12, 160);
-            enableTradersCommand.Name = "enableTradersCommand";
-            enableTradersCommand.Size = new Size(200, 19);
-            enableTradersCommand.TabIndex = 48;
-            enableTradersCommand.Text = "Enable Trader Command for chat";
-            enableTradersCommand.UseVisualStyleBackColor = false;
-            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
             // pictureBox2
             // 
@@ -399,7 +462,7 @@
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(156, 155, 151);
             enableModBits.ForeColor = SystemColors.ControlText;
-            enableModBits.Location = new Point(10, 36);
+            enableModBits.Location = new Point(10, 58);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -480,7 +543,7 @@
             modRefund.Checked = true;
             modRefund.CheckState = CheckState.Checked;
             modRefund.ForeColor = SystemColors.ControlText;
-            modRefund.Location = new Point(10, 59);
+            modRefund.Location = new Point(10, 83);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
             modRefund.TabIndex = 83;
@@ -493,18 +556,18 @@
             modWhitelistCheck.AutoSize = true;
             modWhitelistCheck.BackColor = Color.FromArgb(156, 155, 151);
             modWhitelistCheck.ForeColor = SystemColors.ControlText;
-            modWhitelistCheck.Location = new Point(10, 84);
+            modWhitelistCheck.Location = new Point(10, 33);
             modWhitelistCheck.Name = "modWhitelistCheck";
-            modWhitelistCheck.Size = new Size(254, 19);
+            modWhitelistCheck.Size = new Size(266, 19);
             modWhitelistCheck.TabIndex = 84;
-            modWhitelistCheck.Text = "Enable Moderator Whitelist for bits/refunds";
+            modWhitelistCheck.Text = "Enable Moderator Whitelist for command use";
             modWhitelistCheck.UseVisualStyleBackColor = false;
             modWhitelistCheck.CheckedChanged += modWhitelistCheck_CheckedChanged;
             // 
             // openModWhitelist
             // 
             openModWhitelist.Font = new Font("Segoe UI", 9F);
-            openModWhitelist.Location = new Point(267, 81);
+            openModWhitelist.Location = new Point(282, 30);
             openModWhitelist.Name = "openModWhitelist";
             openModWhitelist.Size = new Size(95, 23);
             openModWhitelist.TabIndex = 85;
@@ -534,10 +597,22 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(enableChatBonus);
             panel2.ForeColor = SystemColors.ControlText;
-            panel2.Location = new Point(53, 240);
+            panel2.Location = new Point(53, 247);
             panel2.Name = "panel2";
             panel2.Size = new Size(514, 192);
             panel2.TabIndex = 121;
+            // 
+            // textBox7
+            // 
+            textBox7.BackColor = Color.FromArgb(156, 155, 151);
+            textBox7.BorderStyle = BorderStyle.None;
+            textBox7.ForeColor = Color.Red;
+            textBox7.Location = new Point(217, 125);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(63, 16);
+            textBox7.TabIndex = 132;
+            textBox7.Text = "In Testing";
+            textBox7.TextAlign = HorizontalAlignment.Center;
             // 
             // enableSubBonusMulti
             // 
@@ -678,7 +753,7 @@
             panel3.Controls.Add(autoMessageBox);
             panel3.Controls.Add(autoSendMessageCD);
             panel3.ForeColor = SystemColors.ControlText;
-            panel3.Location = new Point(585, 241);
+            panel3.Location = new Point(585, 248);
             panel3.Name = "panel3";
             panel3.Size = new Size(434, 191);
             panel3.TabIndex = 122;
@@ -695,6 +770,10 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
+            panel4.Controls.Add(textBox8);
+            panel4.Controls.Add(textBox2);
+            panel4.Controls.Add(modRemove);
+            panel4.Controls.Add(modMake);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(pictureBox3);
             panel4.Controls.Add(enableModBits);
@@ -706,6 +785,32 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(434, 191);
             panel4.TabIndex = 123;
+            // 
+            // modRemove
+            // 
+            modRemove.AutoSize = true;
+            modRemove.BackColor = Color.FromArgb(156, 155, 151);
+            modRemove.ForeColor = SystemColors.ControlText;
+            modRemove.Location = new Point(10, 133);
+            modRemove.Name = "modRemove";
+            modRemove.Size = new Size(283, 19);
+            modRemove.TabIndex = 122;
+            modRemove.Text = "Allow Moderators to remove custom commands";
+            modRemove.UseVisualStyleBackColor = false;
+            modRemove.CheckedChanged += modRemove_CheckedChanged;
+            // 
+            // modMake
+            // 
+            modMake.AutoSize = true;
+            modMake.BackColor = Color.FromArgb(156, 155, 151);
+            modMake.ForeColor = SystemColors.ControlText;
+            modMake.Location = new Point(10, 108);
+            modMake.Name = "modMake";
+            modMake.Size = new Size(263, 19);
+            modMake.TabIndex = 121;
+            modMake.Text = "Allow Moderators to add custom commands";
+            modMake.UseVisualStyleBackColor = false;
+            modMake.CheckedChanged += modMake_CheckedChanged;
             // 
             // pictureBox3
             // 
@@ -724,24 +829,48 @@
             groupBox1.Controls.Add(restart_AppButton);
             groupBox1.Font = new Font("Segoe UI", 10F);
             groupBox1.ForeColor = Color.Salmon;
-            groupBox1.Location = new Point(685, 438);
+            groupBox1.Location = new Point(685, 445);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(334, 79);
             groupBox1.TabIndex = 124;
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
             // 
-            // textBox7
+            // textBox1
             // 
-            textBox7.BackColor = Color.FromArgb(156, 155, 151);
-            textBox7.BorderStyle = BorderStyle.None;
-            textBox7.ForeColor = Color.Red;
-            textBox7.Location = new Point(217, 125);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(63, 16);
-            textBox7.TabIndex = 132;
-            textBox7.Text = "In Testing";
-            textBox7.TextAlign = HorizontalAlignment.Center;
+            textBox1.BackColor = Color.FromArgb(156, 155, 151);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.ForeColor = Color.Red;
+            textBox1.Location = new Point(386, 136);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(63, 16);
+            textBox1.TabIndex = 138;
+            textBox1.Text = "In Testing";
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.FromArgb(156, 155, 151);
+            textBox2.BorderStyle = BorderStyle.None;
+            textBox2.ForeColor = Color.Red;
+            textBox2.Location = new Point(279, 108);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(63, 16);
+            textBox2.TabIndex = 130;
+            textBox2.Text = "In Testing";
+            textBox2.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox8
+            // 
+            textBox8.BackColor = Color.FromArgb(156, 155, 151);
+            textBox8.BorderStyle = BorderStyle.None;
+            textBox8.ForeColor = Color.Red;
+            textBox8.Location = new Point(299, 134);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(63, 16);
+            textBox8.TabIndex = 131;
+            textBox8.Text = "In Testing";
+            textBox8.TextAlign = HorizontalAlignment.Center;
             // 
             // ControlMenu
             // 
@@ -789,7 +918,6 @@
         private Label autoMessageLabel;
         private CheckBox enableAutoMessageCheck;
         private Label label2;
-        private TextBox textBox1;
         private CheckBox enableTradersCommand;
         private CheckBox enableChatBonus;
         private TextBox bonusTextBox;
@@ -824,7 +952,6 @@
         private GroupBox groupBox1;
         private CheckBox sendkeyButton;
         private TextBox sendkeyCostBox;
-        private TextBox textBox2;
         private TextBox sendkeyTimeBox;
         private TextBox textBox4;
         private TextBox textBox5;
@@ -833,5 +960,17 @@
         private TextBox subbonusMultiplierBox;
         private CheckBox enableSubBonusMulti;
         private TextBox textBox7;
+        private CheckBox modRemove;
+        private CheckBox modMake;
+        private TextBox bitChanceBox;
+        private CheckBox bitGambleCheck;
+        private TextBox bitGambleCDBox;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label1;
+        private TextBox textBox1;
+        private TextBox textBox8;
+        private TextBox textBox2;
     }
 }

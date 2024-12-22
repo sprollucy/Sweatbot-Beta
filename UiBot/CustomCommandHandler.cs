@@ -12,6 +12,8 @@ public class CustomCommandHandler
     private Random random = new Random();  // Class-level Random object
     private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
 
+    string filePath = Path.Combine("Data", "bin", "CustomCommands.json");
+
     // User32.dll imports for mouse and keyboard events
     [DllImport("user32.dll", SetLastError = true)]
     public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
@@ -99,13 +101,16 @@ public class CustomCommandHandler
         var json = File.ReadAllText(filePath);
         var commands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json);
 
-        // Debugging: Print out the loaded commands
-        foreach (var cmd in commands)
-        {
-            Console.WriteLine($"Command: {cmd.Key}, BitCost: {cmd.Value.BitCost}, Methods: {string.Join(", ", cmd.Value.Methods ?? new List<string>())}");
-        }
-
         return commands;
+    }
+    public void ReloadCommands(string filePath)
+    {
+        _commands.Clear();
+        var updatedCommands = LoadCommandsFromFile(filePath);
+        foreach (var cmd in updatedCommands)
+        {
+            _commands[cmd.Key] = cmd.Value;
+        }
     }
 
     public Command GetCommand(string commandName)
@@ -194,6 +199,138 @@ public class CustomCommandHandler
         await Task.WhenAll(runningTasks);
     }
 
+    public string AddChatCommand(string commandName, int bitCost, string methods)
+    {
+        // Ensure the command name is unique
+        if (_commands.ContainsKey(commandName.ToLower()))
+        {
+            return $"Command '{commandName}' already exists.";
+        }
+
+        // Split the methods into a list
+        var methodList = methods.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        // Validate each method to ensure it's in either the sync or async method map
+        foreach (var methodName in methodList)
+        {
+            string method;
+            string parameters = null;
+
+            // Check for '=' format (i.e., methodName=parameter)
+            if (methodName.Contains("="))
+            {
+                var commandParts = methodName.Split(new[] { '=' }, 2);
+                method = commandParts[0].Trim().ToLower();
+                parameters = commandParts.Length > 1 ? commandParts[1].Trim() : null;
+            }
+            // Check for '()' format (i.e., methodName(parameters))
+            else
+            {
+                var methodMatch = Regex.Match(methodName, @"([a-zA-Z]+)\(([^)]*)\)");
+                if (methodMatch.Success)
+                {
+                    method = methodMatch.Groups[1].Value.ToLower();
+                    parameters = methodMatch.Groups[2].Value;
+                }
+                else
+                {
+                    method = methodName.Trim().ToLower();
+                }
+            }
+
+            // Check if the method is valid (exists in either sync or async map)
+            if (!_syncMethodMap.ContainsKey(method) && !_asyncMethodMap.ContainsKey(method))
+            {
+                return $"Invalid method '{method}' for command '{commandName}'. Please use a valid method.";
+            }
+        }
+
+        // Create a new command object
+        var newCommand = new Command
+        {
+            BitCost = bitCost,
+            Methods = methodList
+        };
+
+        // Add the new command to the dictionary
+        _commands[commandName.ToLower()] = newCommand;
+
+        // Save the updated dictionary back to the JSON file
+        SaveChatCommandsToFile();
+        return $"Command '{commandName}' added successfully.";
+    }
+
+    public bool RemoveChatCommand(string commandName)
+    {
+
+        // Load the existing commands from the file
+        Dictionary<string, Command> currentCommands = new Dictionary<string, Command>();
+
+        if (File.Exists(filePath))
+        {
+            var json = File.ReadAllText(filePath);
+            currentCommands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
+        }
+
+        // Normalize the command name (remove '!' and case insensitive comparison)
+        string normalizedCommandName = commandName.Replace("!", "").ToLower();
+
+        // Check if the command exists and remove it
+        if (currentCommands.ContainsKey(normalizedCommandName))
+        {
+            currentCommands.Remove(normalizedCommandName);
+
+            // Save the updated commands to the file
+            var updatedJson = JsonConvert.SerializeObject(currentCommands, Formatting.Indented);
+            File.WriteAllText(filePath, updatedJson);
+
+            return true;
+        }
+
+        // Command not found
+        return false;
+    }
+
+    private void SaveChatCommandsToFile()
+    {
+
+        // Load the existing commands from the file if it exists
+        Dictionary<string, Command> currentCommands = new Dictionary<string, Command>();
+
+        if (File.Exists(filePath))
+        {
+            var json = File.ReadAllText(filePath);
+            currentCommands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
+        }
+
+        // Normalize the command names to avoid duplicates like "!chatcom" and "chatcom"
+        Dictionary<string, Command> normalizedCommands = new Dictionary<string, Command>();
+        foreach (var cmd in currentCommands)
+        {
+            var normalizedKey = cmd.Key.Replace("!", "").ToLower();  // Remove any '!' and normalize case
+            normalizedCommands[normalizedKey] = cmd.Value;
+        }
+
+        // Merge the new commands, ensuring no duplicates (by normalized name)
+        foreach (var newCommand in _commands)
+        {
+            string normalizedKey = newCommand.Key.Replace("!", "").ToLower(); // Normalize the new command key
+
+            // Only add the command if it doesn't already exist (normalized)
+            if (!normalizedCommands.ContainsKey(normalizedKey))
+            {
+                normalizedCommands[normalizedKey] = newCommand.Value;
+            }
+        }
+
+        // Serialize the updated dictionary to JSON
+        var updatedJson = JsonConvert.SerializeObject(normalizedCommands, Formatting.Indented);
+
+        // Instead of overwriting the entire file, append only new commands
+        // This creates or updates the file with merged content
+        File.WriteAllText(filePath, updatedJson); 
+        Console.WriteLine("Commands have been successfully updated in CustomCommands.json.");
+    }
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {
@@ -597,7 +734,6 @@ public class CustomCommandHandler
             Console.WriteLine($"Error turning mouse: {ex.Message}");
         }
     }
-
 
     private async Task TurnMouseAsync(TwitchClient client, string channel, string parameter = null)
     {

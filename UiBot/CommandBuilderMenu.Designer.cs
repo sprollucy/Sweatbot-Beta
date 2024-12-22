@@ -115,7 +115,6 @@
             pictureBox13 = new PictureBox();
             panel6 = new Panel();
             richTextBox1 = new RichTextBox();
-            label21 = new Label();
             label20 = new Label();
             pictureBox14 = new PictureBox();
             label22 = new Label();
@@ -1061,7 +1060,6 @@
             // 
             panel6.BackColor = Color.FromArgb(156, 155, 151);
             panel6.Controls.Add(richTextBox1);
-            panel6.Controls.Add(label21);
             panel6.Controls.Add(label20);
             panel6.Controls.Add(pictureBox14);
             panel6.Location = new Point(816, 35);
@@ -1074,25 +1072,13 @@
             richTextBox1.BackColor = Color.FromArgb(156, 155, 151);
             richTextBox1.BorderStyle = BorderStyle.None;
             richTextBox1.ForeColor = SystemColors.ControlText;
-            richTextBox1.Location = new Point(3, 84);
+            richTextBox1.Location = new Point(3, 26);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.ScrollBars = RichTextBoxScrollBars.None;
-            richTextBox1.Size = new Size(203, 195);
+            richTextBox1.Size = new Size(203, 253);
             richTextBox1.TabIndex = 56;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.BackColor = Color.FromArgb(156, 155, 151);
-            label21.ForeColor = Color.Red;
-            label21.Location = new Point(3, 30);
-            label21.Name = "label21";
-            label21.Size = new Size(190, 45);
-            label21.TabIndex = 54;
-            label21.Text = "MUST RESTART AFTER ADDING OR \r\nREMOVING COMMANDS TO SEE \r\nCHANGES ON TWITCH";
-            label21.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label20
             // 
@@ -1373,7 +1359,6 @@
         private Label label19;
         private PictureBox pictureBox13;
         private Panel panel6;
-        private Label label21;
         private Label label20;
         private PictureBox pictureBox14;
         private RichTextBox richTextBox1;

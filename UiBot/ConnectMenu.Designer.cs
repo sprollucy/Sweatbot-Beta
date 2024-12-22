@@ -83,7 +83,7 @@
             messageTextBox.BorderStyle = BorderStyle.None;
             messageTextBox.Location = new Point(53, 427);
             messageTextBox.Name = "messageTextBox";
-            messageTextBox.PlaceholderText = "Enter command to type to chat here. Press enter to send";
+            messageTextBox.PlaceholderText = "Type here to send a message to chat. Enter to send!";
             messageTextBox.Size = new Size(574, 16);
             messageTextBox.TabIndex = 0;
             // 

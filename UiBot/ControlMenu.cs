@@ -28,6 +28,9 @@ namespace UiBot
             bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
             sendkeyButton.Checked = Properties.Settings.Default.isSendKeyEnabled;
             enableSubBonusMulti.Checked = Properties.Settings.Default.isSubBonusMultiEnabled;
+            modMake.Checked = Properties.Settings.Default.isModAddEnabled;
+            modRemove.Checked = Properties.Settings.Default.isModRemoveEnabled;
+            bitGambleCheck.Checked = Properties.Settings.Default.isBitGambleEnabled;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -54,12 +57,24 @@ namespace UiBot
             textBoxes["bottoggleCostBox"] = BotToggleCostBox;
             textBoxes["sendkeyCostBox"] = SendKeyCostBox;
             textBoxes["sendkeyTimeBox"] = SendKeyTimeBox;
+            textBoxes["bitChanceBox"] = BitChanceBox;
+            textBoxes["bitGambleCDBox"] = BitGambleCDBox;
         }
 
         public TextBox BotToggleCostBox
         {
             get { return bottoggleCostBox; }
             set { bottoggleCostBox = value; }
+        }
+        public TextBox BitChanceBox
+        {
+            get { return bitChanceBox; }
+            set { bitChanceBox = value; }
+        }
+        public TextBox BitGambleCDBox
+        {
+            get { return bitGambleCDBox; }
+            set { bitGambleCDBox = value; }
         }
         public TextBox SendKeyCostBox
         {
@@ -271,6 +286,24 @@ namespace UiBot
         private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void modMake_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModAddEnabled = modMake.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void modRemove_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isModRemoveEnabled = modRemove.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void bitGambleCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
             Properties.Settings.Default.Save();
         }
     }

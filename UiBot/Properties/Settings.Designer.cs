@@ -442,5 +442,41 @@ namespace UiBot.Properties {
                 this["isSubBonusMultiEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isModAddEnabled {
+            get {
+                return ((bool)(this["isModAddEnabled"]));
+            }
+            set {
+                this["isModAddEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isModRemoveEnabled {
+            get {
+                return ((bool)(this["isModRemoveEnabled"]));
+            }
+            set {
+                this["isModRemoveEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isBitGambleEnabled {
+            get {
+                return ((bool)(this["isBitGambleEnabled"]));
+            }
+            set {
+                this["isBitGambleEnabled"] = value;
+            }
+        }
     }
 }
