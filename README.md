@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.73 Alpha**
+# **Sweat Bot 1.0.0.74 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -68,7 +68,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.73)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.74)
 
 ---
 
@@ -105,19 +105,25 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
 ## **Viewer Commands**
 
-- `!help` – List available commands.  
-- `!how2use` – Instructions on how to use the bot.  
-- `!about` – Information about the bot.  
-- `!mybits` – Check how many bits a user has stored.  
-- `!bitcost` – List available commands and their cost.
+- `!help` – List available commands
+- `!how2use` – Instructions on how to use the bot
+- `!about` – Information about the bot
+- `!mybits` – Check how many bits a user has stored. 
+- `!bitcost` – List available commands and their cost
+- `!sbgamble <amount> ` - Gamble your bits in hopes to win more
+- `!sweatbot` - Turn Sweat Bot on and off
+- `!sendkey <key> ` - Send any select key input to the streamers pc
+
 
 ---
 
 ## **Mod/Broadcaster Commands**
 
-- `!help` – List available commands.  
-- `!addbits @user <amount>` – Add bits to a user.  
-- `!refund @user` – Refund the last command a user used.
+- `!help` – List available commands
+- `!addbits @user <amount>` – Add bits to a user
+- `!refund @user` – Refund the last command a user used
+- `!sbadd <commandname> <methods>` - Add a command through chat
+- `!sbremove <commandname>` - Remove a command through chat
 
 ---
 
@@ -144,16 +150,6 @@ To add your own sounds:
 
 ---
 
-## **Goose Command Setup**
-
-**Desktop Goose** can cause performance issues, but it’s fun to use in menus!
-
-1. Download the required files from [Samperson's Desktop Goose](https://samperson.itch.io/desktop-goose).  
-2. Place all files inside a folder named "Goose".  
-3. Delete the "FOR MOD-MAKERS" folder to avoid pop-ups.
-
----
-
 ## **Support**
 
 Feel free to report issues via GitHub or contact me on Discord: *sprollucy*.  
@@ -162,6 +158,13 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+
+1.0.0.74-alpha
+- Trader menu adjustments
+- Added a way to add commands in chat. Using !sbadd you can add commands as long as its a valid format. Example !sbadd chatcom 100 kp=1 kh=d(100)
+- Added a way to remove commands from chat using !sbremove. Be careful with this
+- Added moderator toggles for these 2 new commands as well
+- Added gambling command, allowing users a chance to make more bits without spending. Use !sbgamble {amount}
 
 1.0.0.73-alpha
 - Fixed bug with toggling on or off sweatbot by chat command
@@ -173,16 +176,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added economy tracking to quickly see how many bits are available for user. Updates every 15 seconds
 - Fixed crash when connecting and disconnecting quickly
 - Added !sendkey. Chat can now send individual keypresses. Set the cost and how long for it to hold the button in Command Menu. Example "!sendkey A" will press the button A 
-
-1.0.0.72-alpha
-- Removed old command system in favor of the command builder. Maintaining and changing any of it was a pain
-- Updated debug system
-- Fixed crash caused if the custom command json was missing
-- Fixed "Disable confirmation message" toggle not saving after restart
-- Adjusted menu names and layouts
-- Added save button to Auto Message
-- Added toggle in settings to hide Trader Menu
-- Adjusted scripting language syntax and how to use file
-- Added MPosAsync
-- Added quick commands under the Command Builder menu
-- Removed goose folder. Planning on adding a way to launch exe files
