@@ -1,5 +1,9 @@
 1.0.0.74-alpha
-
+-Trader menu adjustments
+-Added a way to add commands in chat. Using !sbadd you can add commands as long as its a valid format. Example !sbadd chatcom 100 kp=1 kh=d(100)
+-Added a way to remove commands from chat using !sbremove. Be careful with this
+-Added moderator toggles for these 2 new commands as well
+-Added gambling command, allowing users a chance to make more bits without spending. Use !sbgamble {amount}
 
 1.0.0.73-alpha
 -Fixed bug with toggling on or off sweatbot by chat command
