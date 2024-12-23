@@ -119,7 +119,7 @@
             pictureBox14 = new PictureBox();
             label22 = new Label();
             panel7 = new Panel();
-            textBox3 = new TextBox();
+            label7 = new Label();
             label5 = new Label();
             pictureBox10 = new PictureBox();
             panel8 = new Panel();
@@ -1071,6 +1071,7 @@
             // 
             richTextBox1.BackColor = Color.FromArgb(156, 155, 151);
             richTextBox1.BorderStyle = BorderStyle.None;
+            richTextBox1.Font = new Font("Segoe UI", 10F);
             richTextBox1.ForeColor = SystemColors.ControlText;
             richTextBox1.Location = new Point(3, 26);
             richTextBox1.Name = "richTextBox1";
@@ -1118,7 +1119,7 @@
             // panel7
             // 
             panel7.BackColor = Color.FromArgb(156, 155, 151);
-            panel7.Controls.Add(textBox3);
+            panel7.Controls.Add(label7);
             panel7.Controls.Add(label5);
             panel7.Controls.Add(pictureBox10);
             panel7.Controls.Add(walkButton);
@@ -1134,17 +1135,15 @@
             panel7.Size = new Size(206, 160);
             panel7.TabIndex = 53;
             // 
-            // textBox3
+            // label7
             // 
-            textBox3.BackColor = Color.FromArgb(156, 155, 151);
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.ForeColor = Color.Red;
-            textBox3.Location = new Point(79, 141);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(63, 16);
-            textBox3.TabIndex = 128;
-            textBox3.Text = "In Testing";
-            textBox3.TextAlign = HorizontalAlignment.Center;
+            label7.AutoSize = true;
+            label7.ForeColor = Color.Red;
+            label7.Location = new Point(68, 143);
+            label7.Name = "label7";
+            label7.Size = new Size(57, 15);
+            label7.TabIndex = 140;
+            label7.Text = "In Testing";
             // 
             // label5
             // 
@@ -1369,6 +1368,6 @@
         private Panel panel8;
         private Label label17;
         private PictureBox pictureBox9;
-        private TextBox textBox3;
+        private Label label7;
     }
 }

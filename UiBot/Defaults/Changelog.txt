@@ -1,3 +1,7 @@
+1.0.0.75-alpha
+-Added expandable menu to show normal chat commands
+-Made it so if you have more spent this session than last session, the number will turn green. If it is less than last session it will turn red
+
 1.0.0.74-alpha
 -Trader menu adjustments
 -Added a way to add commands in chat. Using !sbadd you can add commands as long as its a valid format. Example !sbadd chatcom 100 kp=1 kh=d(100)

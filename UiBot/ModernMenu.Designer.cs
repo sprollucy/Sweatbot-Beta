@@ -148,7 +148,7 @@
             // 
             closeBox.BackColor = Color.FromArgb(63, 78, 79);
             closeBox.Image = (Image)resources.GetObject("closeBox.Image");
-            closeBox.Location = new Point(1022, 0);
+            closeBox.Location = new Point(1020, 0);
             closeBox.Name = "closeBox";
             closeBox.Size = new Size(20, 20);
             closeBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -282,7 +282,7 @@
             // 
             minBox.BackColor = Color.FromArgb(63, 78, 79);
             minBox.Image = (Image)resources.GetObject("minBox.Image");
-            minBox.Location = new Point(1002, 0);
+            minBox.Location = new Point(1000, 0);
             minBox.Name = "minBox";
             minBox.Size = new Size(20, 20);
             minBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -331,7 +331,7 @@
             conStatus.AutoSize = true;
             conStatus.BackColor = Color.FromArgb(63, 78, 79);
             conStatus.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            conStatus.Location = new Point(905, 2);
+            conStatus.Location = new Point(903, 2);
             conStatus.Name = "conStatus";
             conStatus.Size = new Size(97, 18);
             conStatus.TabIndex = 22;

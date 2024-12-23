@@ -15,6 +15,7 @@ namespace UiBot
         private int totalSpent;  // Track the total amount spent
         private int lastSpent;
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+        private bool isExpanded = false; // Track the state of the panel
 
         public ConnectMenu()
         {
@@ -38,8 +39,14 @@ namespace UiBot
             memoryTimer.Interval = 2000;
             memoryTimer.Tick += MemoryTimer_Tick;
             lastSpent = LoadTotalSpentFromJson();
-            economyLastLabel.Text = $"{lastSpent}";  // Set the economyLastLabel text to the loaded value
+            economyLastLabel.Text = $"{lastSpent}";
 
+            // Regular chat commands
+            regComLabel.MouseClick += chatComPanel_MouseClick;
+            chatComPanel.Height = 0;
+            chatComPanel.Width = 0;
+
+            regComLabel.Location = new Point(56, 583);
             if (Properties.Settings.Default.isEconomyOn)
             {
                 economyTimer.Start();
@@ -53,7 +60,32 @@ namespace UiBot
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
 
         }
+        private void chatComPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Toggle the height based on the current state
+            if (isExpanded)
+            {
+                chatComPanel.Height = 0; // Collapse
+                chatComPanel.Width = 0;
+                regComLabel.Text = "Regular Chat Commands (click to expand)";
 
+                regComLabel.Location = new Point(56, 583);
+                pictureBox9.BackColor = Color.FromArgb(37, 37, 37);
+                regComLabel.BackColor = Color.FromArgb(37, 37, 37);
+            }
+            else
+            {
+                chatComPanel.Height = 118; // Expand
+                chatComPanel.Width = 741;
+                regComLabel.Text = "Regular Chat Commands (click to minimize)";
+                regComLabel.Location = new Point(56, 485);
+                pictureBox9.BackColor = Color.FromArgb(71, 83, 92);
+                regComLabel.BackColor = Color.FromArgb(71, 83, 92);
+
+            }
+
+            isExpanded = !isExpanded; // Toggle the state
+        }
 
         private void InitializeConsole()
         {
@@ -273,16 +305,25 @@ namespace UiBot
                     economySpentLabel.Text = $"{totalSpent}";  // Update the spent label
                 }
 
+                if (totalSpent < lastSpent + 1)
+                {
+                    economySpentLabel.ForeColor = Color.Black;
+                }
+                else
+                {
+                    economySpentLabel.ForeColor = Color.Green; 
+                }
+
                 // Update the previous economy value for the next calculation
                 previousEconomyValue = totalBitCost;
                 SaveTotalSpentToJson(totalSpent);
-
             }
             else
             {
                 Console.WriteLine("economyLabel or economySpentLabel is null.");
             }
         }
+
 
         private int LoadTotalSpentFromJson()
         {
@@ -340,7 +381,7 @@ namespace UiBot
             }
             else
             {
-                econoPanel.Visible= false;
+                econoPanel.Visible = false;
             }
         }
 
@@ -478,29 +519,28 @@ namespace UiBot
             }
         }
 
-    }
-
-    public class Command
-    {
-        public int BitCost { get; set; }
-        public List<string> Methods { get; set; }
-    }
-
-    // This class would handle loading commands and their bit costs
-    public class CommandHandler
-    {
-        private Dictionary<string, Command> commands = new Dictionary<string, Command>();
-
-        public void LoadCommands(Dictionary<string, Command> commands)
+        public class Command
         {
-            this.commands = commands;
+            public int BitCost { get; set; }
+            public List<string> Methods { get; set; }
         }
 
-        public Dictionary<string, int> GetAllCommandsWithCosts()
+        // This class would handle loading commands and their bit costs
+        public class CommandHandler
         {
-            return commands.ToDictionary(
-                cmd => cmd.Key,
-                cmd => cmd.Value.BitCost);
+            private Dictionary<string, Command> commands = new Dictionary<string, Command>();
+
+            public void LoadCommands(Dictionary<string, Command> commands)
+            {
+                this.commands = commands;
+            }
+
+            public Dictionary<string, int> GetAllCommandsWithCosts()
+            {
+                return commands.ToDictionary(
+                    cmd => cmd.Key,
+                    cmd => cmd.Value.BitCost);
+            }
         }
     }
 }

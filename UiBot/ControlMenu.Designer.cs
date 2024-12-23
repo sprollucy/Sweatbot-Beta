@@ -30,6 +30,7 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
+            label12 = new Label();
             bitGambleCDBox = new TextBox();
             label11 = new Label();
             bitChanceBox = new TextBox();
@@ -40,7 +41,6 @@
             label1 = new Label();
             bitGambleCheck = new CheckBox();
             enableTradersCommand = new CheckBox();
-            textBox6 = new TextBox();
             sendkeyTimeBox = new TextBox();
             textBox4 = new TextBox();
             sendkeyButton = new CheckBox();
@@ -68,11 +68,12 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
-            textBox7 = new TextBox();
+            label17 = new Label();
+            label16 = new Label();
+            label15 = new Label();
+            label14 = new Label();
             enableSubBonusMulti = new CheckBox();
             subbonusMultiplierBox = new TextBox();
-            textBox5 = new TextBox();
-            textBox3 = new TextBox();
             subTextBox = new TextBox();
             label7 = new Label();
             enableSubBonus = new CheckBox();
@@ -87,9 +88,6 @@
             modMake = new CheckBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox8 = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -116,7 +114,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(label12);
             panel1.Controls.Add(bitGambleCDBox);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(bitChanceBox);
@@ -127,7 +125,6 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(bitGambleCheck);
             panel1.Controls.Add(enableTradersCommand);
-            panel1.Controls.Add(textBox6);
             panel1.Controls.Add(sendkeyTimeBox);
             panel1.Controls.Add(textBox4);
             panel1.Controls.Add(sendkeyButton);
@@ -140,6 +137,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.ForeColor = Color.Red;
+            label12.Location = new Point(235, 37);
+            label12.Name = "label12";
+            label12.Size = new Size(57, 15);
+            label12.TabIndex = 139;
+            label12.Text = "In Testing";
             // 
             // bitGambleCDBox
             // 
@@ -246,18 +253,6 @@
             enableTradersCommand.Text = "Enable Trader Command for chat";
             enableTradersCommand.UseVisualStyleBackColor = false;
             enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
-            // 
-            // textBox6
-            // 
-            textBox6.BackColor = Color.FromArgb(156, 155, 151);
-            textBox6.BorderStyle = BorderStyle.None;
-            textBox6.ForeColor = Color.Red;
-            textBox6.Location = new Point(235, 36);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(63, 16);
-            textBox6.TabIndex = 129;
-            textBox6.Text = "In Testing";
-            textBox6.TextAlign = HorizontalAlignment.Center;
             // 
             // sendkeyTimeBox
             // 
@@ -578,11 +573,12 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(textBox7);
+            panel2.Controls.Add(label17);
+            panel2.Controls.Add(label16);
+            panel2.Controls.Add(label15);
+            panel2.Controls.Add(label14);
             panel2.Controls.Add(enableSubBonusMulti);
             panel2.Controls.Add(subbonusMultiplierBox);
-            panel2.Controls.Add(textBox5);
-            panel2.Controls.Add(textBox3);
             panel2.Controls.Add(subTextBox);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(enableSubBonus);
@@ -602,17 +598,45 @@
             panel2.Size = new Size(514, 192);
             panel2.TabIndex = 121;
             // 
-            // textBox7
+            // label17
             // 
-            textBox7.BackColor = Color.FromArgb(156, 155, 151);
-            textBox7.BorderStyle = BorderStyle.None;
-            textBox7.ForeColor = Color.Red;
-            textBox7.Location = new Point(217, 125);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(63, 16);
-            textBox7.TabIndex = 132;
-            textBox7.Text = "In Testing";
-            textBox7.TextAlign = HorizontalAlignment.Center;
+            label17.AutoSize = true;
+            label17.ForeColor = Color.Red;
+            label17.Location = new Point(223, 126);
+            label17.Name = "label17";
+            label17.Size = new Size(57, 15);
+            label17.TabIndex = 144;
+            label17.Text = "In Testing";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = Color.Red;
+            label16.Location = new Point(229, 89);
+            label16.Name = "label16";
+            label16.Size = new Size(57, 15);
+            label16.TabIndex = 143;
+            label16.Text = "In Testing";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = Color.Red;
+            label15.Location = new Point(337, 54);
+            label15.Name = "label15";
+            label15.Size = new Size(57, 15);
+            label15.TabIndex = 142;
+            label15.Text = "In Testing";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.ForeColor = Color.Red;
+            label14.Location = new Point(337, 76);
+            label14.Name = "label14";
+            label14.Size = new Size(57, 15);
+            label14.TabIndex = 141;
+            label14.Text = "In Testing";
             // 
             // enableSubBonusMulti
             // 
@@ -637,30 +661,6 @@
             subbonusMultiplierBox.TabIndex = 130;
             subbonusMultiplierBox.Text = "2";
             subbonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox5
-            // 
-            textBox5.BackColor = Color.FromArgb(156, 155, 151);
-            textBox5.BorderStyle = BorderStyle.None;
-            textBox5.ForeColor = Color.Red;
-            textBox5.Location = new Point(337, 78);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(63, 16);
-            textBox5.TabIndex = 128;
-            textBox5.Text = "In Testing";
-            textBox5.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox3
-            // 
-            textBox3.BackColor = Color.FromArgb(156, 155, 151);
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.ForeColor = Color.Red;
-            textBox3.Location = new Point(337, 54);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(63, 16);
-            textBox3.TabIndex = 127;
-            textBox3.Text = "In Testing";
-            textBox3.TextAlign = HorizontalAlignment.Center;
             // 
             // subTextBox
             // 
@@ -770,8 +770,6 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
-            panel4.Controls.Add(textBox8);
-            panel4.Controls.Add(textBox2);
             panel4.Controls.Add(modRemove);
             panel4.Controls.Add(modMake);
             panel4.Controls.Add(label3);
@@ -835,42 +833,6 @@
             groupBox1.TabIndex = 124;
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.FromArgb(156, 155, 151);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.ForeColor = Color.Red;
-            textBox1.Location = new Point(386, 136);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(63, 16);
-            textBox1.TabIndex = 138;
-            textBox1.Text = "In Testing";
-            textBox1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox2
-            // 
-            textBox2.BackColor = Color.FromArgb(156, 155, 151);
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.ForeColor = Color.Red;
-            textBox2.Location = new Point(279, 108);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(63, 16);
-            textBox2.TabIndex = 130;
-            textBox2.Text = "In Testing";
-            textBox2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBox8
-            // 
-            textBox8.BackColor = Color.FromArgb(156, 155, 151);
-            textBox8.BorderStyle = BorderStyle.None;
-            textBox8.ForeColor = Color.Red;
-            textBox8.Location = new Point(299, 134);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(63, 16);
-            textBox8.TabIndex = 131;
-            textBox8.Text = "In Testing";
-            textBox8.TextAlign = HorizontalAlignment.Center;
             // 
             // ControlMenu
             // 
@@ -954,12 +916,8 @@
         private TextBox sendkeyCostBox;
         private TextBox sendkeyTimeBox;
         private TextBox textBox4;
-        private TextBox textBox5;
-        private TextBox textBox3;
-        private TextBox textBox6;
         private TextBox subbonusMultiplierBox;
         private CheckBox enableSubBonusMulti;
-        private TextBox textBox7;
         private CheckBox modRemove;
         private CheckBox modMake;
         private TextBox bitChanceBox;
@@ -969,8 +927,10 @@
         private Label label10;
         private Label label9;
         private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox8;
-        private TextBox textBox2;
+        private Label label12;
+        private Label label17;
+        private Label label16;
+        private Label label15;
+        private Label label14;
     }
 }
