@@ -95,6 +95,7 @@
             label15 = new Label();
             pictureBox2 = new PictureBox();
             panel4 = new Panel();
+            pixelateButton = new Button();
             adelayButton = new Button();
             label16 = new Label();
             pictureBox4 = new PictureBox();
@@ -450,7 +451,7 @@
             // 
             // arightloopButton
             // 
-            arightloopButton.Location = new Point(255, 195);
+            arightloopButton.Location = new Point(207, 195);
             arightloopButton.Name = "arightloopButton";
             arightloopButton.Size = new Size(104, 40);
             arightloopButton.TabIndex = 56;
@@ -460,7 +461,7 @@
             // 
             // aleftloopButton
             // 
-            aleftloopButton.Location = new Point(149, 195);
+            aleftloopButton.Location = new Point(101, 195);
             aleftloopButton.Name = "aleftloopButton";
             aleftloopButton.Size = new Size(104, 40);
             aleftloopButton.TabIndex = 55;
@@ -470,7 +471,7 @@
             // 
             // rightloopButton
             // 
-            rightloopButton.Location = new Point(255, 166);
+            rightloopButton.Location = new Point(207, 166);
             rightloopButton.Name = "rightloopButton";
             rightloopButton.Size = new Size(104, 23);
             rightloopButton.TabIndex = 54;
@@ -480,7 +481,7 @@
             // 
             // leftloopButton
             // 
-            leftloopButton.Location = new Point(149, 166);
+            leftloopButton.Location = new Point(101, 166);
             leftloopButton.Name = "leftloopButton";
             leftloopButton.Size = new Size(104, 23);
             leftloopButton.TabIndex = 53;
@@ -540,7 +541,7 @@
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(255, 123);
+            arightholdButton.Location = new Point(207, 123);
             arightholdButton.Name = "arightholdButton";
             arightholdButton.Size = new Size(105, 40);
             arightholdButton.TabIndex = 39;
@@ -550,7 +551,7 @@
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(149, 123);
+            aleftholdButton.Location = new Point(101, 123);
             aleftholdButton.Name = "aleftholdButton";
             aleftholdButton.Size = new Size(100, 40);
             aleftholdButton.TabIndex = 38;
@@ -560,7 +561,7 @@
             // 
             // arightButton
             // 
-            arightButton.Location = new Point(285, 48);
+            arightButton.Location = new Point(237, 48);
             arightButton.Name = "arightButton";
             arightButton.Size = new Size(75, 40);
             arightButton.TabIndex = 37;
@@ -570,7 +571,7 @@
             // 
             // aleftButton
             // 
-            aleftButton.Location = new Point(204, 48);
+            aleftButton.Location = new Point(156, 48);
             aleftButton.Name = "aleftButton";
             aleftButton.Size = new Size(75, 40);
             aleftButton.TabIndex = 36;
@@ -620,7 +621,7 @@
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(255, 94);
+            rightholdButton.Location = new Point(207, 94);
             rightholdButton.Name = "rightholdButton";
             rightholdButton.Size = new Size(105, 23);
             rightholdButton.TabIndex = 31;
@@ -630,7 +631,7 @@
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(149, 94);
+            leftholdButton.Location = new Point(101, 94);
             leftholdButton.Name = "leftholdButton";
             leftholdButton.Size = new Size(100, 23);
             leftholdButton.TabIndex = 30;
@@ -640,7 +641,7 @@
             // 
             // rightButton
             // 
-            rightButton.Location = new Point(285, 19);
+            rightButton.Location = new Point(237, 19);
             rightButton.Name = "rightButton";
             rightButton.Size = new Size(75, 23);
             rightButton.TabIndex = 29;
@@ -650,7 +651,7 @@
             // 
             // leftButton
             // 
-            leftButton.Location = new Point(204, 19);
+            leftButton.Location = new Point(156, 19);
             leftButton.Name = "leftButton";
             leftButton.Size = new Size(75, 23);
             leftButton.TabIndex = 28;
@@ -809,9 +810,9 @@
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(659, 413);
+            panel3.Location = new Point(709, 413);
             panel3.Name = "panel3";
-            panel3.Size = new Size(363, 244);
+            panel3.Size = new Size(313, 244);
             panel3.TabIndex = 32;
             // 
             // amouseposButton
@@ -849,6 +850,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
+            panel4.Controls.Add(pixelateButton);
             panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
             panel4.Controls.Add(playsoundButton);
@@ -859,8 +861,18 @@
             panel4.Controls.Add(pictureBox4);
             panel4.Location = new Point(396, 541);
             panel4.Name = "panel4";
-            panel4.Size = new Size(246, 107);
+            panel4.Size = new Size(307, 107);
             panel4.TabIndex = 33;
+            // 
+            // pixelateButton
+            // 
+            pixelateButton.Location = new Point(246, 19);
+            pixelateButton.Name = "pixelateButton";
+            pixelateButton.Size = new Size(58, 69);
+            pixelateButton.TabIndex = 59;
+            pixelateButton.Text = "Pixelate Screen";
+            pixelateButton.UseVisualStyleBackColor = true;
+            pixelateButton.Click += pixelateButton_Click;
             // 
             // adelayButton
             // 
@@ -889,7 +901,7 @@
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(246, 15);
+            pictureBox4.Size = new Size(307, 15);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
@@ -1369,5 +1381,6 @@
         private Label label17;
         private PictureBox pictureBox9;
         private Label label7;
+        private Button pixelateButton;
     }
 }

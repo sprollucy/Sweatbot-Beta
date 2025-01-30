@@ -78,6 +78,7 @@ namespace UiBot
         private void delayButton_Click(object sender, EventArgs e) => AppendCommandText(" Delay=Speed ");
         private void muteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVol=dur ");
         private void mouseposButton_Click(object sender, EventArgs e) => commandtextBox.Text += GetCommandText($" MPos({mouseX},{mouseY}) ");
+        private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreen=dur ");
 
         // Asynchronous commands
         private void aholdkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KHAsync=KeyIn(dur) ");

@@ -27,6 +27,9 @@ public class CustomCommandHandler
     [DllImport("user32.dll")]
     public static extern bool SetCursorPos(int X, int Y);
 
+
+    private PixelateOverlay pixelateOverlay;
+
     // Event constants for mouse and keyboard actions
     public const int MOUSEEVENTF_LEFTDOWN = 0x02;
     public const int MOUSEEVENTF_LEFTUP = 0x04;
@@ -41,6 +44,8 @@ public class CustomCommandHandler
 
     public CustomCommandHandler(string filePath)
     {
+        pixelateOverlay = new PixelateOverlay();
+
         _commands = LoadCommandsFromFile(filePath);
 
         // Sync method map
@@ -59,7 +64,8 @@ public class CustomCommandHandler
         { "mutevol", MuteVolume },
         { "delay", Delay },
         { "lcloop", LeftClickLoop },
-        { "rcloop", RightClickLoop }
+        { "rcloop", RightClickLoop },
+        { "pixelatescreen", PixelateScreen }
     };
 
         // Async method map
@@ -1320,7 +1326,6 @@ public class CustomCommandHandler
         }
     }
 
-
     private void PlaySoundClip(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
@@ -1408,6 +1413,49 @@ public class CustomCommandHandler
         }
         return null; // Return null if file does not exist
     }
+
+    private void PixelateScreen(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for PixelateScreen.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)"); // Match numeric parameters
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugOn)
+            {
+                Console.WriteLine($"PixelateScreen for {duration} milliseconds.");
+            }
+
+            // Ensure you're calling Invoke on the right object: pixelateOverlay (a Form)
+            pixelateOverlay.Invoke((MethodInvoker)(() =>
+            {
+                pixelateOverlay.StartOverlay(); // Start the overlay
+            }));
+
+            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+
+            // Stop the overlay on the UI thread as well
+            pixelateOverlay.Invoke((MethodInvoker)(() =>
+            {
+                pixelateOverlay.StopOverlay(); // Stop the overlay
+            }));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in PixelateScreen: {ex.Message}");
+        }
+    }
+
 
     // Helper method to convert key characters to virtual key codes
     public static int ToVirtualKey(string key)
