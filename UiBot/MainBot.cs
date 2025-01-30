@@ -398,36 +398,30 @@ namespace UiBot
                             }
                             else
                             {
-                                // If the user doesn't have any bits at all, inform them
-                                client.SendMessage(e.ChatMessage.Channel, $"You don't have enough bits to execute the command matching your cheer.");
+                                // No matching commands found, add the cheer amount to user's bit balance
+                                if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
+                                {
+                                    // Add cheer amount to the user's current bit balance
+                                    MainBot.userBits[e.ChatMessage.DisplayName] += cheerAmount;
+
+                                    // Log the addition of bits
+                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
+                                    client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} bits. Your balance has been updated by {cheerAmount} bits.");
+                                    LogHandler.WriteUserBitsToJson(userBitsFilePath);
+                                }
+                                else
+                                {
+                                    // If the user doesn't have any bits, initialize their balance
+                                    MainBot.userBits[e.ChatMessage.DisplayName] = cheerAmount;
+
+                                    // Log the addition of bits
+                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
+                                    client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} bits.");
+                                }
                             }
                         }
                     }
-                    else
-                    {
-                        // No matching commands found, add the cheer amount to user's bit balance
-                        if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
-                        {
-                            // Add cheer amount to the user's current bit balance
-                            MainBot.userBits[e.ChatMessage.DisplayName] += cheerAmount;
-
-                            // Log the addition of bits
-                            LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
-                            client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} bits. Your balance has been updated by {cheerAmount} bits.");
-                            LogHandler.WriteUserBitsToJson(userBitsFilePath);
-                        }
-                        else
-                        {
-                            // If the user doesn't have any bits, initialize their balance
-                            MainBot.userBits[e.ChatMessage.DisplayName] = cheerAmount;
-
-                            // Log the addition of bits
-                            LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
-                            client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} bits.");
-                        }
-                    }
                 }
-
             }
 
             // Given Bits
