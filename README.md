@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.74 Alpha**
+# **Sweat Bot 1.0.0.75 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -158,6 +158,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.0.75-alpha
+- Added expandable menu to show normal chat commands
+- Made it so if you have more spent this session than last session, the number will turn green. If it is less than last session it will turn red
+- Bug fixes
+- Added way to directly call commands by cheering bits with ! in front. If it matches the cost of a command it will run it, if not it will add to the user bits
 
 1.0.0.74-alpha
 - Trader menu adjustments
@@ -166,13 +171,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added moderator toggles for these 2 new commands as well
 - Added gambling command, allowing users a chance to make more bits without spending. Use !sbgamble {amount}
 
-1.0.0.73-alpha
-- Fixed bug with toggling on or off sweatbot by chat command
-- Added bonus for following
-- Added bonus for subscribing
-- Switched ui to dark mode
-- Added connection status indicator
-- Added toggle for !bitcost command
-- Added economy tracking to quickly see how many bits are available for user. Updates every 15 seconds
-- Fixed crash when connecting and disconnecting quickly
-- Added !sendkey. Chat can now send individual keypresses. Set the cost and how long for it to hold the button in Command Menu. Example "!sendkey A" will press the button A 
