@@ -1508,6 +1508,13 @@ public class CustomCommandHandler
             case "NUMPADMULTIPLY": return 0x6A; // VK_MULTIPLY
             case "NUMPADDIVIDE": return 0x6F; // VK_DIVIDE
 
+            // Stupid People Mouse buttons
+            case "MOUSE1": return 0x01; // VK_LBUTTON (Left Mouse Button)
+            case "MOUSE2": return 0x02; // VK_RBUTTON (Right Mouse Button)
+            case "MOUSE3": return 0x04; // VK_MBUTTON (Middle Mouse Button)
+            case "MOUSE4": return 0x05; // VK_XBUTTON1 (XButton1)
+            case "MOUSE5": return 0x06; // VK_XBUTTON2 (XButton2)
+
             // Additional keys can be mapped here
 
             default:
