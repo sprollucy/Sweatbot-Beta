@@ -118,6 +118,11 @@ public class CustomCommandHandler
         _commands.TryGetValue(commandName.ToLower(), out var command);
         return command;
     }
+    public List<Command> GetCommandsByBitCost(int bitCost)
+    {
+        // Filter commands whose BitCost matches the provided amount
+        return _commands.Values.Where(cmd => cmd.BitCost == bitCost).ToList();
+    }
 
     public bool CanExecuteCommand(string commandName, int userBits)
     {

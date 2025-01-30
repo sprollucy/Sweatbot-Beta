@@ -276,7 +276,8 @@ namespace UiBot
             if (!Properties.Settings.Default.isCommandsPaused)
             {
                 commandHandler.ReloadCommands(commandsFilePath);
-                // Check if the message is a command
+
+                // Check if the message starts with "!" (for regular commands)
                 if (e.ChatMessage.Message.StartsWith("!"))
                 {
                     string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
@@ -335,34 +336,102 @@ namespace UiBot
                         }
                     }
                 }
-            }
 
-            if (Properties.Settings.Default.isChatBonusEnabled)
-            {
-                if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
+                // Check if the message contains a cheer amount for bit-based commands
+                // Add the check here to prevent processing cheers if the message starts with "!"
+                if (e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0)
                 {
-                    int bonusAmount;
-                    if (int.TryParse(controlMenu.BonusTextBox.Text, out bonusAmount))
-                    {
-                        // User is chatting for the first time, give them the specified bonus amount
-                        userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
-                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
-                        Console.WriteLine($"[{e.ChatMessage.DisplayName}]: First Chat Bonus: {bonusAmount}");
+                    int cheerAmount = e.ChatMessage.Bits;
 
-                        LogHandler.WriteUserBitsToJson("user_bits.json");
-                        LogHandler.LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
+                    // Get all commands with bit costs
+                    var commandsWithCosts = commandHandler.GetAllCommandsWithCosts();
+
+                    // Find commands that match the cheer amount
+                    var matchingCommands = commandsWithCosts.Where(kv => kv.Value == cheerAmount).ToList();
+
+                    // If matching commands are found, execute them
+                    if (matchingCommands.Any())
+                    {
+                        foreach (var matchingCommand in matchingCommands)
+                        {
+                            string commandName = matchingCommand.Key.ToLower();  // Get the command name
+
+                            // Check if the user has enough bits, if not, add the missing bits
+                            if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
+                            {
+                                int currentBits = MainBot.userBits[e.ChatMessage.DisplayName];
+                                int bitsRequired = cheerAmount;
+
+                                if (currentBits < bitsRequired)
+                                {
+                                    // Calculate how many bits are missing
+                                    int missingBits = bitsRequired - currentBits;
+                                    MainBot.userBits[e.ChatMessage.DisplayName] += missingBits; // Add the missing bits
+
+                                    // Log the topping up of bits
+                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, "Topped up", missingBits, MainBot.userBits, timestamp);
+                                    client.SendMessage(e.ChatMessage.Channel, $"You were missing {missingBits} bits, and they have been added to your balance.");
+                                }
+
+                                // Execute the command since user now has enough bits
+                                try
+                                {
+                                    // Execute the command
+                                    commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+
+                                    // Log the command execution
+                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, cheerAmount, MainBot.userBits, timestamp);
+
+                                    // Send message with remaining bits
+                                    string message = $"{e.ChatMessage.DisplayName}: {commandName} Cost: {cheerAmount}";
+                                    client.SendMessage(e.ChatMessage.Channel, message);
+
+                                    // Log command details to the console
+                                    Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {cheerAmount}");
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Log and inform the user of the error
+                                    Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
+                                    client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
+                                }
+                            }
+                            else
+                            {
+                                // If the user doesn't have any bits at all, inform them
+                                client.SendMessage(e.ChatMessage.Channel, $"You don't have enough bits to execute the command matching your cheer.");
+                            }
+                        }
                     }
                     else
                     {
-                        // Error parsing bonus amount, use a default value or handle the error accordingly
-                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, invalid bonus amount format. Using default value.");
-                        userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
-                        LogHandler.WriteUserBitsToJson("user_bits.json");
+                        // No matching commands found, add the cheer amount to user's bit balance
+                        if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
+                        {
+                            // Add cheer amount to the user's current bit balance
+                            MainBot.userBits[e.ChatMessage.DisplayName] += cheerAmount;
+
+                            // Log the addition of bits
+                            LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
+                            client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} bits. Your balance has been updated by {cheerAmount} bits.");
+                            LogHandler.WriteUserBitsToJson(userBitsFilePath);
+                        }
+                        else
+                        {
+                            // If the user doesn't have any bits, initialize their balance
+                            MainBot.userBits[e.ChatMessage.DisplayName] = cheerAmount;
+
+                            // Log the addition of bits
+                            LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
+                            client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} bits.");
+                        }
                     }
                 }
+
             }
 
-            if (e.ChatMessage.Bits > 0)
+            // Given Bits
+            if (!e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0)
             {
                 int bitsGiven = e.ChatMessage.Bits;
                 bool isSubscriber = e.ChatMessage.IsSubscriber;
@@ -372,7 +441,7 @@ namespace UiBot
                 {
                     // Apply Sub Bonus Multiplier first for subscribers
                     ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
-                    int multiplier = ChatCommandMethods.SubBitBonusMultiplier; // Access SubBitBonusMultiplier
+                    int multiplier = ChatCommandMethods.SubBonusMultiplier; // Access SubBitBonusMultiplier
 
                     // Calculate bits after applying the subscriber multiplier
                     bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
@@ -406,7 +475,7 @@ namespace UiBot
                 {
                     // Apply Sub Bonus Multiplier if only the subscriber bonus is enabled
                     ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
-                    int multiplier = ChatCommandMethods.SubBitBonusMultiplier; // Access SubBitBonusMultiplier
+                    int multiplier = ChatCommandMethods.SubBonusMultiplier; // Access SubBitBonusMultiplier
 
                     // Calculate bits after applying the subscriber multiplier
                     bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
@@ -429,7 +498,33 @@ namespace UiBot
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
                 }
             }
+
+            if (Properties.Settings.Default.isChatBonusEnabled)
+            {
+                if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
+                {
+                    int bonusAmount;
+                    if (int.TryParse(controlMenu.BonusTextBox.Text, out bonusAmount))
+                    {
+                        // User is chatting for the first time, give them the specified bonus amount
+                        userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
+                        Console.WriteLine($"[{e.ChatMessage.DisplayName}]: First Chat Bonus: {bonusAmount}");
+
+                        LogHandler.WriteUserBitsToJson("user_bits.json");
+                        LogHandler.LogBits(e.ChatMessage.DisplayName, bonusAmount, timestamp);
+                    }
+                    else
+                    {
+                        // Error parsing bonus amount, use a default value or handle the error accordingly
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, invalid bonus amount format. Using default value.");
+                        userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
+                        LogHandler.WriteUserBitsToJson("user_bits.json");
+                    }
+                }
+            }
         }
+
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
         {
@@ -535,7 +630,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use this feature, simply cheer Bits in the chat, and the bot will track how many you've given. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
+                        client.SendMessage(channelId, "To use this feature, simply cheer Bits in the chat, and the bot will track how many you've given or do !{cheeramount} to directly run a command that matches that ammount. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
 );
                     }
                     break;

@@ -49,7 +49,7 @@ namespace UiBot
 
 
         public static int BitBonusMultiplier { get; private set; }
-        public static int SubBitBonusMultiplier { get; private set; }
+        public static int SubBonusMultiplier { get; private set; }
 
         public static void BitMultiplier()
         {
@@ -116,7 +116,7 @@ namespace UiBot
                 return;
             }
 
-            BitBonusMultiplier = durationSeconds;
+            SubBonusMultiplier = durationSeconds;
         }
 
         //Mod Commands
