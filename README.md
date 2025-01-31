@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.75 Alpha**
+# **Sweat Bot 1.0.0.76 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -68,7 +68,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.75)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.76)
 
 ---
 
@@ -158,6 +158,14 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+
+1.0.0.75-alpha
+- Added screen pixelation mode. In testing and may be very buggy
+- Spelling fixes
+- Added in a way for user to directly use a command without having to cheer bits before running a command. Using ! before a cheer will look for a command with that cost, and if it matches that cost it will run the command. If the amount doesn't match a command, than it is added to the users bits stored in the bot 
+- Fixed bug with !cheer that would cause a over payment
+- Fixed bug with !cheer failing to store bits a user gave for overpayment
+
 1.0.0.75-alpha
 - Added expandable menu to show normal chat commands
 - Made it so if you have more spent this session than last session, the number will turn green. If it is less than last session it will turn red
