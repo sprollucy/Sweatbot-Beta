@@ -218,5 +218,32 @@ namespace UiBot
             }
         }
 
+        public static void RemoveBitCommand(TwitchClient client, OnChatCommandReceivedArgs e)
+        {
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+
+            string[] args = e.Command.ArgumentsAsString.Split(' ');
+            if (args.Length == 2)
+            {
+                string username = args[0].StartsWith("@") ? args[0].Substring(1) : args[0]; // Remove "@" symbol if present
+                int bitsToRemove;
+                if (int.TryParse(args[1], out bitsToRemove))
+                {
+                    // Update user's bits
+                    LogHandler.UpdateUserBitsRemoved(username, bitsToRemove);
+                    LogHandler.LogRemovebits(e.Command.ChatMessage.DisplayName, "rembits", bitsToRemove, username, MainBot.userBits, timestamp);
+
+                    // Notify about successful update
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToRemove} bits removed from {username}. New total: {MainBot.userBits[username]} bits");
+                    Console.WriteLine($"[{timestamp}] User [{e.Command.ChatMessage.DisplayName}] removed {bitsToRemove} bits to {username}. New total: {MainBot.userBits[username]} bits");
+
+                }
+                else
+                {
+                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid number of bits specified.");
+                }
+            }
+        }
+
     }
 }

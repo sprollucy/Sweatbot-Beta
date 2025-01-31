@@ -80,6 +80,25 @@ namespace UiBot
             File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
         }
 
+        public static void LogRemovebits(string commandUser, string command, int bitsRemove, string targetUser, Dictionary<string, int> userBits, string timestamp)
+        {
+            // Get the current total bits of the target user
+            int currentTotalBits = userBits.ContainsKey(targetUser) ? userBits[targetUser] : 0;
+
+            // Create the log message showing the current total bits, bits added, and the new total
+            string logMessage = $"{timestamp} - {commandUser} used {command} command, removed {bitsRemove} bits from {targetUser}, who had {currentTotalBits - bitsRemove} bits, now has {currentTotalBits} bits";
+
+            // Get the current date for the filename
+            string date = DateTime.Now.ToString("M-d-yy");
+
+            // Construct the log file path with the date in its name
+            string logFileName = $"{date} bitlog.txt";
+            string logFilePath = Path.Combine("Logs", logFileName);
+
+            // Append the log message to the file
+            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+        }
+
         public static void FileBackup()
         {
             // Define the list of file paths to backup
@@ -184,6 +203,20 @@ namespace UiBot
             if (MainBot.userBits.ContainsKey(username))
             {
                 MainBot.userBits[username] += bitsGiven;
+            }
+            else
+            {
+                MainBot.userBits.Add(username, bitsGiven);
+            }
+
+            LogHandler.WriteUserBitsToJson("user_bits.json");
+        }
+
+        public static void UpdateUserBitsRemoved(string username, int bitsGiven)
+        {
+            if (MainBot.userBits.ContainsKey(username))
+            {
+                MainBot.userBits[username] -= bitsGiven;
             }
             else
             {

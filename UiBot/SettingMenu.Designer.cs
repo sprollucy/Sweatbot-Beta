@@ -58,6 +58,7 @@
             groupBox4 = new GroupBox();
             enableEFTtrade = new CheckBox();
             groupBox5 = new GroupBox();
+            cashappLink = new LinkLabel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -287,15 +288,15 @@
             label4.ForeColor = SystemColors.ControlText;
             label4.Location = new Point(72, 562);
             label4.Name = "label4";
-            label4.Size = new Size(324, 15);
+            label4.Size = new Size(302, 15);
             label4.TabIndex = 35;
-            label4.Text = "If you wish to support this project here is a link to my paypal";
+            label4.Text = "If you wish to support this project here is are some links!\r\n";
             // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.BackColor = Color.FromArgb(135, 135, 135);
-            linkLabel1.Location = new Point(402, 562);
+            linkLabel1.Location = new Point(373, 562);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(42, 15);
             linkLabel1.TabIndex = 36;
@@ -426,6 +427,18 @@
             groupBox5.TabStop = false;
             groupBox5.Text = "Other Game Menus (Must Restart)";
             // 
+            // cashappLink
+            // 
+            cashappLink.AutoSize = true;
+            cashappLink.BackColor = Color.FromArgb(135, 135, 135);
+            cashappLink.Location = new Point(415, 562);
+            cashappLink.Name = "cashappLink";
+            cashappLink.Size = new Size(58, 15);
+            cashappLink.TabIndex = 113;
+            cashappLink.TabStop = true;
+            cashappLink.Text = "Cash App";
+            cashappLink.LinkClicked += cashappLink_LinkClicked;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -433,6 +446,7 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1041, 616);
             ControlBox = false;
+            Controls.Add(cashappLink);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(changelogLabel);
@@ -504,5 +518,6 @@
         private GroupBox groupBox4;
         private CheckBox enableEFTtrade;
         private GroupBox groupBox5;
+        private LinkLabel cashappLink;
     }
 }

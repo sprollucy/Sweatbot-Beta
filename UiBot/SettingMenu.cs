@@ -171,6 +171,18 @@ namespace UiBot
             });
         }
 
+        private void cashappLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Specify the URL you want to open
+            string url = "http://cash.app/$sprollucy";
+
+            // Open the URL in the default web browser
+            System.Diagnostics.Process.Start(new ProcessStartInfo(url)
+            {
+                UseShellExecute = true
+            });
+        }
+
         private void bitrestoreButton_Click(object sender, EventArgs e)
         {
             string backupDirectory = Path.Combine("Backup");
@@ -234,5 +246,7 @@ namespace UiBot
             Properties.Settings.Default.isTraderMenuEnabled = enableEFTtrade.Checked;
             Properties.Settings.Default.Save();
         }
+
+
     }
 }

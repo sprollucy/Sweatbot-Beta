@@ -561,17 +561,17 @@ namespace UiBot
 
                         if (Properties.Settings.Default.isTradersEnabled)
                         {
-                            message.Append(" !traders");
+                            message.Append(", !traders");
                         }
 
                         if (Properties.Settings.Default.isBitCostEnabled)
                         {
-                            message.Append(" !bitcost");
+                            message.Append(", !bitcost");
                         }
 
                         if (Properties.Settings.Default.isBitGambleEnabled)
                         {
-                            message.Append(" !sbgamble");
+                            message.Append(", !sbgamble");
                         }
 
                         // Check if the user is a moderator
@@ -579,7 +579,7 @@ namespace UiBot
                         {
                             if (Properties.Settings.Default.isModBitsEnabled)
                             {
-                                message.Append(", !addbits");
+                                message.Append(", !addbits, !rembits");
                             }
 
                             if (Properties.Settings.Default.isModRefundEnabled)
@@ -601,7 +601,7 @@ namespace UiBot
                         // Check if the user is a broadcaster
                         if (e.Command.ChatMessage.IsBroadcaster)
                         {
-                            message.Append(", !addbits, !refund, !sbadd, !sbremove");
+                            message.Append(", !addbits, !refund, !sbadd, !rembits, !sbremove");
                         }
 
                         client.SendMessage(channelId, message.ToString());
@@ -1178,6 +1178,20 @@ namespace UiBot
                         }
                         break;
 
+                    case "rembits":
+                        if (Properties.Settings.Default.isModBitsEnabled)
+                        {
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            {
+                                ChatCommandMethods.RemoveBitCommand(client, e);
+                            }
+                            else
+                            {
+                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
+                            }
+                        }
+                        break;
+
                     case "refund":
                         if (Properties.Settings.Default.isModRefundEnabled)
                         {
@@ -1285,6 +1299,10 @@ namespace UiBot
 
                     case "addbits":
                         ChatCommandMethods.AddBitCommand(client, e);
+                        break;
+
+                    case "rembits":
+                        ChatCommandMethods.RemoveBitCommand(client, e);
                         break;
 
                     case "refund":
