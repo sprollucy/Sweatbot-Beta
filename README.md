@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.76 Alpha**
+# **Sweat Bot 1.0.0.77 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 
@@ -68,7 +68,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.76)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.77)
 
 ---
 
@@ -158,6 +158,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.0.76-alpha
+- Spelling errors
+- Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error
+- Added file for loading saved toggles to prevent them resetting on update
+- Added blerp integration. If a user sends something with blerp and the message shows up in chat, it should add the bits (testing)
 
 1.0.0.75-alpha
 - Added screen pixelation mode. In testing and may be very buggy
