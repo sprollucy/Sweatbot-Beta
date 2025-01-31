@@ -237,7 +237,7 @@
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            commanduseBox.Size = new Size(957, 257);
+            commanduseBox.Size = new Size(957, 326);
             commanduseBox.TabIndex = 10;
             commanduseBox.Text = "";
             // 
@@ -694,7 +694,7 @@
             pictureBox5.BackColor = Color.FromArgb(156, 155, 151);
             pictureBox5.Location = new Point(55, 679);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(967, 267);
+            pictureBox5.Size = new Size(967, 336);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 12;
             pictureBox5.TabStop = false;

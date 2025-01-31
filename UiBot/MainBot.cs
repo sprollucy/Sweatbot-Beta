@@ -87,7 +87,7 @@ namespace UiBot
             }
             else
             {
-                Console.WriteLine("[Sweat Bot]: Not connected");
+                Console.WriteLine("[SweatBot]: Not connected");
             }
         }
 
@@ -95,7 +95,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                Console.WriteLine($"[Sweat Bot]: Connecting to {channelId}...");
+                Console.WriteLine($"[SweatBot]: Connecting to {channelId}...");
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
@@ -111,20 +111,20 @@ namespace UiBot
                 if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelId))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
-                    Console.WriteLine("[Sweat Bot]: Disconnected");
+                    Console.WriteLine("[SweatBot]: Disconnected");
                     return; // Don't proceed further
                 }
                 if (creds == null)
                 {
                     MessageBox.Show("Twitch credentials are not set.");
-                    Console.WriteLine("[Sweat Bot]: Disconnected");
+                    Console.WriteLine("[SweatBot]: Disconnected");
                     return; // Don't proceed further
                 }
 
                 if (channelId == null)
                 {
                     MessageBox.Show("Twitch channel are not set.");
-                    Console.WriteLine("[Sweat Bot]: Disconnected");
+                    Console.WriteLine("[SweatBot]: Disconnected");
                     return; // Don't proceed further
                 }
 
@@ -361,17 +361,6 @@ namespace UiBot
                             {
                                 int currentBits = MainBot.userBits[e.ChatMessage.DisplayName];
                                 int bitsRequired = cheerAmount;
-
-                                if (currentBits < bitsRequired)
-                                {
-                                    // Calculate how many bits are missing
-                                    int missingBits = bitsRequired - currentBits;
-                                    MainBot.userBits[e.ChatMessage.DisplayName] += missingBits; // Add the missing bits
-
-                                    // Log the topping up of bits
-                                    LogHandler.LogCommand(e.ChatMessage.DisplayName, "Topped up", missingBits, MainBot.userBits, timestamp);
-                                    client.SendMessage(e.ChatMessage.Channel, $"You were missing {missingBits} bits, and they have been added to your balance.");
-                                }
 
                                 // Execute the command since user now has enough bits
                                 try
@@ -624,7 +613,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use this feature, simply cheer Bits in the chat, and the bot will track how many you've given or do !{cheeramount} to directly run a command that matches that ammount. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
+                        client.SendMessage(channelId, "To use Sweatbot, simply cheer Bits in the chat, and the bot will track how many you've given or do !{cheeramount} to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
 );
                     }
                     break;
