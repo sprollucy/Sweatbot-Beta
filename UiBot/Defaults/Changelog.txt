@@ -1,6 +1,6 @@
 1.0.0.77-alpha
 -Spelling errors
--Added !rembit. Use !rembit @user amount to remove bits from a user in case of a error
+-Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error
 
 1.0.0.76-alpha
 -Added screen pixelation mode. In testing and may be very buggy

@@ -68,8 +68,7 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
-            label17 = new Label();
-            label16 = new Label();
+            blerpBox = new CheckBox();
             label15 = new Label();
             label14 = new Label();
             enableSubBonusMulti = new CheckBox();
@@ -88,6 +87,7 @@
             modMake = new CheckBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
+            label13 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -573,8 +573,8 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(label17);
-            panel2.Controls.Add(label16);
+            panel2.Controls.Add(label13);
+            panel2.Controls.Add(blerpBox);
             panel2.Controls.Add(label15);
             panel2.Controls.Add(label14);
             panel2.Controls.Add(enableSubBonusMulti);
@@ -595,28 +595,19 @@
             panel2.ForeColor = SystemColors.ControlText;
             panel2.Location = new Point(53, 247);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 192);
+            panel2.Size = new Size(514, 277);
             panel2.TabIndex = 121;
             // 
-            // label17
+            // blerpBox
             // 
-            label17.AutoSize = true;
-            label17.ForeColor = Color.Red;
-            label17.Location = new Point(223, 126);
-            label17.Name = "label17";
-            label17.Size = new Size(57, 15);
-            label17.TabIndex = 144;
-            label17.Text = "In Testing";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.ForeColor = Color.Red;
-            label16.Location = new Point(229, 89);
-            label16.Name = "label16";
-            label16.Size = new Size(57, 15);
-            label16.TabIndex = 143;
-            label16.Text = "In Testing";
+            blerpBox.AutoSize = true;
+            blerpBox.Location = new Point(12, 150);
+            blerpBox.Name = "blerpBox";
+            blerpBox.Size = new Size(350, 49);
+            blerpBox.TabIndex = 125;
+            blerpBox.Text = "Enable Blerp Integration \r\n(if a user sends a message with blerp, \r\nit will read how many bits they spent and add it to their wallet\r\n";
+            blerpBox.UseVisualStyleBackColor = true;
+            blerpBox.CheckedChanged += blerpcheckBox_CheckedChanged;
             // 
             // label15
             // 
@@ -834,6 +825,16 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = Color.Red;
+            label13.Location = new Point(235, 166);
+            label13.Name = "label13";
+            label13.Size = new Size(57, 15);
+            label13.TabIndex = 145;
+            label13.Text = "In Testing";
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -928,9 +929,9 @@
         private Label label9;
         private Label label1;
         private Label label12;
-        private Label label17;
-        private Label label16;
         private Label label15;
         private Label label14;
+        private CheckBox blerpBox;
+        private Label label13;
     }
 }

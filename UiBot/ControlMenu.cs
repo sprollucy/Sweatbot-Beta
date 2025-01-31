@@ -31,6 +31,7 @@ namespace UiBot
             modMake.Checked = Properties.Settings.Default.isModAddEnabled;
             modRemove.Checked = Properties.Settings.Default.isModRemoveEnabled;
             bitGambleCheck.Checked = Properties.Settings.Default.isBitGambleEnabled;
+            bitGambleCheck.Checked = Properties.Settings.Default.isblerpEnabled;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -304,6 +305,12 @@ namespace UiBot
         private void bitGambleCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isblerpEnabled = bitGambleCheck.Checked;
             Properties.Settings.Default.Save();
         }
     }

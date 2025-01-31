@@ -506,6 +506,38 @@ namespace UiBot
                     }
                 }
             }
+
+            if (Properties.Settings.Default.isblerpEnabled)
+            {
+                string message = e.ChatMessage.Message;
+
+                if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase) && message.StartsWith("blerp:"))
+                {
+                    // Extract the username and bit amount
+                    string[] words = message.Split(' ');
+                    if (words.Length >= 4 && int.TryParse(words[2], out int bitsUsed))
+                    {
+                        string user = words[1]; // Assuming the second word is the username
+
+                        if (!userBits.ContainsKey(user))
+                        {
+                            userBits[user] = bitsUsed;
+                        }
+                        else
+                        {
+                            userBits[user] += bitsUsed;
+                        }
+
+                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} bits! Your total is now {userBits[user]}.");
+                        Console.WriteLine($"[{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
+
+                        LogHandler.WriteUserBitsToJson("user_bits.json");
+                        LogHandler.LogBits(user, bitsUsed, timestamp);
+                    }
+                }
+            }
+
+
         }
 
 

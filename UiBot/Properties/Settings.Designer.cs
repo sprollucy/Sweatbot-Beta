@@ -478,5 +478,17 @@ namespace UiBot.Properties {
                 this["isBitGambleEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isblerpEnabled {
+            get {
+                return ((bool)(this["isblerpEnabled"]));
+            }
+            set {
+                this["isblerpEnabled"] = value;
+            }
+        }
     }
 }
