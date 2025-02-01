@@ -1,6 +1,7 @@
-# **Sweat Bot 1.0.0.76 Alpha**
+# **Sweat Bot 1.0.0.78 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
+Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
 
 ## Table of Contents
 - [Features](#features)
@@ -68,7 +69,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.76)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.78)
 
 ---
 
@@ -152,12 +153,22 @@ To add your own sounds:
 
 ## **Support**
 
-Feel free to report issues via GitHub or contact me on Discord: *sprollucy*.  
+Feel free to report issues via [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4)  
 If you enjoy the project and want to support my work, consider donating via [PayPal](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA).
 
 ---
 
 ## **Latest Changelog**
+
+1.0.0.78-alpha
+- Added Refund menu to the connect menu
+- Added file for loading saved toggles to prevent them reseting on update
+
+1.0.0.76-alpha
+- Spelling errors
+- Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error
+- Added file for loading saved toggles to prevent them resetting on update
+- Added blerp integration. If a user sends something with blerp and the message shows up in chat, it should add the bits (testing)
 
 1.0.0.75-alpha
 - Added screen pixelation mode. In testing and may be very buggy
@@ -165,17 +176,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added in a way for user to directly use a command without having to cheer bits before running a command. Using ! before a cheer will look for a command with that cost, and if it matches that cost it will run the command. If the amount doesn't match a command, than it is added to the users bits stored in the bot 
 - Fixed bug with !cheer that would cause a over payment
 - Fixed bug with !cheer failing to store bits a user gave for overpayment
-
-1.0.0.75-alpha
-- Added expandable menu to show normal chat commands
-- Made it so if you have more spent this session than last session, the number will turn green. If it is less than last session it will turn red
-- Bug fixes
-- Added way to directly call commands by cheering bits with ! in front. If it matches the cost of a command it will run it, if not it will add to the user bits
-
-1.0.0.74-alpha
-- Trader menu adjustments
-- Added a way to add commands in chat. Using !sbadd you can add commands as long as its a valid format. Example !sbadd chatcom 100 kp=1 kh=d(100)
-- Added a way to remove commands from chat using !sbremove. Be careful with this
-- Added moderator toggles for these 2 new commands as well
-- Added gambling command, allowing users a chance to make more bits without spending. Use !sbgamble {amount}
-
