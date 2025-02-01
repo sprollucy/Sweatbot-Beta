@@ -47,7 +47,6 @@
             customCommandBox = new RichTextBox();
             panel2 = new Panel();
             label12 = new Label();
-            refundwinButton = new Button();
             economyCheckBox = new CheckBox();
             label1 = new Label();
             backupButton = new Button();
@@ -55,7 +54,7 @@
             pauseCommands = new CheckBox();
             pictureBox8 = new PictureBox();
             label2 = new Label();
-            label3 = new Label();
+            consoleTab = new Label();
             pictureBox2 = new PictureBox();
             pictureBox5 = new PictureBox();
             manramLabel = new Label();
@@ -82,9 +81,7 @@
             panel1 = new Panel();
             logListPanel = new FlowLayoutPanel();
             refundPanel = new Panel();
-            closeRefundButton = new Button();
-            label21 = new Label();
-            pictureBox3 = new PictureBox();
+            refundTab = new Label();
             econoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
@@ -99,7 +96,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             panel1.SuspendLayout();
             refundPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // messageTextBox
@@ -108,7 +104,7 @@
             messageTextBox.BorderStyle = BorderStyle.None;
             messageTextBox.Location = new Point(53, 427);
             messageTextBox.Name = "messageTextBox";
-            messageTextBox.PlaceholderText = "Type here to send a message to chat. Enter to send!";
+            messageTextBox.PlaceholderText = "Type here to send a message to chat. Enter to send or test a command with ! in front of its name";
             messageTextBox.Size = new Size(598, 16);
             messageTextBox.TabIndex = 0;
             // 
@@ -311,7 +307,6 @@
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
             panel2.Controls.Add(label12);
-            panel2.Controls.Add(refundwinButton);
             panel2.Controls.Add(economyCheckBox);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(backupButton);
@@ -332,16 +327,6 @@
             label12.Size = new Size(57, 15);
             label12.TabIndex = 140;
             label12.Text = "In Testing";
-            // 
-            // refundwinButton
-            // 
-            refundwinButton.Location = new Point(33, 163);
-            refundwinButton.Name = "refundwinButton";
-            refundwinButton.Size = new Size(104, 23);
-            refundwinButton.TabIndex = 143;
-            refundwinButton.Text = "Refund Menu";
-            refundwinButton.UseVisualStyleBackColor = true;
-            refundwinButton.Click += refundwinButton_Click;
             // 
             // economyCheckBox
             // 
@@ -372,7 +357,7 @@
             // 
             // backupButton
             // 
-            backupButton.Location = new Point(33, 136);
+            backupButton.Location = new Point(33, 105);
             backupButton.Name = "backupButton";
             backupButton.Size = new Size(103, 23);
             backupButton.TabIndex = 29;
@@ -382,7 +367,7 @@
             // 
             // twitchOpen
             // 
-            twitchOpen.Location = new Point(33, 107);
+            twitchOpen.Location = new Point(33, 134);
             twitchOpen.Name = "twitchOpen";
             twitchOpen.Size = new Size(103, 23);
             twitchOpen.TabIndex = 28;
@@ -425,17 +410,19 @@
             label2.TabIndex = 13;
             label2.Text = "Remember this is unfinished software. Things will be broken or changed!";
             // 
-            // label3
+            // consoleTab
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(71, 83, 92);
-            label3.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label3.ForeColor = SystemColors.ControlLight;
-            label3.Location = new Point(56, 41);
-            label3.Name = "label3";
-            label3.Size = new Size(71, 19);
-            label3.TabIndex = 29;
-            label3.Text = "Console";
+            consoleTab.AutoSize = true;
+            consoleTab.BackColor = Color.FromArgb(120, 132, 142);
+            consoleTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
+            consoleTab.ForeColor = SystemColors.ControlLight;
+            consoleTab.Location = new Point(54, 39);
+            consoleTab.Name = "consoleTab";
+            consoleTab.Size = new Size(82, 23);
+            consoleTab.TabIndex = 29;
+            consoleTab.Text = "Console";
+            consoleTab.TextAlign = ContentAlignment.MiddleCenter;
+            consoleTab.Click += consoleTab_Click;
             // 
             // pictureBox2
             // 
@@ -699,55 +686,33 @@
             // logListPanel
             // 
             logListPanel.AutoScroll = true;
-            logListPanel.Location = new Point(13, 28);
+            logListPanel.Location = new Point(3, 3);
             logListPanel.Name = "logListPanel";
-            logListPanel.Size = new Size(964, 484);
+            logListPanel.Size = new Size(594, 353);
             logListPanel.TabIndex = 31;
             // 
             // refundPanel
             // 
             refundPanel.BackColor = Color.FromArgb(156, 155, 151);
             refundPanel.Controls.Add(logListPanel);
-            refundPanel.Controls.Add(closeRefundButton);
-            refundPanel.Controls.Add(label21);
-            refundPanel.Controls.Add(pictureBox3);
-            refundPanel.Location = new Point(53, 626);
+            refundPanel.Location = new Point(53, 618);
             refundPanel.Name = "refundPanel";
-            refundPanel.Size = new Size(984, 565);
+            refundPanel.Size = new Size(598, 359);
             refundPanel.TabIndex = 142;
             // 
-            // closeRefundButton
+            // refundTab
             // 
-            closeRefundButton.Location = new Point(902, 530);
-            closeRefundButton.Name = "closeRefundButton";
-            closeRefundButton.Size = new Size(75, 23);
-            closeRefundButton.TabIndex = 144;
-            closeRefundButton.Text = "Close";
-            closeRefundButton.UseVisualStyleBackColor = true;
-            closeRefundButton.Click += closeRefundButton_Click;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.BackColor = Color.FromArgb(71, 83, 92);
-            label21.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label21.ForeColor = SystemColors.ControlLight;
-            label21.Location = new Point(0, 0);
-            label21.Name = "label21";
-            label21.Size = new Size(113, 19);
-            label21.TabIndex = 144;
-            label21.Text = "Refund Menu";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.FromArgb(71, 83, 92);
-            pictureBox3.BackgroundImageLayout = ImageLayout.None;
-            pictureBox3.Location = new Point(0, 0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(984, 22);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 30;
-            pictureBox3.TabStop = false;
+            refundTab.AutoSize = true;
+            refundTab.BackColor = Color.FromArgb(71, 83, 92);
+            refundTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
+            refundTab.ForeColor = SystemColors.ControlLight;
+            refundTab.Location = new Point(142, 39);
+            refundTab.Name = "refundTab";
+            refundTab.Size = new Size(85, 23);
+            refundTab.TabIndex = 143;
+            refundTab.Text = "Refunds";
+            refundTab.TextAlign = ContentAlignment.MiddleCenter;
+            refundTab.Click += refundTab_Click;
             // 
             // ConnectMenu
             // 
@@ -756,18 +721,19 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1058, 1211);
             ControlBox = false;
+            Controls.Add(consoleTab);
+            Controls.Add(refundTab);
+            Controls.Add(pictureBox2);
             Controls.Add(refundPanel);
             Controls.Add(panel1);
             Controls.Add(econoPanel);
             Controls.Add(panel2);
             Controls.Add(debugGroup);
             Controls.Add(pictureBox5);
-            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(disconnectButton);
             Controls.Add(connectButton);
             Controls.Add(messageTextBox);
-            Controls.Add(pictureBox2);
             Controls.Add(consoleTextBox);
             Controls.Add(chatComPanel);
             Controls.Add(regComLabel);
@@ -795,8 +761,6 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             refundPanel.ResumeLayout(false);
-            refundPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -811,7 +775,7 @@
         private CheckBox pauseCommands;
         private Button twitchOpen;
         private Label label2;
-        private Label label3;
+        private Label consoleTab;
         private PictureBox pictureBox2;
         private Button backupButton;
         private RichTextBox customCommandBox;
@@ -855,12 +819,9 @@
         private PictureBox pictureBox9;
         public Panel chatComPanel;
         private Panel panel1;
-        private Button refundwinButton;
         private FlowLayoutPanel logListPanel;
         public Panel refundPanel;
-        private PictureBox pictureBox3;
-        private Label label21;
-        private Button closeRefundButton;
         private Label label22;
+        private Label refundTab;
     }
 }

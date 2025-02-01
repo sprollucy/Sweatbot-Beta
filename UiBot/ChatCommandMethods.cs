@@ -205,6 +205,10 @@ namespace UiBot
 
                     // Send message to chat
                     client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
+                    Task.Delay(500).ContinueWith(t =>
+                    {
+                        ConnectMenu.Instance.LoadLogEntries(); // Reload log entries from the updated file
+                    });
                 }
                 else
                 {

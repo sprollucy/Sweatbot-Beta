@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using TwitchLib.Client;
 using TwitchLib.Communication.Interfaces;
 using Timer = System.Windows.Forms.Timer;
@@ -9,6 +10,8 @@ namespace UiBot
     public partial class ConnectMenu : Form
     {
         private MainBot bot;
+        public static ConnectMenu Instance { get; private set; }
+
         private CommandHandler commandHandler; // Add this field
         private TextBoxWriter textBoxWriter;
         private Timer economyTimer;  // Timer for periodic updates
@@ -31,9 +34,11 @@ namespace UiBot
             ControlMenu controlMenu = new ControlMenu();
             SettingMenu settingMenu = new SettingMenu();
             bot = new MainBot();
+            Instance = this; // Set the instance reference
             commandHandler = new CommandHandler();
             InitializeComponent();
             InitializeConsole();
+            InitializeTabHoverEvents();
             controlMenu.LoadSettings();
             this.TopLevel = false;
 
@@ -565,28 +570,74 @@ namespace UiBot
             }
         }
 
-        private void refundwinButton_Click(object sender, EventArgs e)
+        private void refundTab_Click(object sender, EventArgs e)
         {
-                refundPanel.Location = new Point(53, 38); // Reset the position when collapsed
+            refundPanel.Location = new Point(53, 62); // Reset the position when collapsed
+            refundTab.BackColor = Color.FromArgb(120, 132, 142);  // Set the active tab to bright color
+            consoleTab.BackColor = Color.FromArgb(71, 83, 92);    // Set the inactive tab to darker color
         }
-        private void closeRefundButton_Click(object sender, EventArgs e)
+
+        private void consoleTab_Click(object sender, EventArgs e)
         {
             refundPanel.Location = new Point(53, 626); // Reset the position when collapsed
+            refundTab.BackColor = Color.FromArgb(71, 83, 92);    // Set the inactive tab to darker color
+            consoleTab.BackColor = Color.FromArgb(120, 132, 142); // Set the active tab to bright color
         }
+
+        private void InitializeTabHoverEvents()
+        {
+            // Register MouseEnter and MouseLeave events for both tabs
+            refundTab.MouseEnter += (sender, e) =>
+            {
+                // Only change the color if it's not active
+                if (refundPanel.Location.Y != 62)
+                {
+                    refundTab.BackColor = Color.FromArgb(120, 132, 142); // Color on hover
+                }
+            };
+            refundTab.MouseLeave += (sender, e) =>
+            {
+                // Only reset if it's not active
+                if (refundPanel.Location.Y != 62)
+                {
+                    refundTab.BackColor = Color.FromArgb(71, 83, 92); // Reset color when not hovering
+                }
+            };
+
+            consoleTab.MouseEnter += (sender, e) =>
+            {
+                // Only change the color if it's not active
+                if (refundPanel.Location.Y != 626)
+                {
+                    consoleTab.BackColor = Color.FromArgb(120, 132, 142); // Color on hover
+                }
+            };
+            consoleTab.MouseLeave += (sender, e) =>
+            {
+                // Only reset if it's not active
+                if (refundPanel.Location.Y != 626)
+                {
+                    consoleTab.BackColor = Color.FromArgb(71, 83, 92); // Reset color when not hovering
+                }
+            };
+        }
+
 
         /*
          * Refund
          */
 
-        private void LoadLogEntries()
+        public void LoadLogEntries()
         {
             if (!File.Exists(logFilePath)) return;
 
-            // Lock the section of the code that accesses the file
-            lock (fileLock)
-            {
-                logEntries = File.ReadAllLines(logFilePath).ToList();
-            }
+            logEntries = File.ReadAllLines(logFilePath).ToList();
+
+            // Remove any entries that have a refund operation
+            logEntries = logEntries.Where(entry => !entry.Contains("refunded")).ToList();
+
+            // Reverse the log entries so the newest one appears at the top
+            logEntries.Reverse();
 
             // Ensure this runs on the UI thread
             if (logListPanel.InvokeRequired)
@@ -602,13 +653,63 @@ namespace UiBot
             {
                 if (string.IsNullOrWhiteSpace(entry)) continue; // Ignore empty lines
 
-                var panel = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.LeftToRight, Width = logListPanel.Width };
-                var label = new Label { Text = entry, AutoSize = true, Width = 500 };
-                var refundButton = new Button { Text = "Refund", Tag = entry, AutoSize = true, FlatStyle = FlatStyle.Flat };
+                // Remove the date part from the beginning of the log entry
+                string logEntryWithoutDate = entry.Length > 5 ? entry.Substring(6).Trim() : entry;
+
+                // Remove the "now has <number> bits" part using a regular expression
+                logEntryWithoutDate = Regex.Replace(logEntryWithoutDate, @"bits, now has \d+ bits", "").Trim();
+
+                var tableLayoutPanel = new TableLayoutPanel
+                {
+                    AutoSize = true,
+                    RowCount = 1,
+                    ColumnCount = 2,
+                    Width = logListPanel.Width,
+                    ColumnStyles =
+            {
+                new ColumnStyle(SizeType.Percent, 85),  // 85% for the label column
+                new ColumnStyle(SizeType.Percent, 15)   // 15% for the button column
+            },
+                    Padding = new Padding(0),  // Remove all padding around the table layout
+                    Margin = new Padding(0)   // Remove any extra margin around the table layout
+                };
+
+                var label = new Label
+                {
+                    Text = logEntryWithoutDate,
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 10),
+                    Margin = new Padding(0, 7, 0, 0)  // Remove margin from the label
+                };
+
+                var refundButton = new Button
+                {
+                    Text = "Refund",
+                    Tag = entry,
+                    AutoSize = false,  // Set AutoSize to false to control button size
+                    Width = 80,        // Define a specific width for the button
+                    Height = 30,       // Define a specific height for the button
+                    FlatStyle = FlatStyle.Flat
+                };
+                refundButton.FlatAppearance.BorderSize = 0; // Optional, for a cleaner look
+                refundButton.BackColor = Color.FromArgb(71, 83, 92); // Set initial button background color
+
+                // Add mouse event handlers for hover over change
+                refundButton.MouseEnter += (sender, e) =>
+                {
+                    refundButton.BackColor = Color.FromArgb(120, 132, 142); // Color on hover
+                }; 
+                refundButton.MouseLeave += (sender, e) =>
+                {
+                    refundButton.BackColor = Color.FromArgb(71, 83, 92); // Color on hover
+                };
                 refundButton.Click += RefundButton_Click;
-                panel.Controls.Add(label);
-                panel.Controls.Add(refundButton);
-                logListPanel.Controls.Add(panel); // Add the panel to the FlowLayoutPanel
+
+                // Add controls to the TableLayoutPanel
+                tableLayoutPanel.Controls.Add(label, 0, 0);  // Label in the first column
+                tableLayoutPanel.Controls.Add(refundButton, 1, 0);  // Button in the second column
+
+                logListPanel.Controls.Add(tableLayoutPanel); // Add the TableLayoutPanel to the main panel
             }
         }
 
@@ -652,33 +753,39 @@ namespace UiBot
             string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
             bot.SendMessage($"{bitsCost} bits refunded to {userName}. New total: {MainBot.userBits[userName]} bits");
             Console.WriteLine($"[{timestamp}] Refunded {bitsCost} bits to {userName}. New total: {MainBot.userBits[userName]} bits");
+
+            // Write updated log after refund
+            UpdateLogAfterRefund();
         }
 
-
-        public void RefunderMessge(string userName, int bitsCost)
+        private void UpdateLogAfterRefund()
         {
-            // Ensure the latest balance is fetched after the refund
-            if (userBits.ContainsKey(userName))
+            // Lock to ensure only one thread can access the file at a time
+            lock (fileLock)
             {
-                // Send the updated message with the correct balance
-                bot.SendMessage($"Refunded {bitsCost} bits to {userName}. They now have {userBits[userName]} bits.");
-            }
-            else
-            {
-                bot.SendMessage($"Error: User {userName} not found for refund.");
-            }
-
-            // Reload the updated balances and log entries on the UI thread
-            if (logListPanel.InvokeRequired)
-            {
-                logListPanel.Invoke(new Action(() =>
+                try
                 {
-                    LoadLogEntries(); // Reload log entries from the file
-                }));
-            }
-            else
-            {
-                LoadLogEntries();
+                    // Open the file in a writable mode (using FileMode.OpenOrCreate ensures the file is created if it doesn't exist)
+                    using (FileStream fs = new FileStream(logFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                    {
+                        using (StreamWriter writer = new StreamWriter(fs))
+                        {
+                            // Write all entries (replace with updated entries if necessary)
+                            foreach (var entry in logEntries)
+                            {
+                                writer.WriteLine(entry);
+                            }
+                        }
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine($"IOException while updating log file: {ex.Message}");
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.WriteLine($"UnauthorizedAccessException: {ex.Message}");
+                }
             }
         }
 
@@ -725,6 +832,5 @@ namespace UiBot
                 LoadLogEntries();
             }
         }
-
     }
 }
