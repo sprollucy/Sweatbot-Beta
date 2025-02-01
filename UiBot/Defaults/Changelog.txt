@@ -1,3 +1,7 @@
+1.0.0.78-alpha
+-Added Refund menu to the connect menu
+-Added file for loading saved toggles to prevent them resetting on update
+
 1.0.0.77-alpha
 -Spelling errors
 -Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error

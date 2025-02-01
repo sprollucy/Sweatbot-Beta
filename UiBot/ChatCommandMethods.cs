@@ -24,6 +24,8 @@ namespace UiBot
 
     internal class ChatCommandMethods
     {
+        private static readonly object fileLock = new object();
+
         //command dictionary
         public Dictionary<string, string> commandConfigData;
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
@@ -58,10 +60,14 @@ namespace UiBot
 
             try
             {
-                // Read the JSON file and parse it to extract the multiplier
-                string json = File.ReadAllText(configFilePath);
-                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                bonusMultiplierBox = configData?.bonusMultiplierBox;
+                // Lock the file access section
+                lock (fileLock)
+                {
+                    // Read the JSON file and parse it to extract the multiplier
+                    string json = File.ReadAllText(configFilePath);
+                    var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                    bonusMultiplierBox = configData?.bonusMultiplierBox;
+                }
             }
             catch (Exception ex)
             {
@@ -92,10 +98,14 @@ namespace UiBot
 
             try
             {
-                // Read the JSON file and parse it to extract the multiplier
-                string json = File.ReadAllText(configFilePath);
-                var configData = JsonConvert.DeserializeObject<ConfigData>(json);
-                subbonusMultiplierBox = configData?.subbonusMultiplierBox;
+                // Lock the file access section
+                lock (fileLock)
+                {
+                    // Read the JSON file and parse it to extract the multiplier
+                    string json = File.ReadAllText(configFilePath);
+                    var configData = JsonConvert.DeserializeObject<ConfigData>(json);
+                    subbonusMultiplierBox = configData?.subbonusMultiplierBox;
+                }
             }
             catch (Exception ex)
             {
@@ -123,71 +133,83 @@ namespace UiBot
 
         public static void RefundLastCommand(OnChatCommandReceivedArgs e, string userName, Dictionary<string, int> userBits, TwitchClient client, string channelId)
         {
-            // Get the current date and timestamp for the log
-            string date = DateTime.Now.ToString("M-d-yy");
-            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
-
-            // Construct the log file path with the date in its name
-            string logFileName = $"{date} bitlog.txt";
-            string logFilePath = Path.Combine("Logs", logFileName);
-
-            if (!File.Exists(logFilePath))
+            lock (fileLock)
             {
-                Console.WriteLine("No log file found for today.");
-                return;
-            }
+                // Get the current date and timestamp for the log
+                string date = DateTime.Now.ToString("M-d-yy");
+                string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
-            // Read all lines from the log file
-            string[] logLines = File.ReadAllLines(logFilePath);
+                // Construct the log file path with the date in its name
+                string logFileName = $"{date} bitlog.txt";
+                string logFilePath = Path.Combine("Logs", logFileName);
 
-            // Find the last log line for the specified user
-            string lastUserLogLine = logLines.LastOrDefault(line => line.Contains($" - {userName} had "));
-
-            if (string.IsNullOrEmpty(lastUserLogLine))
-            {
-                Console.WriteLine($"No log found for user {userName}.");
-                return;
-            }
-
-            // Extract information from the last log line for the user
-            string[] parts = lastUserLogLine.Split(new[] { " - ", " had ", " bits, used ", " command, costing ", " bits, now has " }, StringSplitOptions.None);
-
-            if (parts.Length < 6)
-            {
-                Console.WriteLine("Log format is invalid.");
-                return;
-            }
-
-            string logUserName = parts[1];
-            int bitsCost = int.Parse(parts[4]);
-
-            // Refund the bits to the user
-            if (userBits.ContainsKey(logUserName))
-            {
-                userBits[logUserName] += bitsCost; // Add the refunded bits to the current balance
-
-                // Log the refund operation
-                int currentTotalBits = userBits[logUserName];
-                string logMessage = $"{timestamp} - {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}, now has {currentTotalBits} bits";
-
-                // Ensure the Logs directory exists
-                if (!Directory.Exists("Logs"))
+                if (!File.Exists(logFilePath))
                 {
-                    Directory.CreateDirectory("Logs");
+                    Console.WriteLine("No log file found for today.");
+                    return;
                 }
 
-                // Append the log message to the file
-                File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+                // Read all lines from the log file
+                List<string> logLines = File.ReadAllLines(logFilePath).ToList();
 
-                // Output to console
-                Console.WriteLine($"[{timestamp}] {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
+                // Find the last relevant log line for the specified user (ignore refunded lines)
+                string lastUserLogLine = logLines.LastOrDefault(line =>
+                    line.Contains(userName) &&
+                    line.Contains("had") &&
+                    !line.Contains("refunded"));
 
-                // Send message to chat
-                client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
-            }
-            else
-            {
-                Console.WriteLine("User not found in the bits dictionary.");
+                if (string.IsNullOrEmpty(lastUserLogLine))
+                {
+                    Console.WriteLine($"No valid log found for user {userName}.");
+                    return;
+                }
+
+                // Extract information from the last log line for the user
+                string[] parts = lastUserLogLine.Split(new[] { " - ", " had ", " bits, used ", " command, costing ", " bits, now has " }, StringSplitOptions.None);
+
+                if (parts.Length < 6)
+                {
+                    Console.WriteLine("Log format is invalid.");
+                    return;
+                }
+
+                string logUserName = parts[1];  // This is the userName from the log line
+                int bitsCost = int.Parse(parts[4]);  // The amount of bits that were used (which will be refunded)
+
+                // Refund the bits to the user
+                if (userBits.ContainsKey(logUserName))
+                {
+                    userBits[logUserName] += bitsCost; // Add the refunded bits to the current balance
+
+                    // Log the refund operation
+                    int currentTotalBits = userBits[logUserName];
+                    string logMessage = $"{timestamp} - {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}, now has {currentTotalBits} bits";
+
+                    // Remove the last log entry for the user from the list
+                    logLines.Remove(lastUserLogLine);  // Remove the entry from the list
+
+                    // Ensure the Logs directory exists
+                    if (!Directory.Exists("Logs"))
+                    {
+                        Directory.CreateDirectory("Logs");
+                    }
+
+                    // Write the updated log file without the refunded entry
+                    File.WriteAllLines(logFilePath, logLines);
+
+                    // Append the refund log message to the file
+                    File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+
+                    // Output to console
+                    Console.WriteLine($"[{timestamp}] {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
+
+                    // Send message to chat
+                    client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
+                }
+                else
+                {
+                    Console.WriteLine("User not found in the bits dictionary.");
+                }
             }
         }
 
@@ -204,7 +226,12 @@ namespace UiBot
                 {
                     // Update user's bits
                     LogHandler.UpdateUserBits(username, bitsToAdd);
-                    LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, MainBot.userBits, timestamp);
+
+                    // Lock the log file to avoid concurrency issues when writing to it
+                    lock (fileLock)
+                    {
+                        LogHandler.LogAddbits(e.Command.ChatMessage.DisplayName, "addbits", bitsToAdd, username, MainBot.userBits, timestamp);
+                    }
 
                     // Notify about successful update
                     client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToAdd} bits added to {username}. New total: {MainBot.userBits[username]} bits");
@@ -231,7 +258,12 @@ namespace UiBot
                 {
                     // Update user's bits
                     LogHandler.UpdateUserBitsRemoved(username, bitsToRemove);
-                    LogHandler.LogRemovebits(e.Command.ChatMessage.DisplayName, "rembits", bitsToRemove, username, MainBot.userBits, timestamp);
+
+                    // Lock the log file to avoid concurrency issues when writing to it
+                    lock (fileLock)
+                    {
+                        LogHandler.LogRemovebits(e.Command.ChatMessage.DisplayName, "rembits", bitsToRemove, username, MainBot.userBits, timestamp);
+                    }
 
                     // Notify about successful update
                     client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToRemove} bits removed from {username}. New total: {MainBot.userBits[username]} bits");

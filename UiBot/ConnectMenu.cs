@@ -24,6 +24,7 @@ namespace UiBot
         private string logFilePath;
         private List<string> logEntries;
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
+        private static readonly object fileLock = new object();
 
         public ConnectMenu()
         {
@@ -96,8 +97,8 @@ namespace UiBot
             }
             else
             {
-                chatComPanel.Height = 118; // Expand
-                chatComPanel.Width = 741;
+                chatComPanel.Height = 96; // Expand
+                chatComPanel.Width = 749;
                 regComLabel.Text = "Regular Chat Commands (click to minimize)";
                 regComLabel.Location = new Point(56, 485);
                 pictureBox9.BackColor = Color.FromArgb(71, 83, 92);
@@ -581,7 +582,11 @@ namespace UiBot
         {
             if (!File.Exists(logFilePath)) return;
 
-            logEntries = File.ReadAllLines(logFilePath).ToList();
+            // Lock the section of the code that accesses the file
+            lock (fileLock)
+            {
+                logEntries = File.ReadAllLines(logFilePath).ToList();
+            }
 
             // Ensure this runs on the UI thread
             if (logListPanel.InvokeRequired)
@@ -613,7 +618,12 @@ namespace UiBot
             {
                 ProcessRefund(logEntry);
                 logEntries.Remove(logEntry);
-                File.WriteAllLines(logFilePath, logEntries); // Save updated log
+
+                // Lock the section of the code that accesses the file
+                lock (fileLock)
+                {
+                    File.WriteAllLines(logFilePath, logEntries); // Save updated log
+                }
 
                 // Remove refunded entry from UI
                 RemoveLogEntryFromUI(logEntry);
@@ -697,6 +707,7 @@ namespace UiBot
             fileWatcher.Changed += OnLogFileChanged;
             fileWatcher.Renamed += OnLogFileChanged; // in case the file is renamed
         }
+
         private void OnLogFileChanged(object sender, FileSystemEventArgs e)
         {
             // Ensure this runs on the UI thread
@@ -707,10 +718,13 @@ namespace UiBot
                 return;
             }
 
-            // Reload the log entries when the file changes
-            LoadLogEntries();
+            // Lock the section of the code that accesses the file
+            lock (fileLock)
+            {
+                // Reload the log entries when the file changes
+                LoadLogEntries();
+            }
         }
-
 
     }
 }

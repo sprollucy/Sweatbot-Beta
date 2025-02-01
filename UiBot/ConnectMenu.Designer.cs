@@ -47,6 +47,7 @@
             customCommandBox = new RichTextBox();
             panel2 = new Panel();
             label12 = new Label();
+            refundwinButton = new Button();
             economyCheckBox = new CheckBox();
             label1 = new Label();
             backupButton = new Button();
@@ -75,10 +76,10 @@
             label9 = new Label();
             label8 = new Label();
             chatComPanel = new Panel();
+            label22 = new Label();
             pictureBox9 = new PictureBox();
             regComLabel = new Label();
             panel1 = new Panel();
-            refundwinButton = new Button();
             logListPanel = new FlowLayoutPanel();
             refundPanel = new Panel();
             closeRefundButton = new Button();
@@ -332,6 +333,16 @@
             label12.TabIndex = 140;
             label12.Text = "In Testing";
             // 
+            // refundwinButton
+            // 
+            refundwinButton.Location = new Point(33, 163);
+            refundwinButton.Name = "refundwinButton";
+            refundwinButton.Size = new Size(104, 23);
+            refundwinButton.TabIndex = 143;
+            refundwinButton.Text = "Refund Menu";
+            refundwinButton.UseVisualStyleBackColor = true;
+            refundwinButton.Click += refundwinButton_Click;
+            // 
             // economyCheckBox
             // 
             economyCheckBox.AutoSize = true;
@@ -504,7 +515,7 @@
             // 
             label20.AutoSize = true;
             label20.ForeColor = SystemColors.ControlText;
-            label20.Location = new Point(348, 100);
+            label20.Location = new Point(348, 93);
             label20.Name = "label20";
             label20.Size = new Size(359, 15);
             label20.TabIndex = 51;
@@ -514,7 +525,7 @@
             // 
             label19.AutoSize = true;
             label19.ForeColor = SystemColors.ControlText;
-            label19.Location = new Point(348, 85);
+            label19.Location = new Point(348, 78);
             label19.Name = "label19";
             label19.Size = new Size(384, 15);
             label19.TabIndex = 50;
@@ -524,7 +535,7 @@
             // 
             label18.AutoSize = true;
             label18.ForeColor = SystemColors.ControlText;
-            label18.Location = new Point(348, 70);
+            label18.Location = new Point(348, 63);
             label18.Name = "label18";
             label18.Size = new Size(292, 15);
             label18.TabIndex = 49;
@@ -534,7 +545,7 @@
             // 
             label17.AutoSize = true;
             label17.ForeColor = SystemColors.ControlText;
-            label17.Location = new Point(348, 55);
+            label17.Location = new Point(348, 33);
             label17.Name = "label17";
             label17.Size = new Size(250, 15);
             label17.TabIndex = 48;
@@ -544,7 +555,7 @@
             // 
             label16.AutoSize = true;
             label16.ForeColor = SystemColors.ControlText;
-            label16.Location = new Point(348, 40);
+            label16.Location = new Point(348, 18);
             label16.Name = "label16";
             label16.Size = new Size(341, 15);
             label16.TabIndex = 47;
@@ -554,7 +565,7 @@
             // 
             label15.AutoSize = true;
             label15.ForeColor = SystemColors.ControlText;
-            label15.Location = new Point(348, 25);
+            label15.Location = new Point(348, 3);
             label15.Name = "label15";
             label15.Size = new Size(206, 15);
             label15.TabIndex = 46;
@@ -564,7 +575,7 @@
             // 
             label14.AutoSize = true;
             label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(3, 100);
+            label14.Location = new Point(3, 78);
             label14.Name = "label14";
             label14.Size = new Size(342, 15);
             label14.TabIndex = 45;
@@ -574,7 +585,7 @@
             // 
             label13.AutoSize = true;
             label13.ForeColor = SystemColors.ControlText;
-            label13.Location = new Point(3, 85);
+            label13.Location = new Point(3, 63);
             label13.Name = "label13";
             label13.Size = new Size(263, 15);
             label13.TabIndex = 44;
@@ -584,7 +595,7 @@
             // 
             label11.AutoSize = true;
             label11.ForeColor = SystemColors.ControlText;
-            label11.Location = new Point(3, 70);
+            label11.Location = new Point(3, 48);
             label11.Name = "label11";
             label11.Size = new Size(263, 15);
             label11.TabIndex = 43;
@@ -594,7 +605,7 @@
             // 
             label10.AutoSize = true;
             label10.ForeColor = SystemColors.ControlText;
-            label10.Location = new Point(3, 55);
+            label10.Location = new Point(3, 33);
             label10.Name = "label10";
             label10.Size = new Size(191, 15);
             label10.TabIndex = 42;
@@ -604,7 +615,7 @@
             // 
             label9.AutoSize = true;
             label9.ForeColor = SystemColors.ControlText;
-            label9.Location = new Point(3, 40);
+            label9.Location = new Point(3, 18);
             label9.Name = "label9";
             label9.Size = new Size(250, 15);
             label9.TabIndex = 41;
@@ -614,7 +625,7 @@
             // 
             label8.AutoSize = true;
             label8.ForeColor = SystemColors.ControlText;
-            label8.Location = new Point(3, 25);
+            label8.Location = new Point(3, 3);
             label8.Name = "label8";
             label8.Size = new Size(175, 15);
             label8.TabIndex = 40;
@@ -622,7 +633,9 @@
             // 
             // chatComPanel
             // 
+            chatComPanel.AutoScroll = true;
             chatComPanel.BackColor = Color.FromArgb(156, 155, 151);
+            chatComPanel.Controls.Add(label22);
             chatComPanel.Controls.Add(label20);
             chatComPanel.Controls.Add(label19);
             chatComPanel.Controls.Add(label18);
@@ -635,19 +648,28 @@
             chatComPanel.Controls.Add(label11);
             chatComPanel.Controls.Add(label14);
             chatComPanel.Controls.Add(label13);
-            chatComPanel.Controls.Add(pictureBox9);
-            chatComPanel.Location = new Point(53, 485);
+            chatComPanel.Location = new Point(53, 507);
             chatComPanel.Name = "chatComPanel";
-            chatComPanel.Size = new Size(741, 118);
+            chatComPanel.Size = new Size(749, 96);
             chatComPanel.TabIndex = 141;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.ForeColor = SystemColors.ControlText;
+            label22.Location = new Point(348, 48);
+            label22.Name = "label22";
+            label22.Size = new Size(287, 15);
+            label22.TabIndex = 52;
+            label22.Text = "!rembits @user <amount> – Remove bits from a user";
             // 
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.FromArgb(37, 37, 37);
             pictureBox9.BackgroundImageLayout = ImageLayout.None;
-            pictureBox9.Location = new Point(0, 0);
+            pictureBox9.Location = new Point(53, 485);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(741, 22);
+            pictureBox9.Size = new Size(749, 22);
             pictureBox9.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox9.TabIndex = 30;
             pictureBox9.TabStop = false;
@@ -674,16 +696,6 @@
             panel1.Size = new Size(210, 383);
             panel1.TabIndex = 142;
             // 
-            // refundwinButton
-            // 
-            refundwinButton.Location = new Point(33, 163);
-            refundwinButton.Name = "refundwinButton";
-            refundwinButton.Size = new Size(104, 23);
-            refundwinButton.TabIndex = 143;
-            refundwinButton.Text = "Refund Menu";
-            refundwinButton.UseVisualStyleBackColor = true;
-            refundwinButton.Click += refundwinButton_Click;
-            // 
             // logListPanel
             // 
             logListPanel.AutoScroll = true;
@@ -695,10 +707,10 @@
             // refundPanel
             // 
             refundPanel.BackColor = Color.FromArgb(156, 155, 151);
+            refundPanel.Controls.Add(logListPanel);
             refundPanel.Controls.Add(closeRefundButton);
             refundPanel.Controls.Add(label21);
             refundPanel.Controls.Add(pictureBox3);
-            refundPanel.Controls.Add(logListPanel);
             refundPanel.Location = new Point(53, 626);
             refundPanel.Name = "refundPanel";
             refundPanel.Size = new Size(984, 565);
@@ -745,11 +757,9 @@
             ClientSize = new Size(1058, 1211);
             ControlBox = false;
             Controls.Add(refundPanel);
-            Controls.Add(regComLabel);
             Controls.Add(panel1);
             Controls.Add(econoPanel);
             Controls.Add(panel2);
-            Controls.Add(chatComPanel);
             Controls.Add(debugGroup);
             Controls.Add(pictureBox5);
             Controls.Add(label3);
@@ -759,6 +769,9 @@
             Controls.Add(messageTextBox);
             Controls.Add(pictureBox2);
             Controls.Add(consoleTextBox);
+            Controls.Add(chatComPanel);
+            Controls.Add(regComLabel);
+            Controls.Add(pictureBox9);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ConnectMenu";
             Text = "ConnectMenu";
@@ -848,5 +861,6 @@
         private PictureBox pictureBox3;
         private Label label21;
         private Button closeRefundButton;
+        private Label label22;
     }
 }
