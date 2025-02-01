@@ -27,7 +27,6 @@ namespace UiBot
                 {
                     if (Properties.Settings.Default.isDebugOn)
                     {
-
                         Console.WriteLine($"Setting changed: {e.PropertyName}");
                         SettingsManager.SaveSettings(); // Save settings after change
                     }

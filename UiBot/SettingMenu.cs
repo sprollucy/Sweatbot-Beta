@@ -247,6 +247,16 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
+        private void discordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Specify the URL you want to open
+            string url = "https://discord.gg/k4uH6WZTS4";
 
+            // Open the URL in the default web browser
+            System.Diagnostics.Process.Start(new ProcessStartInfo(url)
+            {
+                UseShellExecute = true
+            });
+        }
     }
 }

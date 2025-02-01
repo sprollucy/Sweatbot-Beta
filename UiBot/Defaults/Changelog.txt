@@ -1,6 +1,8 @@
 1.0.0.77-alpha
 -Spelling errors
 -Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error
+-Added file for loading saved toggles to prevent them resetting on update
+-Added blerp integration. If a user sends something with blerp and the message shows up in chat, it should add the bits (testing)
 
 1.0.0.76-alpha
 -Added screen pixelation mode. In testing and may be very buggy

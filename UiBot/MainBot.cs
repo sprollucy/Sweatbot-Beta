@@ -224,7 +224,7 @@ namespace UiBot
                 {
                     // Handle error if the value from the SubTextBox is invalid
                     client.SendMessage(channelId, $"{subscriberName}, invalid subscription bonus amount. Using default value.");
-                    bitsAwarded = 500;  // Default value in case of invalid input
+                    bitsAwarded = 50;  // Default value in case of invalid input
                 }
 
                 // Check if the user already exists in the bits dictionary

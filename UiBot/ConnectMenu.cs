@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using TwitchLib.Client;
+using TwitchLib.Communication.Interfaces;
 using Timer = System.Windows.Forms.Timer;
 
 namespace UiBot
@@ -16,6 +18,12 @@ namespace UiBot
         private int lastSpent;
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
         private bool isExpanded = false; // Track the state of the panel
+
+        private FileSystemWatcher fileWatcher;
+
+        private string logFilePath;
+        private List<string> logEntries;
+        public static Dictionary<string, int> userBits = new Dictionary<string, int>();
 
         public ConnectMenu()
         {
@@ -59,7 +67,20 @@ namespace UiBot
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
 
+
+            // Refund
+            string date = DateTime.Now.ToString("M-d-yy");
+            string logFileName = $"{date} bitlog.txt";
+            logFilePath = Path.Combine("Logs", logFileName);
+            userBits = new Dictionary<string, int>();
+
+            LoadLogEntries();
+
+            // Set up the file watcher to monitor changes
+            SetUpFileWatcher();
+
         }
+
         private void chatComPanel_MouseClick(object sender, MouseEventArgs e)
         {
             // Toggle the height based on the current state
@@ -311,7 +332,7 @@ namespace UiBot
                 }
                 else
                 {
-                    economySpentLabel.ForeColor = Color.Green; 
+                    economySpentLabel.ForeColor = Color.Green;
                 }
 
                 // Update the previous economy value for the next calculation
@@ -542,5 +563,154 @@ namespace UiBot
                     cmd => cmd.Value.BitCost);
             }
         }
+
+        private void refundwinButton_Click(object sender, EventArgs e)
+        {
+                refundPanel.Location = new Point(53, 38); // Reset the position when collapsed
+        }
+        private void closeRefundButton_Click(object sender, EventArgs e)
+        {
+            refundPanel.Location = new Point(53, 626); // Reset the position when collapsed
+        }
+
+        /*
+         * Refund
+         */
+
+        private void LoadLogEntries()
+        {
+            if (!File.Exists(logFilePath)) return;
+
+            logEntries = File.ReadAllLines(logFilePath).ToList();
+
+            // Ensure this runs on the UI thread
+            if (logListPanel.InvokeRequired)
+            {
+                logListPanel.Invoke(new Action(LoadLogEntries));
+                return;
+            }
+
+            logListPanel.Controls.Clear(); // Clear previous controls
+
+            // Load each log entry with a Refund button
+            foreach (var entry in logEntries)
+            {
+                if (string.IsNullOrWhiteSpace(entry)) continue; // Ignore empty lines
+
+                var panel = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.LeftToRight, Width = logListPanel.Width };
+                var label = new Label { Text = entry, AutoSize = true, Width = 500 };
+                var refundButton = new Button { Text = "Refund", Tag = entry, AutoSize = true, FlatStyle = FlatStyle.Flat };
+                refundButton.Click += RefundButton_Click;
+                panel.Controls.Add(label);
+                panel.Controls.Add(refundButton);
+                logListPanel.Controls.Add(panel); // Add the panel to the FlowLayoutPanel
+            }
+        }
+
+        private void RefundButton_Click(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.Tag is string logEntry)
+            {
+                ProcessRefund(logEntry);
+                logEntries.Remove(logEntry);
+                File.WriteAllLines(logFilePath, logEntries); // Save updated log
+
+                // Remove refunded entry from UI
+                RemoveLogEntryFromUI(logEntry);
+            }
+        }
+
+        private void ProcessRefund(string logEntry)
+        {
+            string[] parts = logEntry.Split(new[] { " - ", " had ", " bits, used ", " command, costing ", " bits, now has " }, StringSplitOptions.None);
+            if (parts.Length < 6) return;
+
+            string userName = parts[1]; // Extracted from log
+            int bitsCost;
+
+            // Ensure correct parsing
+            if (!int.TryParse(parts[4], out bitsCost))
+            {
+                Console.WriteLine($"Failed to parse bits cost for {userName}.");
+                return;
+            }
+
+            // Update user's bits
+            LogHandler.UpdateUserBits(userName, bitsCost);
+
+            // Notify about successful update
+            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
+            bot.SendMessage($"{bitsCost} bits refunded to {userName}. New total: {MainBot.userBits[userName]} bits");
+            Console.WriteLine($"[{timestamp}] Refunded {bitsCost} bits to {userName}. New total: {MainBot.userBits[userName]} bits");
+        }
+
+
+        public void RefunderMessge(string userName, int bitsCost)
+        {
+            // Ensure the latest balance is fetched after the refund
+            if (userBits.ContainsKey(userName))
+            {
+                // Send the updated message with the correct balance
+                bot.SendMessage($"Refunded {bitsCost} bits to {userName}. They now have {userBits[userName]} bits.");
+            }
+            else
+            {
+                bot.SendMessage($"Error: User {userName} not found for refund.");
+            }
+
+            // Reload the updated balances and log entries on the UI thread
+            if (logListPanel.InvokeRequired)
+            {
+                logListPanel.Invoke(new Action(() =>
+                {
+                    LoadLogEntries(); // Reload log entries from the file
+                }));
+            }
+            else
+            {
+                LoadLogEntries();
+            }
+        }
+
+        private void RemoveLogEntryFromUI(string logEntry)
+        {
+            foreach (Control control in logListPanel.Controls)
+            {
+                if (control is FlowLayoutPanel panel && panel.Controls[0] is Label label && label.Text == logEntry)
+                {
+                    logListPanel.Controls.Remove(panel); // Remove the panel for the refunded entry
+                    break; // Exit once the entry is found and removed
+                }
+            }
+        }
+
+        private void SetUpFileWatcher()
+        {
+            fileWatcher = new FileSystemWatcher
+            {
+                Path = Path.GetDirectoryName(logFilePath),
+                Filter = Path.GetFileName(logFilePath),
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size,
+                EnableRaisingEvents = true
+            };
+
+            fileWatcher.Changed += OnLogFileChanged;
+            fileWatcher.Renamed += OnLogFileChanged; // in case the file is renamed
+        }
+        private void OnLogFileChanged(object sender, FileSystemEventArgs e)
+        {
+            // Ensure this runs on the UI thread
+            if (logListPanel.InvokeRequired)
+            {
+                // Use a lambda to pass the correct parameters
+                logListPanel.Invoke(new Action(() => OnLogFileChanged(sender, e)));
+                return;
+            }
+
+            // Reload the log entries when the file changes
+            LoadLogEntries();
+        }
+
+
     }
 }

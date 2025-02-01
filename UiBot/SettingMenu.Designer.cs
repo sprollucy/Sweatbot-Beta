@@ -59,6 +59,7 @@
             enableEFTtrade = new CheckBox();
             groupBox5 = new GroupBox();
             cashappLink = new LinkLabel();
+            discordLink = new LinkLabel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -439,6 +440,19 @@
             cashappLink.Text = "Cash App";
             cashappLink.LinkClicked += cashappLink_LinkClicked;
             // 
+            // discordLink
+            // 
+            discordLink.AutoSize = true;
+            discordLink.BackColor = Color.FromArgb(135, 135, 135);
+            discordLink.Location = new Point(400, 547);
+            discordLink.Name = "discordLink";
+            discordLink.Size = new Size(47, 15);
+            discordLink.TabIndex = 114;
+            discordLink.TabStop = true;
+            discordLink.Text = "Discord";
+            discordLink.TextAlign = ContentAlignment.MiddleCenter;
+            discordLink.LinkClicked += discordLink_LinkClicked;
+            // 
             // SettingMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -446,6 +460,7 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1041, 616);
             ControlBox = false;
+            Controls.Add(discordLink);
             Controls.Add(cashappLink);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
@@ -519,5 +534,6 @@
         private CheckBox enableEFTtrade;
         private GroupBox groupBox5;
         private LinkLabel cashappLink;
+        private LinkLabel discordLink;
     }
 }
