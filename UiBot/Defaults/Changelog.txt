@@ -1,6 +1,10 @@
 1.0.0.78-alpha
--Added Refund menu to the connect menu
+-Added Refund menu to the connect menu to quickly access refunds without having to type it out in chat
 -Added file for loading saved toggles to prevent them resetting on update
+-Fixed file locking issue with refund menu and using !refund
+-Fixed race condition with !refund not removing the line from bitlog causing mutliple refunds to be able to take place with refund menu
+-Changed the refund menu styling
+-Updated refund menu to update with refunds
 
 1.0.0.77-alpha
 -Spelling errors

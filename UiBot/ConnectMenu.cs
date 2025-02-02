@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
@@ -575,6 +576,9 @@ namespace UiBot
             refundPanel.Location = new Point(53, 62); // Reset the position when collapsed
             refundTab.BackColor = Color.FromArgb(120, 132, 142);  // Set the active tab to bright color
             consoleTab.BackColor = Color.FromArgb(71, 83, 92);    // Set the inactive tab to darker color
+
+            // Reload the log entries when Refund tab is clicked
+            LoadLogEntries();
         }
 
         private void consoleTab_Click(object sender, EventArgs e)
@@ -582,7 +586,11 @@ namespace UiBot
             refundPanel.Location = new Point(53, 626); // Reset the position when collapsed
             refundTab.BackColor = Color.FromArgb(71, 83, 92);    // Set the inactive tab to darker color
             consoleTab.BackColor = Color.FromArgb(120, 132, 142); // Set the active tab to bright color
+
+            // Clear the current log entries when Console tab is clicked
+            logListPanel.Controls.Clear();
         }
+
 
         private void InitializeTabHoverEvents()
         {
@@ -626,37 +634,61 @@ namespace UiBot
         /*
          * Refund
          */
-
         public void LoadLogEntries()
         {
+            string todayLogFile = Path.Combine(Path.GetDirectoryName(logFilePath), $"{DateTime.Now:M-d-yy} bitlog.txt");
+
+            // Ensure the log file exists
+            lock (fileLock)
+            {
+                if (!File.Exists(todayLogFile))
+                {
+                    File.Create(todayLogFile).Close();
+                }
+            }
+
+            logFilePath = todayLogFile; // Set new log file path
+
             if (!File.Exists(logFilePath)) return;
 
-            logEntries = File.ReadAllLines(logFilePath).ToList();
+            // Read file content safely
+            List<string> newEntries;
+            lock (fileLock)
+            {
+                using (FileStream fs = new FileStream(logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader reader = new StreamReader(fs))
+                {
+                    newEntries = reader.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                }
+            }
 
-            // Remove any entries that have a refund operation
-            logEntries = logEntries.Where(entry => !entry.Contains("refunded")).ToList();
+            // Process and add to log queue
+            logEntries = newEntries.Where(entry => !entry.Contains("refunded")).Reverse().ToList();
 
-            // Reverse the log entries so the newest one appears at the top
-            logEntries.Reverse();
-
-            // Ensure this runs on the UI thread
+            // Ensure UI updates are performed on the main thread
             if (logListPanel.InvokeRequired)
             {
                 logListPanel.Invoke(new Action(LoadLogEntries));
                 return;
             }
 
-            logListPanel.Controls.Clear(); // Clear previous controls
+            // Suspend layout to avoid flickering during control updates
+            logListPanel.SuspendLayout();
 
-            // Load each log entry with a Refund button
+            // Clear the existing controls to avoid duplication
+            logListPanel.Controls.Clear();
+
+            // Only add new entries
             foreach (var entry in logEntries)
             {
-                if (string.IsNullOrWhiteSpace(entry)) continue; // Ignore empty lines
+                if (string.IsNullOrWhiteSpace(entry)) continue;
 
-                // Remove the date part from the beginning of the log entry
+                // Skip entries already added
+                if (logListPanel.Controls.Cast<Control>().Any(c => c is TableLayoutPanel table &&
+                    table.Controls[0] is Label label && label.Text == entry))
+                    continue;
+
                 string logEntryWithoutDate = entry.Length > 5 ? entry.Substring(6).Trim() : entry;
-
-                // Remove the "now has <number> bits" part using a regular expression
                 logEntryWithoutDate = Regex.Replace(logEntryWithoutDate, @"bits, now has \d+ bits", "").Trim();
 
                 var tableLayoutPanel = new TableLayoutPanel
@@ -667,11 +699,11 @@ namespace UiBot
                     Width = logListPanel.Width,
                     ColumnStyles =
             {
-                new ColumnStyle(SizeType.Percent, 85),  // 85% for the label column
-                new ColumnStyle(SizeType.Percent, 15)   // 15% for the button column
+                new ColumnStyle(SizeType.Percent, 85),
+                new ColumnStyle(SizeType.Percent, 15)
             },
-                    Padding = new Padding(0),  // Remove all padding around the table layout
-                    Margin = new Padding(0)   // Remove any extra margin around the table layout
+                    Padding = new Padding(0),
+                    Margin = new Padding(0)
                 };
 
                 var label = new Label
@@ -679,38 +711,39 @@ namespace UiBot
                     Text = logEntryWithoutDate,
                     AutoSize = true,
                     Font = new Font("Segoe UI", 10),
-                    Margin = new Padding(0, 7, 0, 0)  // Remove margin from the label
+                    Margin = new Padding(0, 7, 0, 0)
                 };
 
                 var refundButton = new Button
                 {
                     Text = "Refund",
                     Tag = entry,
-                    AutoSize = false,  // Set AutoSize to false to control button size
-                    Width = 80,        // Define a specific width for the button
-                    Height = 30,       // Define a specific height for the button
-                    FlatStyle = FlatStyle.Flat
+                    AutoSize = false,
+                    Width = 80,
+                    Height = 30,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.FromArgb(71, 83, 92)
                 };
-                refundButton.FlatAppearance.BorderSize = 0; // Optional, for a cleaner look
-                refundButton.BackColor = Color.FromArgb(71, 83, 92); // Set initial button background color
+                refundButton.FlatAppearance.BorderSize = 0;
 
-                // Add mouse event handlers for hover over change
                 refundButton.MouseEnter += (sender, e) =>
                 {
-                    refundButton.BackColor = Color.FromArgb(120, 132, 142); // Color on hover
-                }; 
+                    refundButton.BackColor = Color.FromArgb(120, 132, 142);
+                };
                 refundButton.MouseLeave += (sender, e) =>
                 {
-                    refundButton.BackColor = Color.FromArgb(71, 83, 92); // Color on hover
+                    refundButton.BackColor = Color.FromArgb(71, 83, 92);
                 };
                 refundButton.Click += RefundButton_Click;
 
-                // Add controls to the TableLayoutPanel
-                tableLayoutPanel.Controls.Add(label, 0, 0);  // Label in the first column
-                tableLayoutPanel.Controls.Add(refundButton, 1, 0);  // Button in the second column
+                tableLayoutPanel.Controls.Add(label, 0, 0);
+                tableLayoutPanel.Controls.Add(refundButton, 1, 0);
 
-                logListPanel.Controls.Add(tableLayoutPanel); // Add the TableLayoutPanel to the main panel
+                logListPanel.Controls.Add(tableLayoutPanel);
             }
+
+            // Resume layout after all controls are added/updated
+            logListPanel.ResumeLayout();
         }
 
         private void RefundButton_Click(object sender, EventArgs e)
@@ -760,23 +793,11 @@ namespace UiBot
 
         private void UpdateLogAfterRefund()
         {
-            // Lock to ensure only one thread can access the file at a time
             lock (fileLock)
             {
                 try
                 {
-                    // Open the file in a writable mode (using FileMode.OpenOrCreate ensures the file is created if it doesn't exist)
-                    using (FileStream fs = new FileStream(logFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-                    {
-                        using (StreamWriter writer = new StreamWriter(fs))
-                        {
-                            // Write all entries (replace with updated entries if necessary)
-                            foreach (var entry in logEntries)
-                            {
-                                writer.WriteLine(entry);
-                            }
-                        }
-                    }
+                    File.WriteAllLines(logFilePath, logEntries.ToList());
                 }
                 catch (IOException ex)
                 {
@@ -791,28 +812,40 @@ namespace UiBot
 
         private void RemoveLogEntryFromUI(string logEntry)
         {
+            Control targetControl = null;
+
+            // Iterate over the controls and find the one with the matching log entry
             foreach (Control control in logListPanel.Controls)
             {
-                if (control is FlowLayoutPanel panel && panel.Controls[0] is Label label && label.Text == logEntry)
+                if (control is TableLayoutPanel table && table.Controls[1] is Button button && button.Tag is string entry && entry == logEntry)
                 {
-                    logListPanel.Controls.Remove(panel); // Remove the panel for the refunded entry
-                    break; // Exit once the entry is found and removed
+                    targetControl = table;  // We find the TableLayoutPanel that contains the Button with matching Tag
+                    break;
                 }
+            }
+
+            if (targetControl != null)
+            {
+                logListPanel.Controls.Remove(targetControl);
+                targetControl.Dispose(); // Ensure memory is released
             }
         }
 
         private void SetUpFileWatcher()
         {
+            string logDirectory = Path.GetDirectoryName(logFilePath);
+            string logFileName = $"{DateTime.Now:M-d-yy} bitlog.txt";
+
             fileWatcher = new FileSystemWatcher
             {
-                Path = Path.GetDirectoryName(logFilePath),
-                Filter = Path.GetFileName(logFilePath),
+                Path = logDirectory,
+                Filter = logFileName,
                 NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size,
                 EnableRaisingEvents = true
             };
 
             fileWatcher.Changed += OnLogFileChanged;
-            fileWatcher.Renamed += OnLogFileChanged; // in case the file is renamed
+            fileWatcher.Renamed += OnLogFileChanged; // In case the file gets renamed
         }
 
         private void OnLogFileChanged(object sender, FileSystemEventArgs e)
