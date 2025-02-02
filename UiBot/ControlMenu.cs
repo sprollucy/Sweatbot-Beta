@@ -31,7 +31,10 @@ namespace UiBot
             modMake.Checked = Properties.Settings.Default.isModAddEnabled;
             modRemove.Checked = Properties.Settings.Default.isModRemoveEnabled;
             bitGambleCheck.Checked = Properties.Settings.Default.isBitGambleEnabled;
-            bitGambleCheck.Checked = Properties.Settings.Default.isblerpEnabled;
+            blerpBox.Checked = Properties.Settings.Default.isblerpEnabled;
+            subsweatbotBox.Checked = Properties.Settings.Default.isSubOnlySweatbotCommand;
+            subgambleBox.Checked = Properties.Settings.Default.isSubOnlyGambleCommand;
+            subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -311,6 +314,24 @@ namespace UiBot
         private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isblerpEnabled = bitGambleCheck.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void subsweatbotBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSubOnlySweatbotCommand = subsweatbotBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void subgambleBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSubOnlyGambleCommand = subgambleBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void subbotBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
             Properties.Settings.Default.Save();
         }
     }

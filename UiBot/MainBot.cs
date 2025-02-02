@@ -8,6 +8,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using TwitchLib.PubSub.Events;
 using TwitchLib.PubSub;
+using TwitchLib.Api.Helix.Models.Chat.GetChatters;
 
 
 namespace UiBot
@@ -87,7 +88,7 @@ namespace UiBot
             }
             else
             {
-                Console.WriteLine("[SweatBot]: Not connected");
+                Console.WriteLine("[Sweatbot]: Not connected");
             }
         }
 
@@ -95,7 +96,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                Console.WriteLine($"[SweatBot]: Connecting to {channelId}...");
+                Console.WriteLine($"[Sweatbot]: Connecting to {channelId}...");
                 InitializeTwitchClient();
                 InitializePubSub();
                 StartAutoMessage();
@@ -111,20 +112,20 @@ namespace UiBot
                 if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelId))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
-                    Console.WriteLine("[SweatBot]: Disconnected");
+                    Console.WriteLine("[Sweatbot]: Disconnected");
                     return; // Don't proceed further
                 }
                 if (creds == null)
                 {
                     MessageBox.Show("Twitch credentials are not set.");
-                    Console.WriteLine("[SweatBot]: Disconnected");
+                    Console.WriteLine("[Sweatbot]: Disconnected");
                     return; // Don't proceed further
                 }
 
                 if (channelId == null)
                 {
                     MessageBox.Show("Twitch channel are not set.");
-                    Console.WriteLine("[SweatBot]: Disconnected");
+                    Console.WriteLine("[Sweatbot]: Disconnected");
                     return; // Don't proceed further
                 }
 
@@ -273,6 +274,16 @@ namespace UiBot
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+            bool isSubscriber = e.ChatMessage.IsSubscriber;
+            bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
+
+            // Check if the command is for subscribers only
+            if (isSubOnly && !isSubscriber)
+            {
+                client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, Sorry! Sweatbot is for subscribers only!");
+                return; 
+            }
+
             if (!Properties.Settings.Default.isCommandsPaused)
             {
                 commandHandler.ReloadCommands(commandsFilePath);
@@ -417,7 +428,6 @@ namespace UiBot
             if (!e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0)
             {
                 int bitsGiven = e.ChatMessage.Bits;
-                bool isSubscriber = e.ChatMessage.IsSubscriber;
 
                 // Check if both bonus multipliers are enabled
                 if (Properties.Settings.Default.isBonusMultiplierEnabled && Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
@@ -575,6 +585,7 @@ namespace UiBot
             int bitcostCooldownDuration = 30;
             int lastHow2useTimerDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
+            bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
@@ -860,60 +871,75 @@ namespace UiBot
                 //Bit Commands
 
                 case "sweatbot":
-                    // Check the current state of isChatCommandPaused
-                    bool currentPauseState = Properties.Settings.Default.isCommandsPaused;
-                    string currentPauseStateString = currentPauseState ? "on" : "off";
+                    // Get the current state of isChatCommandPaused
+                    bool isPaused = Properties.Settings.Default.isCommandsPaused;
+                    string currentState = isPaused ? "off" : "on";
+
+                    // Get the bit cost from the settings
+                    if (!int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCostBot))
+                    {
+                        client.SendMessage(channelId, "Error: Invalid bit cost value.");
+                        break;
+                    }
+
+                    // Check if the command is sub-only
+                    bool isSubOnly = Properties.Settings.Default.isSubOnlySweatbotCommand;
+
+                    if (isSubOnly && !isSubscriber)
+                    {
+                        client.SendMessage(channelId, $"{Chatter}, this command is for Twitch subscribers only!");
+                        break;
+                    }
+
+                    // If the command is just "!sweatbot", show the current state and cost
+                    if (e.Command.ChatMessage.Message.Trim().ToLower() == "!sweatbot")
+                    {
+                        client.SendMessage(channelId, $"Sweatbot is currently {currentState}. You can change that with !sweatbot on or off for {bitCostBot} bits.");
+                        break;
+                    }
 
                     if (Properties.Settings.Default.isSweatbotEnabled)
                     {
                         // Check if the user's bits are loaded
                         if (userBits.ContainsKey(Chatter))
                         {
-                            client.SendMessage(channelId, $"Sweatbot is {currentPauseStateString}. Use !sweatbot on or off to change that");
+                            // Determine the desired state based on the command message
+                            bool desiredState = e.Command.ChatMessage.Message.ToLower().Contains("on");
 
-                            // Convert the cooldown textbox value to an integer
-                            if (int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCost))
+                            // If they are trying to set it to the same state, notify and do nothing
+                            if ((desiredState && currentState == "on") || (!desiredState && currentState == "off"))
                             {
-                                // Check if the user has enough bits
-                                if (userBits[Chatter] >= bitCost)
+                                client.SendMessage(channelId, $"{Chatter}, sweatbot is already {currentState}. No bits were taken.");
+                                break;
+                            }
+
+                            // Check if the user has enough bits
+                            if (userBits[Chatter] >= bitCostBot)
+                            {
+                                // Deduct the cost of the command
+                                userBits[Chatter] -= bitCostBot;
+
+                                // Update the isChatCommandPaused value
+                                Properties.Settings.Default.isCommandsPaused = !desiredState;
+                                Properties.Settings.Default.Save();
+
+                                // Log the command usage
+                                LogHandler.LogCommand(Chatter, "sweatbot", bitCostBot, userBits, timestamp);
+
+                                // Send confirmation message with the correct updated state
+                                if (Properties.Settings.Default.isBitMsgEnabled)
                                 {
-                                    // Determine the desired state based on the command message
-                                    bool desiredState = e.Command.ChatMessage.Message.ToLower().Contains("on");
-
-                                    // Toggle the value if the command is to turn it on or off
-                                    if (e.Command.ChatMessage.Message.ToLower().Contains("on") || e.Command.ChatMessage.Message.ToLower().Contains("off"))
-                                    {
-                                        // Log the command usage
-                                        LogHandler.LogCommand(Chatter, "sweatbot", bitCost, userBits, timestamp);
-
-                                        // Deduct the cost of the command
-                                        userBits[Chatter] -= bitCost;
-
-                                        // Update the isChatCommandPaused value
-                                        Properties.Settings.Default.isCommandsPaused = !desiredState;
-                                        Properties.Settings.Default.Save();
-
-                                        // Send confirmation message
-                                        if (Properties.Settings.Default.isBitMsgEnabled)
-                                        {
-                                            client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} bits remaining.");
-                                        }
-                                        Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[Chatter]}");
-
-                                        // Save the updated bit data
-                                        LogHandler.WriteUserBitsToJson("user_bits.json");
-                                    }
+                                    client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} bits remaining.");
                                 }
-                                else
-                                {
-                                    // Send message indicating insufficient bits
-                                    client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
-                                }
+                                Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCostBot} Remaining bits:{userBits[Chatter]}");
+
+                                // Save the updated bit data
+                                LogHandler.WriteUserBitsToJson("user_bits.json");
                             }
                             else
                             {
-                                // Send message indicating invalid cost value
-                                client.SendMessage(channelId, "Invalid cost value.");
+                                // Send message indicating insufficient bits
+                                client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCostBot} bits.");
                             }
                         }
                         else
@@ -924,7 +950,7 @@ namespace UiBot
                     }
                     else
                     {
-                        client.SendMessage(channelId, $"Sweatbot is permanently {currentPauseStateString}");
+                        client.SendMessage(channelId, "Sweatbot is permanently off.");
                     }
                     break;
 
@@ -1021,10 +1047,18 @@ namespace UiBot
                 case "sbgamble":
                     if (Properties.Settings.Default.isBitGambleEnabled)
                     {
+                        // Check if the command is sub-only
+                        bool isSubGambleOnly = Properties.Settings.Default.isSubOnlyGambleCommand;
+
+                        if (isSubGambleOnly && !isSubscriber)
+                        {
+                            client.SendMessage(channelId, $"{Chatter}, this command is for Twitch subscribers only!");
+                            break;
+                        }
+
                         // Check if the user has enough bits to gamble
                         if (userBits.ContainsKey(Chatter))
                         {
-                            // Get the amount the user wants to gamble from the message
                             string message = e.Command.ChatMessage.Message.ToLower();
                             int gambleAmount = 0;
 
@@ -1052,10 +1086,8 @@ namespace UiBot
                                         string percentageString = gambleInput.TrimEnd('%');
                                         if (int.TryParse(percentageString, out int percentage) && percentage > 0 && percentage <= 100)
                                         {
-                                            // Calculate the gamble amount as a percentage of the user's available bits
                                             gambleAmount = (int)(userBits[Chatter] * (percentage / 100.0));
 
-                                            // If the percentage results in zero, inform the user
                                             if (gambleAmount == 0)
                                             {
                                                 client.SendMessage(channelId, $"{Chatter}, you can't gamble less than 1 bit.");
@@ -1064,14 +1096,12 @@ namespace UiBot
                                         }
                                         else
                                         {
-                                            // Invalid percentage input
                                             client.SendMessage(channelId, $"{Chatter}, please specify a valid percentage (1-100%).");
                                             break;
                                         }
                                     }
                                     else if (int.TryParse(gambleInput, out gambleAmount))
                                     {
-                                        // If the input is a specific amount (not a percentage or 'all')
                                         if (gambleAmount <= 0)
                                         {
                                             client.SendMessage(channelId, $"{Chatter}, you can't gamble 0 or negative bits.");
@@ -1080,33 +1110,28 @@ namespace UiBot
                                     }
                                     else
                                     {
-                                        // Invalid gamble amount format
                                         client.SendMessage(channelId, $"{Chatter}, please specify a valid amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
                                         break;
                                     }
                                 }
                                 else
                                 {
-                                    // Invalid command format
-                                    client.SendMessage(channelId, $"{Chatter}, please specify a valid amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
+                                    client.SendMessage(channelId, $"{Chatter}, please specify a valid amount or percentage to gamble.");
                                     break;
                                 }
                             }
                             else
                             {
-                                // User didn't specify an amount
-                                client.SendMessage(channelId, $"{Chatter}, please specify an amount or percentage to gamble (e.g., !sbgamble 100, !sbgamble 50%, or !sbgamble all).");
+                                client.SendMessage(channelId, $"{Chatter}, please specify an amount or percentage to gamble.");
                                 break;
                             }
 
                             // Check if the user has enough bits to gamble
                             if (userBits[Chatter] >= gambleAmount)
                             {
-                                // Retrieve the cooldown time from BitGambleCDBox
                                 int cooldownSeconds = 0;
                                 if (int.TryParse(controlMenu.BitGambleCDBox.Text, out cooldownSeconds) && cooldownSeconds >= 0)
                                 {
-                                    // Check if the user is on cooldown
                                     if (lastGambleTime.ContainsKey(Chatter))
                                     {
                                         DateTime lastGamble = lastGambleTime[Chatter];
@@ -1115,54 +1140,44 @@ namespace UiBot
                                         if (timeSinceLastGamble.TotalSeconds < cooldownSeconds)
                                         {
                                             int remainingCooldown = cooldownSeconds - (int)timeSinceLastGamble.TotalSeconds;
+                                            client.SendMessage(channelId, $"{Chatter}, you must wait {remainingCooldown} seconds before gambling again.");
                                             break;
                                         }
                                     }
 
-                                    // Get the win chance from the ControlMenu
                                     int winChance = 0;
                                     if (int.TryParse(controlMenu.BitChanceBox.Text, out winChance) && winChance >= 0 && winChance <= 100)
                                     {
-                                        // Generate a random number between 1 and 100 to determine if the user wins
                                         Random rand = new Random();
-                                        int outcome = rand.Next(1, 101);  // Random number between 1 and 100
+                                        int outcome = rand.Next(1, 101);
 
-                                        // Check if the user wins
                                         if (outcome <= winChance)
                                         {
-                                            // User wins, they gain double the gamble amount
                                             int winnings = gambleAmount * 2;
                                             userBits[Chatter] += winnings;
 
-                                            // Log the result and update the user's bits
                                             LogHandler.LogBits(Chatter, winnings, timestamp);
                                             LogHandler.WriteUserBitsToJson("user_bits.json");
 
-                                            // Send a success message to the user
                                             client.SendMessage(channelId, $"{Chatter}, you won! You gambled {gambleAmount} bits and won {winnings} bits. You now have {userBits[Chatter]} bits.");
                                             Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, won {winnings} bits. Total bits: {userBits[Chatter]}");
                                         }
                                         else
                                         {
-                                            // User loses, they lose the gamble amount
                                             userBits[Chatter] -= gambleAmount;
 
-                                            // Log the result and update the user's bits
                                             LogHandler.LogBits(Chatter, -gambleAmount, timestamp);
                                             LogHandler.WriteUserBitsToJson("user_bits.json");
 
-                                            // Send a failure message to the user
                                             client.SendMessage(channelId, $"{Chatter}, you lost! You gambled {gambleAmount} bits and lost. You now have {userBits[Chatter]} bits.");
                                             Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, lost. Total bits: {userBits[Chatter]}");
                                         }
                                     }
                                     else
                                     {
-                                        // Invalid win chance value
                                         client.SendMessage(channelId, "Invalid win chance value. Please ensure it's between 0 and 100.");
                                     }
 
-                                    // Update the last gamble time
                                     lastGambleTime[Chatter] = DateTime.Now;
                                 }
                                 else
@@ -1172,20 +1187,15 @@ namespace UiBot
                             }
                             else
                             {
-                                // Not enough bits
                                 client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to gamble {gambleAmount} bits! You currently have {userBits[Chatter]} bits.");
                             }
                         }
                         else
                         {
-                            // User doesn't have any bits
                             client.SendMessage(channelId, $"{Chatter}, you don't have any bits to gamble.");
                         }
                     }
                     break;
-
-
-
             }
 
             //Mod Commands

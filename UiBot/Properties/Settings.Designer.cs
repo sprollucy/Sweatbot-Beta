@@ -490,5 +490,41 @@ namespace UiBot.Properties {
                 this["isblerpEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSubOnlySweatbotCommand {
+            get {
+                return ((bool)(this["isSubOnlySweatbotCommand"]));
+            }
+            set {
+                this["isSubOnlySweatbotCommand"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSubOnlyGambleCommand {
+            get {
+                return ((bool)(this["isSubOnlyGambleCommand"]));
+            }
+            set {
+                this["isSubOnlyGambleCommand"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSubOnlyBotCommand {
+            get {
+                return ((bool)(this["isSubOnlyBotCommand"]));
+            }
+            set {
+                this["isSubOnlyBotCommand"] = value;
+            }
+        }
     }
 }

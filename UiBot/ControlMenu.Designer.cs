@@ -30,7 +30,6 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
-            label12 = new Label();
             bitGambleCDBox = new TextBox();
             label11 = new Label();
             bitChanceBox = new TextBox();
@@ -71,15 +70,15 @@
             label13 = new Label();
             blerpBox = new CheckBox();
             label15 = new Label();
+            followTextBox = new TextBox();
+            label6 = new Label();
+            enableFollowBonus = new CheckBox();
             label14 = new Label();
             enableSubBonusMulti = new CheckBox();
             subbonusMultiplierBox = new TextBox();
             subTextBox = new TextBox();
             label7 = new Label();
             enableSubBonus = new CheckBox();
-            followTextBox = new TextBox();
-            label6 = new Label();
-            enableFollowBonus = new CheckBox();
             pictureBox7 = new PictureBox();
             panel3 = new Panel();
             label8 = new Label();
@@ -88,6 +87,14 @@
             modMake = new CheckBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
+            panel5 = new Panel();
+            subbotBox = new CheckBox();
+            label17 = new Label();
+            subgambleBox = new CheckBox();
+            label16 = new Label();
+            subsweatbotBox = new CheckBox();
+            label21 = new Label();
+            pictureBox4 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -98,6 +105,8 @@
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox1.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
             // saveButton
@@ -114,7 +123,6 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
-            panel1.Controls.Add(label12);
             panel1.Controls.Add(bitGambleCDBox);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(bitChanceBox);
@@ -137,16 +145,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.Red;
-            label12.Location = new Point(235, 37);
-            label12.Name = "label12";
-            label12.Size = new Size(57, 15);
-            label12.TabIndex = 139;
-            label12.Text = "In Testing";
             // 
             // bitGambleCDBox
             // 
@@ -432,7 +430,7 @@
             enableBonusMulti.AutoSize = true;
             enableBonusMulti.BackColor = Color.FromArgb(156, 155, 151);
             enableBonusMulti.ForeColor = SystemColors.ControlText;
-            enableBonusMulti.Location = new Point(12, 100);
+            enableBonusMulti.Location = new Point(12, 79);
             enableBonusMulti.Name = "enableBonusMulti";
             enableBonusMulti.Size = new Size(132, 19);
             enableBonusMulti.TabIndex = 86;
@@ -444,7 +442,7 @@
             // 
             bonusMultiplierBox.BackColor = SystemColors.ControlLight;
             bonusMultiplierBox.BorderStyle = BorderStyle.None;
-            bonusMultiplierBox.Location = new Point(143, 101);
+            bonusMultiplierBox.Location = new Point(143, 80);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
             bonusMultiplierBox.Size = new Size(20, 16);
             bonusMultiplierBox.TabIndex = 106;
@@ -576,12 +574,6 @@
             panel2.Controls.Add(label13);
             panel2.Controls.Add(blerpBox);
             panel2.Controls.Add(label15);
-            panel2.Controls.Add(label14);
-            panel2.Controls.Add(enableSubBonusMulti);
-            panel2.Controls.Add(subbonusMultiplierBox);
-            panel2.Controls.Add(subTextBox);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(enableSubBonus);
             panel2.Controls.Add(followTextBox);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(enableFollowBonus);
@@ -595,14 +587,14 @@
             panel2.ForeColor = SystemColors.ControlText;
             panel2.Location = new Point(53, 247);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 277);
+            panel2.Size = new Size(514, 162);
             panel2.TabIndex = 121;
             // 
             // label13
             // 
             label13.AutoSize = true;
             label13.ForeColor = Color.Red;
-            label13.Location = new Point(235, 166);
+            label13.Location = new Point(235, 120);
             label13.Name = "label13";
             label13.Size = new Size(57, 15);
             label13.TabIndex = 145;
@@ -611,7 +603,7 @@
             // blerpBox
             // 
             blerpBox.AutoSize = true;
-            blerpBox.Location = new Point(12, 150);
+            blerpBox.Location = new Point(12, 104);
             blerpBox.Name = "blerpBox";
             blerpBox.Size = new Size(350, 49);
             blerpBox.TabIndex = 125;
@@ -623,86 +615,17 @@
             // 
             label15.AutoSize = true;
             label15.ForeColor = Color.Red;
-            label15.Location = new Point(337, 54);
+            label15.Location = new Point(337, 55);
             label15.Name = "label15";
             label15.Size = new Size(57, 15);
             label15.TabIndex = 142;
             label15.Text = "In Testing";
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.ForeColor = Color.Red;
-            label14.Location = new Point(337, 76);
-            label14.Name = "label14";
-            label14.Size = new Size(57, 15);
-            label14.TabIndex = 141;
-            label14.Text = "In Testing";
-            // 
-            // enableSubBonusMulti
-            // 
-            enableSubBonusMulti.AutoSize = true;
-            enableSubBonusMulti.BackColor = Color.FromArgb(156, 155, 151);
-            enableSubBonusMulti.ForeColor = SystemColors.ControlText;
-            enableSubBonusMulti.Location = new Point(12, 125);
-            enableSubBonusMulti.Name = "enableSubBonusMulti";
-            enableSubBonusMulti.Size = new Size(178, 19);
-            enableSubBonusMulti.TabIndex = 131;
-            enableSubBonusMulti.Text = "Enable Bit Multiplier for Subs";
-            enableSubBonusMulti.UseVisualStyleBackColor = false;
-            enableSubBonusMulti.CheckedChanged += enableSubBonusMulti_CheckedChanged;
-            // 
-            // subbonusMultiplierBox
-            // 
-            subbonusMultiplierBox.BackColor = SystemColors.ControlLight;
-            subbonusMultiplierBox.BorderStyle = BorderStyle.None;
-            subbonusMultiplierBox.Location = new Point(192, 125);
-            subbonusMultiplierBox.Name = "subbonusMultiplierBox";
-            subbonusMultiplierBox.Size = new Size(20, 16);
-            subbonusMultiplierBox.TabIndex = 130;
-            subbonusMultiplierBox.Text = "2";
-            subbonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // subTextBox
-            // 
-            subTextBox.BackColor = SystemColors.ControlLight;
-            subTextBox.BorderStyle = BorderStyle.None;
-            subTextBox.Location = new Point(298, 76);
-            subTextBox.Name = "subTextBox";
-            subTextBox.Size = new Size(33, 16);
-            subTextBox.TabIndex = 125;
-            subTextBox.Text = "500";
-            subTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.FromArgb(156, 155, 151);
-            label7.ForeColor = SystemColors.ControlText;
-            label7.Location = new Point(143, 76);
-            label7.Name = "label7";
-            label7.Size = new Size(155, 15);
-            label7.TabIndex = 126;
-            label7.Text = "How many for subscribing? ";
-            // 
-            // enableSubBonus
-            // 
-            enableSubBonus.AutoSize = true;
-            enableSubBonus.BackColor = Color.FromArgb(156, 155, 151);
-            enableSubBonus.ForeColor = SystemColors.ControlText;
-            enableSubBonus.Location = new Point(12, 75);
-            enableSubBonus.Name = "enableSubBonus";
-            enableSubBonus.Size = new Size(120, 19);
-            enableSubBonus.TabIndex = 124;
-            enableSubBonus.Text = "Enable Sub Bonus";
-            enableSubBonus.UseVisualStyleBackColor = false;
-            enableSubBonus.CheckedChanged += enableSubBonus_CheckedChanged;
-            // 
             // followTextBox
             // 
             followTextBox.BackColor = SystemColors.ControlLight;
             followTextBox.BorderStyle = BorderStyle.None;
-            followTextBox.Location = new Point(298, 54);
+            followTextBox.Location = new Point(298, 55);
             followTextBox.Name = "followTextBox";
             followTextBox.Size = new Size(33, 16);
             followTextBox.TabIndex = 122;
@@ -714,7 +637,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(156, 155, 151);
             label6.ForeColor = SystemColors.ControlText;
-            label6.Location = new Point(143, 54);
+            label6.Location = new Point(143, 55);
             label6.Name = "label6";
             label6.Size = new Size(141, 15);
             label6.TabIndex = 123;
@@ -725,13 +648,82 @@
             enableFollowBonus.AutoSize = true;
             enableFollowBonus.BackColor = Color.FromArgb(156, 155, 151);
             enableFollowBonus.ForeColor = SystemColors.ControlText;
-            enableFollowBonus.Location = new Point(12, 53);
+            enableFollowBonus.Location = new Point(12, 54);
             enableFollowBonus.Name = "enableFollowBonus";
             enableFollowBonus.Size = new Size(135, 19);
             enableFollowBonus.TabIndex = 121;
             enableFollowBonus.Text = "Enable Follow Bonus";
             enableFollowBonus.UseVisualStyleBackColor = false;
             enableFollowBonus.CheckedChanged += enableFollowBonus_CheckedChanged;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.ForeColor = Color.Red;
+            label14.Location = new Point(337, 54);
+            label14.Name = "label14";
+            label14.Size = new Size(57, 15);
+            label14.TabIndex = 141;
+            label14.Text = "In Testing";
+            // 
+            // enableSubBonusMulti
+            // 
+            enableSubBonusMulti.AutoSize = true;
+            enableSubBonusMulti.BackColor = Color.FromArgb(156, 155, 151);
+            enableSubBonusMulti.ForeColor = SystemColors.ControlText;
+            enableSubBonusMulti.Location = new Point(12, 78);
+            enableSubBonusMulti.Name = "enableSubBonusMulti";
+            enableSubBonusMulti.Size = new Size(178, 19);
+            enableSubBonusMulti.TabIndex = 131;
+            enableSubBonusMulti.Text = "Enable Bit Multiplier for Subs";
+            enableSubBonusMulti.UseVisualStyleBackColor = false;
+            enableSubBonusMulti.CheckedChanged += enableSubBonusMulti_CheckedChanged;
+            // 
+            // subbonusMultiplierBox
+            // 
+            subbonusMultiplierBox.BackColor = SystemColors.ControlLight;
+            subbonusMultiplierBox.BorderStyle = BorderStyle.None;
+            subbonusMultiplierBox.Location = new Point(192, 78);
+            subbonusMultiplierBox.Name = "subbonusMultiplierBox";
+            subbonusMultiplierBox.Size = new Size(20, 16);
+            subbonusMultiplierBox.TabIndex = 130;
+            subbonusMultiplierBox.Text = "2";
+            subbonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // subTextBox
+            // 
+            subTextBox.BackColor = SystemColors.ControlLight;
+            subTextBox.BorderStyle = BorderStyle.None;
+            subTextBox.Location = new Point(298, 54);
+            subTextBox.Name = "subTextBox";
+            subTextBox.Size = new Size(33, 16);
+            subTextBox.TabIndex = 125;
+            subTextBox.Text = "500";
+            subTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(156, 155, 151);
+            label7.ForeColor = SystemColors.ControlText;
+            label7.Location = new Point(143, 54);
+            label7.Name = "label7";
+            label7.Size = new Size(155, 15);
+            label7.TabIndex = 126;
+            label7.Text = "How many for subscribing? ";
+            // 
+            // enableSubBonus
+            // 
+            enableSubBonus.AutoSize = true;
+            enableSubBonus.BackColor = Color.FromArgb(156, 155, 151);
+            enableSubBonus.ForeColor = SystemColors.ControlText;
+            enableSubBonus.Location = new Point(12, 53);
+            enableSubBonus.Name = "enableSubBonus";
+            enableSubBonus.Size = new Size(120, 19);
+            enableSubBonus.TabIndex = 124;
+            enableSubBonus.Text = "Enable Sub Bonus";
+            enableSubBonus.UseVisualStyleBackColor = false;
+            enableSubBonus.CheckedChanged += enableSubBonus_CheckedChanged;
             // 
             // pictureBox7
             // 
@@ -782,7 +774,7 @@
             panel4.ForeColor = SystemColors.ControlText;
             panel4.Location = new Point(585, 35);
             panel4.Name = "panel4";
-            panel4.Size = new Size(434, 191);
+            panel4.Size = new Size(434, 167);
             panel4.TabIndex = 123;
             // 
             // modRemove
@@ -835,14 +827,113 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
             // 
+            // panel5
+            // 
+            panel5.BackColor = Color.FromArgb(156, 155, 151);
+            panel5.Controls.Add(subbotBox);
+            panel5.Controls.Add(label17);
+            panel5.Controls.Add(subgambleBox);
+            panel5.Controls.Add(label16);
+            panel5.Controls.Add(subsweatbotBox);
+            panel5.Controls.Add(label21);
+            panel5.Controls.Add(enableSubBonusMulti);
+            panel5.Controls.Add(subbonusMultiplierBox);
+            panel5.Controls.Add(label14);
+            panel5.Controls.Add(pictureBox4);
+            panel5.Controls.Add(enableSubBonus);
+            panel5.Controls.Add(label7);
+            panel5.Controls.Add(subTextBox);
+            panel5.ForeColor = SystemColors.ControlText;
+            panel5.Location = new Point(53, 415);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(514, 154);
+            panel5.TabIndex = 146;
+            // 
+            // subbotBox
+            // 
+            subbotBox.AutoSize = true;
+            subbotBox.Location = new Point(12, 30);
+            subbotBox.Name = "subbotBox";
+            subbotBox.Size = new Size(201, 19);
+            subbotBox.TabIndex = 148;
+            subbotBox.Text = "Only Subs can use bot command";
+            subbotBox.UseVisualStyleBackColor = true;
+            subbotBox.CheckedChanged += subbotBox_CheckedChanged;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.ForeColor = Color.Red;
+            label17.Location = new Point(252, 129);
+            label17.Name = "label17";
+            label17.Size = new Size(57, 15);
+            label17.TabIndex = 147;
+            label17.Text = "In Testing";
+            // 
+            // subgambleBox
+            // 
+            subgambleBox.AutoSize = true;
+            subgambleBox.Location = new Point(12, 128);
+            subgambleBox.Name = "subgambleBox";
+            subgambleBox.Size = new Size(240, 19);
+            subgambleBox.TabIndex = 146;
+            subgambleBox.Text = "Only Subs can use !swgamble command";
+            subgambleBox.UseVisualStyleBackColor = true;
+            subgambleBox.CheckedChanged += subgambleBox_CheckedChanged;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = Color.Red;
+            label16.Location = new Point(252, 104);
+            label16.Name = "label16";
+            label16.Size = new Size(57, 15);
+            label16.TabIndex = 145;
+            label16.Text = "In Testing";
+            // 
+            // subsweatbotBox
+            // 
+            subsweatbotBox.AutoSize = true;
+            subsweatbotBox.Location = new Point(12, 103);
+            subsweatbotBox.Name = "subsweatbotBox";
+            subsweatbotBox.Size = new Size(234, 19);
+            subsweatbotBox.TabIndex = 125;
+            subsweatbotBox.Text = "Only Subs can use !sweatbot command";
+            subsweatbotBox.UseVisualStyleBackColor = true;
+            subsweatbotBox.CheckedChanged += subsweatbotBox_CheckedChanged;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.BackColor = Color.FromArgb(71, 83, 92);
+            label21.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label21.ForeColor = SystemColors.ControlLight;
+            label21.Location = new Point(0, 1);
+            label21.Name = "label21";
+            label21.Size = new Size(157, 19);
+            label21.TabIndex = 120;
+            label21.Text = "Subscriber Bonuses";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox4.BackgroundImageLayout = ImageLayout.None;
+            pictureBox4.Location = new Point(0, 0);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(514, 24);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 120;
+            pictureBox4.TabStop = false;
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(37, 37, 37);
-            ClientSize = new Size(1058, 609);
+            ClientSize = new Size(1058, 592);
             ControlBox = false;
+            Controls.Add(panel5);
             Controls.Add(groupBox1);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -867,6 +958,9 @@
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             groupBox1.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -928,10 +1022,17 @@
         private Label label10;
         private Label label9;
         private Label label1;
-        private Label label12;
         private Label label15;
         private Label label14;
         private CheckBox blerpBox;
         private Label label13;
+        private Panel panel5;
+        private Label label16;
+        private CheckBox subsweatbotBox;
+        private Label label21;
+        private PictureBox pictureBox4;
+        private Label label17;
+        private CheckBox subgambleBox;
+        private CheckBox subbotBox;
     }
 }
