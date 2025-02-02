@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.78 Alpha**
+# **Sweat Bot 1.0.0.79 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -69,7 +69,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.78)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.79)
 
 ---
 
@@ -159,6 +159,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+
+1.0.0.79-alpha
+- Fixed refund menu taking awhile to refresh after ever refund
+- Potentially fixed issue when multiple users send a message at once, causing the refund menu to crash the program
+- Fixed refund menu not creating a new bitlog text and loading the previous days data
 
 1.0.0.78-alpha
 - Added Refund menu to the connect menu to quickly access refunds without having to type it out in chat
