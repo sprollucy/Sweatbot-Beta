@@ -68,6 +68,7 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
+            label13 = new Label();
             blerpBox = new CheckBox();
             label15 = new Label();
             label14 = new Label();
@@ -87,7 +88,6 @@
             modMake = new CheckBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
-            label13 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -598,6 +598,16 @@
             panel2.Size = new Size(514, 277);
             panel2.TabIndex = 121;
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = Color.Red;
+            label13.Location = new Point(235, 166);
+            label13.Name = "label13";
+            label13.Size = new Size(57, 15);
+            label13.TabIndex = 145;
+            label13.Text = "In Testing";
+            // 
             // blerpBox
             // 
             blerpBox.AutoSize = true;
@@ -824,16 +834,6 @@
             groupBox1.TabIndex = 124;
             groupBox1.TabStop = false;
             groupBox1.Text = "You must restart if changing any of the text boxes!";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.ForeColor = Color.Red;
-            label13.Location = new Point(235, 166);
-            label13.Name = "label13";
-            label13.Size = new Size(57, 15);
-            label13.TabIndex = 145;
-            label13.Text = "In Testing";
             // 
             // ControlMenu
             // 

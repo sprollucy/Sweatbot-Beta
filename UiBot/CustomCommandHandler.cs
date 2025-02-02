@@ -1414,7 +1414,9 @@ public class CustomCommandHandler
         return null; // Return null if file does not exist
     }
 
-    private void PixelateScreen(TwitchClient client, string channel, string parameter = null)
+    private static SemaphoreSlim _overlayPixelate = new SemaphoreSlim(1, 1);
+
+    private async void PixelateScreen(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
@@ -1429,6 +1431,8 @@ public class CustomCommandHandler
             return;
         }
 
+        await _overlayPixelate.WaitAsync(); // Ensure sequential execution
+
         try
         {
             if (UiBot.Properties.Settings.Default.isDebugOn)
@@ -1436,26 +1440,28 @@ public class CustomCommandHandler
                 Console.WriteLine($"PixelateScreen for {duration} milliseconds.");
             }
 
-            // Ensure you're calling Invoke on the right object: pixelateOverlay (a Form)
+            // Ensure UI thread safety
             pixelateOverlay.Invoke((MethodInvoker)(() =>
             {
-                pixelateOverlay.StartOverlay(); // Start the overlay
+                pixelateOverlay.StartOverlay();
             }));
 
-            System.Threading.Thread.Sleep(duration); // Hold for specified duration
+            await Task.Delay(duration); // Asynchronously wait for the duration
 
-            // Stop the overlay on the UI thread as well
             pixelateOverlay.Invoke((MethodInvoker)(() =>
             {
-                pixelateOverlay.StopOverlay(); // Stop the overlay
+                pixelateOverlay.StopOverlay();
             }));
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error in PixelateScreen: {ex.Message}");
         }
+        finally
+        {
+            _overlayPixelate.Release(); // Allow the next overlay to proceed
+        }
     }
-
 
     // Helper method to convert key characters to virtual key codes
     public static int ToVirtualKey(string key)

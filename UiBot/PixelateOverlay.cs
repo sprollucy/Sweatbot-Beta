@@ -38,17 +38,47 @@ public class PixelateOverlay : Form
             this.Show();
         }
 
-        // Start the timer when overlay is shown
+        // Take a fresh screenshot immediately before starting the timer
+        ForceFreshCapture();
+
         if (timer == null)
         {
             timer = new System.Windows.Forms.Timer { Interval = 100 }; // 10 FPS
             timer.Tick += (s, e) => UpdateOverlay();
         }
 
-        // Start the timer if it's not running
         if (!timer.Enabled)
         {
             timer.Start();
+        }
+    }
+
+    private void ForceFreshCapture()
+    {
+        // Take a new screenshot and immediately apply it
+        Bitmap screenshot = CaptureScreen();
+        if (screenshot != null)
+        {
+            Bitmap pixelated = Pixelate(screenshot, pixelSize);
+
+            // Dispose old frame to free memory
+            if (lastFrame != null)
+            {
+                lastFrame.Dispose();
+            }
+
+            lastFrame = pixelated; // Store current frame for next disposal
+
+            // Ensure old background image is disposed before assigning a new one
+            if (this.BackgroundImage != null)
+            {
+                this.BackgroundImage.Dispose();
+            }
+
+            this.BackgroundImage = pixelated;
+            this.Invalidate(); // Redraw smoothly
+
+            screenshot.Dispose(); // Dispose of the original screenshot immediately
         }
     }
 

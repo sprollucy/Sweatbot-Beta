@@ -416,7 +416,7 @@
             consoleTab.BackColor = Color.FromArgb(120, 132, 142);
             consoleTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
             consoleTab.ForeColor = SystemColors.ControlLight;
-            consoleTab.Location = new Point(54, 39);
+            consoleTab.Location = new Point(53, 39);
             consoleTab.Name = "consoleTab";
             consoleTab.Size = new Size(82, 23);
             consoleTab.TabIndex = 29;
@@ -706,7 +706,7 @@
             refundTab.BackColor = Color.FromArgb(71, 83, 92);
             refundTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
             refundTab.ForeColor = SystemColors.ControlLight;
-            refundTab.Location = new Point(142, 39);
+            refundTab.Location = new Point(135, 39);
             refundTab.Name = "refundTab";
             refundTab.Size = new Size(85, 23);
             refundTab.TabIndex = 143;
