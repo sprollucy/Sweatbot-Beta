@@ -102,7 +102,7 @@
             // 
             messageTextBox.BackColor = SystemColors.ControlLight;
             messageTextBox.BorderStyle = BorderStyle.None;
-            messageTextBox.Location = new Point(53, 427);
+            messageTextBox.Location = new Point(53, 419);
             messageTextBox.Name = "messageTextBox";
             messageTextBox.PlaceholderText = "Type here to send a message to chat. Enter to send or test a command with ! in front of its name";
             messageTextBox.Size = new Size(598, 16);
@@ -113,7 +113,7 @@
             consoleTextBox.BackColor = Color.FromArgb(156, 155, 151);
             consoleTextBox.BorderStyle = BorderStyle.None;
             consoleTextBox.Font = new Font("Arial", 12F);
-            consoleTextBox.Location = new Point(53, 62);
+            consoleTextBox.Location = new Point(53, 54);
             consoleTextBox.Multiline = true;
             consoleTextBox.Name = "consoleTextBox";
             consoleTextBox.ReadOnly = true;
@@ -123,7 +123,7 @@
             // 
             // connectButton
             // 
-            connectButton.Location = new Point(53, 453);
+            connectButton.Location = new Point(53, 445);
             connectButton.Name = "connectButton";
             connectButton.Size = new Size(75, 23);
             connectButton.TabIndex = 2;
@@ -133,7 +133,7 @@
             // 
             // disconnectButton
             // 
-            disconnectButton.Location = new Point(134, 453);
+            disconnectButton.Location = new Point(134, 445);
             disconnectButton.Name = "disconnectButton";
             disconnectButton.Size = new Size(75, 23);
             disconnectButton.TabIndex = 3;
@@ -165,7 +165,7 @@
             econoPanel.Controls.Add(label5);
             econoPanel.Controls.Add(economyLabel);
             econoPanel.Controls.Add(pictureBox1);
-            econoPanel.Location = new Point(657, 236);
+            econoPanel.Location = new Point(657, 228);
             econoPanel.Name = "econoPanel";
             econoPanel.Size = new Size(163, 148);
             econoPanel.TabIndex = 40;
@@ -313,7 +313,7 @@
             panel2.Controls.Add(twitchOpen);
             panel2.Controls.Add(pauseCommands);
             panel2.Controls.Add(pictureBox8);
-            panel2.Location = new Point(657, 38);
+            panel2.Location = new Point(657, 30);
             panel2.Name = "panel2";
             panel2.Size = new Size(163, 192);
             panel2.TabIndex = 33;
@@ -404,7 +404,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.Red;
-            label2.Location = new Point(215, 453);
+            label2.Location = new Point(215, 445);
             label2.Name = "label2";
             label2.Size = new Size(514, 21);
             label2.TabIndex = 13;
@@ -416,7 +416,7 @@
             consoleTab.BackColor = Color.FromArgb(120, 132, 142);
             consoleTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
             consoleTab.ForeColor = SystemColors.ControlLight;
-            consoleTab.Location = new Point(53, 39);
+            consoleTab.Location = new Point(53, 31);
             consoleTab.Name = "consoleTab";
             consoleTab.Size = new Size(82, 23);
             consoleTab.TabIndex = 29;
@@ -427,7 +427,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
-            pictureBox2.Location = new Point(53, 38);
+            pictureBox2.Location = new Point(53, 30);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(598, 24);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -678,7 +678,7 @@
             panel1.Controls.Add(label4);
             panel1.Controls.Add(customCommandBox);
             panel1.Controls.Add(pictureBox4);
-            panel1.Location = new Point(827, 38);
+            panel1.Location = new Point(827, 30);
             panel1.Name = "panel1";
             panel1.Size = new Size(210, 383);
             panel1.TabIndex = 142;
@@ -706,7 +706,7 @@
             refundTab.BackColor = Color.FromArgb(71, 83, 92);
             refundTab.Font = new Font("Constantia", 14F, FontStyle.Bold);
             refundTab.ForeColor = SystemColors.ControlLight;
-            refundTab.Location = new Point(135, 39);
+            refundTab.Location = new Point(135, 31);
             refundTab.Name = "refundTab";
             refundTab.Size = new Size(85, 23);
             refundTab.TabIndex = 143;

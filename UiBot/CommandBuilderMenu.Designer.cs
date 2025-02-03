@@ -128,10 +128,10 @@
             profileComboBox = new ComboBox();
             newProfileButton = new Button();
             panel9 = new Panel();
+            label23 = new Label();
             remProfileButton = new Button();
             label21 = new Label();
             pictureBox7 = new PictureBox();
-            label23 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -158,7 +158,7 @@
             // nametextBox
             // 
             nametextBox.BackColor = SystemColors.ControlLight;
-            nametextBox.Location = new Point(55, 385);
+            nametextBox.Location = new Point(53, 368);
             nametextBox.Name = "nametextBox";
             nametextBox.PlaceholderText = "spin";
             nametextBox.Size = new Size(100, 23);
@@ -167,7 +167,7 @@
             // costtextBox
             // 
             costtextBox.BackColor = SystemColors.ControlLight;
-            costtextBox.Location = new Point(161, 385);
+            costtextBox.Location = new Point(159, 368);
             costtextBox.Name = "costtextBox";
             costtextBox.PlaceholderText = "15";
             costtextBox.Size = new Size(51, 23);
@@ -176,7 +176,7 @@
             // commandtextBox
             // 
             commandtextBox.BackColor = SystemColors.ControlLight;
-            commandtextBox.Location = new Point(218, 385);
+            commandtextBox.Location = new Point(216, 368);
             commandtextBox.Name = "commandtextBox";
             commandtextBox.PlaceholderText = "TM=RAND(5000,10)";
             commandtextBox.Size = new Size(804, 23);
@@ -187,7 +187,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(71, 83, 92);
             label2.ForeColor = SystemColors.ControlLight;
-            label2.Location = new Point(55, 367);
+            label2.Location = new Point(53, 350);
             label2.Name = "label2";
             label2.Size = new Size(39, 15);
             label2.TabIndex = 4;
@@ -198,7 +198,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(71, 83, 92);
             label3.ForeColor = SystemColors.ControlLight;
-            label3.Location = new Point(161, 367);
+            label3.Location = new Point(159, 350);
             label3.Name = "label3";
             label3.Size = new Size(31, 15);
             label3.TabIndex = 5;
@@ -209,7 +209,7 @@
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(71, 83, 92);
             label4.ForeColor = SystemColors.ControlLight;
-            label4.Location = new Point(218, 367);
+            label4.Location = new Point(216, 350);
             label4.Name = "label4";
             label4.Size = new Size(282, 15);
             label4.TabIndex = 6;
@@ -219,7 +219,7 @@
             // 
             pictureBox1.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Location = new Point(55, 366);
+            pictureBox1.Location = new Point(53, 349);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(967, 42);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -241,7 +241,7 @@
             commanduseBox.BackColor = Color.FromArgb(156, 155, 151);
             commanduseBox.BorderStyle = BorderStyle.None;
             commanduseBox.ForeColor = SystemColors.ControlText;
-            commanduseBox.Location = new Point(65, 689);
+            commanduseBox.Location = new Point(63, 675);
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
@@ -287,7 +287,7 @@
             label6.BackColor = Color.FromArgb(71, 83, 92);
             label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.ControlLight;
-            label6.Location = new Point(58, 663);
+            label6.Location = new Point(56, 649);
             label6.Name = "label6";
             label6.Size = new Size(179, 19);
             label6.TabIndex = 18;
@@ -297,7 +297,7 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(55, 663);
+            pictureBox6.Location = new Point(53, 649);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(967, 23);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -339,7 +339,7 @@
             panel1.Controls.Add(label9);
             panel1.Controls.Add(restartButton);
             panel1.Controls.Add(label8);
-            panel1.Location = new Point(55, 414);
+            panel1.Location = new Point(53, 397);
             panel1.Name = "panel1";
             panel1.Size = new Size(335, 220);
             panel1.TabIndex = 25;
@@ -700,7 +700,7 @@
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.FromArgb(156, 155, 151);
-            pictureBox5.Location = new Point(55, 679);
+            pictureBox5.Location = new Point(53, 665);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(967, 336);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -770,7 +770,7 @@
             panel2.Controls.Add(hitkeyloopButton);
             panel2.Controls.Add(ahitkeyloopButton);
             panel2.Controls.Add(pictureBox3);
-            panel2.Location = new Point(396, 413);
+            panel2.Location = new Point(394, 396);
             panel2.Name = "panel2";
             panel2.Size = new Size(246, 117);
             panel2.TabIndex = 31;
@@ -818,7 +818,7 @@
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(709, 413);
+            panel3.Location = new Point(707, 396);
             panel3.Name = "panel3";
             panel3.Size = new Size(313, 244);
             panel3.TabIndex = 32;
@@ -867,7 +867,7 @@
             panel4.Controls.Add(delayButton);
             panel4.Controls.Add(muteButton);
             panel4.Controls.Add(pictureBox4);
-            panel4.Location = new Point(396, 541);
+            panel4.Location = new Point(394, 524);
             panel4.Name = "panel4";
             panel4.Size = new Size(307, 107);
             panel4.TabIndex = 33;
@@ -1011,7 +1011,7 @@
             // 
             pictureBox12.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox12.BackgroundImageLayout = ImageLayout.None;
-            pictureBox12.Location = new Point(55, 337);
+            pictureBox12.Location = new Point(53, 320);
             pictureBox12.Name = "pictureBox12";
             pictureBox12.Size = new Size(232, 30);
             pictureBox12.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1024,7 +1024,7 @@
             label18.BackColor = Color.FromArgb(71, 83, 92);
             label18.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label18.ForeColor = SystemColors.ControlLight;
-            label18.Location = new Point(55, 343);
+            label18.Location = new Point(53, 326);
             label18.Name = "label18";
             label18.Size = new Size(229, 19);
             label18.TabIndex = 48;
@@ -1038,7 +1038,7 @@
             panel5.Controls.Add(pictureBox13);
             panel5.Controls.Add(confCheckBox);
             panel5.Controls.Add(openCustomJson);
-            panel5.Location = new Point(610, 35);
+            panel5.Location = new Point(610, 31);
             panel5.Name = "panel5";
             panel5.Size = new Size(197, 116);
             panel5.TabIndex = 49;
@@ -1082,7 +1082,7 @@
             panel6.Controls.Add(richTextBox1);
             panel6.Controls.Add(label20);
             panel6.Controls.Add(pictureBox14);
-            panel6.Location = new Point(816, 35);
+            panel6.Location = new Point(816, 31);
             panel6.Name = "panel6";
             panel6.Size = new Size(206, 282);
             panel6.TabIndex = 53;
@@ -1129,7 +1129,7 @@
             label22.AutoSize = true;
             label22.BackColor = Color.FromArgb(37, 37, 37);
             label22.ForeColor = Color.Salmon;
-            label22.Location = new Point(290, 346);
+            label22.Location = new Point(288, 329);
             label22.Name = "label22";
             label22.Size = new Size(269, 15);
             label22.TabIndex = 57;
@@ -1149,7 +1149,7 @@
             panel7.Controls.Add(hotmicButton);
             panel7.Controls.Add(mdumpButton);
             panel7.Controls.Add(firemodeButton);
-            panel7.Location = new Point(401, 159);
+            panel7.Location = new Point(401, 160);
             panel7.Name = "panel7";
             panel7.Size = new Size(197, 155);
             panel7.TabIndex = 53;
@@ -1189,7 +1189,7 @@
             panel8.Controls.Add(disablecommandButton);
             panel8.Controls.Add(restorecommandButton);
             panel8.Controls.Add(label13);
-            panel8.Location = new Point(55, 35);
+            panel8.Location = new Point(53, 31);
             panel8.Name = "panel8";
             panel8.Size = new Size(340, 284);
             panel8.TabIndex = 54;
@@ -1220,14 +1220,14 @@
             // profileComboBox
             // 
             profileComboBox.FormattingEnabled = true;
-            profileComboBox.Location = new Point(12, 29);
+            profileComboBox.Location = new Point(13, 29);
             profileComboBox.Name = "profileComboBox";
             profileComboBox.Size = new Size(168, 23);
             profileComboBox.TabIndex = 58;
             // 
             // newProfileButton
             // 
-            newProfileButton.Location = new Point(12, 58);
+            newProfileButton.Location = new Point(13, 58);
             newProfileButton.Name = "newProfileButton";
             newProfileButton.Size = new Size(83, 23);
             newProfileButton.TabIndex = 59;
@@ -1244,14 +1244,25 @@
             panel9.Controls.Add(newProfileButton);
             panel9.Controls.Add(pictureBox7);
             panel9.Controls.Add(profileComboBox);
-            panel9.Location = new Point(405, 34);
+            panel9.Location = new Point(401, 31);
             panel9.Name = "panel9";
-            panel9.Size = new Size(193, 117);
+            panel9.Size = new Size(197, 117);
             panel9.TabIndex = 53;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.ForeColor = Color.Red;
+            label23.Location = new Point(18, 84);
+            label23.Name = "label23";
+            label23.Size = new Size(158, 30);
+            label23.TabIndex = 141;
+            label23.Text = "Must Restart To See Changes\r\n On Twitch!";
+            label23.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // remProfileButton
             // 
-            remProfileButton.Location = new Point(99, 58);
+            remProfileButton.Location = new Point(100, 58);
             remProfileButton.Name = "remProfileButton";
             remProfileButton.Size = new Size(81, 23);
             remProfileButton.TabIndex = 60;
@@ -1277,21 +1288,10 @@
             pictureBox7.BackgroundImageLayout = ImageLayout.None;
             pictureBox7.Location = new Point(0, -1);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(193, 24);
+            pictureBox7.Size = new Size(197, 24);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.TabIndex = 50;
             pictureBox7.TabStop = false;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.ForeColor = Color.Red;
-            label23.Location = new Point(17, 84);
-            label23.Name = "label23";
-            label23.Size = new Size(158, 30);
-            label23.TabIndex = 141;
-            label23.Text = "Must Restart To See Changes\r\n On Twitch!";
-            label23.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // CommandBuilderMenu
             // 

@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 
 namespace UiBot
@@ -10,9 +11,11 @@ namespace UiBot
         [STAThread]
         static void Main(string[] args)
         {
+            // Ensure necessary directories exist by calling the IntegrityCheck method
+            IntegrityCheck.EnsureDirectoriesExist();
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-
             ApplicationConfiguration.Initialize();
 
             // Load settings from file

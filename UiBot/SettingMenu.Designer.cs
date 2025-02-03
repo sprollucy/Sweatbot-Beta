@@ -84,7 +84,7 @@
             groupBox1.Controls.Add(channelOpen);
             groupBox1.Font = new Font("Segoe UI", 9F);
             groupBox1.ForeColor = SystemColors.ControlLight;
-            groupBox1.Location = new Point(54, 25);
+            groupBox1.Location = new Point(53, 31);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(417, 140);
             groupBox1.TabIndex = 11;
@@ -201,7 +201,7 @@
             // 
             changelogBox.BackColor = Color.FromArgb(156, 155, 151);
             changelogBox.BorderStyle = BorderStyle.None;
-            changelogBox.Location = new Point(635, 58);
+            changelogBox.Location = new Point(635, 56);
             changelogBox.Multiline = true;
             changelogBox.Name = "changelogBox";
             changelogBox.ReadOnly = true;
@@ -276,7 +276,7 @@
             changelogLabel.AutoSize = true;
             changelogLabel.BackColor = Color.FromArgb(71, 83, 92);
             changelogLabel.Font = new Font("Cambria", 15.75F);
-            changelogLabel.Location = new Point(635, 32);
+            changelogLabel.Location = new Point(635, 31);
             changelogLabel.Name = "changelogLabel";
             changelogLabel.Size = new Size(105, 25);
             changelogLabel.TabIndex = 34;
@@ -322,7 +322,7 @@
             groupBox2.BackColor = Color.FromArgb(37, 37, 37);
             groupBox2.Controls.Add(bitrestoreButton);
             groupBox2.ForeColor = SystemColors.ControlLight;
-            groupBox2.Location = new Point(54, 165);
+            groupBox2.Location = new Point(53, 177);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(417, 58);
             groupBox2.TabIndex = 39;
@@ -350,7 +350,7 @@
             groupBox3.Controls.Add(checkUpdateButton);
             groupBox3.Controls.Add(enableUpdateCheck);
             groupBox3.ForeColor = SystemColors.ControlLight;
-            groupBox3.Location = new Point(54, 229);
+            groupBox3.Location = new Point(53, 241);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(417, 55);
             groupBox3.TabIndex = 40;
@@ -372,7 +372,7 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(635, 32);
+            pictureBox6.Location = new Point(635, 31);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(411, 25);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -397,7 +397,7 @@
             groupBox4.BackColor = Color.FromArgb(37, 37, 37);
             groupBox4.Controls.Add(enableDebug);
             groupBox4.ForeColor = SystemColors.ControlLight;
-            groupBox4.Location = new Point(54, 284);
+            groupBox4.Location = new Point(53, 296);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(417, 55);
             groupBox4.TabIndex = 111;
@@ -421,7 +421,7 @@
             groupBox5.BackColor = Color.FromArgb(37, 37, 37);
             groupBox5.Controls.Add(enableEFTtrade);
             groupBox5.ForeColor = SystemColors.ControlLight;
-            groupBox5.Location = new Point(54, 338);
+            groupBox5.Location = new Point(53, 350);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(417, 55);
             groupBox5.TabIndex = 112;

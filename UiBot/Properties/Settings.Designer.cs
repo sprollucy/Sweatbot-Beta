@@ -529,7 +529,7 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CustomCommands")]
         public string LastUsedProfile {
             get {
                 return ((string)(this["LastUsedProfile"]));

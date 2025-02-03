@@ -141,7 +141,7 @@
             panel1.Controls.Add(checkEnableBitMsg);
             panel1.Controls.Add(pictureBox2);
             panel1.ForeColor = SystemColors.ControlText;
-            panel1.Location = new Point(53, 35);
+            panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
             panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
@@ -597,7 +597,7 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(enableChatBonus);
             panel2.ForeColor = SystemColors.ControlText;
-            panel2.Location = new Point(53, 247);
+            panel2.Location = new Point(53, 243);
             panel2.Name = "panel2";
             panel2.Size = new Size(514, 162);
             panel2.TabIndex = 121;
@@ -735,7 +735,7 @@
             panel3.Controls.Add(pictureBox7);
             panel3.Controls.Add(autoMessageBox);
             panel3.ForeColor = SystemColors.ControlText;
-            panel3.Location = new Point(585, 248);
+            panel3.Location = new Point(585, 205);
             panel3.Name = "panel3";
             panel3.Size = new Size(434, 191);
             panel3.TabIndex = 122;
@@ -761,7 +761,7 @@
             panel4.Controls.Add(openModWhitelist);
             panel4.Controls.Add(modWhitelistCheck);
             panel4.ForeColor = SystemColors.ControlText;
-            panel4.Location = new Point(585, 35);
+            panel4.Location = new Point(585, 31);
             panel4.Name = "panel4";
             panel4.Size = new Size(434, 167);
             panel4.TabIndex = 123;
@@ -809,7 +809,7 @@
             groupBox1.Controls.Add(restart_AppButton);
             groupBox1.Font = new Font("Segoe UI", 10F);
             groupBox1.ForeColor = Color.Salmon;
-            groupBox1.Location = new Point(685, 445);
+            groupBox1.Location = new Point(643, 441);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(334, 79);
             groupBox1.TabIndex = 124;
@@ -830,7 +830,7 @@
             panel5.Controls.Add(enableSubBonus);
             panel5.Controls.Add(label7);
             panel5.ForeColor = SystemColors.ControlText;
-            panel5.Location = new Point(53, 415);
+            panel5.Location = new Point(53, 411);
             panel5.Name = "panel5";
             panel5.Size = new Size(514, 154);
             panel5.TabIndex = 146;

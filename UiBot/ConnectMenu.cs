@@ -56,11 +56,10 @@ namespace UiBot
             memoryTimer.Tick += MemoryTimer_Tick;
             lastSpent = LoadTotalSpentFromJson();
             economyLastLabel.Text = $"{lastSpent}";
-
+            chatComPanel.Visible = false;
             // Regular chat commands
             regComLabel.MouseClick += chatComPanel_MouseClick;
-            chatComPanel.Height = 0;
-            chatComPanel.Width = 0;
+
 
             regComLabel.Location = new Point(56, 583);
             if (Properties.Settings.Default.isEconomyOn)
@@ -91,30 +90,28 @@ namespace UiBot
 
         private void chatComPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            // Toggle the height based on the current state
+            // Toggle the visibility and update the label text based on the current state
             if (isExpanded)
             {
-                chatComPanel.Height = 0; // Collapse
-                chatComPanel.Width = 0;
+                chatComPanel.Visible = false;
                 regComLabel.Text = "Regular Chat Commands (click to expand)";
-
                 regComLabel.Location = new Point(56, 583);
                 pictureBox9.BackColor = Color.FromArgb(37, 37, 37);
                 regComLabel.BackColor = Color.FromArgb(37, 37, 37);
             }
             else
             {
-                chatComPanel.Height = 96; // Expand
-                chatComPanel.Width = 749;
+                chatComPanel.Visible = true;
                 regComLabel.Text = "Regular Chat Commands (click to minimize)";
                 regComLabel.Location = new Point(56, 485);
                 pictureBox9.BackColor = Color.FromArgb(71, 83, 92);
                 regComLabel.BackColor = Color.FromArgb(71, 83, 92);
-
             }
 
-            isExpanded = !isExpanded; // Toggle the state
+            // Toggle the isExpanded flag
+            isExpanded = !isExpanded;
         }
+
 
         private void InitializeConsole()
         {
@@ -570,7 +567,7 @@ namespace UiBot
 
         private void refundTab_Click(object sender, EventArgs e)
         {
-            refundPanel.Location = new Point(53, 62); // Reset the position when collapsed
+            refundPanel.Location = new Point(53, 54); // Reset the position when collapsed
             refundTab.BackColor = Color.FromArgb(120, 132, 142);  // Set the active tab to bright color
             consoleTab.BackColor = Color.FromArgb(71, 83, 92);    // Set the inactive tab to darker color
 
@@ -587,7 +584,6 @@ namespace UiBot
 
             // Clear the current log entries when Console tab is clicked
             logListPanel.Controls.Clear();
-            logEntries.Clear();
             StopFileWatcher();
         }
 
