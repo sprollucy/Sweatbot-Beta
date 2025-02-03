@@ -127,14 +127,7 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
 ## **How to Update the Bot**
 
-Typically, you only need to replace the `Sweat Bot.exe` file when updating. Custom commands and prices are saved in the **Data** folder, which won’t be overwritten unless specified.
-
-### **Transferring Settings After an Update**
-
-1. Run the new version once.  
-2. Navigate to `C:\Users\User\AppData\Local\Sweat_Bot`.  
-3. Copy the `user.config` file from the current version’s folder.  
-4. Paste it into the new version’s folder, overwriting the existing `user.config`.
+Typically, you only need to replace the `Sweat Bot.exe` file when updating. Custom commands and prices are saved in the **Data** folder, which won’t be overwritten unless specified. I plan on making a installer later!
 
 ---
 
