@@ -9,6 +9,7 @@ using TwitchLib.Communication.Events;
 using TwitchLib.PubSub.Events;
 using TwitchLib.PubSub;
 using TwitchLib.Api.Helix.Models.Chat.GetChatters;
+using UiBot.Properties;
 
 
 namespace UiBot
@@ -51,14 +52,16 @@ namespace UiBot
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
 
         // File loading
-        string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
+        string commandsFilePath;
         string userBitsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "user_bits.json");
 
         internal MainBot()
         {
             commandHandler = new CustomCommandHandler(commandsFilePath);
             userBitName = controlMenu.CustombitnameBox.Text;
-
+            string LastUsedProfile = Settings.Default.LastUsedProfile;
+            // Construct the file path using string interpolation
+            commandsFilePath = Path.Combine("Data", "Profiles", $"{LastUsedProfile}.json");
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
             LogHandler.LoadUserBitsFromJson(userBitsFilePath);
@@ -918,7 +921,6 @@ namespace UiBot
 
                                 // Update the isChatCommandPaused value
                                 Properties.Settings.Default.isCommandsPaused = !desiredState;
-                                Properties.Settings.Default.Save();
 
                                 // Log the command usage
                                 LogHandler.LogCommand(Chatter, "sweatbot", bitCostBot, userBits, timestamp);
@@ -1260,21 +1262,16 @@ namespace UiBot
                         {
                             if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
-                                // Parse the arguments for !sbadd
                                 var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
                                 if (sbaddArgs.Length >= 3)
                                 {
-                                    string commandName = sbaddArgs[0].ToLower();  // Command name
+                                    string commandName = sbaddArgs[0].ToLower();
                                     if (int.TryParse(sbaddArgs[1], out int bitCost))
                                     {
-                                        string methods = string.Join(" ", sbaddArgs.Skip(2));  // Join methods if there are multiple
-
-                                        // Add the command and capture any error message or success message
-                                        var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                                        string methods = string.Join(" ", sbaddArgs.Skip(2));
+                                        var commandHandler = new CustomCommandHandler(commandsFilePath);
                                         string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
-
-                                        // Send the result message back to the channel
                                         client.SendMessage(channelId, resultMessage);
                                     }
                                     else
@@ -1295,15 +1292,12 @@ namespace UiBot
                         {
                             if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
-                                // Parse the arguments for !sbremove
                                 var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
 
                                 if (sbremoveArgs.Length == 1)
                                 {
-                                    string commandNameToRemove = sbremoveArgs[0].ToLower();  // Command name to remove
-
-                                    // Remove the command
-                                    var commandHandler = new CustomCommandHandler("CustomCommands.json");
+                                    string commandNameToRemove = sbremoveArgs[0].ToLower();
+                                    var commandHandler = new CustomCommandHandler(commandsFilePath);
                                     bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
 
                                     if (isRemoved)
@@ -1359,58 +1353,62 @@ namespace UiBot
                         break;
 
                     case "sbadd":
-                        // Parse the arguments for !sbadd
-                        var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
-
-                        if (sbaddArgs.Length >= 3)
+                        if (Properties.Settings.Default.isModAddEnabled)
                         {
-                            string commandName = sbaddArgs[0].ToLower();  // Command name
-                            if (int.TryParse(sbaddArgs[1], out int bitCost))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
-                                string methods = string.Join(" ", sbaddArgs.Skip(2));  // Join methods if there are multiple
+                                var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
-                                // Add the command and capture any error message or success message
-                                var commandHandler = new CustomCommandHandler("CustomCommands.json");
-                                string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
-
-                                // Send the result message back to the channel
-                                client.SendMessage(channelId, resultMessage);
+                                if (sbaddArgs.Length >= 3)
+                                {
+                                    string commandName = sbaddArgs[0].ToLower();
+                                    if (int.TryParse(sbaddArgs[1], out int bitCost))
+                                    {
+                                        string methods = string.Join(" ", sbaddArgs.Skip(2));
+                                        var commandHandler = new CustomCommandHandler(commandsFilePath);
+                                        string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
+                                        client.SendMessage(channelId, resultMessage);
+                                    }
+                                    else
+                                    {
+                                        client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
+                                    }
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
+                                }
                             }
-                            else
-                            {
-                                client.SendMessage(channelId, $"Invalid {userBitName} cost. Please provide a valid number.");
-                            }
-                        }
-                        else
-                        {
-                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
                         }
                         break;
 
                     case "sbremove":
-                        // Parse the arguments for !sbremove
-                        var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
-
-                        if (sbremoveArgs.Length == 1)
+                        if (Properties.Settings.Default.isModRemoveEnabled)
                         {
-                            string commandNameToRemove = sbremoveArgs[0].ToLower();  // Command name to remove
-
-                            // Remove the command
-                            var commandHandler = new CustomCommandHandler("CustomCommands.json");
-                            bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
-
-                            if (isRemoved)
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
                             {
-                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
+                                var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                                if (sbremoveArgs.Length == 1)
+                                {
+                                    string commandNameToRemove = sbremoveArgs[0].ToLower();
+                                    var commandHandler = new CustomCommandHandler(commandsFilePath);
+                                    bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
+
+                                    if (isRemoved)
+                                    {
+                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
+                                    }
+                                    else
+                                    {
+                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
+                                    }
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
+                                }
                             }
-                            else
-                            {
-                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
-                            }
-                        }
-                        else
-                        {
-                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
                         }
                         break;
                 }

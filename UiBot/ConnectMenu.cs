@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
 using TwitchLib.Communication.Interfaces;
+using UiBot.Properties;
 using Timer = System.Windows.Forms.Timer;
 
 namespace UiBot
@@ -246,7 +247,9 @@ namespace UiBot
 
         private void LoadCommands()
         {
-            string commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
+            string LastUsedProfile = Settings.Default.LastUsedProfile;
+
+            string commandsFilePath = Path.Combine("Data", "Profiles", $"{LastUsedProfile}.json");
 
             if (File.Exists(commandsFilePath))
             {

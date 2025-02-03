@@ -69,61 +69,61 @@ namespace UiBot
         private void enableCustomTraders_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTwitchTradersEnabled = enableCustomTraders.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableLightkeeper_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderLightkeeperEnabled = enableLightkeeper.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableJaeger_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderJaegerEnabled = enableJaeger.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableSkier_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderSkierEnabled = enableSkier.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableRagman_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderRagmanEnabled = enableRagman.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableFence_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderFenceEnabled = enableFence.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableMechanic_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderMechanicEnabled = enableMechanic.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enablePeacekeeper_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderPeacekeeperEnabled = enablePeacekeeper.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableTherapist_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderTherapistEnabled = enableTherapist.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enablePrapor_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTraderPraporEnabled = enablePrapor.Checked;
-            Properties.Settings.Default.Save();
+
         }
     }
 }

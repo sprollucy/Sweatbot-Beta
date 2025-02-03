@@ -124,7 +124,7 @@
             commandBuilder.SizeMode = PictureBoxSizeMode.Zoom;
             commandBuilder.TabIndex = 5;
             commandBuilder.TabStop = false;
-            commandBuilder.Click += questTracker_Click;
+            commandBuilder.Click += commandBuilder_Click;
             // 
             // pictureBox7
             // 

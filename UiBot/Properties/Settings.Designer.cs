@@ -526,5 +526,17 @@ namespace UiBot.Properties {
                 this["isSubOnlyBotCommand"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastUsedProfile {
+            get {
+                return ((string)(this["LastUsedProfile"]));
+            }
+            set {
+                this["LastUsedProfile"] = value;
+            }
+        }
     }
 }

@@ -19,12 +19,12 @@ namespace UiBot
         private SettingMenu settingMenu;
         private ControlMenu controlMenu;
         private TraderMenu traderMenu;
-        private CommandBuilderMenu questMenu;
+        private CommandBuilderMenu builderMenu;
         private bool isConnectMenuVisible = false;
         private bool isSettingMenuVisible = false;
         private bool isControlMenuVisible = false;
         private bool isTraderMenuVisible = false;
-        private bool isQuestMenuVisible = false;
+        private bool isCommandBuilderMenuVisible = false;
         private bool isLabelsSlidOut = false;
         private int labelsOriginalLeft;
         private int labelsTargetLeft;
@@ -346,31 +346,32 @@ namespace UiBot
                 isControlMenuVisible = false;
             }
         }
-        private void ShowQuestMenu()
+        private void ShowCommandBuilderMenu()
         {
-            if (!isQuestMenuVisible)
+            if (!isCommandBuilderMenuVisible)
             {
-                if (questMenu == null || questMenu.IsDisposed)
+                if (builderMenu == null || builderMenu.IsDisposed)
                 {
-                    questMenu = new CommandBuilderMenu();
-                    questMenu.Dock = DockStyle.Fill;
-                    questMenu.Location = new Point(-questMenu.Width, 0);
+                    builderMenu = new CommandBuilderMenu();
+                    builderMenu.Dock = DockStyle.Fill;
+                    builderMenu.Location = new Point(-builderMenu.Width, 0);
                 }
-                this.Controls.Add(questMenu);
-                questMenu.Show();
-                isQuestMenuVisible = true;
+                this.Controls.Add(builderMenu);
+                builderMenu.Show();
+                isCommandBuilderMenuVisible = true;
                 currentTab.Text = "Command Builder";
 
             }
         }
 
-        private void HideQuestMenu()
+        private void HideCommandBuilderMenu()
         {
-            if (isQuestMenuVisible)
+            if (isCommandBuilderMenuVisible)
             {
-                this.Controls.Remove(questMenu); // Change 'commandMenu' to 'controlMenu'
-                questMenu.Hide(); // Change 'commandMenu' to 'controlMenu'
-                isQuestMenuVisible = false;
+                this.Controls.Remove(builderMenu); // Change 'commandMenu' to 'controlMenu'
+                builderMenu.Hide(); // Change 'commandMenu' to 'controlMenu'
+                builderMenu.Dispose();
+                isCommandBuilderMenuVisible = false;
             }
         }
 
@@ -393,9 +394,9 @@ namespace UiBot
             {
                 HideTraderMenu();
             }
-            else if (isQuestMenuVisible)
+            else if (isCommandBuilderMenuVisible)
             {
-                HideQuestMenu();
+                HideCommandBuilderMenu();
             }
 
         }
@@ -433,14 +434,14 @@ namespace UiBot
             ShowTraderMenu();
         }
 
-        private void questTracker_Click(object sender, EventArgs e)
+        private void commandBuilder_Click(object sender, EventArgs e)
         {
             if (isEnlarged)
             {
                 menuButton_Click(sender, e);
             }
             HideOpenMenu();
-            ShowQuestMenu();
+            ShowCommandBuilderMenu();
         }
     }
 }

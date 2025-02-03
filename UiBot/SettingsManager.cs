@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace UiBot
 {
@@ -16,14 +15,24 @@ namespace UiBot
         {
             try
             {
-                // Get all boolean properties dynamically
-                var boolSettings = Properties.Settings.Default.GetType()
+                // Get all boolean and string properties dynamically
+                var settings = Properties.Settings.Default.GetType()
                     .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.PropertyType == typeof(bool))
-                    .ToDictionary(p => p.Name, p => (bool)p.GetValue(Properties.Settings.Default));
+                    .Where(p => p.PropertyType == typeof(bool) || p.PropertyType == typeof(string))
+                    .ToDictionary(p => p.Name, p =>
+                    {
+                        if (p.PropertyType == typeof(bool))
+                        {
+                            return (object)(bool)p.GetValue(Properties.Settings.Default);
+                        }
+                        else
+                        {
+                            return (object)(string)p.GetValue(Properties.Settings.Default);
+                        }
+                    });
 
                 // Convert to JSON and save
-                string json = JsonSerializer.Serialize(boolSettings, new JsonSerializerOptions { WriteIndented = true });
+                string json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(settingsFilePath, json);
             }
             catch (Exception ex)
@@ -39,16 +48,24 @@ namespace UiBot
                 if (File.Exists(settingsFilePath))
                 {
                     string json = File.ReadAllText(settingsFilePath);
-                    var loadedSettings = JsonSerializer.Deserialize<Dictionary<string, bool>>(json);
+                    var loadedSettings = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
 
                     if (loadedSettings != null)
                     {
                         foreach (var setting in loadedSettings)
                         {
                             PropertyInfo prop = Properties.Settings.Default.GetType().GetProperty(setting.Key);
-                            if (prop != null && prop.PropertyType == typeof(bool))
+                            if (prop != null)
                             {
-                                prop.SetValue(Properties.Settings.Default, setting.Value);
+                                // Check if the property is a boolean or string and set the value accordingly
+                                if (prop.PropertyType == typeof(bool) && setting.Value is bool)
+                                {
+                                    prop.SetValue(Properties.Settings.Default, setting.Value);
+                                }
+                                else if (prop.PropertyType == typeof(string) && setting.Value is string)
+                                {
+                                    prop.SetValue(Properties.Settings.Default, setting.Value);
+                                }
                             }
                         }
 
@@ -65,6 +82,5 @@ namespace UiBot
                 Console.WriteLine($"Error loading settings: {ex.Message}");
             }
         }
-
     }
 }

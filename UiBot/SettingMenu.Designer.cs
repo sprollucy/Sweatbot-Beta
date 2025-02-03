@@ -336,7 +336,7 @@
             enableUpdateCheck.Checked = true;
             enableUpdateCheck.CheckState = CheckState.Checked;
             enableUpdateCheck.ForeColor = SystemColors.ControlLight;
-            enableUpdateCheck.Location = new Point(198, 25);
+            enableUpdateCheck.Location = new Point(209, 24);
             enableUpdateCheck.Name = "enableUpdateCheck";
             enableUpdateCheck.Size = new Size(197, 19);
             enableUpdateCheck.TabIndex = 40;
@@ -384,7 +384,7 @@
             enableDebug.AutoSize = true;
             enableDebug.BackColor = Color.FromArgb(37, 37, 37);
             enableDebug.ForeColor = SystemColors.ControlLight;
-            enableDebug.Location = new Point(18, 22);
+            enableDebug.Location = new Point(9, 22);
             enableDebug.Name = "enableDebug";
             enableDebug.Size = new Size(133, 19);
             enableDebug.TabIndex = 110;
@@ -408,7 +408,7 @@
             // 
             enableEFTtrade.AutoSize = true;
             enableEFTtrade.ForeColor = SystemColors.ControlLight;
-            enableEFTtrade.Location = new Point(18, 22);
+            enableEFTtrade.Location = new Point(9, 22);
             enableEFTtrade.Name = "enableEFTtrade";
             enableEFTtrade.Size = new Size(193, 19);
             enableEFTtrade.TabIndex = 112;

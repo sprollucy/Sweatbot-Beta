@@ -7,7 +7,7 @@ namespace UiBot
 {
     public partial class CommandBuilderMenu : Form
     {
-        private readonly string _commandsFilePath = Path.Combine("Data", "bin", "CustomCommands.json");
+        private string _commandsFilePath;
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
         private int mouseX;
         private int mouseY;
@@ -19,12 +19,7 @@ namespace UiBot
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(this.CommandBuilderMenu_KeyDown);
 
-            // Ensure the Data directory exists
-            var directory = Path.GetDirectoryName(_commandsFilePath);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+
 
             // Load commands into the ListBoxes
             LoadCommandsIntoListBox();
@@ -41,8 +36,116 @@ namespace UiBot
             restorecommandButton.Click += restorecommandButton_Click;
 
             confCheckBox.Checked = Properties.Settings.Default.isConfirmationDisabled;
+            // Load profiles into the ComboBox
+            LoadProfilesIntoComboBox();
 
+            // Load commands from the default profile
+            LoadCommandsFromProfile(profileComboBox.SelectedItem.ToString());
+
+            // Register the event for profile selection change
+            profileComboBox.SelectedIndexChanged += ProfileComboBox_SelectedIndexChanged;
         }
+
+        private void LoadProfilesIntoComboBox()
+        {
+            profileComboBox.Items.Clear();
+            string profilesDirectory = Path.Combine("Data", "Profiles");
+
+            if (!Directory.Exists(profilesDirectory))
+            {
+                Directory.CreateDirectory(profilesDirectory);
+            }
+
+            // Get all the JSON files in the Profiles directory
+            string[] profileFiles = Directory.GetFiles(profilesDirectory, "*.json");
+
+            // Add the file names (without extension) to the ComboBox
+            foreach (string file in profileFiles)
+            {
+                string profileName = Path.GetFileNameWithoutExtension(file);
+                profileComboBox.Items.Add(profileName);
+            }
+
+            // Select the last used profile if available
+            string lastUsedProfile = Properties.Settings.Default.LastUsedProfile;
+            if (profileComboBox.Items.Count > 0)
+            {
+                if (!string.IsNullOrEmpty(lastUsedProfile) && profileComboBox.Items.Contains(lastUsedProfile))
+                {
+                    profileComboBox.SelectedItem = lastUsedProfile; // Set the last used profile
+                }
+                else
+                {
+                    // Default to the first profile if no saved preference
+                    profileComboBox.SelectedIndex = 0;
+                }
+
+                string selectedProfile = profileComboBox.SelectedItem.ToString();
+
+                // Load the commands from the selected profile
+                LoadCommandsFromProfile(selectedProfile);
+            }
+        }
+
+        private void ProfileComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedProfile = profileComboBox.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedProfile))
+            {
+                return;
+            }
+            Properties.Settings.Default.LastUsedProfile = profileComboBox.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
+
+            // Load commands from the selected profile
+            LoadCommandsFromProfile(selectedProfile);
+        }
+
+        private void LoadCommandsFromProfile(string profileName)
+        {
+            // Set the _commandsFilePath dynamically based on profileName
+            _commandsFilePath = Path.Combine("Data", "Profiles", $"{profileName}.json");
+
+            if (!File.Exists(_commandsFilePath))
+            {
+                MessageBox.Show($"Profile '{profileName}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Load commands from the selected profile file
+            var commands = LoadCommandsFromFile(_commandsFilePath);
+
+            // Clear the current ListBox
+            commandListBox.Items.Clear();
+
+            // Populate the ListBox with the loaded commands
+            foreach (var commandName in commands.Keys)
+            {
+                commandListBox.Items.Add(commandName);
+            }
+
+            // Clear the text boxes
+            nametextBox.Clear();
+            costtextBox.Clear();
+            commandtextBox.Clear();
+        }
+        private Dictionary<string, Command> LoadCommandsFromFile(string filePath)
+        {
+            try
+            {
+                var json = File.ReadAllText(filePath);
+                return JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading the profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new Dictionary<string, Command>();
+            }
+        }
+
+
+
         private void CommandBuilderMenu_KeyDown(object sender, KeyEventArgs e)
         {
             // Check if the Shift key is pressed
@@ -234,13 +337,13 @@ namespace UiBot
                 Methods = new List<string>(methods)
             };
 
-            // Load existing commands from file
-            var commands = LoadCommands();
+            // Load existing commands from the correct profile file
+            var commands = LoadCommands();  // _commandsFilePath should be set when a profile is selected
 
             // Add or update the command
             commands[name] = newCommand;
 
-            // Save commands back to file
+            // Save commands back to the correct file
             SaveCommandsToFile(commands);
 
             if (!Properties.Settings.Default.isConfirmationDisabled)
@@ -248,9 +351,26 @@ namespace UiBot
                 MessageBox.Show("Command saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            // Update the ListBox
+            // Update the ListBox to reflect changes
             LoadCommandsIntoListBox();
         }
+
+
+        private void SaveCommandsToProfile(string profileName, Dictionary<string, Command> commands)
+        {
+            string profileFilePath = Path.Combine("Data", "Profiles", $"{profileName}.json");
+
+            try
+            {
+                var json = JsonConvert.SerializeObject(commands, Formatting.Indented);
+                File.WriteAllText(profileFilePath, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving the profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         // Helper method to split methods without breaking content inside parentheses
         private List<string> SplitMethods(string methodsText)
@@ -407,6 +527,7 @@ namespace UiBot
         {
             try
             {
+                // Ensure _commandsFilePath is set by selecting a profile first
                 if (File.Exists(_commandsFilePath))
                 {
                     Process.Start(new ProcessStartInfo
@@ -417,7 +538,7 @@ namespace UiBot
                 }
                 else
                 {
-                    MessageBox.Show("The file 'CustomCommands.json' does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"The file '{Path.GetFileName(_commandsFilePath)}' does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -440,7 +561,7 @@ namespace UiBot
                 }
                 else
                 {
-                    MessageBox.Show("The file 'CustomCommands.json' does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The file 'DisabledCommands.json' does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -571,5 +692,92 @@ namespace UiBot
             QuickAddCommands.QuickALTF4(LoadCommandsIntoListBox);
 
         }
+
+        private void newProfileButton_Click(object sender, EventArgs e)
+        {
+            // Define the full path to the "Profiles" folder in your project
+            string profilesDirectory = Path.Combine(Application.StartupPath, "Data", "Profiles");
+
+            // Make sure the directory exists; if not, create it
+            if (!Directory.Exists(profilesDirectory))
+            {
+                Directory.CreateDirectory(profilesDirectory);
+            }
+
+            // Open a SaveFileDialog to let the user select the file name for the new profile
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Set the initial directory to the Profiles folder
+                saveFileDialog.InitialDirectory = profilesDirectory;
+
+                saveFileDialog.Filter = "JSON Files (*.json)|*.json"; // Ensure only .json files are shown
+                saveFileDialog.DefaultExt = ".json";  // Default extension is .json
+                saveFileDialog.AddExtension = true;   // Add extension if not entered
+
+                // Show the dialog and check if the user selected a file
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Ensure the file is saved within the 'Profiles' directory
+                    string profileFilePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        // Create an empty command list and save it to the new profile file
+                        var emptyCommands = new Dictionary<string, Command>();  // Empty command list
+                        File.WriteAllText(profileFilePath, JsonConvert.SerializeObject(emptyCommands, Formatting.Indented));
+
+                        // Optionally, you can update the profileComboBox and select the newly created profile
+                        profileComboBox.Items.Add(Path.GetFileNameWithoutExtension(profileFilePath));  // Add profile name to the ComboBox
+                        profileComboBox.SelectedItem = Path.GetFileNameWithoutExtension(profileFilePath); // Select the new profile
+
+                        MessageBox.Show("New profile created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while creating the profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void remProfileButton_Click(object sender, EventArgs e)
+        {
+            if (profileComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a profile to remove.", "No Profile Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string selectedProfile = profileComboBox.SelectedItem.ToString();
+            string profilesDirectory = Path.Combine(Application.StartupPath, "Data", "Profiles");
+            string profileFilePath = Path.Combine(profilesDirectory, selectedProfile + ".json");
+
+            // Confirm deletion
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete the profile '{selectedProfile}'?",
+                                                  "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    if (File.Exists(profileFilePath))
+                    {
+                        File.Delete(profileFilePath);
+                        profileComboBox.Items.Remove(selectedProfile); // Remove from ComboBox
+
+                        MessageBox.Show("Profile deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Profile file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while deleting the profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }

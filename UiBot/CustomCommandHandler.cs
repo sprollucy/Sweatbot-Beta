@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
+using UiBot.Properties;
 
 public class CustomCommandHandler
 {
@@ -12,7 +13,9 @@ public class CustomCommandHandler
     private Random random = new Random();  // Class-level Random object
     private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
 
-    string filePath = Path.Combine("Data", "bin", "CustomCommands.json");
+    string filePath;
+    string LastUsedProfile = Settings.Default.LastUsedProfile;
+
 
     // User32.dll imports for mouse and keyboard events
     [DllImport("user32.dll", SetLastError = true)]
@@ -44,9 +47,12 @@ public class CustomCommandHandler
 
     public CustomCommandHandler(string filePath)
     {
+
+        this.filePath = Path.Combine("Data", "Profiles", $"{LastUsedProfile}.json");  // Use this.filePath
+
         pixelateOverlay = new PixelateOverlay();
 
-        _commands = LoadCommandsFromFile(filePath);
+        _commands = LoadCommandsFromFile(this.filePath);  // Use this.filePath here as well
 
         // Sync method map
         _syncMethodMap = new Dictionary<string, Action<TwitchClient, string, string>>
@@ -273,11 +279,10 @@ public class CustomCommandHandler
 
     public bool RemoveChatCommand(string commandName)
     {
-
-        // Load the existing commands from the file
+        // Load the existing commands from the file using the class-level filePath
         Dictionary<string, Command> currentCommands = new Dictionary<string, Command>();
 
-        if (File.Exists(filePath))
+        if (File.Exists(filePath))  // Use class-level filePath
         {
             var json = File.ReadAllText(filePath);
             currentCommands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
@@ -293,7 +298,7 @@ public class CustomCommandHandler
 
             // Save the updated commands to the file
             var updatedJson = JsonConvert.SerializeObject(currentCommands, Formatting.Indented);
-            File.WriteAllText(filePath, updatedJson);
+            File.WriteAllText(filePath, updatedJson);  // Use class-level filePath
 
             return true;
         }
@@ -304,11 +309,10 @@ public class CustomCommandHandler
 
     private void SaveChatCommandsToFile()
     {
-
-        // Load the existing commands from the file if it exists
+        // Load the existing commands from the file using the class-level filePath
         Dictionary<string, Command> currentCommands = new Dictionary<string, Command>();
 
-        if (File.Exists(filePath))
+        if (File.Exists(filePath))  // Use class-level filePath
         {
             var json = File.ReadAllText(filePath);
             currentCommands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json) ?? new Dictionary<string, Command>();
@@ -339,9 +343,10 @@ public class CustomCommandHandler
 
         // Instead of overwriting the entire file, append only new commands
         // This creates or updates the file with merged content
-        File.WriteAllText(filePath, updatedJson); 
-        Console.WriteLine("Commands have been successfully updated in CustomCommands.json.");
+        File.WriteAllText(filePath, updatedJson);  // Use class-level filePath
+        Console.WriteLine($"Commands have been successfully updated in {LastUsedProfile}.json.");
     }
+
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {

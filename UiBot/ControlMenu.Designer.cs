@@ -30,8 +30,8 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
-            label12 = new Label();
             custombitnameBox = new TextBox();
+            label12 = new Label();
             bitGambleCDBox = new TextBox();
             label11 = new Label();
             bitChanceBox = new TextBox();
@@ -71,11 +71,9 @@
             panel2 = new Panel();
             label13 = new Label();
             blerpBox = new CheckBox();
-            label15 = new Label();
             followTextBox = new TextBox();
             label6 = new Label();
             enableFollowBonus = new CheckBox();
-            label14 = new Label();
             enableSubBonusMulti = new CheckBox();
             subbonusMultiplierBox = new TextBox();
             subTextBox = new TextBox();
@@ -91,9 +89,7 @@
             groupBox1 = new GroupBox();
             panel5 = new Panel();
             subbotBox = new CheckBox();
-            label17 = new Label();
             subgambleBox = new CheckBox();
-            label16 = new Label();
             subsweatbotBox = new CheckBox();
             label21 = new Label();
             pictureBox4 = new PictureBox();
@@ -150,6 +146,16 @@
             panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
             // 
+            // custombitnameBox
+            // 
+            custombitnameBox.BackColor = Color.FromArgb(196, 197, 204);
+            custombitnameBox.BorderStyle = BorderStyle.FixedSingle;
+            custombitnameBox.Location = new Point(103, 25);
+            custombitnameBox.Name = "custombitnameBox";
+            custombitnameBox.Size = new Size(87, 23);
+            custombitnameBox.TabIndex = 138;
+            custombitnameBox.Text = "Bits";
+            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -159,26 +165,15 @@
             label12.TabIndex = 139;
             label12.Text = "Currency Name:";
             // 
-            // custombitnameBox
-            // 
-            custombitnameBox.BackColor = SystemColors.ControlLight;
-            custombitnameBox.BorderStyle = BorderStyle.None;
-            custombitnameBox.Location = new Point(103, 27);
-            custombitnameBox.Name = "custombitnameBox";
-            custombitnameBox.Size = new Size(87, 16);
-            custombitnameBox.TabIndex = 138;
-            custombitnameBox.Text = "Bits";
-            // 
             // bitGambleCDBox
             // 
-            bitGambleCDBox.BackColor = SystemColors.ControlLight;
-            bitGambleCDBox.BorderStyle = BorderStyle.None;
-            bitGambleCDBox.Location = new Point(352, 149);
+            bitGambleCDBox.BackColor = Color.FromArgb(196, 197, 204);
+            bitGambleCDBox.BorderStyle = BorderStyle.FixedSingle;
+            bitGambleCDBox.Location = new Point(350, 147);
             bitGambleCDBox.Name = "bitGambleCDBox";
-            bitGambleCDBox.Size = new Size(28, 16);
+            bitGambleCDBox.Size = new Size(28, 23);
             bitGambleCDBox.TabIndex = 133;
             bitGambleCDBox.Text = "10";
-            bitGambleCDBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label11
             // 
@@ -191,14 +186,13 @@
             // 
             // bitChanceBox
             // 
-            bitChanceBox.BackColor = SystemColors.ControlLight;
-            bitChanceBox.BorderStyle = BorderStyle.None;
-            bitChanceBox.Location = new Point(232, 149);
+            bitChanceBox.BackColor = Color.FromArgb(196, 197, 204);
+            bitChanceBox.BorderStyle = BorderStyle.FixedSingle;
+            bitChanceBox.Location = new Point(232, 147);
             bitChanceBox.Name = "bitChanceBox";
-            bitChanceBox.Size = new Size(28, 16);
+            bitChanceBox.Size = new Size(28, 23);
             bitChanceBox.TabIndex = 131;
             bitChanceBox.Text = "10";
-            bitChanceBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label10
             // 
@@ -211,25 +205,23 @@
             // 
             // sendkeyCostBox
             // 
-            sendkeyCostBox.BackColor = SystemColors.ControlLight;
-            sendkeyCostBox.BorderStyle = BorderStyle.None;
-            sendkeyCostBox.Location = new Point(279, 124);
+            sendkeyCostBox.BackColor = Color.FromArgb(196, 197, 204);
+            sendkeyCostBox.BorderStyle = BorderStyle.FixedSingle;
+            sendkeyCostBox.Location = new Point(277, 122);
             sendkeyCostBox.Name = "sendkeyCostBox";
-            sendkeyCostBox.Size = new Size(34, 16);
+            sendkeyCostBox.Size = new Size(34, 23);
             sendkeyCostBox.TabIndex = 123;
             sendkeyCostBox.Text = "10";
-            sendkeyCostBox.TextAlign = HorizontalAlignment.Center;
             // 
             // bottoggleCostBox
             // 
-            bottoggleCostBox.BackColor = SystemColors.ControlLight;
-            bottoggleCostBox.BorderStyle = BorderStyle.None;
-            bottoggleCostBox.Location = new Point(195, 49);
+            bottoggleCostBox.BackColor = Color.FromArgb(196, 197, 204);
+            bottoggleCostBox.BorderStyle = BorderStyle.FixedSingle;
+            bottoggleCostBox.Location = new Point(192, 47);
             bottoggleCostBox.Name = "bottoggleCostBox";
-            bottoggleCostBox.Size = new Size(34, 16);
+            bottoggleCostBox.Size = new Size(34, 23);
             bottoggleCostBox.TabIndex = 108;
             bottoggleCostBox.Text = "300";
-            bottoggleCostBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label9
             // 
@@ -277,14 +269,13 @@
             // 
             // sendkeyTimeBox
             // 
-            sendkeyTimeBox.BackColor = SystemColors.ControlLight;
-            sendkeyTimeBox.BorderStyle = BorderStyle.None;
-            sendkeyTimeBox.Location = new Point(460, 124);
+            sendkeyTimeBox.BackColor = Color.FromArgb(196, 197, 204);
+            sendkeyTimeBox.BorderStyle = BorderStyle.FixedSingle;
+            sendkeyTimeBox.Location = new Point(454, 122);
             sendkeyTimeBox.Name = "sendkeyTimeBox";
-            sendkeyTimeBox.Size = new Size(38, 16);
+            sendkeyTimeBox.Size = new Size(38, 23);
             sendkeyTimeBox.TabIndex = 125;
             sendkeyTimeBox.Text = "1000";
-            sendkeyTimeBox.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox4
             // 
@@ -439,14 +430,13 @@
             // 
             // bonusTextBox
             // 
-            bonusTextBox.BackColor = SystemColors.ControlLight;
-            bonusTextBox.BorderStyle = BorderStyle.None;
-            bonusTextBox.Location = new Point(298, 32);
+            bonusTextBox.BackColor = Color.FromArgb(196, 197, 204);
+            bonusTextBox.BorderStyle = BorderStyle.FixedSingle;
+            bonusTextBox.Location = new Point(278, 30);
             bonusTextBox.Name = "bonusTextBox";
-            bonusTextBox.Size = new Size(33, 16);
+            bonusTextBox.Size = new Size(33, 23);
             bonusTextBox.TabIndex = 60;
-            bonusTextBox.Text = "10";
-            bonusTextBox.TextAlign = HorizontalAlignment.Center;
+            bonusTextBox.Text = "5";
             // 
             // enableBonusMulti
             // 
@@ -463,14 +453,13 @@
             // 
             // bonusMultiplierBox
             // 
-            bonusMultiplierBox.BackColor = SystemColors.ControlLight;
-            bonusMultiplierBox.BorderStyle = BorderStyle.None;
-            bonusMultiplierBox.Location = new Point(143, 80);
+            bonusMultiplierBox.BackColor = Color.FromArgb(196, 197, 204);
+            bonusMultiplierBox.BorderStyle = BorderStyle.FixedSingle;
+            bonusMultiplierBox.Location = new Point(139, 78);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
-            bonusMultiplierBox.Size = new Size(20, 16);
+            bonusMultiplierBox.Size = new Size(20, 23);
             bonusMultiplierBox.TabIndex = 106;
             bonusMultiplierBox.Text = "2";
-            bonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
             bonusMultiplierBox.TextChanged += bonusMultiplierBox_TextChanged;
             // 
             // enableModBits
@@ -497,7 +486,8 @@
             // 
             // autoMessageBox
             // 
-            autoMessageBox.BackColor = SystemColors.ControlLight;
+            autoMessageBox.BackColor = Color.FromArgb(196, 197, 204);
+            autoMessageBox.BorderStyle = BorderStyle.FixedSingle;
             autoMessageBox.Location = new Point(10, 55);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
@@ -507,13 +497,13 @@
             // 
             // autoSendMessageCD
             // 
-            autoSendMessageCD.BackColor = SystemColors.ControlLight;
-            autoSendMessageCD.Location = new Point(380, 70);
+            autoSendMessageCD.BackColor = Color.FromArgb(196, 197, 204);
+            autoSendMessageCD.BorderStyle = BorderStyle.FixedSingle;
+            autoSendMessageCD.Location = new Point(287, 29);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(43, 23);
             autoSendMessageCD.TabIndex = 24;
             autoSendMessageCD.Text = "300";
-            autoSendMessageCD.TextAlign = HorizontalAlignment.Center;
             // 
             // autoMessageLabel
             // 
@@ -596,7 +586,6 @@
             panel2.BackColor = Color.FromArgb(156, 155, 151);
             panel2.Controls.Add(label13);
             panel2.Controls.Add(blerpBox);
-            panel2.Controls.Add(label15);
             panel2.Controls.Add(followTextBox);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(enableFollowBonus);
@@ -634,26 +623,15 @@
             blerpBox.UseVisualStyleBackColor = true;
             blerpBox.CheckedChanged += blerpcheckBox_CheckedChanged;
             // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.ForeColor = Color.Red;
-            label15.Location = new Point(337, 55);
-            label15.Name = "label15";
-            label15.Size = new Size(57, 15);
-            label15.TabIndex = 142;
-            label15.Text = "In Testing";
-            // 
             // followTextBox
             // 
-            followTextBox.BackColor = SystemColors.ControlLight;
-            followTextBox.BorderStyle = BorderStyle.None;
-            followTextBox.Location = new Point(298, 55);
+            followTextBox.BackColor = Color.FromArgb(196, 197, 204);
+            followTextBox.BorderStyle = BorderStyle.FixedSingle;
+            followTextBox.Location = new Point(282, 53);
             followTextBox.Name = "followTextBox";
-            followTextBox.Size = new Size(33, 16);
+            followTextBox.Size = new Size(33, 23);
             followTextBox.TabIndex = 122;
-            followTextBox.Text = "50";
-            followTextBox.TextAlign = HorizontalAlignment.Center;
+            followTextBox.Text = "10";
             // 
             // label6
             // 
@@ -679,16 +657,6 @@
             enableFollowBonus.UseVisualStyleBackColor = false;
             enableFollowBonus.CheckedChanged += enableFollowBonus_CheckedChanged;
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.ForeColor = Color.Red;
-            label14.Location = new Point(337, 54);
-            label14.Name = "label14";
-            label14.Size = new Size(57, 15);
-            label14.TabIndex = 141;
-            label14.Text = "In Testing";
-            // 
             // enableSubBonusMulti
             // 
             enableSubBonusMulti.AutoSize = true;
@@ -704,25 +672,23 @@
             // 
             // subbonusMultiplierBox
             // 
-            subbonusMultiplierBox.BackColor = SystemColors.ControlLight;
-            subbonusMultiplierBox.BorderStyle = BorderStyle.None;
-            subbonusMultiplierBox.Location = new Point(192, 78);
+            subbonusMultiplierBox.BackColor = Color.FromArgb(196, 197, 204);
+            subbonusMultiplierBox.BorderStyle = BorderStyle.FixedSingle;
+            subbonusMultiplierBox.Location = new Point(185, 77);
             subbonusMultiplierBox.Name = "subbonusMultiplierBox";
-            subbonusMultiplierBox.Size = new Size(20, 16);
+            subbonusMultiplierBox.Size = new Size(20, 23);
             subbonusMultiplierBox.TabIndex = 130;
             subbonusMultiplierBox.Text = "2";
-            subbonusMultiplierBox.TextAlign = HorizontalAlignment.Center;
             // 
             // subTextBox
             // 
-            subTextBox.BackColor = SystemColors.ControlLight;
-            subTextBox.BorderStyle = BorderStyle.None;
-            subTextBox.Location = new Point(298, 54);
+            subTextBox.BackColor = Color.FromArgb(196, 197, 204);
+            subTextBox.BorderStyle = BorderStyle.FixedSingle;
+            subTextBox.Location = new Point(293, 52);
             subTextBox.Name = "subTextBox";
-            subTextBox.Size = new Size(33, 16);
+            subTextBox.Size = new Size(33, 23);
             subTextBox.TabIndex = 125;
-            subTextBox.Text = "500";
-            subTextBox.TextAlign = HorizontalAlignment.Center;
+            subTextBox.Text = "25";
             // 
             // label7
             // 
@@ -762,12 +728,12 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(156, 155, 151);
+            panel3.Controls.Add(autoSendMessageCD);
             panel3.Controls.Add(label8);
             panel3.Controls.Add(autoMessageLabel);
             panel3.Controls.Add(enableAutoMessageCheck);
             panel3.Controls.Add(pictureBox7);
             panel3.Controls.Add(autoMessageBox);
-            panel3.Controls.Add(autoSendMessageCD);
             panel3.ForeColor = SystemColors.ControlText;
             panel3.Location = new Point(585, 248);
             panel3.Name = "panel3";
@@ -777,7 +743,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(244, 73);
+            label8.Location = new Point(155, 31);
             label8.Name = "label8";
             label8.Size = new Size(135, 15);
             label8.TabIndex = 121;
@@ -853,19 +819,16 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(156, 155, 151);
+            panel5.Controls.Add(subbonusMultiplierBox);
+            panel5.Controls.Add(subTextBox);
             panel5.Controls.Add(subbotBox);
-            panel5.Controls.Add(label17);
             panel5.Controls.Add(subgambleBox);
-            panel5.Controls.Add(label16);
             panel5.Controls.Add(subsweatbotBox);
             panel5.Controls.Add(label21);
             panel5.Controls.Add(enableSubBonusMulti);
-            panel5.Controls.Add(subbonusMultiplierBox);
-            panel5.Controls.Add(label14);
             panel5.Controls.Add(pictureBox4);
             panel5.Controls.Add(enableSubBonus);
             panel5.Controls.Add(label7);
-            panel5.Controls.Add(subTextBox);
             panel5.ForeColor = SystemColors.ControlText;
             panel5.Location = new Point(53, 415);
             panel5.Name = "panel5";
@@ -877,21 +840,11 @@
             subbotBox.AutoSize = true;
             subbotBox.Location = new Point(12, 30);
             subbotBox.Name = "subbotBox";
-            subbotBox.Size = new Size(201, 19);
+            subbotBox.Size = new Size(206, 19);
             subbotBox.TabIndex = 148;
-            subbotBox.Text = "Only Subs can use bot command";
+            subbotBox.Text = "Only Subs can use bot commands";
             subbotBox.UseVisualStyleBackColor = true;
             subbotBox.CheckedChanged += subbotBox_CheckedChanged;
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.ForeColor = Color.Red;
-            label17.Location = new Point(252, 129);
-            label17.Name = "label17";
-            label17.Size = new Size(57, 15);
-            label17.TabIndex = 147;
-            label17.Text = "In Testing";
             // 
             // subgambleBox
             // 
@@ -903,16 +856,6 @@
             subgambleBox.Text = "Only Subs can use !swgamble command";
             subgambleBox.UseVisualStyleBackColor = true;
             subgambleBox.CheckedChanged += subgambleBox_CheckedChanged;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.ForeColor = Color.Red;
-            label16.Location = new Point(252, 104);
-            label16.Name = "label16";
-            label16.Size = new Size(57, 15);
-            label16.TabIndex = 145;
-            label16.Text = "In Testing";
             // 
             // subsweatbotBox
             // 
@@ -1045,16 +988,12 @@
         private Label label10;
         private Label label9;
         private Label label1;
-        private Label label15;
-        private Label label14;
         private CheckBox blerpBox;
         private Label label13;
         private Panel panel5;
-        private Label label16;
         private CheckBox subsweatbotBox;
         private Label label21;
         private PictureBox pictureBox4;
-        private Label label17;
         private CheckBox subgambleBox;
         private CheckBox subbotBox;
         private TextBox custombitnameBox;

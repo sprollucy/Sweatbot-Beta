@@ -197,31 +197,31 @@ namespace UiBot
         private void enableAutoMessageCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isAutoMessageEnabled = enableAutoMessageCheck.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTradersEnabled = enableTradersCommand.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableChatBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableFollowBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isFollowBonusEnabled = enableFollowBonus.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableSubBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusEnabled = enableSubBonus.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -233,19 +233,19 @@ namespace UiBot
         private void enableModBits_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void modRefund_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModRefundEnabled = modRefund.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void modWhitelistCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void openModWhitelist_Click(object sender, EventArgs e)
@@ -261,25 +261,25 @@ namespace UiBot
         private void enableBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableBotToggle_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
 
         private void checkEnableBitMsg_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
-            Properties.Settings.Default.Save();
+
         }
         private void bitcostButton_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitCostEnabled = bitcostButton.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void bonusMultiplierBox_TextChanged(object sender, EventArgs e)
@@ -290,55 +290,55 @@ namespace UiBot
         private void sendkeyButton_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void modMake_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModAddEnabled = modMake.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void modRemove_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModRemoveEnabled = modRemove.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void bitGambleCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isblerpEnabled = bitGambleCheck.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void subsweatbotBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlySweatbotCommand = subsweatbotBox.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void subgambleBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlyGambleCommand = subgambleBox.Checked;
-            Properties.Settings.Default.Save();
+
         }
 
         private void subbotBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
-            Properties.Settings.Default.Save();
+
         }
     }
 }

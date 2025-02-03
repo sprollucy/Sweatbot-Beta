@@ -120,12 +120,18 @@
             pictureBox14 = new PictureBox();
             label22 = new Label();
             panel7 = new Panel();
-            label7 = new Label();
             label5 = new Label();
             pictureBox10 = new PictureBox();
             panel8 = new Panel();
             label17 = new Label();
             pictureBox9 = new PictureBox();
+            profileComboBox = new ComboBox();
+            newProfileButton = new Button();
+            panel9 = new Panel();
+            remProfileButton = new Button();
+            label21 = new Label();
+            pictureBox7 = new PictureBox();
+            label23 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -145,6 +151,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
+            panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             SuspendLayout();
             // 
             // nametextBox
@@ -933,7 +941,7 @@
             // 
             wiggleButton.Location = new Point(93, 30);
             wiggleButton.Name = "wiggleButton";
-            wiggleButton.Size = new Size(104, 23);
+            wiggleButton.Size = new Size(91, 23);
             wiggleButton.TabIndex = 40;
             wiggleButton.Text = "Wiggle Mouse";
             wiggleButton.UseVisualStyleBackColor = true;
@@ -963,7 +971,7 @@
             // 
             mdumpButton.Location = new Point(93, 88);
             mdumpButton.Name = "mdumpButton";
-            mdumpButton.Size = new Size(104, 23);
+            mdumpButton.Size = new Size(91, 23);
             mdumpButton.TabIndex = 43;
             mdumpButton.Text = "360 Mag Dump";
             mdumpButton.UseVisualStyleBackColor = true;
@@ -973,7 +981,7 @@
             // 
             firemodeButton.Location = new Point(93, 59);
             firemodeButton.Name = "firemodeButton";
-            firemodeButton.Size = new Size(104, 23);
+            firemodeButton.Size = new Size(91, 23);
             firemodeButton.TabIndex = 44;
             firemodeButton.Text = "Fire Mode Select";
             firemodeButton.UseVisualStyleBackColor = true;
@@ -983,7 +991,7 @@
             // 
             hotmicButton.Location = new Point(93, 117);
             hotmicButton.Name = "hotmicButton";
-            hotmicButton.Size = new Size(104, 23);
+            hotmicButton.Size = new Size(91, 23);
             hotmicButton.TabIndex = 45;
             hotmicButton.Text = "Hot Mic";
             hotmicButton.UseVisualStyleBackColor = true;
@@ -1030,9 +1038,9 @@
             panel5.Controls.Add(pictureBox13);
             panel5.Controls.Add(confCheckBox);
             panel5.Controls.Add(openCustomJson);
-            panel5.Location = new Point(613, 35);
+            panel5.Location = new Point(610, 35);
             panel5.Name = "panel5";
-            panel5.Size = new Size(197, 160);
+            panel5.Size = new Size(197, 116);
             panel5.TabIndex = 49;
             // 
             // openDisabledJson
@@ -1131,7 +1139,6 @@
             // panel7
             // 
             panel7.BackColor = Color.FromArgb(156, 155, 151);
-            panel7.Controls.Add(label7);
             panel7.Controls.Add(label5);
             panel7.Controls.Add(pictureBox10);
             panel7.Controls.Add(walkButton);
@@ -1142,20 +1149,10 @@
             panel7.Controls.Add(hotmicButton);
             panel7.Controls.Add(mdumpButton);
             panel7.Controls.Add(firemodeButton);
-            panel7.Location = new Point(401, 35);
+            panel7.Location = new Point(401, 159);
             panel7.Name = "panel7";
-            panel7.Size = new Size(206, 160);
+            panel7.Size = new Size(197, 155);
             panel7.TabIndex = 53;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.ForeColor = Color.Red;
-            label7.Location = new Point(68, 143);
-            label7.Name = "label7";
-            label7.Size = new Size(57, 15);
-            label7.TabIndex = 140;
-            label7.Text = "In Testing";
             // 
             // label5
             // 
@@ -1220,6 +1217,82 @@
             pictureBox9.TabIndex = 50;
             pictureBox9.TabStop = false;
             // 
+            // profileComboBox
+            // 
+            profileComboBox.FormattingEnabled = true;
+            profileComboBox.Location = new Point(12, 29);
+            profileComboBox.Name = "profileComboBox";
+            profileComboBox.Size = new Size(168, 23);
+            profileComboBox.TabIndex = 58;
+            // 
+            // newProfileButton
+            // 
+            newProfileButton.Location = new Point(12, 58);
+            newProfileButton.Name = "newProfileButton";
+            newProfileButton.Size = new Size(83, 23);
+            newProfileButton.TabIndex = 59;
+            newProfileButton.Text = "New Profile";
+            newProfileButton.UseVisualStyleBackColor = true;
+            newProfileButton.Click += newProfileButton_Click;
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.FromArgb(156, 155, 151);
+            panel9.Controls.Add(label23);
+            panel9.Controls.Add(remProfileButton);
+            panel9.Controls.Add(label21);
+            panel9.Controls.Add(newProfileButton);
+            panel9.Controls.Add(pictureBox7);
+            panel9.Controls.Add(profileComboBox);
+            panel9.Location = new Point(405, 34);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(193, 117);
+            panel9.TabIndex = 53;
+            // 
+            // remProfileButton
+            // 
+            remProfileButton.Location = new Point(99, 58);
+            remProfileButton.Name = "remProfileButton";
+            remProfileButton.Size = new Size(81, 23);
+            remProfileButton.TabIndex = 60;
+            remProfileButton.Text = "Delete Profile";
+            remProfileButton.UseVisualStyleBackColor = true;
+            remProfileButton.Click += remProfileButton_Click;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.BackColor = Color.FromArgb(71, 83, 92);
+            label21.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label21.ForeColor = SystemColors.ControlLight;
+            label21.Location = new Point(3, 0);
+            label21.Name = "label21";
+            label21.Size = new Size(117, 19);
+            label21.TabIndex = 51;
+            label21.Text = "Game Profiles";
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox7.BackgroundImageLayout = ImageLayout.None;
+            pictureBox7.Location = new Point(0, -1);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(193, 24);
+            pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox7.TabIndex = 50;
+            pictureBox7.TabStop = false;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.ForeColor = Color.Red;
+            label23.Location = new Point(17, 84);
+            label23.Name = "label23";
+            label23.Size = new Size(158, 30);
+            label23.TabIndex = 141;
+            label23.Text = "Must Restart To See Changes\r\n On Twitch!";
+            label23.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1228,6 +1301,7 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1042, 1027);
             ControlBox = false;
+            Controls.Add(panel9);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(label22);
@@ -1280,6 +1354,9 @@
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1380,7 +1457,13 @@
         private Panel panel8;
         private Label label17;
         private PictureBox pictureBox9;
-        private Label label7;
         private Button pixelateButton;
+        private ComboBox profileComboBox;
+        private Button newProfileButton;
+        private Panel panel9;
+        private Label label21;
+        private PictureBox pictureBox7;
+        private Button remProfileButton;
+        private Label label23;
     }
 }

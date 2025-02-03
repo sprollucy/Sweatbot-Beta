@@ -4,6 +4,12 @@
 -Added Sub only mode for bot commands
 -Adjusted Pixelate overlay to prevent a 'after image' after being ran more than once
 -Added custom names for the bots currency
+-Resize custom name
+-Changed file watcher so it only runs while the refund tab is open
+-Menu adjustments 
+-Removed redundant property saves
+-Added Game profile switching in the Command Builder menu
+-Corrected !sbadd and !sbremove to write into the current profile
 
 1.0.0.79-alpha
 -Fixed refund menu taking awhile to refresh after ever refund
