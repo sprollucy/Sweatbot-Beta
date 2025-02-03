@@ -114,20 +114,20 @@ namespace UiBot
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; // Don't proceed further
+                    return; 
                 }
                 if (creds == null)
                 {
                     MessageBox.Show("Twitch credentials are not set.");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; // Don't proceed further
+                    return; 
                 }
 
                 if (channelId == null)
                 {
                     MessageBox.Show("Twitch channel are not set.");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; // Don't proceed further
+                    return; 
                 }
 
                 try
@@ -135,7 +135,6 @@ namespace UiBot
                     client = new TwitchClient();
                     client.Initialize(creds, channelId);
 
-                    // Subscribe to the OnNewSubscriber event
                     client.OnNewSubscriber += Client_OnNewSubscriber;
 
                     client.OnConnected += Client_OnConnected;
@@ -160,9 +159,6 @@ namespace UiBot
             {
                 PubSub = new TwitchPubSub();
                 PubSub.OnFollow += PubSub_OnFollow;
-
-
-                // Ensure PubSub is connected
                 PubSub.Connect();
             }
         }

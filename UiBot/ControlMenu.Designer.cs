@@ -30,6 +30,7 @@
         {
             saveButton = new Button();
             panel1 = new Panel();
+            label12 = new Label();
             custombitnameBox = new TextBox();
             bitGambleCDBox = new TextBox();
             label11 = new Label();
@@ -96,7 +97,6 @@
             subsweatbotBox = new CheckBox();
             label21 = new Label();
             pictureBox4 = new PictureBox();
-            label12 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -125,8 +125,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
-            panel1.Controls.Add(label12);
             panel1.Controls.Add(custombitnameBox);
+            panel1.Controls.Add(label12);
             panel1.Controls.Add(bitGambleCDBox);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(bitChanceBox);
@@ -150,16 +150,24 @@
             panel1.Size = new Size(514, 206);
             panel1.TabIndex = 20;
             // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(12, 27);
+            label12.Name = "label12";
+            label12.Size = new Size(93, 15);
+            label12.TabIndex = 139;
+            label12.Text = "Currency Name:";
+            // 
             // custombitnameBox
             // 
             custombitnameBox.BackColor = SystemColors.ControlLight;
             custombitnameBox.BorderStyle = BorderStyle.None;
             custombitnameBox.Location = new Point(103, 27);
             custombitnameBox.Name = "custombitnameBox";
-            custombitnameBox.Size = new Size(34, 16);
+            custombitnameBox.Size = new Size(87, 16);
             custombitnameBox.TabIndex = 138;
             custombitnameBox.Text = "Bits";
-            custombitnameBox.TextAlign = HorizontalAlignment.Center;
             // 
             // bitGambleCDBox
             // 
@@ -939,15 +947,6 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 120;
             pictureBox4.TabStop = false;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(12, 27);
-            label12.Name = "label12";
-            label12.Size = new Size(93, 15);
-            label12.TabIndex = 139;
-            label12.Text = "Currency Name:";
             // 
             // ControlMenu
             // 

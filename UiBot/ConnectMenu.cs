@@ -81,10 +81,10 @@ namespace UiBot
             logFilePath = Path.Combine("Logs", logFileName);
             userBits = new Dictionary<string, int>();
 
-            LoadLogEntries();
+            //LoadLogEntries();
 
             // Set up the file watcher to monitor changes
-            SetUpFileWatcher();
+            //SetUpFileWatcher();
 
         }
 
@@ -547,12 +547,6 @@ namespace UiBot
             }
         }
 
-        public class Command
-        {
-            public int BitCost { get; set; }
-            public List<string> Methods { get; set; }
-        }
-
         // This class would handle loading commands and their bit costs
         public class CommandHandler
         {
@@ -579,6 +573,7 @@ namespace UiBot
 
             // Reload the log entries when Refund tab is clicked
             LoadLogEntries();
+            StartFileWatcher();
         }
 
         private void consoleTab_Click(object sender, EventArgs e)
@@ -589,6 +584,8 @@ namespace UiBot
 
             // Clear the current log entries when Console tab is clicked
             logListPanel.Controls.Clear();
+            logEntries.Clear();
+            StopFileWatcher();
         }
 
 
@@ -831,8 +828,10 @@ namespace UiBot
             }
         }
 
-        private void SetUpFileWatcher()
+        private void StartFileWatcher()
         {
+            if (fileWatcher != null) return; // Avoid multiple instances
+
             string logDirectory = Path.GetDirectoryName(logFilePath);
             string logFileName = $"{DateTime.Now:M-d-yy} bitlog.txt";
 
@@ -840,13 +839,25 @@ namespace UiBot
             {
                 Path = logDirectory,
                 Filter = logFileName,
-                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size,
-                EnableRaisingEvents = true
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size
             };
 
             fileWatcher.Changed += OnLogFileChanged;
-            fileWatcher.Renamed += OnLogFileChanged; // In case the file gets renamed
+            fileWatcher.Renamed += OnLogFileChanged;
+            fileWatcher.EnableRaisingEvents = true;
         }
+
+        private void StopFileWatcher()
+        {
+            if (fileWatcher == null) return;
+
+            fileWatcher.EnableRaisingEvents = false; 
+            fileWatcher.Changed -= OnLogFileChanged;
+            fileWatcher.Renamed -= OnLogFileChanged;
+            fileWatcher.Dispose();
+            fileWatcher = null;
+        }
+
 
         private void OnLogFileChanged(object sender, FileSystemEventArgs e)
         {
