@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.79 Alpha**
+# **Sweat Bot 1.0.0.80 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -69,7 +69,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.79)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.80)
 
 ---
 
@@ -159,29 +159,14 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.0.80-alpha
+
+- Fixed !sweatbot from showing incorrect state
+- Added condition for !sweatbot and !sbgamble that if subs only is checked in the control menu, only subs can use the command
+- Added Sub only mode for bot commands
+- Adjusted Pixelate overlay to prevent a 'after image' after being ran more than once
 
 1.0.0.79-alpha
 - Fixed refund menu taking awhile to refresh after ever refund
 - Potentially fixed issue when multiple users send a message at once, causing the refund menu to crash the program
 - Fixed refund menu not creating a new bitlog text and loading the previous days data
-
-1.0.0.78-alpha
-- Added Refund menu to the connect menu to quickly access refunds without having to type it out in chat
-- Added file for loading saved toggles to prevent them resetting on update
-- Fixed file locking issue with refund menu and using !refund
-- Fixed race condition with !refund not removing the line from bitlog causing mutliple refunds to be able to take place with refund menu
-- Changed the refund menu styling
-- Updated refund menu to update with refunds
-
-1.0.0.76-alpha
-- Spelling errors
-- Added !rembit. Use '!rembit @user amount' to remove bits from a user in case of a error
-- Added file for loading saved toggles to prevent them resetting on update
-- Added blerp integration. If a user sends something with blerp and the message shows up in chat, it should add the bits (testing)
-
-1.0.0.75-alpha
-- Added screen pixelation mode. In testing and may be very buggy
-- Spelling fixes
-- Added in a way for user to directly use a command without having to cheer bits before running a command. Using ! before a cheer will look for a command with that cost, and if it matches that cost it will run the command. If the amount doesn't match a command, than it is added to the users bits stored in the bot 
-- Fixed bug with !cheer that would cause a over payment
-- Fixed bug with !cheer failing to store bits a user gave for overpayment
