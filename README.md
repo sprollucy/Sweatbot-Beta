@@ -15,11 +15,16 @@ Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to kee
 - [Changelog](#latest-changelog)
 
 ### **Features**
-- Interact with your PC/games via Twitch chat.
-- Quick and easy built in commands.
-- Configure custom commands for any game using the new **Custom Command Builder**.
-- Works locally, requiring connections only to Twitch and tarkov.dev API.
-- Heavily inspired by *Instructbot*, but forever free.
+- **Interact with your PC/games via Twitch chat**: Move your mouse, click buttons, hold down keys, fire your gun while you're off-screen, make your screen go wacky with pixelation, trigger funky sound effects, and so much more!
+- **No need to rely on a website and a bunch of sign ups**: Works locally, requiring connections only to Twitch and tarkov.dev API(Soon to be disconnectable for 1 connection out).
+- **Quick Setup**: Once you get your twitch bot token set up and connected, Just enable a command or make your own and hit connect!
+- **Trader Reset Timer**: Tracks when items are restocked for hardcore Tarkov players.
+- **Twitch Integration**: Twitch chat commands trigger keypresses and mouse events.
+- **Bit Integration**: Users cheer bits and spend them on in-game actions. Users either !<cheeramount> with a command or spend saved up currency you can name from bits they have cheered while Sweatbot is running. You can make it free even!
+- **Subscriber only mode**: Turn on Sub Only mode to reward loyal followers or reward people for subscribing with a little bonus.
+- **Bonuses for Chatters**: Wanna reward people for joining or following? Just set the amount and give them some freebies to get them started!
+- **Custom Command Builder**: Easily create, price, and completely customize commands with a simple UI. Comes with many premade commands you can activiate with 1 click. ***Now with a per game profile system!***
+- **Easy to Use Refund System**: Quickly manage refunds from the main screen without having to type !refund in chat.
   
 ---
 
@@ -31,22 +36,12 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 
-## **Current Features (WIP)**
-
-- **Quick Setup**: Just check a box and configure the cost/inputs for commands.
-- **Trader Reset Timer**: Tracks when items are restocked for hardcore Tarkov players.
-- **Twitch Integration**: Twitch chat commands trigger keypresses and mouse events.
-- **Bit Integration**: Users cheer bits and spend them on in-game actions. You can make it free even!
-- **Custom Command Builder**: Easily create, price, and customize commands with a simple UI.
-
----
-
 ## **Screenshots**
 
-![Screenshot 2024-12-20 112414](https://github.com/user-attachments/assets/4a140306-8289-4efc-b762-6a4fbe625289)
-![Screenshot 2024-12-20 112423](https://github.com/user-attachments/assets/03073685-c9b4-499e-8b2b-ba1b6d14fe20)
-![Screenshot 2024-12-20 112852](https://github.com/user-attachments/assets/acccdb00-419e-4cae-92f4-5962f221f846)
-
+![Screenshot 2025-02-03 053851](https://github.com/user-attachments/assets/ee6942d4-fda1-4809-87af-54a80da29135)
+![Screenshot 2025-02-03 053610](https://github.com/user-attachments/assets/ac37fa28-db43-4a24-bbf5-019ef416393c)
+![Screenshot 2025-02-03 053642](https://github.com/user-attachments/assets/d351de4d-c3b2-4f54-9311-5a29b4f37386)
+![Screenshot 2025-02-03 053629](https://github.com/user-attachments/assets/d5fc8ba1-e3da-4f7d-8501-9d7a3d53ea2d)
 
 
 ---
@@ -54,9 +49,10 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ## **Upcoming/Potential Features**
 *(Not guaranteed, but under consideration)*
 
-- Profile toggle for quick switching.
-- Additional commands.
 - Support for Linux/Mac by switching to another UI framework.
+- Expanded Moderation controls.
+- Disable banking(stores user currency for later use)
+- Ban user from using bot
 - Open to suggestions!
 
 ---
@@ -64,7 +60,8 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ## **Upcoming Custom Command Functions**
 *(Not guaranteed, but under consideration)*
 
-- OpenFile
+- Controller support
+- Open Photo
 - Maybe ShutdownPc
 
 ---
@@ -114,7 +111,7 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 - `!sbgamble <amount> ` - Gamble your bits in hopes to win more
 - `!sweatbot` - Turn Sweat Bot on and off
 - `!sendkey <key> ` - Send any select key input to the streamers pc
-
+- `!<cheer>` - Users put a '!' in front of their cheer amount to activate a command with the same cost
 
 ---
 
@@ -159,6 +156,7 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+
 1.0.0.80-alpha
 - Fixed !sweatbot from showing incorrect state
 - Added condition for !sweatbot and !sbgamble that if subs only is checked in the control menu, only subs can use the command
