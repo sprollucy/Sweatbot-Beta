@@ -686,9 +686,9 @@
             // logListPanel
             // 
             logListPanel.AutoScroll = true;
-            logListPanel.Location = new Point(3, 3);
+            logListPanel.Location = new Point(0, 3);
             logListPanel.Name = "logListPanel";
-            logListPanel.Size = new Size(594, 353);
+            logListPanel.Size = new Size(597, 353);
             logListPanel.TabIndex = 31;
             // 
             // refundPanel

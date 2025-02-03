@@ -119,7 +119,6 @@ namespace UiBot
                 eftTrader.Visible = true; // Ensure the picture box is visible (optional, depending on your requirement)
                 label4.Visible = true;
                 var traderResetInfoService = new TraderResetInfoService();
-                traderResetInfoService.GetAndSaveTraderResetInfoWithLatest();
             }
             else
             {

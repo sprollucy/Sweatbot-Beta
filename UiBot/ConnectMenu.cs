@@ -694,10 +694,9 @@ namespace UiBot
                     ColumnCount = 2,
                     Width = logListPanel.Width,
                     ColumnStyles =
-            {
-                new ColumnStyle(SizeType.Percent, 85),
-                new ColumnStyle(SizeType.Percent, 15)
-            },
+        {
+            new ColumnStyle(SizeType.Absolute, 480),  // Fixed width of 470px for the first column
+        },
                     Padding = new Padding(0),
                     Margin = new Padding(0)
                 };
@@ -707,19 +706,29 @@ namespace UiBot
                     Text = logEntryWithoutDate,
                     AutoSize = true,
                     Font = new Font("Segoe UI", 10),
-                    Margin = new Padding(0, 7, 0, 0)
+                    Margin = new Padding(0, 0, 0, 5),
+                    TextAlign = ContentAlignment.MiddleLeft,  // Align text to the left
+                    BackColor = Color.FromArgb(240, 240, 240),
+                    ForeColor = Color.FromArgb(40, 40, 40),
+                    MinimumSize = new Size(490, 40)  // Minimum size for the label (to ensure readability)
+
                 };
 
+                // Create the refund button
                 var refundButton = new Button
                 {
                     Text = "Refund",
                     Tag = entry,
                     AutoSize = false,
                     Width = 80,
-                    Height = 30,
                     FlatStyle = FlatStyle.Flat,
-                    BackColor = Color.FromArgb(71, 83, 92)
+                    BackColor = Color.FromArgb(71, 83, 92),
+                    ForeColor = Color.FromArgb(240, 240, 240),
+                    Margin = new Padding(10, 0, 0, 5),
+                    MinimumSize = new Size(80, 40)  // Minimum size for the button
+
                 };
+
                 refundButton.FlatAppearance.BorderSize = 0;
 
                 refundButton.MouseEnter += (sender, e) =>
@@ -732,10 +741,16 @@ namespace UiBot
                 };
                 refundButton.Click += RefundButton_Click;
 
+                // Add label and button to table layout
                 tableLayoutPanel.Controls.Add(label, 0, 0);
                 tableLayoutPanel.Controls.Add(refundButton, 1, 0);
 
+                // Add the table layout to the main panel
                 logListPanel.Controls.Add(tableLayoutPanel);
+
+                // Ensure the layout is updated and then set the button height
+                tableLayoutPanel.ResumeLayout(); // Ensure layout is processed
+                refundButton.Height = label.Height; // Set the button height to match the label's height
             }
 
             // Resume layout after all controls are added/updated
