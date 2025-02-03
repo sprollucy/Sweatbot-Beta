@@ -37,8 +37,8 @@ namespace UiBot
         TwitchClient client;
         public bool isBotConnected = false;
         private static string channelId;
-
-
+        string userBitName;
+        
         // Property to get the connection status
         public bool IsConnected => isBotConnected;
 
@@ -57,6 +57,7 @@ namespace UiBot
         internal MainBot()
         {
             commandHandler = new CustomCommandHandler(commandsFilePath);
+            userBitName = controlMenu.CustombitnameBox.Text;
 
             LoadCredentialsFromJSON();
             LogHandler.LoadWhitelist();
@@ -202,7 +203,7 @@ namespace UiBot
                 LogHandler.LogBits(followerName, bitsAwarded, timestamp);
 
                 // Send a thank-you message to the chat
-                client.SendMessage(channelId, $"{followerName} is now following! You have been awarded {bitsAwarded} bits. You now have {userBits[followerName]} bits.");
+                client.SendMessage(channelId, $"{followerName} is now following! You have been awarded {bitsAwarded} {userBitName}. You now have {userBits[followerName]} {userBitName}.");
 
                 // Optionally print to console
                 Console.WriteLine($"[{timestamp}] {followerName} followed and was awarded {bitsAwarded} bits. Total bits: {userBits[followerName]}");
@@ -245,7 +246,7 @@ namespace UiBot
                 LogHandler.LogBits(subscriberName, bitsAwarded, timestamp);
 
                 // Send a thank-you message to the chat
-                client.SendMessage(channelId, $"{subscriberName}, thank you for subscribing! You have been awarded {bitsAwarded} bits. You now have {userBits[subscriberName]} bits.");
+                client.SendMessage(channelId, $"{subscriberName}, thank you for subscribing! You have been awarded {bitsAwarded} {userBitName}. You now have {userBits[subscriberName]} {userBitName}.");
 
                 // Optionally print to console
                 Console.WriteLine($"[{timestamp}] {subscriberName} subscribed and was awarded {bitsAwarded} bits. Total bits: {userBits[subscriberName]}");
@@ -324,14 +325,14 @@ namespace UiBot
                                 // Only add remaining bits info if BitCost is greater than 0
                                 if (command.BitCost > 0 && Properties.Settings.Default.isBitMsgEnabled)
                                 {
-                                    message += $" You have {MainBot.userBits[e.ChatMessage.DisplayName]} bits remaining.";
+                                    message += $" You have {MainBot.userBits[e.ChatMessage.DisplayName]} {userBitName} remaining.";
                                 }
 
                                 // Inform the user that the command was executed
                                 client.SendMessage(e.ChatMessage.Channel, message);
 
                                 // Log command details to the console
-                                Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining bits: {MainBot.userBits[e.ChatMessage.DisplayName]}");
+                                Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining {userBitName}: {MainBot.userBits[e.ChatMessage.DisplayName]}");
                             }
                             catch (Exception ex)
                             {
@@ -406,7 +407,7 @@ namespace UiBot
 
                                     // Log the addition of bits
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
-                                    client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} bits. Your balance has been updated by {cheerAmount} bits.");
+                                    client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} {userBitName}. Your balance has been updated by {cheerAmount} {userBitName}.");
                                     LogHandler.WriteUserBitsToJson(userBitsFilePath);
                                 }
                                 else
@@ -416,7 +417,7 @@ namespace UiBot
 
                                     // Log the addition of bits
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
-                                    client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} bits.");
+                                    client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} {userBitName}.");
                                 }
                             }
                         }
@@ -445,7 +446,7 @@ namespace UiBot
 
                     Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
 
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Sub Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
                 else if (Properties.Settings.Default.isBonusMultiplierEnabled)
                 {
@@ -462,7 +463,7 @@ namespace UiBot
 
                     Console.WriteLine($"A {multiplier}x multiplier is active, resulting in {bitsGiven} bits given.");
 
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
                 else if (Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
                 {
@@ -479,7 +480,7 @@ namespace UiBot
 
                     Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
 
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} bits! Sub Multiplier is active so it counts as {bitsGiven} bits. You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
                 else
                 {
@@ -488,7 +489,7 @@ namespace UiBot
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
                     // Thank the user and inform them of their new balance
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} bits! You now have {userBits[e.ChatMessage.DisplayName]} bits.");
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} {userBitName}! You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
             }
 
@@ -501,7 +502,7 @@ namespace UiBot
                     {
                         // User is chatting for the first time, give them the specified bonus amount
                         userBits.Add(e.ChatMessage.DisplayName, bonusAmount);
-                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} bits on the house, use !help for more info");
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName} welcome to the stream! Here is {bonusAmount} {userBitName} on the house, use !help for more info");
                         Console.WriteLine($"[{e.ChatMessage.DisplayName}]: First Chat Bonus: {bonusAmount}");
 
                         LogHandler.WriteUserBitsToJson("user_bits.json");
@@ -538,7 +539,7 @@ namespace UiBot
                             userBits[user] += bitsUsed;
                         }
 
-                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} bits! Your total is now {userBits[user]}.");
+                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} {userBitName}! Your total is now {userBits[user]}.");
                         Console.WriteLine($"[{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
 
                         LogHandler.WriteUserBitsToJson("user_bits.json");
@@ -673,12 +674,12 @@ namespace UiBot
                 case "mybits":
                     if (userBits.ContainsKey(Chatter))
                     {
-                        client.SendMessage(channelId, $"{Chatter}, you have {userBits[Chatter]} bits");
+                        client.SendMessage(channelId, $"{Chatter}, you have {userBits[Chatter]} {userBitName}");
                         Console.WriteLine($"{Chatter}, you have {userBits[Chatter]} bits");
                     }
                     else
                     {
-                        client.SendMessage(channelId, $"{Chatter}, you have no bits");
+                        client.SendMessage(channelId, $"{Chatter}, you have no {userBitName}");
                         Console.WriteLine($"{Chatter}, you have no bits");
                     }
                     break;
@@ -878,7 +879,7 @@ namespace UiBot
                     // Get the bit cost from the settings
                     if (!int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCostBot))
                     {
-                        client.SendMessage(channelId, "Error: Invalid bit cost value.");
+                        client.SendMessage(channelId, "Error: Invalid cost value.");
                         break;
                     }
 
@@ -894,7 +895,7 @@ namespace UiBot
                     // If the command is just "!sweatbot", show the current state and cost
                     if (e.Command.ChatMessage.Message.Trim().ToLower() == "!sweatbot")
                     {
-                        client.SendMessage(channelId, $"Sweatbot is currently {currentState}. You can change that with !sweatbot on or off for {bitCostBot} bits.");
+                        client.SendMessage(channelId, $"Sweatbot is currently {currentState}. You can change that with !sweatbot on or off for {bitCostBot} {userBitName}.");
                         break;
                     }
 
@@ -909,7 +910,7 @@ namespace UiBot
                             // If they are trying to set it to the same state, notify and do nothing
                             if ((desiredState && currentState == "on") || (!desiredState && currentState == "off"))
                             {
-                                client.SendMessage(channelId, $"{Chatter}, sweatbot is already {currentState}. No bits were taken.");
+                                client.SendMessage(channelId, $"{Chatter}, sweatbot is already {currentState}. No {userBitName} were taken.");
                                 break;
                             }
 
@@ -929,7 +930,7 @@ namespace UiBot
                                 // Send confirmation message with the correct updated state
                                 if (Properties.Settings.Default.isBitMsgEnabled)
                                 {
-                                    client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} bits remaining.");
+                                    client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} {userBitName} remaining.");
                                 }
                                 Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCostBot} Remaining bits:{userBits[Chatter]}");
 
@@ -939,13 +940,13 @@ namespace UiBot
                             else
                             {
                                 // Send message indicating insufficient bits
-                                client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCostBot} bits.");
+                                client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to use this command! The cost is {bitCostBot} {userBitName}.");
                             }
                         }
                         else
                         {
                             // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{Chatter}, your bit data is not found!");
+                            client.SendMessage(channelId, $"{Chatter}, your {userBitName} data is not found!");
                         }
                     }
                     else
@@ -993,7 +994,7 @@ namespace UiBot
 
                                                 if (Properties.Settings.Default.isBitMsgEnabled)
                                                 {
-                                                    client.SendMessage(channelId, $"{Chatter}, You have {userBits[Chatter]} bits remaining.");
+                                                    client.SendMessage(channelId, $"{Chatter}, You have {userBits[Chatter]} {userBitName} remaining.");
                                                 }
 
                                                 Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[Chatter]}");
@@ -1021,7 +1022,7 @@ namespace UiBot
                                     else
                                     {
                                         // Send message indicating insufficient bits
-                                        client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to use this command! The cost is {bitCost} bits.");
+                                        client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to use this command! The cost is {bitCost} {userBitName}.");
                                     }
                                 }
                                 else
@@ -1039,7 +1040,7 @@ namespace UiBot
                         else
                         {
                             // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{Chatter}, your bit data is not found!");
+                            client.SendMessage(channelId, $"{Chatter}, your {userBitName} data is not found!");
                         }
                     }
                     break;
@@ -1076,7 +1077,7 @@ namespace UiBot
                                         gambleAmount = userBits[Chatter];
                                         if (gambleAmount <= 0)
                                         {
-                                            client.SendMessage(channelId, $"{Chatter}, you don't have any bits to gamble.");
+                                            client.SendMessage(channelId, $"{Chatter}, you don't have any {userBitName} to gamble.");
                                             break;
                                         }
                                     }
@@ -1090,7 +1091,7 @@ namespace UiBot
 
                                             if (gambleAmount == 0)
                                             {
-                                                client.SendMessage(channelId, $"{Chatter}, you can't gamble less than 1 bit.");
+                                                client.SendMessage(channelId, $"{Chatter}, you can't gamble less than 1 {userBitName}.");
                                                 break;
                                             }
                                         }
@@ -1104,7 +1105,7 @@ namespace UiBot
                                     {
                                         if (gambleAmount <= 0)
                                         {
-                                            client.SendMessage(channelId, $"{Chatter}, you can't gamble 0 or negative bits.");
+                                            client.SendMessage(channelId, $"{Chatter}, you can't gamble 0 or negative {userBitName}.");
                                             break;
                                         }
                                     }
@@ -1159,7 +1160,7 @@ namespace UiBot
                                             LogHandler.LogBits(Chatter, winnings, timestamp);
                                             LogHandler.WriteUserBitsToJson("user_bits.json");
 
-                                            client.SendMessage(channelId, $"{Chatter}, you won! You gambled {gambleAmount} bits and won {winnings} bits. You now have {userBits[Chatter]} bits.");
+                                            client.SendMessage(channelId, $"{Chatter}, you won! You gambled {gambleAmount} {userBitName} and won {winnings} {userBitName}. You now have {userBits[Chatter]} {userBitName}.");
                                             Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, won {winnings} bits. Total bits: {userBits[Chatter]}");
                                         }
                                         else
@@ -1169,7 +1170,7 @@ namespace UiBot
                                             LogHandler.LogBits(Chatter, -gambleAmount, timestamp);
                                             LogHandler.WriteUserBitsToJson("user_bits.json");
 
-                                            client.SendMessage(channelId, $"{Chatter}, you lost! You gambled {gambleAmount} bits and lost. You now have {userBits[Chatter]} bits.");
+                                            client.SendMessage(channelId, $"{Chatter}, you lost! You gambled {gambleAmount} {userBitName} and lost. You now have {userBits[Chatter]} {userBitName}.");
                                             Console.WriteLine($"[{timestamp}] [{Chatter}] Gambled {gambleAmount} bits, lost. Total bits: {userBits[Chatter]}");
                                         }
                                     }
@@ -1187,12 +1188,12 @@ namespace UiBot
                             }
                             else
                             {
-                                client.SendMessage(channelId, $"{Chatter}, you don't have enough bits to gamble {gambleAmount} bits! You currently have {userBits[Chatter]} bits.");
+                                client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to gamble {gambleAmount} {userBitName}!");
                             }
                         }
                         else
                         {
-                            client.SendMessage(channelId, $"{Chatter}, you don't have any bits to gamble.");
+                            client.SendMessage(channelId, $"{Chatter}, you don't have any {userBitName} to gamble.");
                         }
                     }
                     break;
@@ -1282,7 +1283,7 @@ namespace UiBot
                                     }
                                     else
                                     {
-                                        client.SendMessage(channelId, "Invalid bit cost. Please provide a valid number.");
+                                        client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
                                     }
                                 }
                                 else
@@ -1381,7 +1382,7 @@ namespace UiBot
                             }
                             else
                             {
-                                client.SendMessage(channelId, "Invalid bit cost. Please provide a valid number.");
+                                client.SendMessage(channelId, $"Invalid {userBitName} cost. Please provide a valid number.");
                             }
                         }
                         else

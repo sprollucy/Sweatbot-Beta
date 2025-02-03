@@ -63,6 +63,7 @@ namespace UiBot
             textBoxes["sendkeyTimeBox"] = SendKeyTimeBox;
             textBoxes["bitChanceBox"] = BitChanceBox;
             textBoxes["bitGambleCDBox"] = BitGambleCDBox;
+            textBoxes["custombitnameBox"] = CustombitnameBox;
         }
 
         public TextBox BotToggleCostBox
@@ -131,6 +132,11 @@ namespace UiBot
         {
             get { return subbonusMultiplierBox; }
             set { subbonusMultiplierBox = value; }
+        }
+        public TextBox CustombitnameBox
+        {
+            get { return custombitnameBox; }
+            set { custombitnameBox = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
