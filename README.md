@@ -160,11 +160,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ## **Latest Changelog**
 1.0.0.80-alpha
-
 - Fixed !sweatbot from showing incorrect state
 - Added condition for !sweatbot and !sbgamble that if subs only is checked in the control menu, only subs can use the command
 - Added Sub only mode for bot commands
 - Adjusted Pixelate overlay to prevent a 'after image' after being ran more than once
+- Added custom names for the bots currency
 
 1.0.0.79-alpha
 - Fixed refund menu taking awhile to refresh after ever refund
