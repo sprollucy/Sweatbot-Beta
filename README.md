@@ -171,6 +171,8 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Removed redundant property saves
 - Added Game profile switching in the Command Builder menu
 - Corrected !sbadd and !sbremove to write into the current profile
+- Fixed bug where if console tab is clicked while on that tab causing a crash
+- Added integrity check on start up that verifies necessary files and folders are in the directory
 
 1.0.0.79-alpha
 - Fixed refund menu taking awhile to refresh after ever refund
