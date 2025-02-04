@@ -164,6 +164,9 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Corrected !sbadd and !sbremove to write into the current profile
 - Fixed bug where if console tab is clicked while on that tab causing a crash
 - Added integrity check on start up that verifies necessary files and folders are in the directory
+- Removed trader services from start. Now only runs if Tarkov Traders are enabled
+- Increased readability of Refund Menu
+- Added rudimentary In raid check for tarkov(buggy) that will pause and unpause commands in and out of raid
 
 1.0.0.79-alpha
 - Fixed refund menu taking awhile to refresh after ever refund
