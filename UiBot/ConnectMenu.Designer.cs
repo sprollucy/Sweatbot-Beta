@@ -46,7 +46,6 @@
             pictureBox4 = new PictureBox();
             customCommandBox = new RichTextBox();
             panel2 = new Panel();
-            label12 = new Label();
             economyCheckBox = new CheckBox();
             label1 = new Label();
             backupButton = new Button();
@@ -82,6 +81,7 @@
             logListPanel = new FlowLayoutPanel();
             refundPanel = new Panel();
             refundTab = new Label();
+            pauseRaidBox = new CheckBox();
             econoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
@@ -306,7 +306,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(label12);
+            panel2.Controls.Add(pauseRaidBox);
             panel2.Controls.Add(economyCheckBox);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(backupButton);
@@ -317,16 +317,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(163, 192);
             panel2.TabIndex = 33;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.Red;
-            label12.Location = new Point(79, 70);
-            label12.Name = "label12";
-            label12.Size = new Size(57, 15);
-            label12.TabIndex = 140;
-            label12.Text = "In Testing";
             // 
             // economyCheckBox
             // 
@@ -357,7 +347,7 @@
             // 
             // backupButton
             // 
-            backupButton.Location = new Point(33, 105);
+            backupButton.Location = new Point(33, 130);
             backupButton.Name = "backupButton";
             backupButton.Size = new Size(103, 23);
             backupButton.TabIndex = 29;
@@ -367,7 +357,7 @@
             // 
             // twitchOpen
             // 
-            twitchOpen.Location = new Point(33, 134);
+            twitchOpen.Location = new Point(33, 159);
             twitchOpen.Name = "twitchOpen";
             twitchOpen.Size = new Size(103, 23);
             twitchOpen.TabIndex = 28;
@@ -714,6 +704,19 @@
             refundTab.TextAlign = ContentAlignment.MiddleCenter;
             refundTab.Click += refundTab_Click;
             // 
+            // pauseRaidBox
+            // 
+            pauseRaidBox.AutoSize = true;
+            pauseRaidBox.BackColor = Color.FromArgb(156, 155, 151);
+            pauseRaidBox.ForeColor = SystemColors.ControlText;
+            pauseRaidBox.Location = new Point(5, 94);
+            pauseRaidBox.Name = "pauseRaidBox";
+            pauseRaidBox.Size = new Size(118, 19);
+            pauseRaidBox.TabIndex = 124;
+            pauseRaidBox.Text = "Pause out of Raid";
+            pauseRaidBox.UseVisualStyleBackColor = false;
+            pauseRaidBox.CheckedChanged += pauseRaidBox_CheckedChanged;
+            // 
             // ConnectMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -772,7 +775,7 @@
         private Button connectButton;
         private Button disconnectButton;
         private Label label1;
-        private CheckBox pauseCommands;
+        public CheckBox pauseCommands;
         private Button twitchOpen;
         private Label label2;
         private Label consoleTab;
@@ -801,7 +804,6 @@
         private Label economyLastLabel;
         private Label label7;
         private PictureBox pictureBox7;
-        private Label label12;
         private GroupBox regGroupBox;
         private Label label18;
         private Label label17;
@@ -823,5 +825,6 @@
         public Panel refundPanel;
         private Label label22;
         private Label refundTab;
+        public CheckBox pauseRaidBox;
     }
 }

@@ -538,5 +538,17 @@ namespace UiBot.Properties {
                 this["LastUsedProfile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isInRaid {
+            get {
+                return ((bool)(this["isInRaid"]));
+            }
+            set {
+                this["isInRaid"] = value;
+            }
+        }
     }
 }

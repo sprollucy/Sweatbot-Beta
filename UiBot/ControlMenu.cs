@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using UiBot.Properties;
 namespace UiBot
 {
     public partial class ControlMenu : Form
     {
         private Dictionary<string, TextBox> textBoxes = new Dictionary<string, TextBox>();
+        private TarkovInRaidCheck tarkovMonitor;
 
 
         public ControlMenu()
@@ -35,6 +37,7 @@ namespace UiBot
             subsweatbotBox.Checked = Properties.Settings.Default.isSubOnlySweatbotCommand;
             subgambleBox.Checked = Properties.Settings.Default.isSubOnlyGambleCommand;
             subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
+            enableInRaid.Checked = Properties.Settings.Default.isInRaid;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -197,31 +200,31 @@ namespace UiBot
         private void enableAutoMessageCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isAutoMessageEnabled = enableAutoMessageCheck.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isTradersEnabled = enableTradersCommand.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableChatBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableFollowBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isFollowBonusEnabled = enableFollowBonus.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableSubBonus_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusEnabled = enableSubBonus.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -233,19 +236,19 @@ namespace UiBot
         private void enableModBits_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void modRefund_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModRefundEnabled = modRefund.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void modWhitelistCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void openModWhitelist_Click(object sender, EventArgs e)
@@ -261,25 +264,25 @@ namespace UiBot
         private void enableBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableBotToggle_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
 
         private void checkEnableBitMsg_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
-
+            Properties.Settings.Default.Save();
         }
         private void bitcostButton_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitCostEnabled = bitcostButton.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void bonusMultiplierBox_TextChanged(object sender, EventArgs e)
@@ -290,55 +293,100 @@ namespace UiBot
         private void sendkeyButton_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void modMake_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModAddEnabled = modMake.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void modRemove_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModRemoveEnabled = modRemove.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void bitGambleCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isblerpEnabled = bitGambleCheck.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void subsweatbotBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlySweatbotCommand = subsweatbotBox.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void subgambleBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlyGambleCommand = subgambleBox.Checked;
-
+            Properties.Settings.Default.Save();
         }
 
         private void subbotBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
+            Properties.Settings.Default.Save();
+        }
 
+        private void enableInRaid_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isInRaid = enableInRaid.Checked;
+            Properties.Settings.Default.Save();
+
+            if (Settings.Default.isInRaid)
+            {
+                if (tarkovMonitor == null) // Only start if it's not already running
+                {
+                    string logFolder = TarkovInRaidCheck.LogsFolder;
+                    string searchPattern = "*application*.log"; // Match any log file with 'application' in the name
+
+                    if (Directory.Exists(logFolder))
+                    {
+                        tarkovMonitor = new TarkovInRaidCheck(logFolder, searchPattern);
+
+                        tarkovMonitor.Created += (sender, e) => Console.WriteLine($"File Created: {e.FilePath}");
+                        tarkovMonitor.Changed += (sender, e) => Console.WriteLine($"File Changed: {e.FilePath}");
+                        if (Settings.Default.isDebugOn)
+                        {
+                            Console.WriteLine("Starting log monitoring...");
+
+                        }
+                        tarkovMonitor.Start();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tarkov log folder not found.");
+                    }
+                }
+            }
+            else
+            {
+                if (tarkovMonitor != null)
+                {
+                    if (Settings.Default.isDebugOn)
+                    {
+                        Console.WriteLine("Stopping log monitoring...");
+                    }
+                    tarkovMonitor.Stop();
+                    tarkovMonitor = null; // Clear reference to allow re-initialization
+                }
+            }
         }
     }
 }

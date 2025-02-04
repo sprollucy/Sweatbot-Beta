@@ -211,7 +211,7 @@ namespace UiBot
         {
             Properties.Settings.Default.isTraderMuted = disableSound.Checked;
             isSoundEnabled = !isSoundEnabled;
-
+            Properties.Settings.Default.Save();
         }
 
         private void configTraderButton_Click(object sender, EventArgs e)

@@ -41,7 +41,6 @@
             label9 = new Label();
             label1 = new Label();
             bitGambleCheck = new CheckBox();
-            enableTradersCommand = new CheckBox();
             sendkeyTimeBox = new TextBox();
             textBox4 = new TextBox();
             sendkeyButton = new CheckBox();
@@ -49,6 +48,7 @@
             enableBotToggle = new CheckBox();
             checkEnableBitMsg = new CheckBox();
             pictureBox2 = new PictureBox();
+            enableTradersCommand = new CheckBox();
             restart_AppButton = new Button();
             label2 = new Label();
             label5 = new Label();
@@ -93,6 +93,12 @@
             subsweatbotBox = new CheckBox();
             label21 = new Label();
             pictureBox4 = new PictureBox();
+            panel6 = new Panel();
+            label15 = new Label();
+            enableInRaid = new CheckBox();
+            label14 = new Label();
+            pictureBox5 = new PictureBox();
+            label16 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -105,6 +111,8 @@
             groupBox1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // saveButton
@@ -132,7 +140,6 @@
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(bitGambleCheck);
-            panel1.Controls.Add(enableTradersCommand);
             panel1.Controls.Add(sendkeyTimeBox);
             panel1.Controls.Add(textBox4);
             panel1.Controls.Add(sendkeyButton);
@@ -254,19 +261,6 @@
             bitGambleCheck.UseVisualStyleBackColor = false;
             bitGambleCheck.CheckedChanged += bitGambleCheck_CheckedChanged;
             // 
-            // enableTradersCommand
-            // 
-            enableTradersCommand.AutoSize = true;
-            enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
-            enableTradersCommand.ForeColor = SystemColors.ControlText;
-            enableTradersCommand.Location = new Point(12, 173);
-            enableTradersCommand.Name = "enableTradersCommand";
-            enableTradersCommand.Size = new Size(200, 19);
-            enableTradersCommand.TabIndex = 48;
-            enableTradersCommand.Text = "Enable Trader Command for chat";
-            enableTradersCommand.UseVisualStyleBackColor = false;
-            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
-            // 
             // sendkeyTimeBox
             // 
             sendkeyTimeBox.BackColor = Color.FromArgb(196, 197, 204);
@@ -357,6 +351,19 @@
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 120;
             pictureBox2.TabStop = false;
+            // 
+            // enableTradersCommand
+            // 
+            enableTradersCommand.AutoSize = true;
+            enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
+            enableTradersCommand.ForeColor = SystemColors.ControlText;
+            enableTradersCommand.Location = new Point(12, 76);
+            enableTradersCommand.Name = "enableTradersCommand";
+            enableTradersCommand.Size = new Size(200, 19);
+            enableTradersCommand.TabIndex = 48;
+            enableTradersCommand.Text = "Enable Trader Command for chat";
+            enableTradersCommand.UseVisualStyleBackColor = false;
+            enableTradersCommand.CheckedChanged += enableTradersCommand_CheckedChanged;
             // 
             // restart_AppButton
             // 
@@ -891,14 +898,86 @@
             pictureBox4.TabIndex = 120;
             pictureBox4.TabStop = false;
             // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(156, 155, 151);
+            panel6.Controls.Add(label16);
+            panel6.Controls.Add(label15);
+            panel6.Controls.Add(enableInRaid);
+            panel6.Controls.Add(label14);
+            panel6.Controls.Add(pictureBox5);
+            panel6.Controls.Add(enableTradersCommand);
+            panel6.ForeColor = SystemColors.ControlText;
+            panel6.Location = new Point(53, 581);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(514, 154);
+            panel6.TabIndex = 149;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 11F);
+            label15.Location = new Point(3, 27);
+            label15.Name = "label15";
+            label15.Size = new Size(137, 20);
+            label15.TabIndex = 140;
+            label15.Text = "Escape from Tarkov";
+            // 
+            // enableInRaid
+            // 
+            enableInRaid.AutoSize = true;
+            enableInRaid.BackColor = Color.FromArgb(156, 155, 151);
+            enableInRaid.ForeColor = SystemColors.ControlText;
+            enableInRaid.Location = new Point(12, 51);
+            enableInRaid.Name = "enableInRaid";
+            enableInRaid.Size = new Size(199, 19);
+            enableInRaid.TabIndex = 121;
+            enableInRaid.Text = "Pause Sweatbot when out of raid";
+            enableInRaid.UseVisualStyleBackColor = false;
+            enableInRaid.CheckedChanged += enableInRaid_CheckedChanged;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.BackColor = Color.FromArgb(71, 83, 92);
+            label14.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            label14.ForeColor = SystemColors.ControlLight;
+            label14.Location = new Point(0, 1);
+            label14.Name = "label14";
+            label14.Size = new Size(152, 19);
+            label14.TabIndex = 120;
+            label14.Text = "Game Integrations";
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox5.BackgroundImageLayout = ImageLayout.None;
+            pictureBox5.Location = new Point(0, 0);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(514, 24);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 120;
+            pictureBox5.TabStop = false;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = Color.Red;
+            label16.Location = new Point(217, 52);
+            label16.Name = "label16";
+            label16.Size = new Size(117, 15);
+            label16.TabIndex = 150;
+            label16.Text = "Must Restart for now";
+            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(37, 37, 37);
-            ClientSize = new Size(1058, 592);
+            ClientSize = new Size(1058, 984);
             ControlBox = false;
+            Controls.Add(panel6);
             Controls.Add(panel5);
             Controls.Add(groupBox1);
             Controls.Add(panel4);
@@ -927,6 +1006,9 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -998,5 +1080,11 @@
         private CheckBox subbotBox;
         private TextBox custombitnameBox;
         private Label label12;
+        private Panel panel6;
+        private CheckBox enableInRaid;
+        private Label label14;
+        private PictureBox pictureBox5;
+        private Label label15;
+        private Label label16;
     }
 }

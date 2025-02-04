@@ -218,7 +218,10 @@ namespace UiBot
             {
                 Console.WriteLine("Commands are not paused.");
             }
-            Properties.Settings.Default.Save();
+        }
+        private void pauseRaidBox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void twitchOpen_Click(object sender, EventArgs e)
@@ -695,7 +698,7 @@ namespace UiBot
                     Width = logListPanel.Width,
                     ColumnStyles =
         {
-            new ColumnStyle(SizeType.Absolute, 480),  // Fixed width of 470px for the first column
+            new ColumnStyle(SizeType.Absolute, 480),
         },
                     Padding = new Padding(0),
                     Margin = new Padding(0)
@@ -707,10 +710,10 @@ namespace UiBot
                     AutoSize = true,
                     Font = new Font("Segoe UI", 10),
                     Margin = new Padding(0, 0, 0, 5),
-                    TextAlign = ContentAlignment.MiddleLeft,  // Align text to the left
+                    TextAlign = ContentAlignment.MiddleLeft,
                     BackColor = Color.FromArgb(240, 240, 240),
                     ForeColor = Color.FromArgb(40, 40, 40),
-                    MinimumSize = new Size(490, 40)  // Minimum size for the label (to ensure readability)
+                    MinimumSize = new Size(490, 40)
 
                 };
 
@@ -725,7 +728,7 @@ namespace UiBot
                     BackColor = Color.FromArgb(71, 83, 92),
                     ForeColor = Color.FromArgb(240, 240, 240),
                     Margin = new Padding(10, 0, 0, 5),
-                    MinimumSize = new Size(80, 40)  // Minimum size for the button
+                    MinimumSize = new Size(80, 40)
 
                 };
 
@@ -865,7 +868,7 @@ namespace UiBot
         {
             if (fileWatcher == null) return;
 
-            fileWatcher.EnableRaisingEvents = false; 
+            fileWatcher.EnableRaisingEvents = false;
             fileWatcher.Changed -= OnLogFileChanged;
             fileWatcher.Renamed -= OnLogFileChanged;
             fileWatcher.Dispose();
