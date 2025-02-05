@@ -562,5 +562,17 @@ namespace UiBot.Properties {
                 this["isRateDelayEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isDebugCommands {
+            get {
+                return ((bool)(this["isDebugCommands"]));
+            }
+            set {
+                this["isDebugCommands"] = value;
+            }
+        }
     }
 }

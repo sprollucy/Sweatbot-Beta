@@ -60,6 +60,7 @@
             groupBox5 = new GroupBox();
             cashappLink = new LinkLabel();
             discordLink = new LinkLabel();
+            enableDebugCommands = new CheckBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -395,6 +396,7 @@
             // groupBox4
             // 
             groupBox4.BackColor = Color.FromArgb(37, 37, 37);
+            groupBox4.Controls.Add(enableDebugCommands);
             groupBox4.Controls.Add(enableDebug);
             groupBox4.ForeColor = SystemColors.ControlLight;
             groupBox4.Location = new Point(53, 296);
@@ -452,6 +454,19 @@
             discordLink.Text = "Discord";
             discordLink.TextAlign = ContentAlignment.MiddleCenter;
             discordLink.LinkClicked += discordLink_LinkClicked;
+            // 
+            // enableDebugCommands
+            // 
+            enableDebugCommands.AutoSize = true;
+            enableDebugCommands.BackColor = Color.FromArgb(37, 37, 37);
+            enableDebugCommands.ForeColor = SystemColors.ControlLight;
+            enableDebugCommands.Location = new Point(166, 22);
+            enableDebugCommands.Name = "enableDebugCommands";
+            enableDebugCommands.Size = new Size(184, 19);
+            enableDebugCommands.TabIndex = 111;
+            enableDebugCommands.Text = "Enable Debug For Commands";
+            enableDebugCommands.UseVisualStyleBackColor = false;
+            enableDebugCommands.CheckedChanged += enableDebugCommands_CheckedChanged;
             // 
             // SettingMenu
             // 
@@ -535,5 +550,6 @@
         private GroupBox groupBox5;
         private LinkLabel cashappLink;
         private LinkLabel discordLink;
+        private CheckBox enableDebugCommands;
     }
 }

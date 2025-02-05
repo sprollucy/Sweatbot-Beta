@@ -28,6 +28,7 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
         private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
+
         public Dictionary<string, string> commandConfigData;
 
         // Keyboard Events
@@ -286,8 +287,7 @@ namespace UiBot
                 int delayMs;
                 if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayMs))
                 {
-
-                    delayMs = 500;
+                    delayMs = 100; 
                 }
 
                 if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
@@ -625,10 +625,11 @@ namespace UiBot
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
 
+            // Check if the user is banned
             if (bannedUsers.Contains(Chatter))
             {
                 client.SendMessage(channelId, $"{Chatter}, you are banned from using the bot.");
-                return;
+                return; // Exit early, don't process the command
             }
 
             //Normal Commands

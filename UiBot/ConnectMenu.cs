@@ -286,34 +286,61 @@ namespace UiBot
                 customCommandBox.Text = "No commands available.";
             }
         }
+        private bool IsFileLocked(string filePath)
+        {
+            try
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    return false;  // File is not locked
+                }
+            }
+            catch (IOException)
+            {
+                return true;  // File is locked
+            }
+        }
 
         // Method to calculate the total bit cost from user_bits.json
         private int CalculateTotalBitCost()
         {
             int totalBitCost = 0;
-
-            // Load the user_bits.json file
             string userBitsFilePath = Path.Combine("Data", "user_bits.json");
 
-            if (File.Exists(userBitsFilePath))
+            int attempts = 0;
+            while (attempts < 5)
             {
-                var jsonData = File.ReadAllText(userBitsFilePath);
-
-                // Deserialize JSON into a dictionary or list depending on the format
-                var userBitsData = JsonConvert.DeserializeObject<Dictionary<string, int>>(jsonData);
-
-                if (userBitsData != null)
+                if (!IsFileLocked(userBitsFilePath))
                 {
-                    // Sum up the bit costs
-                    foreach (var item in userBitsData)
+                    try
                     {
-                        totalBitCost += item.Value; // Assuming the JSON has a format like {"command": bitCost}
+                        var jsonData = File.ReadAllText(userBitsFilePath);
+                        var userBitsData = JsonConvert.DeserializeObject<Dictionary<string, int>>(jsonData);
+
+                        if (userBitsData != null)
+                        {
+                            foreach (var item in userBitsData)
+                            {
+                                totalBitCost += item.Value;
+                            }
+                        }
                     }
+                    catch (IOException)
+                    {
+                        // Handle file reading errors here if necessary
+                    }
+                    break;
+                }
+                else
+                {
+                    Thread.Sleep(500); // Wait for 500 milliseconds before retrying
+                    attempts++;
                 }
             }
-            else
+
+            if (attempts >= 5)
             {
-                MessageBox.Show("user_bits.json file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to access the file after multiple attempts.");
             }
 
             return totalBitCost;

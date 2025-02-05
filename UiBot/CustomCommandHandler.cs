@@ -381,7 +381,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Holding key '{key}' (VK Code: {vkCode:X}) for {duration} milliseconds.");
         }
@@ -433,7 +433,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Async Holding key '{key}' (VK Code: {vkCode:X}) for {duration} milliseconds.");
         }
@@ -475,7 +475,7 @@ public class CustomCommandHandler
             vkCode = (byte)ToVirtualKey(key);
         }
         catch (ArgumentException ex) { Console.WriteLine($"Error mapping key: {ex.Message}"); return; }
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Hitting key '{key}' (VK Code: {vkCode:X})");
         }
@@ -520,7 +520,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Async Hitting key '{key}' (VK Code: {vkCode:X})");
         }
@@ -572,7 +572,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Hitting key '{key}' (VK Code: {vkCode:X}) {times} times with {delay}ms delay.");
         }
@@ -630,7 +630,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Async Hitting key '{key}' (VK Code: {vkCode:X}) {times} times with {delay}ms delay.");
         }
@@ -688,7 +688,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
             }
@@ -696,7 +696,7 @@ public class CustomCommandHandler
             if (direction == "RAND")
             {
                 int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
-                if (UiBot.Properties.Settings.Default.isDebugOn)
+                if (UiBot.Properties.Settings.Default.isDebugCommands)
                 {
                     Console.WriteLine($"Random number: {randomNumber}");
                 }
@@ -785,7 +785,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
             }
@@ -793,7 +793,7 @@ public class CustomCommandHandler
             if (direction == "RAND")
             {
                 int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
-                if (UiBot.Properties.Settings.Default.isDebugOn)
+                if (UiBot.Properties.Settings.Default.isDebugCommands)
                 {
                     Console.WriteLine($"Random number: {randomNumber}");
                 }
@@ -863,7 +863,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Moving mouse to position ({x}, {y}).");
         }
@@ -886,7 +886,7 @@ public class CustomCommandHandler
             return;
         }
 
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine($"Moving mouse to position ({x}, {y}).");
         }
@@ -897,7 +897,7 @@ public class CustomCommandHandler
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
     {
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine("Left click");
         }
@@ -908,7 +908,7 @@ public class CustomCommandHandler
 
     private async Task LeftClickAsync(TwitchClient client, string channel, string parameter = null)
     {
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine("Async Left click");
         }
@@ -919,7 +919,7 @@ public class CustomCommandHandler
 
     private void RightClick(TwitchClient client, string channel, string parameter = null)
     {
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine("Right click");
         }
@@ -931,7 +931,7 @@ public class CustomCommandHandler
 
     private async Task RightClickAsync(TwitchClient client, string channel, string parameter = null)
     {
-        if (UiBot.Properties.Settings.Default.isDebugOn)
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
         {
             Console.WriteLine("Async Right click");
         }
@@ -958,7 +958,7 @@ public class CustomCommandHandler
 
         for (int i = 0; i < clickCount; i++)
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Left click {i + 1}/{clickCount}");
             }
@@ -988,7 +988,7 @@ public class CustomCommandHandler
 
         for (int i = 0; i < clickCount; i++)
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Right click {i + 1}/{clickCount}");
             }
@@ -1018,7 +1018,7 @@ public class CustomCommandHandler
 
         for (int i = 0; i < clickCount; i++)
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Async Left click {i + 1}/{clickCount}");
             }
@@ -1048,7 +1048,7 @@ public class CustomCommandHandler
 
         for (int i = 0; i < clickCount; i++)
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Async Right click {i + 1}/{clickCount}");
             }
@@ -1079,7 +1079,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Holding right mouse button for {duration} milliseconds.");
             }            
@@ -1113,7 +1113,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Holding async right mouse button for {duration} milliseconds.");
             }
@@ -1144,7 +1144,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Holding left mouse button for {duration} milliseconds.");
             }
@@ -1178,7 +1178,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Holding Async left mouse button for {duration} milliseconds.");
             }
@@ -1209,7 +1209,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Muting Windows for {duration} milliseconds.");
             }
@@ -1243,7 +1243,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Muting Windows for {duration} milliseconds.");
             }
@@ -1280,7 +1280,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Delay for {duration} milliseconds.");
             }
@@ -1310,7 +1310,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 // Calculate time since last command was executed
                 var now = DateTime.Now;
@@ -1358,7 +1358,7 @@ public class CustomCommandHandler
             {
                 player.Play();
             }
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Playing sound for {fileName}.");
             }
@@ -1395,7 +1395,7 @@ public class CustomCommandHandler
                 // SoundPlayer doesn't support async playback, but you can use a Task.Run to avoid blocking
                 await Task.Run(() => player.Play());
             }
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"Async Playing sound for {fileName}.");
             }
@@ -1440,7 +1440,7 @@ public class CustomCommandHandler
 
         try
         {
-            if (UiBot.Properties.Settings.Default.isDebugOn)
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
             {
                 Console.WriteLine($"PixelateScreen for {duration} milliseconds.");
             }
