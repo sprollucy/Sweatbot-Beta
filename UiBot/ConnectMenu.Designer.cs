@@ -81,7 +81,6 @@
             logListPanel = new FlowLayoutPanel();
             refundPanel = new Panel();
             refundTab = new Label();
-            pauseRaidBox = new CheckBox();
             econoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
@@ -306,7 +305,6 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(pauseRaidBox);
             panel2.Controls.Add(economyCheckBox);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(backupButton);
@@ -347,7 +345,7 @@
             // 
             // backupButton
             // 
-            backupButton.Location = new Point(33, 130);
+            backupButton.Location = new Point(33, 94);
             backupButton.Name = "backupButton";
             backupButton.Size = new Size(103, 23);
             backupButton.TabIndex = 29;
@@ -357,7 +355,7 @@
             // 
             // twitchOpen
             // 
-            twitchOpen.Location = new Point(33, 159);
+            twitchOpen.Location = new Point(33, 123);
             twitchOpen.Name = "twitchOpen";
             twitchOpen.Size = new Size(103, 23);
             twitchOpen.TabIndex = 28;
@@ -704,19 +702,6 @@
             refundTab.TextAlign = ContentAlignment.MiddleCenter;
             refundTab.Click += refundTab_Click;
             // 
-            // pauseRaidBox
-            // 
-            pauseRaidBox.AutoSize = true;
-            pauseRaidBox.BackColor = Color.FromArgb(156, 155, 151);
-            pauseRaidBox.ForeColor = SystemColors.ControlText;
-            pauseRaidBox.Location = new Point(5, 94);
-            pauseRaidBox.Name = "pauseRaidBox";
-            pauseRaidBox.Size = new Size(118, 19);
-            pauseRaidBox.TabIndex = 124;
-            pauseRaidBox.Text = "Pause out of Raid";
-            pauseRaidBox.UseVisualStyleBackColor = false;
-            pauseRaidBox.CheckedChanged += pauseRaidBox_CheckedChanged;
-            // 
             // ConnectMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -825,6 +810,5 @@
         public Panel refundPanel;
         private Label label22;
         private Label refundTab;
-        public CheckBox pauseRaidBox;
     }
 }

@@ -233,7 +233,7 @@ namespace UiBot
 
         //Mod Whitelist
 
-        private static HashSet<string> modWhitelist;
+        private static Dictionary<string, HashSet<string>> modWhitelist;
 
         public static void LoadWhitelist()
         {
@@ -241,19 +241,32 @@ namespace UiBot
             {
                 string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
                 string[] lines = File.ReadAllLines(filePath);
-                modWhitelist = new HashSet<string>(lines, StringComparer.OrdinalIgnoreCase);
+                modWhitelist = new Dictionary<string, HashSet<string>>();
+
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(':'); // Format: username:refund,give,add_remove
+                    if (parts.Length == 2)
+                    {
+                        string username = parts[0].Trim();
+                        string[] perms = parts[1].Split(',');
+
+                        modWhitelist[username] = new HashSet<string>(perms.Select(p => p.Trim()), StringComparer.OrdinalIgnoreCase);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., file not found, read errors)
-                modWhitelist = new HashSet<string>();
+                modWhitelist = new Dictionary<string, HashSet<string>>();
             }
         }
 
-        public static bool IsUserInWhitelist(string username)
+        public static bool HasPermission(string username, string permission)
         {
-            return modWhitelist.Contains(username);
+            return modWhitelist.TryGetValue(username, out var permissions) && permissions.Contains(permission);
         }
+
 
     }
 }

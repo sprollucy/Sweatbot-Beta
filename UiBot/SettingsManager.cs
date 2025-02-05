@@ -48,7 +48,7 @@ namespace UiBot
                 if (File.Exists(settingsFilePath))
                 {
                     string json = File.ReadAllText(settingsFilePath);
-                    var loadedSettings = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+                    var loadedSettings = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json);
 
                     if (loadedSettings != null)
                     {
@@ -57,14 +57,13 @@ namespace UiBot
                             PropertyInfo prop = Properties.Settings.Default.GetType().GetProperty(setting.Key);
                             if (prop != null)
                             {
-                                // Check if the property is a boolean or string and set the value accordingly
-                                if (prop.PropertyType == typeof(bool) && setting.Value is bool)
+                                if (prop.PropertyType == typeof(bool) && setting.Value.ValueKind == JsonValueKind.True || setting.Value.ValueKind == JsonValueKind.False)
                                 {
-                                    prop.SetValue(Properties.Settings.Default, setting.Value);
+                                    prop.SetValue(Properties.Settings.Default, setting.Value.GetBoolean());
                                 }
-                                else if (prop.PropertyType == typeof(string) && setting.Value is string)
+                                else if (prop.PropertyType == typeof(string) && setting.Value.ValueKind == JsonValueKind.String)
                                 {
-                                    prop.SetValue(Properties.Settings.Default, setting.Value);
+                                    prop.SetValue(Properties.Settings.Default, setting.Value.GetString());
                                 }
                             }
                         }
@@ -82,5 +81,6 @@ namespace UiBot
                 Console.WriteLine($"Error loading settings: {ex.Message}");
             }
         }
+
     }
 }

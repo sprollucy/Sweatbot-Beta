@@ -1,4 +1,5 @@
 ﻿using System.Drawing.Drawing2D;
+using System.Reflection;
 using Timer = System.Windows.Forms.Timer;
 
 namespace UiBot
@@ -110,6 +111,8 @@ namespace UiBot
             //setMouseEvents(pictureBox8);
             setMouseEvents(settingsButton);
             CheckStart();
+            // Attach event handler to detect setting changes
+            PropertySaver();
         }
 
         public void CheckStart()
@@ -124,8 +127,29 @@ namespace UiBot
             {
                 eftTrader.Visible = false; // Optionally hide the picture box if it's disabled
                 label4.Visible = false;
-
             }
+
+        }
+
+        public void PropertySaver()
+        {
+            Properties.Settings.Default.PropertyChanged += (sender, e) =>
+            {
+                // Ensure the setting being changed is of type boolean
+                PropertyInfo prop = Properties.Settings.Default.GetType().GetProperty(e.PropertyName);
+                if (prop != null && prop.PropertyType == typeof(bool))
+                {
+                    if (Properties.Settings.Default.isDebugOn)
+                    {
+                        Console.WriteLine($"Setting changed: {e.PropertyName}");
+                        SettingsManager.SaveSettings(); // Save settings after change
+                    }
+                    else
+                    {
+                        SettingsManager.SaveSettings(); // Save settings after change
+                    }
+                }
+            };
         }
 
         public void UpdateConnection()
@@ -420,6 +444,14 @@ namespace UiBot
                 await updateChecker.CheckForUpdatesAsync();
             }
             ShowConnectMenu();
+            // Preload ControlMenu but keep it hidden
+            if (controlMenu == null || controlMenu.IsDisposed)
+            {
+                controlMenu = new ControlMenu();
+                controlMenu.Dock = DockStyle.Fill;
+                controlMenu.Visible = false; // Keep it hidden on load
+                this.Controls.Add(controlMenu);
+            }
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)

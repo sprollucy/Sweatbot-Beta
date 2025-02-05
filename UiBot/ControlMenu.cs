@@ -322,7 +322,7 @@ namespace UiBot
 
         private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isblerpEnabled = bitGambleCheck.Checked;
+            Properties.Settings.Default.isblerpEnabled = blerpBox.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -348,7 +348,11 @@ namespace UiBot
         {
             Properties.Settings.Default.isInRaid = enableInRaid.Checked;
             Properties.Settings.Default.Save();
+            StartInRaidFileCheck();
+        }
 
+        private void StartInRaidFileCheck()
+        {
             if (Settings.Default.isInRaid)
             {
                 if (tarkovMonitor == null) // Only start if it's not already running

@@ -210,6 +210,7 @@ namespace UiBot
         private void pauseCommands_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isCommandsPaused = pauseCommands.Checked;
+            Settings.Default.Save();
             if (pauseCommands.Checked)
             {
                 Console.WriteLine("Commands are paused.");
@@ -355,7 +356,6 @@ namespace UiBot
             }
         }
 
-
         private int LoadTotalSpentFromJson()
         {
             string filePath = Path.Combine("Data", "bin", "CommandConfigData.json");
@@ -376,6 +376,7 @@ namespace UiBot
                 return 0;
             }
         }
+
         private void SaveTotalSpentToJson(int totalSpent)
         {
             string filePath = Path.Combine("Data", "bin", "CommandConfigData.json");

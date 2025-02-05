@@ -1,3 +1,9 @@
+1.0.0.81-alpha
+-Fixed In Raid Check from running multiple instances
+-Fixed Settings saving and loading. All changed settings should carry over from version to version 
+-Fixed blerp checkbox from not staying toggled
+-Changed blerp integration system to use regex magic to find the user. This should fix it not working
+
 1.0.0.80-alpha
 -Fixed !sweatbot from showing incorrect state
 -Added condition for !sweatbot and !sbgamble that if subs only is checked in the control menu, only subs can use the command

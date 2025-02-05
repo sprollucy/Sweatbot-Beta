@@ -10,6 +10,7 @@ using TwitchLib.PubSub.Events;
 using TwitchLib.PubSub;
 using TwitchLib.Api.Helix.Models.Chat.GetChatters;
 using UiBot.Properties;
+using System.Text.RegularExpressions;
 
 
 namespace UiBot
@@ -523,11 +524,14 @@ namespace UiBot
 
                 if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase) && message.StartsWith("blerp:"))
                 {
-                    // Extract the username and bit amount
-                    string[] words = message.Split(' ');
-                    if (words.Length >= 4 && int.TryParse(words[2], out int bitsUsed))
+                    // Expected format: "blerp: (username) used (bitsUsed) bits to play [sound name]"
+                    string pattern = @"blerp:\s+(\S+)\s+used\s+(\d+)\s+bits";
+
+                    Match match = Regex.Match(message, pattern);
+                    if (match.Success)
                     {
-                        string user = words[1]; // Assuming the second word is the username
+                        string user = match.Groups[1].Value; // Extract username
+                        int bitsUsed = int.Parse(match.Groups[2].Value); // Extract bits amount
 
                         if (!userBits.ContainsKey(user))
                         {
@@ -547,7 +551,6 @@ namespace UiBot
                 }
             }
         }
-
 
         private void Client_OnError(object sender, OnErrorEventArgs e)
         {
@@ -1206,7 +1209,7 @@ namespace UiBot
                     case "addbits":
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
                             {
                                 ChatCommandMethods.AddBitCommand(client, e);
                             }
@@ -1220,7 +1223,7 @@ namespace UiBot
                     case "rembits":
                         if (Properties.Settings.Default.isModBitsEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
                             {
                                 ChatCommandMethods.RemoveBitCommand(client, e);
                             }
@@ -1234,7 +1237,7 @@ namespace UiBot
                     case "refund":
                         if (Properties.Settings.Default.isModRefundEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
                             {
                                 string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1260,7 +1263,7 @@ namespace UiBot
                     case "sbadd":
                         if (Properties.Settings.Default.isModAddEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove"))
                             {
                                 var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1290,7 +1293,7 @@ namespace UiBot
                     case "sbremove":
                         if (Properties.Settings.Default.isModRemoveEnabled)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove"))
                             {
                                 var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1352,11 +1355,7 @@ namespace UiBot
                         }
                         break;
 
-                    case "sbadd":
-                        if (Properties.Settings.Default.isModAddEnabled)
-                        {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
-                            {
+                    case "sbadd":       
                                 var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
                                 if (sbaddArgs.Length >= 3)
@@ -1378,38 +1377,32 @@ namespace UiBot
                                 {
                                     client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
                                 }
-                            }
-                        }
                         break;
 
                     case "sbremove":
-                        if (Properties.Settings.Default.isModRemoveEnabled)
+
+                        var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (sbremoveArgs.Length == 1)
                         {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.IsUserInWhitelist(Chatter))
+                            string commandNameToRemove = sbremoveArgs[0].ToLower();
+                            var commandHandler = new CustomCommandHandler(commandsFilePath);
+                            bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
+
+                            if (isRemoved)
                             {
-                                var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
-
-                                if (sbremoveArgs.Length == 1)
-                                {
-                                    string commandNameToRemove = sbremoveArgs[0].ToLower();
-                                    var commandHandler = new CustomCommandHandler(commandsFilePath);
-                                    bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
-
-                                    if (isRemoved)
-                                    {
-                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
-                                    }
-                                    else
-                                    {
-                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
-                                    }
-                                }
-                                else
-                                {
-                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
-                                }
+                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
                             }
                         }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
+                        }
+
                         break;
                 }
             }

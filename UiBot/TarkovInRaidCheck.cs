@@ -12,6 +12,7 @@ namespace UiBot
     {
         private static string _gameFolder = null;
         private static string _currentLogsFolder = null;
+        private bool previousIsCommandsPaused = false;
 
         public static string GameFolder
         {
@@ -20,8 +21,13 @@ namespace UiBot
                 if (_gameFolder == null)
                 {
                     RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov");
-                    var installPath = key?.GetValue("InstallLocation")?.ToString();
-                    key?.Dispose();
+                    if (key == null)
+                    {
+                        return null;  // Handle the case where the registry key is not found
+                    }
+                    var installPath = key.GetValue("InstallLocation")?.ToString();
+                    key.Dispose();
+
 
                     if (!String.IsNullOrEmpty(installPath))
                     {
@@ -82,7 +88,7 @@ namespace UiBot
             string[] files = Directory.GetFiles(folder, searchPattern);
             if (files.Length > 0)
             {
-                return files[0]; // We don't need to concatenate with the folder, `files[0]` already includes the path.
+                return files[0];
             }
 
             return null;
@@ -159,10 +165,13 @@ namespace UiBot
                                 // Detect "GameStarted" → Resume chat commands
                                 if (line.Contains("GameStarted"))
                                 {
-                                    if (Settings.Default.isCommandsPaused)
+                                    // Check if the state has changed
+                                    if (previousIsCommandsPaused != false)
                                     {
+                                        previousIsCommandsPaused = false;  // Update the previous state
                                         Console.WriteLine("Chat Commands are ACTIVE");
-                                        // Trigger the pauseCommands checkbox change in ConnectMenu (on UI thread)
+
+                                        // Trigger the checkbox state change (as before)
                                         if (ConnectMenu.Instance != null && ConnectMenu.Instance.pauseCommands.InvokeRequired)
                                         {
                                             ConnectMenu.Instance.pauseCommands.Invoke(new Action(() =>
@@ -179,11 +188,13 @@ namespace UiBot
                                 // Detect "BEClient exit" or "cancelled" → Pause chat commands
                                 if (line.Contains("BEClient exit") || line.Contains("cancelled"))
                                 {
-                                    if (!Settings.Default.isCommandsPaused)
+                                    // Check if the state has changed
+                                    if (previousIsCommandsPaused != true)
                                     {
+                                        previousIsCommandsPaused = true;  // Update the previous state
                                         Console.WriteLine("Chat Commands are PAUSED");
 
-                                        // Trigger the pauseCommands checkbox change in ConnectMenu (on UI thread)
+                                        // Trigger the checkbox state change (as before)
                                         if (ConnectMenu.Instance != null && ConnectMenu.Instance.pauseCommands.InvokeRequired)
                                         {
                                             ConnectMenu.Instance.pauseCommands.Invoke(new Action(() =>
@@ -216,8 +227,24 @@ namespace UiBot
         public void Stop()
         {
             isStopping = true;
-            StopFileCreationMonitoring();
-            StopFolderCreationMonitoring(); // Ensure the folder monitoring stops too.
+            try
+            {
+                StopFileCreationMonitoring();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while disposing file create watcher: {ex.Message}");
+            }
+
+            try
+            {
+                StopFolderCreationMonitoring();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while disposing folder watcher: {ex.Message}");
+            }
+
         }
 
         private void StopFileCreationMonitoring()

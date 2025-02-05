@@ -93,12 +93,11 @@
             subsweatbotBox = new CheckBox();
             label21 = new Label();
             pictureBox4 = new PictureBox();
-            panel6 = new Panel();
-            label15 = new Label();
+            gameIntegrationPanel = new Panel();
+            groupBox2 = new GroupBox();
             enableInRaid = new CheckBox();
             label14 = new Label();
             pictureBox5 = new PictureBox();
-            label16 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -111,7 +110,8 @@
             groupBox1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            panel6.SuspendLayout();
+            gameIntegrationPanel.SuspendLayout();
+            groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
@@ -150,23 +150,23 @@
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(514, 206);
+            panel1.Size = new Size(514, 180);
             panel1.TabIndex = 20;
             // 
             // custombitnameBox
             // 
             custombitnameBox.BackColor = Color.FromArgb(196, 197, 204);
             custombitnameBox.BorderStyle = BorderStyle.FixedSingle;
-            custombitnameBox.Location = new Point(103, 25);
+            custombitnameBox.Location = new Point(103, 29);
             custombitnameBox.Name = "custombitnameBox";
             custombitnameBox.Size = new Size(87, 23);
             custombitnameBox.TabIndex = 138;
-            custombitnameBox.Text = "Bits";
+            custombitnameBox.Text = "Sweat Coins";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(12, 27);
+            label12.Location = new Point(12, 31);
             label12.Name = "label12";
             label12.Size = new Size(93, 15);
             label12.TabIndex = 139;
@@ -176,7 +176,7 @@
             // 
             bitGambleCDBox.BackColor = Color.FromArgb(196, 197, 204);
             bitGambleCDBox.BorderStyle = BorderStyle.FixedSingle;
-            bitGambleCDBox.Location = new Point(350, 147);
+            bitGambleCDBox.Location = new Point(350, 151);
             bitGambleCDBox.Name = "bitGambleCDBox";
             bitGambleCDBox.Size = new Size(28, 23);
             bitGambleCDBox.TabIndex = 133;
@@ -185,7 +185,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(266, 149);
+            label11.Location = new Point(266, 153);
             label11.Name = "label11";
             label11.Size = new Size(87, 15);
             label11.TabIndex = 137;
@@ -195,7 +195,7 @@
             // 
             bitChanceBox.BackColor = Color.FromArgb(196, 197, 204);
             bitChanceBox.BorderStyle = BorderStyle.FixedSingle;
-            bitChanceBox.Location = new Point(232, 147);
+            bitChanceBox.Location = new Point(232, 151);
             bitChanceBox.Name = "bitChanceBox";
             bitChanceBox.Size = new Size(28, 23);
             bitChanceBox.TabIndex = 131;
@@ -204,7 +204,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(149, 149);
+            label10.Location = new Point(149, 153);
             label10.Name = "label10";
             label10.Size = new Size(84, 15);
             label10.TabIndex = 136;
@@ -214,7 +214,7 @@
             // 
             sendkeyCostBox.BackColor = Color.FromArgb(196, 197, 204);
             sendkeyCostBox.BorderStyle = BorderStyle.FixedSingle;
-            sendkeyCostBox.Location = new Point(277, 122);
+            sendkeyCostBox.Location = new Point(277, 126);
             sendkeyCostBox.Name = "sendkeyCostBox";
             sendkeyCostBox.Size = new Size(34, 23);
             sendkeyCostBox.TabIndex = 123;
@@ -224,7 +224,7 @@
             // 
             bottoggleCostBox.BackColor = Color.FromArgb(196, 197, 204);
             bottoggleCostBox.BorderStyle = BorderStyle.FixedSingle;
-            bottoggleCostBox.Location = new Point(192, 47);
+            bottoggleCostBox.Location = new Point(192, 51);
             bottoggleCostBox.Name = "bottoggleCostBox";
             bottoggleCostBox.Size = new Size(34, 23);
             bottoggleCostBox.TabIndex = 108;
@@ -233,7 +233,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(162, 49);
+            label9.Location = new Point(162, 53);
             label9.Name = "label9";
             label9.Size = new Size(34, 15);
             label9.TabIndex = 135;
@@ -242,7 +242,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(246, 124);
+            label1.Location = new Point(246, 128);
             label1.Name = "label1";
             label1.Size = new Size(34, 15);
             label1.TabIndex = 134;
@@ -253,7 +253,7 @@
             bitGambleCheck.AutoSize = true;
             bitGambleCheck.BackColor = Color.FromArgb(156, 155, 151);
             bitGambleCheck.ForeColor = SystemColors.ControlText;
-            bitGambleCheck.Location = new Point(12, 148);
+            bitGambleCheck.Location = new Point(12, 152);
             bitGambleCheck.Name = "bitGambleCheck";
             bitGambleCheck.Size = new Size(133, 19);
             bitGambleCheck.TabIndex = 130;
@@ -265,7 +265,7 @@
             // 
             sendkeyTimeBox.BackColor = Color.FromArgb(196, 197, 204);
             sendkeyTimeBox.BorderStyle = BorderStyle.FixedSingle;
-            sendkeyTimeBox.Location = new Point(454, 122);
+            sendkeyTimeBox.Location = new Point(454, 126);
             sendkeyTimeBox.Name = "sendkeyTimeBox";
             sendkeyTimeBox.Size = new Size(38, 23);
             sendkeyTimeBox.TabIndex = 125;
@@ -276,7 +276,7 @@
             textBox4.BackColor = Color.FromArgb(156, 155, 151);
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.ForeColor = SystemColors.ControlText;
-            textBox4.Location = new Point(327, 124);
+            textBox4.Location = new Point(327, 128);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(131, 16);
             textBox4.TabIndex = 126;
@@ -290,7 +290,7 @@
             sendkeyButton.Checked = true;
             sendkeyButton.CheckState = CheckState.Checked;
             sendkeyButton.ForeColor = SystemColors.ControlText;
-            sendkeyButton.Location = new Point(12, 123);
+            sendkeyButton.Location = new Point(12, 127);
             sendkeyButton.Name = "sendkeyButton";
             sendkeyButton.Size = new Size(232, 19);
             sendkeyButton.TabIndex = 122;
@@ -305,7 +305,7 @@
             bitcostButton.Checked = true;
             bitcostButton.CheckState = CheckState.Checked;
             bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(12, 98);
+            bitcostButton.Location = new Point(12, 102);
             bitcostButton.Name = "bitcostButton";
             bitcostButton.Size = new Size(205, 19);
             bitcostButton.TabIndex = 121;
@@ -318,7 +318,7 @@
             enableBotToggle.AutoSize = true;
             enableBotToggle.BackColor = Color.FromArgb(156, 155, 151);
             enableBotToggle.ForeColor = SystemColors.ControlText;
-            enableBotToggle.Location = new Point(12, 48);
+            enableBotToggle.Location = new Point(12, 52);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
             enableBotToggle.TabIndex = 109;
@@ -333,7 +333,7 @@
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
             checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(12, 73);
+            checkEnableBitMsg.Location = new Point(12, 77);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -356,8 +356,9 @@
             // 
             enableTradersCommand.AutoSize = true;
             enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
+            enableTradersCommand.Font = new Font("Segoe UI", 9F);
             enableTradersCommand.ForeColor = SystemColors.ControlText;
-            enableTradersCommand.Location = new Point(12, 76);
+            enableTradersCommand.Location = new Point(18, 51);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -474,7 +475,7 @@
             enableModBits.AutoSize = true;
             enableModBits.BackColor = Color.FromArgb(156, 155, 151);
             enableModBits.ForeColor = SystemColors.ControlText;
-            enableModBits.Location = new Point(10, 58);
+            enableModBits.Location = new Point(10, 56);
             enableModBits.Name = "enableModBits";
             enableModBits.Size = new Size(181, 19);
             enableModBits.TabIndex = 76;
@@ -495,10 +496,10 @@
             // 
             autoMessageBox.BackColor = Color.FromArgb(196, 197, 204);
             autoMessageBox.BorderStyle = BorderStyle.FixedSingle;
-            autoMessageBox.Location = new Point(10, 55);
+            autoMessageBox.Location = new Point(8, 59);
             autoMessageBox.Multiline = true;
             autoMessageBox.Name = "autoMessageBox";
-            autoMessageBox.Size = new Size(228, 106);
+            autoMessageBox.Size = new Size(418, 77);
             autoMessageBox.TabIndex = 23;
             autoMessageBox.Text = "Send auto messages to chat! use \\\\ to send seperate messages";
             // 
@@ -506,7 +507,7 @@
             // 
             autoSendMessageCD.BackColor = Color.FromArgb(196, 197, 204);
             autoSendMessageCD.BorderStyle = BorderStyle.FixedSingle;
-            autoSendMessageCD.Location = new Point(287, 29);
+            autoSendMessageCD.Location = new Point(287, 30);
             autoSendMessageCD.Name = "autoSendMessageCD";
             autoSendMessageCD.Size = new Size(43, 23);
             autoSendMessageCD.TabIndex = 24;
@@ -529,7 +530,7 @@
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(156, 155, 151);
             enableAutoMessageCheck.ForeColor = SystemColors.ControlText;
-            enableAutoMessageCheck.Location = new Point(10, 30);
+            enableAutoMessageCheck.Location = new Point(10, 31);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -556,7 +557,7 @@
             modRefund.Checked = true;
             modRefund.CheckState = CheckState.Checked;
             modRefund.ForeColor = SystemColors.ControlText;
-            modRefund.Location = new Point(10, 83);
+            modRefund.Location = new Point(10, 81);
             modRefund.Name = "modRefund";
             modRefund.Size = new Size(202, 19);
             modRefund.TabIndex = 83;
@@ -569,7 +570,7 @@
             modWhitelistCheck.AutoSize = true;
             modWhitelistCheck.BackColor = Color.FromArgb(156, 155, 151);
             modWhitelistCheck.ForeColor = SystemColors.ControlText;
-            modWhitelistCheck.Location = new Point(10, 33);
+            modWhitelistCheck.Location = new Point(10, 31);
             modWhitelistCheck.Name = "modWhitelistCheck";
             modWhitelistCheck.Size = new Size(266, 19);
             modWhitelistCheck.TabIndex = 84;
@@ -580,7 +581,7 @@
             // openModWhitelist
             // 
             openModWhitelist.Font = new Font("Segoe UI", 9F);
-            openModWhitelist.Location = new Point(282, 30);
+            openModWhitelist.Location = new Point(282, 28);
             openModWhitelist.Name = "openModWhitelist";
             openModWhitelist.Size = new Size(95, 23);
             openModWhitelist.TabIndex = 85;
@@ -604,7 +605,7 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(enableChatBonus);
             panel2.ForeColor = SystemColors.ControlText;
-            panel2.Location = new Point(53, 243);
+            panel2.Location = new Point(53, 217);
             panel2.Name = "panel2";
             panel2.Size = new Size(514, 162);
             panel2.TabIndex = 121;
@@ -669,7 +670,7 @@
             enableSubBonusMulti.AutoSize = true;
             enableSubBonusMulti.BackColor = Color.FromArgb(156, 155, 151);
             enableSubBonusMulti.ForeColor = SystemColors.ControlText;
-            enableSubBonusMulti.Location = new Point(12, 78);
+            enableSubBonusMulti.Location = new Point(12, 79);
             enableSubBonusMulti.Name = "enableSubBonusMulti";
             enableSubBonusMulti.Size = new Size(178, 19);
             enableSubBonusMulti.TabIndex = 131;
@@ -681,7 +682,7 @@
             // 
             subbonusMultiplierBox.BackColor = Color.FromArgb(196, 197, 204);
             subbonusMultiplierBox.BorderStyle = BorderStyle.FixedSingle;
-            subbonusMultiplierBox.Location = new Point(185, 77);
+            subbonusMultiplierBox.Location = new Point(185, 78);
             subbonusMultiplierBox.Name = "subbonusMultiplierBox";
             subbonusMultiplierBox.Size = new Size(20, 23);
             subbonusMultiplierBox.TabIndex = 130;
@@ -691,7 +692,7 @@
             // 
             subTextBox.BackColor = Color.FromArgb(196, 197, 204);
             subTextBox.BorderStyle = BorderStyle.FixedSingle;
-            subTextBox.Location = new Point(293, 52);
+            subTextBox.Location = new Point(293, 53);
             subTextBox.Name = "subTextBox";
             subTextBox.Size = new Size(33, 23);
             subTextBox.TabIndex = 125;
@@ -702,7 +703,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(156, 155, 151);
             label7.ForeColor = SystemColors.ControlText;
-            label7.Location = new Point(143, 54);
+            label7.Location = new Point(143, 55);
             label7.Name = "label7";
             label7.Size = new Size(155, 15);
             label7.TabIndex = 126;
@@ -713,7 +714,7 @@
             enableSubBonus.AutoSize = true;
             enableSubBonus.BackColor = Color.FromArgb(156, 155, 151);
             enableSubBonus.ForeColor = SystemColors.ControlText;
-            enableSubBonus.Location = new Point(12, 53);
+            enableSubBonus.Location = new Point(12, 54);
             enableSubBonus.Name = "enableSubBonus";
             enableSubBonus.Size = new Size(120, 19);
             enableSubBonus.TabIndex = 124;
@@ -742,15 +743,15 @@
             panel3.Controls.Add(pictureBox7);
             panel3.Controls.Add(autoMessageBox);
             panel3.ForeColor = SystemColors.ControlText;
-            panel3.Location = new Point(585, 205);
+            panel3.Location = new Point(585, 194);
             panel3.Name = "panel3";
-            panel3.Size = new Size(434, 191);
+            panel3.Size = new Size(434, 158);
             panel3.TabIndex = 122;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(155, 31);
+            label8.Location = new Point(155, 32);
             label8.Name = "label8";
             label8.Size = new Size(135, 15);
             label8.TabIndex = 121;
@@ -770,7 +771,7 @@
             panel4.ForeColor = SystemColors.ControlText;
             panel4.Location = new Point(585, 31);
             panel4.Name = "panel4";
-            panel4.Size = new Size(434, 167);
+            panel4.Size = new Size(434, 157);
             panel4.TabIndex = 123;
             // 
             // modRemove
@@ -778,7 +779,7 @@
             modRemove.AutoSize = true;
             modRemove.BackColor = Color.FromArgb(156, 155, 151);
             modRemove.ForeColor = SystemColors.ControlText;
-            modRemove.Location = new Point(10, 133);
+            modRemove.Location = new Point(10, 131);
             modRemove.Name = "modRemove";
             modRemove.Size = new Size(283, 19);
             modRemove.TabIndex = 122;
@@ -791,7 +792,7 @@
             modMake.AutoSize = true;
             modMake.BackColor = Color.FromArgb(156, 155, 151);
             modMake.ForeColor = SystemColors.ControlText;
-            modMake.Location = new Point(10, 108);
+            modMake.Location = new Point(10, 106);
             modMake.Name = "modMake";
             modMake.Size = new Size(263, 19);
             modMake.TabIndex = 121;
@@ -816,7 +817,7 @@
             groupBox1.Controls.Add(restart_AppButton);
             groupBox1.Font = new Font("Segoe UI", 10F);
             groupBox1.ForeColor = Color.Salmon;
-            groupBox1.Location = new Point(643, 441);
+            groupBox1.Location = new Point(628, 489);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(334, 79);
             groupBox1.TabIndex = 124;
@@ -837,7 +838,7 @@
             panel5.Controls.Add(enableSubBonus);
             panel5.Controls.Add(label7);
             panel5.ForeColor = SystemColors.ControlText;
-            panel5.Location = new Point(53, 411);
+            panel5.Location = new Point(53, 385);
             panel5.Name = "panel5";
             panel5.Size = new Size(514, 154);
             panel5.TabIndex = 146;
@@ -845,7 +846,7 @@
             // subbotBox
             // 
             subbotBox.AutoSize = true;
-            subbotBox.Location = new Point(12, 30);
+            subbotBox.Location = new Point(12, 31);
             subbotBox.Name = "subbotBox";
             subbotBox.Size = new Size(206, 19);
             subbotBox.TabIndex = 148;
@@ -856,7 +857,7 @@
             // subgambleBox
             // 
             subgambleBox.AutoSize = true;
-            subgambleBox.Location = new Point(12, 128);
+            subgambleBox.Location = new Point(12, 129);
             subgambleBox.Name = "subgambleBox";
             subgambleBox.Size = new Size(240, 19);
             subgambleBox.TabIndex = 146;
@@ -867,7 +868,7 @@
             // subsweatbotBox
             // 
             subsweatbotBox.AutoSize = true;
-            subsweatbotBox.Location = new Point(12, 103);
+            subsweatbotBox.Location = new Point(12, 104);
             subsweatbotBox.Name = "subsweatbotBox";
             subsweatbotBox.Size = new Size(234, 19);
             subsweatbotBox.TabIndex = 125;
@@ -898,37 +899,37 @@
             pictureBox4.TabIndex = 120;
             pictureBox4.TabStop = false;
             // 
-            // panel6
+            // gameIntegrationPanel
             // 
-            panel6.BackColor = Color.FromArgb(156, 155, 151);
-            panel6.Controls.Add(label16);
-            panel6.Controls.Add(label15);
-            panel6.Controls.Add(enableInRaid);
-            panel6.Controls.Add(label14);
-            panel6.Controls.Add(pictureBox5);
-            panel6.Controls.Add(enableTradersCommand);
-            panel6.ForeColor = SystemColors.ControlText;
-            panel6.Location = new Point(53, 581);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(514, 154);
-            panel6.TabIndex = 149;
+            gameIntegrationPanel.BackColor = Color.FromArgb(156, 155, 151);
+            gameIntegrationPanel.Controls.Add(groupBox2);
+            gameIntegrationPanel.Controls.Add(label14);
+            gameIntegrationPanel.Controls.Add(pictureBox5);
+            gameIntegrationPanel.ForeColor = SystemColors.ControlText;
+            gameIntegrationPanel.Location = new Point(585, 360);
+            gameIntegrationPanel.Name = "gameIntegrationPanel";
+            gameIntegrationPanel.Size = new Size(434, 123);
+            gameIntegrationPanel.TabIndex = 149;
             // 
-            // label15
+            // groupBox2
             // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 11F);
-            label15.Location = new Point(3, 27);
-            label15.Name = "label15";
-            label15.Size = new Size(137, 20);
-            label15.TabIndex = 140;
-            label15.Text = "Escape from Tarkov";
+            groupBox2.Controls.Add(enableInRaid);
+            groupBox2.Controls.Add(enableTradersCommand);
+            groupBox2.Font = new Font("Segoe UI", 11F);
+            groupBox2.Location = new Point(12, 30);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(410, 79);
+            groupBox2.TabIndex = 150;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Escape from Tarkov";
             // 
             // enableInRaid
             // 
             enableInRaid.AutoSize = true;
             enableInRaid.BackColor = Color.FromArgb(156, 155, 151);
+            enableInRaid.Font = new Font("Segoe UI", 9F);
             enableInRaid.ForeColor = SystemColors.ControlText;
-            enableInRaid.Location = new Point(12, 51);
+            enableInRaid.Location = new Point(18, 26);
             enableInRaid.Name = "enableInRaid";
             enableInRaid.Size = new Size(199, 19);
             enableInRaid.TabIndex = 121;
@@ -954,20 +955,10 @@
             pictureBox5.BackgroundImageLayout = ImageLayout.None;
             pictureBox5.Location = new Point(0, 0);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(514, 24);
+            pictureBox5.Size = new Size(434, 24);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 120;
             pictureBox5.TabStop = false;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.ForeColor = Color.Red;
-            label16.Location = new Point(217, 52);
-            label16.Name = "label16";
-            label16.Size = new Size(117, 15);
-            label16.TabIndex = 150;
-            label16.Text = "Must Restart for now";
             // 
             // ControlMenu
             // 
@@ -975,9 +966,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(37, 37, 37);
-            ClientSize = new Size(1058, 984);
+            ClientSize = new Size(1058, 626);
             ControlBox = false;
-            Controls.Add(panel6);
+            Controls.Add(gameIntegrationPanel);
             Controls.Add(panel5);
             Controls.Add(groupBox1);
             Controls.Add(panel4);
@@ -1006,8 +997,10 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
+            gameIntegrationPanel.ResumeLayout(false);
+            gameIntegrationPanel.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1080,11 +1073,11 @@
         private CheckBox subbotBox;
         private TextBox custombitnameBox;
         private Label label12;
-        private Panel panel6;
+        private Panel gameIntegrationPanel;
         private CheckBox enableInRaid;
         private Label label14;
         private PictureBox pictureBox5;
-        private Label label15;
         private Label label16;
+        private GroupBox groupBox2;
     }
 }
