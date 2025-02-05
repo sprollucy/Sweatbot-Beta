@@ -156,6 +156,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Changed blerp integration system to use regex magic to find the user. This should fix it not working
 - Added Test Command button to the Command Builder Menu
 - Added rate limit controls. This Adds a delay between processing messages, which can help command accuracy if users are spamming commands
+- Added file locking to prevent errors if users are spamming commands to rapidly 
+- Added debug mode to only show commands that are processing
+- Adjusted bit multiplier and sub multiplier to be percentage based. If enabled when a user cheers bits they can get a bonus. example 100 cheered bits with a 20% multiplier = 20 bonus bits
+- Adjusted bit multiplier to be percentage based
+- Added easier to use Moderator Controls Whitelist
 
 1.0.0.80-alpha
 - Fixed !sweatbot from showing incorrect state
