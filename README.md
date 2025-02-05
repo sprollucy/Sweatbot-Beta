@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.81 Alpha**
+# **Sweat Bot 1.0.0.82 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -149,6 +149,10 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.0.82-alpha
+- Hotfix for bit multiplier stacking issue
+- Reduced exe size from 168mb down to 5.6mb by tweaking build settings
+
 1.0.0.81-alpha
 - Fixed In Raid Check from running multiple instances
 - Fixed Settings saving and loading. All changed settings should carry over from version to version 
