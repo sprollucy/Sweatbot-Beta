@@ -241,7 +241,7 @@ namespace UiBot
 
         //Mod Whitelist
 
-        private static Dictionary<string, HashSet<string>> modWhitelist;
+        public static Dictionary<string, HashSet<string>> modWhitelist;
 
         public static void LoadWhitelist()
         {

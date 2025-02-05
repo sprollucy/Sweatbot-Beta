@@ -7,6 +7,7 @@ namespace UiBot
     {
         private Dictionary<string, TextBox> textBoxes = new Dictionary<string, TextBox>();
         private TarkovInRaidCheck tarkovMonitor;
+        private static readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
 
 
         public ControlMenu()
@@ -14,13 +15,12 @@ namespace UiBot
             InitializeComponent();
             InitializeTextBoxes();
             LoadSettings();
+            LoadModWhitelist(); // Load data on startup
 
             this.TopLevel = false;
             enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
             enableTradersCommand.Checked = Properties.Settings.Default.isTradersEnabled;
             enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
-            enableModBits.Checked = Properties.Settings.Default.isModBitsEnabled;
-            modRefund.Checked = Properties.Settings.Default.isModRefundEnabled;
             modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
             enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
             enableFollowBonus.Checked = Properties.Settings.Default.isFollowBonusEnabled;
@@ -30,8 +30,6 @@ namespace UiBot
             bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
             sendkeyButton.Checked = Properties.Settings.Default.isSendKeyEnabled;
             enableSubBonusMulti.Checked = Properties.Settings.Default.isSubBonusMultiEnabled;
-            modMake.Checked = Properties.Settings.Default.isModAddEnabled;
-            modRemove.Checked = Properties.Settings.Default.isModRemoveEnabled;
             bitGambleCheck.Checked = Properties.Settings.Default.isBitGambleEnabled;
             blerpBox.Checked = Properties.Settings.Default.isblerpEnabled;
             subsweatbotBox.Checked = Properties.Settings.Default.isSubOnlySweatbotCommand;
@@ -58,6 +56,9 @@ namespace UiBot
             traderTip.SetToolTip(this.enableTradersCommand, "Allows chat users to use !trader command to print out their restock timers to chat");
             sweatbottogTip.SetToolTip(this.enableBotToggle, "Allows chat users to use !sweatbot to pause and unpause the commands");
             chatbonusTip.SetToolTip(this.enableChatBonus, "if a user sends a message in chat, it will automatically give them free currency and add it to their wallet");
+            bitMultiTip.SetToolTip(this.enableBonusMulti, "Percentage based multiplier for when a user cheers bits in chat");
+            subMultiTip.SetToolTip(this.enableSubBonusMulti, "Percentage based multiplier for when a sub cheers bits in chat");
+            modWhitelistTip.SetToolTip(this.modWhitelistCheck, "Add Moderators to the whitelist with the permisions you want them to have\nExample Sprollucy:refund,give,remove,add_remove_command");
         }
 
         public void InitializeTextBoxes()
@@ -248,18 +249,6 @@ namespace UiBot
 
         }
 
-        private void enableModBits_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isModBitsEnabled = enableModBits.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void modRefund_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isModRefundEnabled = modRefund.Checked;
-            Properties.Settings.Default.Save();
-        }
-
         private void modWhitelistCheck_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
@@ -268,7 +257,6 @@ namespace UiBot
 
         private void openModWhitelist_Click(object sender, EventArgs e)
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
             Process.Start(new ProcessStartInfo
             {
                 FileName = filePath,
@@ -314,18 +302,6 @@ namespace UiBot
         private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void modMake_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isModAddEnabled = modMake.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void modRemove_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isModRemoveEnabled = modRemove.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -412,5 +388,114 @@ namespace UiBot
                 }
             }
         }
+
+        private void LoadModWhitelist()
+        {
+            lstModWhitelist.Items.Clear();
+            LogHandler.LoadWhitelist(); // Load into modWhitelist dictionary
+
+            foreach (var mod in LogHandler.modWhitelist)
+            {
+                lstModWhitelist.Items.Add($"{mod.Key}: {string.Join(", ", mod.Value)}");
+            }
+        }
+
+        // Add or update a user in the mod whitelist
+        private async void btnAddOrUpdate_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
+
+            // Collect permissions from checkboxes
+            HashSet<string> permissions = new HashSet<string>();
+
+            if (chkRefund.Checked) permissions.Add("refund");
+            if (chkGive.Checked) permissions.Add("give");
+            if (chkAdd.Checked) permissions.Add("add");
+            if (chkRemove.Checked) permissions.Add("remove");
+
+            if (string.IsNullOrEmpty(username) || permissions.Count == 0)
+            {
+                MessageBox.Show("Username and at least one permission must be selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // If the user doesn't exist in the whitelist, add them
+            if (!LogHandler.modWhitelist.ContainsKey(username))
+            {
+                LogHandler.modWhitelist[username] = new HashSet<string>();
+            }
+
+            // Update the user's permissions
+            LogHandler.modWhitelist[username] = permissions;
+
+            await SaveModWhitelist();
+            LoadModWhitelist(); // Refresh the list
+            MessageBox.Show("User added/updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Remove a user from the mod whitelist
+        private async void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lstModWhitelist.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a user to remove.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string selectedEntry = lstModWhitelist.SelectedItem.ToString();
+            string username = selectedEntry.Split(':')[0].Trim();
+
+            if (LogHandler.modWhitelist.ContainsKey(username))
+            {
+                LogHandler.modWhitelist.Remove(username);
+                await SaveModWhitelist();
+                LoadModWhitelist(); // Refresh the list
+                MessageBox.Show("User removed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Save the whitelist back to the file
+        private async Task SaveModWhitelist()
+        {
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
+
+            List<string> lines = LogHandler.modWhitelist
+                .Select(kvp => $"{kvp.Key}:{string.Join(",", kvp.Value)}")
+                .ToList();
+
+            await File.WriteAllLinesAsync(filePath, lines);
+        }
+
+        // When selecting an item in the ListBox, fill the text fields and checkboxes for editing
+        private void lstModWhitelist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstModWhitelist.SelectedItem != null)
+            {
+                string selectedEntry = lstModWhitelist.SelectedItem.ToString();
+                string[] parts = selectedEntry.Split(':');
+
+                if (parts.Length == 2)
+                {
+                    txtUsername.Text = parts[0].Trim();
+                    string[] perms = parts[1].Trim().Split(',');
+
+                    // Reset checkboxes
+                    chkRefund.Checked = false;
+                    chkGive.Checked = false;
+                    chkAdd.Checked = false;
+                    chkRemove.Checked = false;
+
+                    // Set checkboxes based on user permissions
+                    foreach (var perm in perms)
+                    {
+                        if (perm.Trim().Equals("refund", StringComparison.OrdinalIgnoreCase)) chkRefund.Checked = true;
+                        if (perm.Trim().Equals("give", StringComparison.OrdinalIgnoreCase)) chkGive.Checked = true;
+                        if (perm.Trim().Equals("add", StringComparison.OrdinalIgnoreCase)) chkAdd.Checked = true;
+                        if (perm.Trim().Equals("remove", StringComparison.OrdinalIgnoreCase)) chkRemove.Checked = true;
+                    }
+                }
+            }
+        }
+
     }
 }

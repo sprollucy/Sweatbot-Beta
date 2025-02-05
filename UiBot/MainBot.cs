@@ -28,7 +28,7 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
         private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
-
+        private static HashSet<string> bannedUsers = BanManager.LoadBanList();  // Load the banned users on startup
         public Dictionary<string, string> commandConfigData;
 
         // Keyboard Events
@@ -49,10 +49,6 @@ namespace UiBot
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
         private System.Threading.Timer timer;
         public int autoSendMessageCD;
-
-        // Ban List
-        private static HashSet<string> bannedUsers = BanManager.LoadBanList();  // Load the banned users on startup
-
 
         // Logging timestamp
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
@@ -177,7 +173,7 @@ namespace UiBot
             if (Properties.Settings.Default.isFollowBonusEnabled)
             {
                 string followerName = e.Username;
-                int bitsAwarded = 100; // Default value
+                int bitsAwarded = 1; // Default value
 
                 // Try to get the value from the FollowTextBox, similar to how you handle ChatBonus
                 if (int.TryParse(controlMenu.FollowTextBox.Text, out int followBonus))
@@ -188,7 +184,7 @@ namespace UiBot
                 {
                     // Handle error if the value from the FollowTextBox is invalid
                     client.SendMessage(channelId, $"{followerName}, invalid follow bonus amount. Using default value.");
-                    bitsAwarded = 100;  // Default value in case of invalid input
+                    bitsAwarded = 1;  // Default value in case of invalid input
                 }
 
                 // Check if the user already exists in the bits dictionary
@@ -220,7 +216,7 @@ namespace UiBot
             if (Properties.Settings.Default.isSubBonusEnabled)
             {
                 string subscriberName = e.Subscriber.DisplayName;
-                int bitsAwarded = 500; // Default value
+                int bitsAwarded = 1; // Default value
 
                 // Try to get the value from the SubTextBox, similar to how you handle FollowTextBox
                 if (int.TryParse(controlMenu.SubTextBox.Text, out int subBonus))
@@ -231,7 +227,7 @@ namespace UiBot
                 {
                     // Handle error if the value from the SubTextBox is invalid
                     client.SendMessage(channelId, $"{subscriberName}, invalid subscription bonus amount. Using default value.");
-                    bitsAwarded = 50;  // Default value in case of invalid input
+                    bitsAwarded = 1;  // Default value in case of invalid input
                 }
 
                 // Check if the user already exists in the bits dictionary
@@ -465,55 +461,53 @@ namespace UiBot
             {
                 int bitsGiven = e.ChatMessage.Bits;
 
-                // Check if both bonus multipliers are enabled
-                if (Properties.Settings.Default.isBonusMultiplierEnabled && Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
-                {
-                    // Apply Sub Bonus Multiplier first for subscribers
-                    ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
-                    int multiplier = ChatCommandMethods.SubBonusMultiplier; // Access SubBitBonusMultiplier
-
-                    // Calculate bits after applying the subscriber multiplier
-                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
-
-                    // Log the transaction
-                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
-
-                    Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
-
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
-                }
-                else if (Properties.Settings.Default.isBonusMultiplierEnabled)
+                if (Properties.Settings.Default.isBonusMultiplierEnabled)
                 {
                     // Apply normal Bonus Multiplier if not a subscriber or only the regular multiplier is enabled
                     ChatCommandMethods.BitMultiplier(); // Update BitBonusMultiplier
-                    int multiplier = ChatCommandMethods.BitBonusMultiplier; // Access BitBonusMultiplier
+                    int bonusMultiplierPercentage = ChatCommandMethods.BitBonusMultiplier; // Access BitBonusMultiplier
+
+                    // Convert BonusMultiplierPercentage to decimal (e.g., 20% becomes 0.20)
+                    double bonusMultiplier = 1 + (bonusMultiplierPercentage / 100.0);
 
                     // Calculate bits after applying the normal multiplier
-                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
+                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * bonusMultiplier);
 
                     // Log the transaction
                     LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    Console.WriteLine($"A {multiplier}x multiplier is active, resulting in {bitsGiven} bits given.");
+                    Console.WriteLine($"A {bonusMultiplierPercentage}% Multiplier is active, resulting in {bitsGiven} bits given.");
 
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
-                else if (Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
+                else
+                {
+                    // No multiplier is applied
+                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                    // Thank the user and inform them of their new balance
+                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} {userBitName}! You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
+                }
+
+                if (Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
                 {
                     // Apply Sub Bonus Multiplier if only the subscriber bonus is enabled
                     ChatCommandMethods.SubBitMultiplier(); // Update SubBonusMultiplier
-                    int multiplier = ChatCommandMethods.SubBonusMultiplier; // Access SubBitBonusMultiplier
+                    int subMultiplierPercentage = ChatCommandMethods.SubBonusMultiplier; // Access SubBonusMultiplier
+
+                    // Convert SubMultiplierPercentage to decimal (e.g., 20% becomes 0.20)
+                    double subMultiplier = 1 + (subMultiplierPercentage / 100.0);
 
                     // Calculate bits after applying the subscriber multiplier
-                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * multiplier);
+                    bitsGiven = (int)Math.Ceiling((double)bitsGiven * subMultiplier);
 
                     // Log the transaction
                     LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
                     LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    Console.WriteLine($"A {multiplier}x multiplier is active for Subs, resulting in {bitsGiven} bits given.");
+                    Console.WriteLine($"A {subMultiplierPercentage}% Sub Multiplier is active, resulting in {bitsGiven} bits given.");
 
                     client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
                 }
@@ -1249,8 +1243,6 @@ namespace UiBot
                 {
 
                     case "addbits":
-                        if (Properties.Settings.Default.isModBitsEnabled)
-                        {
                             if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
                             {
                                 ChatCommandMethods.AddBitCommand(client, e);
@@ -1259,12 +1251,9 @@ namespace UiBot
                             {
                                 client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
                             }
-                        }
                         break;
 
                     case "rembits":
-                        if (Properties.Settings.Default.isModBitsEnabled)
-                        {
                             if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
                             {
                                 ChatCommandMethods.RemoveBitCommand(client, e);
@@ -1273,12 +1262,9 @@ namespace UiBot
                             {
                                 client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
                             }
-                        }
                         break;
 
                     case "refund":
-                        if (Properties.Settings.Default.isModRefundEnabled)
-                        {
                             if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
                             {
                                 string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
@@ -1299,13 +1285,10 @@ namespace UiBot
                             {
                                 client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
                             }
-                        }
                         break;
 
                     case "sbadd":
-                        if (Properties.Settings.Default.isModAddEnabled)
-                        {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove"))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
                             {
                                 var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1329,13 +1312,10 @@ namespace UiBot
                                     client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
                                 }
                             }
-                        }
                         break;
 
                     case "sbremove":
-                        if (Properties.Settings.Default.isModRemoveEnabled)
-                        {
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove"))
+                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
                             {
                                 var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1359,7 +1339,6 @@ namespace UiBot
                                     client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
                                 }
                             }
-                        }
                         break;
                 }
             }

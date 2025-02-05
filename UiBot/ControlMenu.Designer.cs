@@ -62,14 +62,12 @@
             bonusTextBox = new TextBox();
             enableBonusMulti = new CheckBox();
             bonusMultiplierBox = new TextBox();
-            enableModBits = new CheckBox();
             pictureBox1 = new PictureBox();
             autoMessageBox = new TextBox();
             autoSendMessageCD = new TextBox();
             autoMessageLabel = new Label();
             enableAutoMessageCheck = new CheckBox();
             label3 = new Label();
-            modRefund = new CheckBox();
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
@@ -87,8 +85,14 @@
             panel3 = new Panel();
             label8 = new Label();
             panel4 = new Panel();
-            modRemove = new CheckBox();
-            modMake = new CheckBox();
+            chkRemove = new CheckBox();
+            chkAdd = new CheckBox();
+            chkGive = new CheckBox();
+            chkRefund = new CheckBox();
+            btnRemove = new Button();
+            btnAddOrUpdate = new Button();
+            txtUsername = new TextBox();
+            lstModWhitelist = new ListBox();
             pictureBox3 = new PictureBox();
             groupBox1 = new GroupBox();
             panel5 = new Panel();
@@ -106,6 +110,9 @@
             traderTip = new ToolTip(components);
             sweatbottogTip = new ToolTip(components);
             chatbonusTip = new ToolTip(components);
+            bitMultiTip = new ToolTip(components);
+            subMultiTip = new ToolTip(components);
+            modWhitelistTip = new ToolTip(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -515,19 +522,6 @@
             bonusMultiplierBox.Text = "2";
             bonusMultiplierBox.TextChanged += bonusMultiplierBox_TextChanged;
             // 
-            // enableModBits
-            // 
-            enableModBits.AutoSize = true;
-            enableModBits.BackColor = Color.FromArgb(156, 155, 151);
-            enableModBits.ForeColor = SystemColors.ControlText;
-            enableModBits.Location = new Point(10, 56);
-            enableModBits.Name = "enableModBits";
-            enableModBits.Size = new Size(181, 19);
-            enableModBits.TabIndex = 76;
-            enableModBits.Text = "Allow Moderators to give bits";
-            enableModBits.UseVisualStyleBackColor = false;
-            enableModBits.CheckedChanged += enableModBits_CheckedChanged;
-            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Red;
@@ -594,21 +588,6 @@
             label3.Size = new Size(161, 19);
             label3.TabIndex = 80;
             label3.Text = "Moderator Controls";
-            // 
-            // modRefund
-            // 
-            modRefund.AutoSize = true;
-            modRefund.BackColor = Color.FromArgb(156, 155, 151);
-            modRefund.Checked = true;
-            modRefund.CheckState = CheckState.Checked;
-            modRefund.ForeColor = SystemColors.ControlText;
-            modRefund.Location = new Point(10, 81);
-            modRefund.Name = "modRefund";
-            modRefund.Size = new Size(202, 19);
-            modRefund.TabIndex = 83;
-            modRefund.Text = "Allow Moderators to give refunds";
-            modRefund.UseVisualStyleBackColor = false;
-            modRefund.CheckedChanged += modRefund_CheckedChanged;
             // 
             // modWhitelistCheck
             // 
@@ -788,7 +767,7 @@
             panel3.Controls.Add(pictureBox7);
             panel3.Controls.Add(autoMessageBox);
             panel3.ForeColor = SystemColors.ControlText;
-            panel3.Location = new Point(585, 194);
+            panel3.Location = new Point(585, 222);
             panel3.Name = "panel3";
             panel3.Size = new Size(434, 158);
             panel3.TabIndex = 122;
@@ -805,45 +784,104 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
-            panel4.Controls.Add(modRemove);
-            panel4.Controls.Add(modMake);
+            panel4.Controls.Add(btnAddOrUpdate);
+            panel4.Controls.Add(btnRemove);
+            panel4.Controls.Add(chkRemove);
+            panel4.Controls.Add(chkAdd);
+            panel4.Controls.Add(chkGive);
+            panel4.Controls.Add(chkRefund);
+            panel4.Controls.Add(txtUsername);
+            panel4.Controls.Add(lstModWhitelist);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(pictureBox3);
-            panel4.Controls.Add(enableModBits);
-            panel4.Controls.Add(modRefund);
             panel4.Controls.Add(openModWhitelist);
             panel4.Controls.Add(modWhitelistCheck);
             panel4.ForeColor = SystemColors.ControlText;
             panel4.Location = new Point(585, 31);
             panel4.Name = "panel4";
-            panel4.Size = new Size(434, 157);
+            panel4.Size = new Size(434, 185);
             panel4.TabIndex = 123;
             // 
-            // modRemove
+            // chkRemove
             // 
-            modRemove.AutoSize = true;
-            modRemove.BackColor = Color.FromArgb(156, 155, 151);
-            modRemove.ForeColor = SystemColors.ControlText;
-            modRemove.Location = new Point(10, 131);
-            modRemove.Name = "modRemove";
-            modRemove.Size = new Size(283, 19);
-            modRemove.TabIndex = 122;
-            modRemove.Text = "Allow Moderators to remove custom commands";
-            modRemove.UseVisualStyleBackColor = false;
-            modRemove.CheckedChanged += modRemove_CheckedChanged;
+            chkRemove.AutoSize = true;
+            chkRemove.Location = new Point(261, 136);
+            chkRemove.Name = "chkRemove";
+            chkRemove.Size = new Size(91, 19);
+            chkRemove.TabIndex = 130;
+            chkRemove.Text = "Remove Bits";
+            chkRemove.UseVisualStyleBackColor = true;
             // 
-            // modMake
+            // chkAdd
             // 
-            modMake.AutoSize = true;
-            modMake.BackColor = Color.FromArgb(156, 155, 151);
-            modMake.ForeColor = SystemColors.ControlText;
-            modMake.Location = new Point(10, 106);
-            modMake.Name = "modMake";
-            modMake.Size = new Size(263, 19);
-            modMake.TabIndex = 121;
-            modMake.Text = "Allow Moderators to add custom commands";
-            modMake.UseVisualStyleBackColor = false;
-            modMake.CheckedChanged += modMake_CheckedChanged;
+            chkAdd.AutoSize = true;
+            chkAdd.Location = new Point(261, 161);
+            chkAdd.Name = "chkAdd";
+            chkAdd.Size = new Size(161, 19);
+            chkAdd.TabIndex = 129;
+            chkAdd.Text = "Add/Remove Commands";
+            chkAdd.UseVisualStyleBackColor = true;
+            // 
+            // chkGive
+            // 
+            chkGive.AutoSize = true;
+            chkGive.Location = new Point(262, 114);
+            chkGive.Name = "chkGive";
+            chkGive.Size = new Size(71, 19);
+            chkGive.TabIndex = 128;
+            chkGive.Text = "Give Bits";
+            chkGive.UseVisualStyleBackColor = true;
+            // 
+            // chkRefund
+            // 
+            chkRefund.AutoSize = true;
+            chkRefund.Location = new Point(262, 90);
+            chkRefund.Name = "chkRefund";
+            chkRefund.Size = new Size(64, 19);
+            chkRefund.TabIndex = 127;
+            chkRefund.Text = "Refund";
+            chkRefund.UseVisualStyleBackColor = true;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Location = new Point(345, 117);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(75, 23);
+            btnRemove.TabIndex = 125;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
+            // 
+            // btnAddOrUpdate
+            // 
+            btnAddOrUpdate.Location = new Point(335, 88);
+            btnAddOrUpdate.Name = "btnAddOrUpdate";
+            btnAddOrUpdate.Size = new Size(86, 23);
+            btnAddOrUpdate.TabIndex = 124;
+            btnAddOrUpdate.Text = "Add/Update";
+            btnAddOrUpdate.UseVisualStyleBackColor = true;
+            btnAddOrUpdate.Click += btnAddOrUpdate_Click;
+            // 
+            // txtUsername
+            // 
+            txtUsername.BackColor = Color.FromArgb(196, 197, 204);
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+            txtUsername.Location = new Point(261, 59);
+            txtUsername.Name = "txtUsername";
+            txtUsername.PlaceholderText = "Username";
+            txtUsername.Size = new Size(160, 23);
+            txtUsername.TabIndex = 122;
+            // 
+            // lstModWhitelist
+            // 
+            lstModWhitelist.BackColor = Color.FromArgb(196, 197, 204);
+            lstModWhitelist.BorderStyle = BorderStyle.FixedSingle;
+            lstModWhitelist.FormattingEnabled = true;
+            lstModWhitelist.ItemHeight = 15;
+            lstModWhitelist.Location = new Point(8, 59);
+            lstModWhitelist.Name = "lstModWhitelist";
+            lstModWhitelist.Size = new Size(247, 107);
+            lstModWhitelist.TabIndex = 121;
             // 
             // pictureBox3
             // 
@@ -862,7 +900,7 @@
             groupBox1.Controls.Add(restart_AppButton);
             groupBox1.Font = new Font("Segoe UI", 10F);
             groupBox1.ForeColor = Color.Salmon;
-            groupBox1.Location = new Point(628, 489);
+            groupBox1.Location = new Point(628, 517);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(334, 79);
             groupBox1.TabIndex = 124;
@@ -951,7 +989,7 @@
             gameIntegrationPanel.Controls.Add(label14);
             gameIntegrationPanel.Controls.Add(pictureBox5);
             gameIntegrationPanel.ForeColor = SystemColors.ControlText;
-            gameIntegrationPanel.Location = new Point(585, 360);
+            gameIntegrationPanel.Location = new Point(585, 388);
             gameIntegrationPanel.Name = "gameIntegrationPanel";
             gameIntegrationPanel.Size = new Size(434, 123);
             gameIntegrationPanel.TabIndex = 149;
@@ -1066,9 +1104,7 @@
         private TextBox bonusTextBox;
         private Label label4;
         private Button restart_AppButton;
-        private CheckBox enableModBits;
         private Label label3;
-        private CheckBox modRefund;
         private CheckBox modWhitelistCheck;
         private Button openModWhitelist;
         private CheckBox enableBonusMulti;
@@ -1099,8 +1135,6 @@
         private TextBox textBox4;
         private TextBox subbonusMultiplierBox;
         private CheckBox enableSubBonusMulti;
-        private CheckBox modRemove;
-        private CheckBox modMake;
         private TextBox bitChanceBox;
         private CheckBox bitGambleCheck;
         private TextBox bitGambleCDBox;
@@ -1131,5 +1165,16 @@
         private TextBox rateDelayBox;
         private CheckBox enableRateDelayBox;
         private Label label15;
+        private ToolTip bitMultiTip;
+        private ToolTip subMultiTip;
+        private ToolTip modWhitelistTip;
+        private Button btnRemove;
+        private Button btnAddOrUpdate;
+        private TextBox txtUsername;
+        private ListBox lstModWhitelist;
+        private CheckBox chkRemove;
+        private CheckBox chkAdd;
+        private CheckBox chkGive;
+        private CheckBox chkRefund;
     }
 }
