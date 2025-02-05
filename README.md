@@ -154,6 +154,8 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Fixed Settings saving and loading. All changed settings should carry over from version to version 
 - Fixed blerp checkbox from not staying toggled
 - Changed blerp integration system to use regex magic to find the user. This should fix it not working
+- Added Test Command button to the Command Builder Menu
+- Added rate limit controls. This Adds a delay between processing messages, which can help command accuracy if users are spamming commands
 
 1.0.0.80-alpha
 - Fixed !sweatbot from showing incorrect state
