@@ -2,11 +2,14 @@
 using System.Diagnostics;
 
 using Newtonsoft.Json;
+using static UiBot.ConnectMenu;
 
 namespace UiBot
 {
     public partial class CommandBuilderMenu : Form
     {
+        private static CustomCommandHandler commandHandler;
+
         private string _commandsFilePath;
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
         private int mouseX;
@@ -19,6 +22,7 @@ namespace UiBot
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(this.CommandBuilderMenu_KeyDown);
 
+            commandHandler = new CustomCommandHandler(_commandsFilePath);
 
 
             // Load commands into the ListBoxes
@@ -130,6 +134,7 @@ namespace UiBot
             costtextBox.Clear();
             commandtextBox.Clear();
         }
+
         private Dictionary<string, Command> LoadCommandsFromFile(string filePath)
         {
             try
@@ -495,6 +500,7 @@ namespace UiBot
 
             }
         }
+
         private void disabledcommandListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -778,6 +784,34 @@ namespace UiBot
                 }
             }
         }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = commandListBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedCommand))
+            {
+                MessageBox.Show("Please select a command first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int userBits = 100000; // Simulate user bits
+
+            if (commandHandler.CanExecuteCommand(selectedCommand, userBits))
+            {
+                var command = commandHandler.GetCommand(selectedCommand);
+                if (command != null)
+                {
+                    // Simulate command execution
+                    commandHandler.ExecuteCommandAsync(selectedCommand, null, "testChannel"); // Channel is not used here
+                    Console.WriteLine($"Command executed locally: {selectedCommand}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Cannot execute command '{selectedCommand}'. Command does not exist or is broken.");
+            }
+        }
+
 
     }
 }

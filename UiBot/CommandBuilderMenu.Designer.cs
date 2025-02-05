@@ -46,6 +46,7 @@
             restartButton = new Button();
             holdkeyButton = new Button();
             panel1 = new Panel();
+            testButton = new Button();
             label14 = new Label();
             mouseposTextBox = new TextBox();
             directionBox = new TextBox();
@@ -228,9 +229,9 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(54, 161);
+            saveButton.Location = new Point(106, 161);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(166, 40);
+            saveButton.Size = new Size(114, 40);
             saveButton.TabIndex = 9;
             saveButton.Text = "Save Command";
             saveButton.UseVisualStyleBackColor = true;
@@ -306,9 +307,9 @@
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(226, 160);
+            restartButton.Location = new Point(226, 161);
             restartButton.Name = "restartButton";
-            restartButton.Size = new Size(68, 40);
+            restartButton.Size = new Size(78, 40);
             restartButton.TabIndex = 23;
             restartButton.Text = "Restart";
             restartButton.UseVisualStyleBackColor = true;
@@ -327,6 +328,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(testButton);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(mouseposTextBox);
             panel1.Controls.Add(directionBox);
@@ -344,6 +346,16 @@
             panel1.Size = new Size(335, 220);
             panel1.TabIndex = 25;
             // 
+            // testButton
+            // 
+            testButton.Location = new Point(22, 161);
+            testButton.Name = "testButton";
+            testButton.Size = new Size(78, 40);
+            testButton.TabIndex = 58;
+            testButton.Text = "Test Command";
+            testButton.UseVisualStyleBackColor = true;
+            testButton.Click += testButton_Click;
+            // 
             // label14
             // 
             label14.AutoSize = true;
@@ -358,6 +370,7 @@
             // mouseposTextBox
             // 
             mouseposTextBox.BackColor = SystemColors.ControlLight;
+            mouseposTextBox.BorderStyle = BorderStyle.FixedSingle;
             mouseposTextBox.Location = new Point(3, 124);
             mouseposTextBox.Name = "mouseposTextBox";
             mouseposTextBox.Size = new Size(87, 23);
@@ -367,6 +380,7 @@
             // directionBox
             // 
             directionBox.BackColor = SystemColors.ControlLight;
+            directionBox.BorderStyle = BorderStyle.FixedSingle;
             directionBox.Location = new Point(2, 91);
             directionBox.Name = "directionBox";
             directionBox.Size = new Size(39, 23);
@@ -376,6 +390,7 @@
             // speedBox
             // 
             speedBox.BackColor = SystemColors.ControlLight;
+            speedBox.BorderStyle = BorderStyle.FixedSingle;
             speedBox.Location = new Point(2, 62);
             speedBox.Name = "speedBox";
             speedBox.Size = new Size(39, 23);
@@ -386,6 +401,7 @@
             // keyBox
             // 
             keyBox.BackColor = SystemColors.ControlLight;
+            keyBox.BorderStyle = BorderStyle.FixedSingle;
             keyBox.Location = new Point(2, 33);
             keyBox.Name = "keyBox";
             keyBox.Size = new Size(39, 23);
@@ -407,6 +423,7 @@
             // durBox
             // 
             durBox.BackColor = SystemColors.ControlLight;
+            durBox.BorderStyle = BorderStyle.FixedSingle;
             durBox.Location = new Point(2, 4);
             durBox.Name = "durBox";
             durBox.Size = new Size(39, 23);
@@ -1465,5 +1482,6 @@
         private PictureBox pictureBox7;
         private Button remProfileButton;
         private Label label23;
+        private Button testButton;
     }
 }

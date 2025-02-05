@@ -38,6 +38,7 @@ namespace UiBot
             subgambleBox.Checked = Properties.Settings.Default.isSubOnlyGambleCommand;
             subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
             enableInRaid.Checked = Properties.Settings.Default.isInRaid;
+            enableRateDelayBox.Checked = Properties.Settings.Default.isRateDelayEnabled;
 
 
             if (Properties.Settings.Default.isTraderMenuEnabled)
@@ -48,7 +49,15 @@ namespace UiBot
             {
                 enableTradersCommand.Visible = false;
             }
+            InitializeToolTips();
+        }
 
+        public void InitializeToolTips()
+        {
+            blerpTip.SetToolTip(this.blerpBox, "If a user sends a message with blerp, it will read how many bits they spent and add it to their wallet");
+            traderTip.SetToolTip(this.enableTradersCommand, "Allows chat users to use !trader command to print out their restock timers to chat");
+            sweatbottogTip.SetToolTip(this.enableBotToggle, "Allows chat users to use !sweatbot to pause and unpause the commands");
+            chatbonusTip.SetToolTip(this.enableChatBonus, "if a user sends a message in chat, it will automatically give them free currency and add it to their wallet");
         }
 
         public void InitializeTextBoxes()
@@ -67,6 +76,7 @@ namespace UiBot
             textBoxes["bitChanceBox"] = BitChanceBox;
             textBoxes["bitGambleCDBox"] = BitGambleCDBox;
             textBoxes["custombitnameBox"] = CustombitnameBox;
+            textBoxes["rateDelayBox"] = RateDelayBox;
         }
 
         public TextBox BotToggleCostBox
@@ -140,6 +150,11 @@ namespace UiBot
         {
             get { return custombitnameBox; }
             set { custombitnameBox = value; }
+        }
+        public TextBox RateDelayBox
+        {
+            get { return rateDelayBox; }
+            set { rateDelayBox = value; }
         }
 
         //TODO make save reload on save so app doesnt have to restart
@@ -341,6 +356,11 @@ namespace UiBot
         private void subbotBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+        private void enableRateDelayBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isRateDelayEnabled = enableRateDelayBox.Checked;
             Properties.Settings.Default.Save();
         }
 

@@ -550,5 +550,17 @@ namespace UiBot.Properties {
                 this["isInRaid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isRateDelayEnabled {
+            get {
+                return ((bool)(this["isRateDelayEnabled"]));
+            }
+            set {
+                this["isRateDelayEnabled"] = value;
+            }
+        }
     }
 }

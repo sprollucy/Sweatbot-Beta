@@ -27,7 +27,7 @@ namespace UiBot
         // Dictionary 
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
-
+        private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
         public Dictionary<string, string> commandConfigData;
 
         // Keyboard Events
@@ -48,6 +48,10 @@ namespace UiBot
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
         private System.Threading.Timer timer;
         public int autoSendMessageCD;
+
+        // Ban List
+        private static HashSet<string> bannedUsers = BanManager.LoadBanList();  // Load the banned users on startup
+
 
         // Logging timestamp
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
@@ -273,16 +277,47 @@ namespace UiBot
             }
         }
 
-        private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
+        private async void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+            DateTime currentTime = DateTime.Now;
+
+            if (Properties.Settings.Default.isRateDelayEnabled)
+            {
+                int delayMs;
+                if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayMs))
+                {
+
+                    delayMs = 500;
+                }
+
+                if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
+                {
+                    TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
+
+                    if (timeDifference < TimeSpan.FromMilliseconds(delayMs))
+                    {
+                        int remainingDelayMs = (int)(delayMs - timeDifference.TotalMilliseconds);
+
+                        await Task.Delay(remainingDelayMs);
+                    }
+                }
+
+                lastExecutionTimes[e.ChatMessage.DisplayName] = currentTime;
+            }
+
+            if (bannedUsers.Contains(e.ChatMessage.DisplayName))
+            {
+                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, you are banned from using the bot.");
+                return;
+            }
+
             bool isSubscriber = e.ChatMessage.IsSubscriber;
             bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
 
-            // Check if the command is for subscribers only
             if (isSubOnly && !isSubscriber)
             {
                 client.SendMessage(e.ChatMessage.Channel, $"{e.ChatMessage.DisplayName}, Sorry! Sweatbot is for subscribers only!");
-                return; 
+                return;
             }
 
             if (!Properties.Settings.Default.isCommandsPaused)
@@ -329,7 +364,7 @@ namespace UiBot
                                 }
 
                                 // Inform the user that the command was executed
-                                client.SendMessage(e.ChatMessage.Channel, message);
+                                client.SendMessage(channelId, message);
 
                                 // Log command details to the console
                                 Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {command.BitCost} Remaining {userBitName}: {MainBot.userBits[e.ChatMessage.DisplayName]}");
@@ -338,13 +373,13 @@ namespace UiBot
                             {
                                 // Log and inform the user of the error
                                 Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
-                                client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
+                                client.SendMessage(channelId, $"An error occurred while executing the command '{commandName}'. Please try again later.");
                             }
                         }
                         else
                         {
                             // Inform the user they do not have enough bits
-                            client.SendMessage(e.ChatMessage.Channel, $"You don't have enough bits to execute the command '{commandName}'.");
+                            client.SendMessage(channelId, $"You don't have enough bits to execute the command '{commandName}'.");
                         }
                     }
                 }
@@ -385,7 +420,7 @@ namespace UiBot
 
                                     // Send message with remaining bits
                                     string message = $"{e.ChatMessage.DisplayName}: {commandName} Cost: {cheerAmount}";
-                                    client.SendMessage(e.ChatMessage.Channel, message);
+                                    client.SendMessage(channelId, message);
 
                                     // Log command details to the console
                                     Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {cheerAmount}");
@@ -394,7 +429,7 @@ namespace UiBot
                                 {
                                     // Log and inform the user of the error
                                     Console.WriteLine($"Error executing command '{commandName}': {ex.Message}");
-                                    client.SendMessage(e.ChatMessage.Channel, $"An error occurred while executing the command '{commandName}'. Please try again later.");
+                                    client.SendMessage(channelId, $"An error occurred while executing the command '{commandName}'. Please try again later.");
                                 }
                             }
                             else
@@ -407,7 +442,7 @@ namespace UiBot
 
                                     // Log the addition of bits
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
-                                    client.SendMessage(e.ChatMessage.Channel, $"No command found for {cheerAmount} {userBitName}. Your balance has been updated by {cheerAmount} {userBitName}.");
+                                    client.SendMessage(channelId, $"No command found for {cheerAmount} {userBitName}. Your balance has been updated by {cheerAmount} {userBitName}.");
                                     LogHandler.WriteUserBitsToJson(userBitsFilePath);
                                 }
                                 else
@@ -417,7 +452,7 @@ namespace UiBot
 
                                     // Log the addition of bits
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
-                                    client.SendMessage(e.ChatMessage.Channel, $"Your balance has been initialized with {cheerAmount} {userBitName}.");
+                                    client.SendMessage(channelId, $"Your balance has been initialized with {cheerAmount} {userBitName}.");
                                 }
                             }
                         }
@@ -590,6 +625,12 @@ namespace UiBot
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
 
+            if (bannedUsers.Contains(Chatter))
+            {
+                client.SendMessage(channelId, $"{Chatter}, you are banned from using the bot.");
+                return;
+            }
+
             //Normal Commands
             switch (e.Command.CommandText.ToLower())
             {
@@ -645,7 +686,7 @@ namespace UiBot
                         // Check if the user is a broadcaster
                         if (e.Command.ChatMessage.IsBroadcaster)
                         {
-                            message.Append(", !addbits, !refund, !sbadd, !rembits, !sbremove");
+                            message.Append(", !addbits, !refund, !sbadd, !rembits, !sbremove, !sbban, !sbunban");
                         }
 
                         client.SendMessage(channelId, message.ToString());
@@ -1355,28 +1396,28 @@ namespace UiBot
                         }
                         break;
 
-                    case "sbadd":       
-                                var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
+                    case "sbadd":
+                        var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
-                                if (sbaddArgs.Length >= 3)
-                                {
-                                    string commandName = sbaddArgs[0].ToLower();
-                                    if (int.TryParse(sbaddArgs[1], out int bitCost))
-                                    {
-                                        string methods = string.Join(" ", sbaddArgs.Skip(2));
-                                        var commandHandler = new CustomCommandHandler(commandsFilePath);
-                                        string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
-                                        client.SendMessage(channelId, resultMessage);
-                                    }
-                                    else
-                                    {
-                                        client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
-                                    }
-                                }
-                                else
-                                {
-                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
-                                }
+                        if (sbaddArgs.Length >= 3)
+                        {
+                            string commandName = sbaddArgs[0].ToLower();
+                            if (int.TryParse(sbaddArgs[1], out int bitCost))
+                            {
+                                string methods = string.Join(" ", sbaddArgs.Skip(2));
+                                var commandHandler = new CustomCommandHandler(commandsFilePath);
+                                string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
+                                client.SendMessage(channelId, resultMessage);
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
+                        }
                         break;
 
                     case "sbremove":
@@ -1404,6 +1445,55 @@ namespace UiBot
                         }
 
                         break;
+
+                    case "sbban":
+                        var sbbanArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (sbbanArgs.Length == 1)
+                        {
+                            string bannedUsername = sbbanArgs[0].StartsWith("@") ? sbbanArgs[0].Substring(1) : sbbanArgs[0]; 
+
+                            if (!bannedUsers.Contains(bannedUsername))
+                            {
+                                bannedUsers.Add(bannedUsername);
+                                BanManager.SaveBanList(bannedUsers); 
+                                client.SendMessage(channelId, $"{bannedUsername} has been banned from using the bot.");
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, $"{bannedUsername} is already banned.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbban [username]");
+                        }
+                        break;
+
+                    case "sbunban":
+                        var sbunbanArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                        if (sbunbanArgs.Length == 1)
+                        {
+                            string unbannedUsername = sbunbanArgs[0].StartsWith("@") ? sbunbanArgs[0].Substring(1) : sbunbanArgs[0];
+
+                            if (bannedUsers.Contains(unbannedUsername))
+                            {
+                                bannedUsers.Remove(unbannedUsername);
+                                BanManager.SaveBanList(bannedUsers);  
+                                client.SendMessage(channelId, $"{unbannedUsername} has been unbanned and can use the bot again.");
+                            }
+                            else
+                            {
+                                client.SendMessage(channelId, $"{unbannedUsername} is not on the ban list.");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbunban [username]");
+                        }
+                        break;
+
                 }
             }
         }
