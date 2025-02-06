@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.81 Alpha**
+# **Sweat Bot 1.0.0.82 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -52,7 +52,6 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 - Support for Linux/Mac by switching to another UI framework.
 - Expanded Moderation controls.
 - Disable banking(stores user currency for later use)
-- Ban user from using bot
 - Open to suggestions!
 
 ---
@@ -67,10 +66,19 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 ## **Download**
 #### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.81)
+> *Important*: The files have not been verified by Microsoft and may be detected as *Trojan:Script/Wacatac.B!ml* by Windows Security and deleted when downloading. I will be resubmitting the files once in the beta stages
 
+>### How to Allow It:  
+>- Open **Windows Security** (search for it in the Start menu).  
+>- Go to **Virus & threat protection**.  
+>- Click **Protection history**.  
+>- Find the downloaded file that was detected as *Trojan:Script/Wacatac.B!ml*.  
+>- Click **Restore** if you are confident it is safe.  
 ---
 
 ## **Getting Started with Sweat Bot**
+First download .Net 8 runtime from Microsoft
+https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
@@ -149,6 +157,10 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.0.82-alpha
+- Hotfix for bit multiplier stacking issue
+- Reduced exe size from 168mb down to 5.6mb by tweaking build settings
+
 1.0.0.81-alpha
 - Fixed In Raid Check from running multiple instances
 - Fixed Settings saving and loading. All changed settings should carry over from version to version 
@@ -156,6 +168,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Changed blerp integration system to use regex magic to find the user. This should fix it not working
 - Added Test Command button to the Command Builder Menu
 - Added rate limit controls. This Adds a delay between processing messages, which can help command accuracy if users are spamming commands
+- Added file locking to prevent errors if users are spamming commands to rapidly 
+- Added debug mode to only show commands that are processing
+- Adjusted bit multiplier and sub multiplier to be percentage based. If enabled when a user cheers bits they can get a bonus. example 100 cheered bits with a 20% multiplier = 20 bonus bits
+- Adjusted bit multiplier to be percentage based
+- Added easier to use Moderator Controls Whitelist
 
 1.0.0.80-alpha
 - Fixed !sweatbot from showing incorrect state
