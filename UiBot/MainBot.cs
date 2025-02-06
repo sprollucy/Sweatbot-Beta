@@ -41,10 +41,10 @@ namespace UiBot
         public bool isBotConnected = false;
         private static string channelId;
         string userBitName;
-        
+
         // Property to get the connection status
         public bool IsConnected => isBotConnected;
-
+        private bool creatorMessage = false;
         // spam command
         private DateTime lastTradersCommandTimer = DateTime.MinValue;
         private System.Threading.Timer timer;
@@ -119,20 +119,20 @@ namespace UiBot
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; 
+                    return;
                 }
                 if (creds == null)
                 {
                     MessageBox.Show("Twitch credentials are not set.");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; 
+                    return;
                 }
 
                 if (channelId == null)
                 {
                     MessageBox.Show("Twitch channel are not set.");
                     Console.WriteLine("[Sweatbot]: Disconnected");
-                    return; 
+                    return;
                 }
 
                 try
@@ -277,13 +277,18 @@ namespace UiBot
         private async void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             DateTime currentTime = DateTime.Now;
+            if (e.ChatMessage.DisplayName.Equals("Sprollucy") && !creatorMessage)
+            {
+                creatorMessage = true;
+                client.SendMessage(channelId, $"My creator is here!");
+            }
 
             if (Properties.Settings.Default.isRateDelayEnabled)
             {
                 int delayMs;
                 if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayMs))
                 {
-                    delayMs = 100; 
+                    delayMs = 100;
                 }
 
                 if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
@@ -1219,102 +1224,102 @@ namespace UiBot
                 {
 
                     case "addbits":
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
-                            {
-                                ChatCommandMethods.AddBitCommand(client, e);
-                            }
-                            else
-                            {
-                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
-                            }
+                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
+                        {
+                            ChatCommandMethods.AddBitCommand(client, e);
+                        }
+                        else
+                        {
+                            client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
+                        }
                         break;
 
                     case "rembits":
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
-                            {
-                                ChatCommandMethods.RemoveBitCommand(client, e);
-                            }
-                            else
-                            {
-                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
-                            }
+                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
+                        {
+                            ChatCommandMethods.RemoveBitCommand(client, e);
+                        }
+                        else
+                        {
+                            client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
+                        }
                         break;
 
                     case "refund":
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
+                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
+                        {
+                            string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (refundArgs.Length == 1)
                             {
-                                string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
+                                string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
 
-                                if (refundArgs.Length == 1)
+                                ChatCommandMethods.RefundLastCommand(e, refundUsername, userBits, client, channelId);
+                                LogHandler.WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+                            }
+                            else
+                            {
+                                client.SendMessage(e.Command.ChatMessage.Channel, "Invalid syntax. Usage: !refund [username]");
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
+                        }
+                        break;
+
+                    case "sbadd":
+                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        {
+                            var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (sbaddArgs.Length >= 3)
+                            {
+                                string commandName = sbaddArgs[0].ToLower();
+                                if (int.TryParse(sbaddArgs[1], out int bitCost))
                                 {
-                                    string refundUsername = refundArgs[0].StartsWith("@") ? refundArgs[0].Substring(1) : refundArgs[0]; // Remove "@" symbol if present
-
-                                    ChatCommandMethods.RefundLastCommand(e, refundUsername, userBits, client, channelId);
-                                    LogHandler.WriteUserBitsToJson("user_bits.json"); // Write changes to JSON file
+                                    string methods = string.Join(" ", sbaddArgs.Skip(2));
+                                    var commandHandler = new CustomCommandHandler(commandsFilePath);
+                                    string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
+                                    client.SendMessage(channelId, resultMessage);
                                 }
                                 else
                                 {
-                                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid syntax. Usage: !refund [username]");
+                                    client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
                                 }
                             }
                             else
                             {
-                                client.SendMessage(e.Command.ChatMessage.Channel, "You are not authorized to use this command.");
+                                client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
                             }
-                        break;
-
-                    case "sbadd":
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
-                            {
-                                var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
-
-                                if (sbaddArgs.Length >= 3)
-                                {
-                                    string commandName = sbaddArgs[0].ToLower();
-                                    if (int.TryParse(sbaddArgs[1], out int bitCost))
-                                    {
-                                        string methods = string.Join(" ", sbaddArgs.Skip(2));
-                                        var commandHandler = new CustomCommandHandler(commandsFilePath);
-                                        string resultMessage = commandHandler.AddChatCommand(commandName, bitCost, methods);
-                                        client.SendMessage(channelId, resultMessage);
-                                    }
-                                    else
-                                    {
-                                        client.SendMessage(channelId, "Invalid {userBitName} cost. Please provide a valid number.");
-                                    }
-                                }
-                                else
-                                {
-                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbadd {commandName} {cost} {methods}");
-                                }
-                            }
+                        }
                         break;
 
                     case "sbremove":
-                            if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        {
+                            var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (sbremoveArgs.Length == 1)
                             {
-                                var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
+                                string commandNameToRemove = sbremoveArgs[0].ToLower();
+                                var commandHandler = new CustomCommandHandler(commandsFilePath);
+                                bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
 
-                                if (sbremoveArgs.Length == 1)
+                                if (isRemoved)
                                 {
-                                    string commandNameToRemove = sbremoveArgs[0].ToLower();
-                                    var commandHandler = new CustomCommandHandler(commandsFilePath);
-                                    bool isRemoved = commandHandler.RemoveChatCommand(commandNameToRemove);
-
-                                    if (isRemoved)
-                                    {
-                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
-                                    }
-                                    else
-                                    {
-                                        client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
-                                    }
+                                    client.SendMessage(channelId, $"Command '!{commandNameToRemove}' has been removed successfully.");
                                 }
                                 else
                                 {
-                                    client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
+                                    client.SendMessage(channelId, $"Command '!{commandNameToRemove}' not found.");
                                 }
                             }
+                            else
+                            {
+                                client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
+                            }
+                        }
                         break;
                 }
             }
@@ -1407,12 +1412,12 @@ namespace UiBot
 
                         if (sbbanArgs.Length == 1)
                         {
-                            string bannedUsername = sbbanArgs[0].StartsWith("@") ? sbbanArgs[0].Substring(1) : sbbanArgs[0]; 
+                            string bannedUsername = sbbanArgs[0].StartsWith("@") ? sbbanArgs[0].Substring(1) : sbbanArgs[0];
 
                             if (!bannedUsers.Contains(bannedUsername))
                             {
                                 bannedUsers.Add(bannedUsername);
-                                BanManager.SaveBanList(bannedUsers); 
+                                BanManager.SaveBanList(bannedUsers);
                                 client.SendMessage(channelId, $"{bannedUsername} has been banned from using the bot.");
                             }
                             else
@@ -1436,7 +1441,7 @@ namespace UiBot
                             if (bannedUsers.Contains(unbannedUsername))
                             {
                                 bannedUsers.Remove(unbannedUsername);
-                                BanManager.SaveBanList(bannedUsers);  
+                                BanManager.SaveBanList(bannedUsers);
                                 client.SendMessage(channelId, $"{unbannedUsername} has been unbanned and can use the bot again.");
                             }
                             else
