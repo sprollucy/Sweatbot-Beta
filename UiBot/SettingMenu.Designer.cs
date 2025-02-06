@@ -56,11 +56,11 @@
             pictureBox6 = new PictureBox();
             enableDebug = new CheckBox();
             groupBox4 = new GroupBox();
+            enableDebugCommands = new CheckBox();
             enableEFTtrade = new CheckBox();
             groupBox5 = new GroupBox();
             cashappLink = new LinkLabel();
             discordLink = new LinkLabel();
-            enableDebugCommands = new CheckBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -115,13 +115,16 @@
             // 
             // button3
             // 
+            button3.BackColor = SystemColors.ButtonFace;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = SystemColors.ControlText;
             button3.Location = new Point(207, 51);
             button3.Name = "button3";
             button3.Size = new Size(75, 23);
             button3.TabIndex = 8;
             button3.Text = "Save";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
             // label2
@@ -159,13 +162,16 @@
             // 
             // button1
             // 
+            button1.BackColor = SystemColors.ButtonFace;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = SystemColors.ControlText;
             button1.Location = new Point(207, 22);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 1;
             button1.Text = "Save";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // channelBox2
@@ -180,13 +186,16 @@
             // 
             // channelOpen
             // 
+            channelOpen.BackColor = SystemColors.ButtonFace;
+            channelOpen.FlatAppearance.BorderSize = 0;
+            channelOpen.FlatStyle = FlatStyle.Flat;
             channelOpen.ForeColor = SystemColors.ControlText;
             channelOpen.Location = new Point(288, 51);
             channelOpen.Name = "channelOpen";
             channelOpen.Size = new Size(90, 23);
             channelOpen.TabIndex = 13;
             channelOpen.Text = "Open Twitch";
-            channelOpen.UseVisualStyleBackColor = true;
+            channelOpen.UseVisualStyleBackColor = false;
             channelOpen.Click += channelOpen_Click;
             // 
             // pictureBox1
@@ -309,13 +318,16 @@
             // 
             // bitrestoreButton
             // 
+            bitrestoreButton.BackColor = SystemColors.ButtonFace;
+            bitrestoreButton.FlatAppearance.BorderSize = 0;
+            bitrestoreButton.FlatStyle = FlatStyle.Flat;
             bitrestoreButton.ForeColor = SystemColors.ControlText;
             bitrestoreButton.Location = new Point(18, 22);
             bitrestoreButton.Name = "bitrestoreButton";
             bitrestoreButton.Size = new Size(201, 23);
             bitrestoreButton.TabIndex = 37;
             bitrestoreButton.Text = "Restore user bits from backup";
-            bitrestoreButton.UseVisualStyleBackColor = true;
+            bitrestoreButton.UseVisualStyleBackColor = false;
             bitrestoreButton.Click += bitrestoreButton_Click;
             // 
             // groupBox2
@@ -360,13 +372,16 @@
             // 
             // checkUpdateButton
             // 
+            checkUpdateButton.BackColor = SystemColors.ButtonFace;
+            checkUpdateButton.FlatAppearance.BorderSize = 0;
+            checkUpdateButton.FlatStyle = FlatStyle.Flat;
             checkUpdateButton.ForeColor = SystemColors.ControlText;
             checkUpdateButton.Location = new Point(18, 21);
             checkUpdateButton.Name = "checkUpdateButton";
             checkUpdateButton.Size = new Size(136, 23);
             checkUpdateButton.TabIndex = 37;
             checkUpdateButton.Text = "Check For Update";
-            checkUpdateButton.UseVisualStyleBackColor = true;
+            checkUpdateButton.UseVisualStyleBackColor = false;
             checkUpdateButton.Click += checkUpdateButton_Click;
             // 
             // pictureBox6
@@ -405,6 +420,19 @@
             groupBox4.TabIndex = 111;
             groupBox4.TabStop = false;
             groupBox4.Text = "Debug Settings";
+            // 
+            // enableDebugCommands
+            // 
+            enableDebugCommands.AutoSize = true;
+            enableDebugCommands.BackColor = Color.FromArgb(37, 37, 37);
+            enableDebugCommands.ForeColor = SystemColors.ControlLight;
+            enableDebugCommands.Location = new Point(166, 22);
+            enableDebugCommands.Name = "enableDebugCommands";
+            enableDebugCommands.Size = new Size(184, 19);
+            enableDebugCommands.TabIndex = 111;
+            enableDebugCommands.Text = "Enable Debug For Commands";
+            enableDebugCommands.UseVisualStyleBackColor = false;
+            enableDebugCommands.CheckedChanged += enableDebugCommands_CheckedChanged;
             // 
             // enableEFTtrade
             // 
@@ -454,19 +482,6 @@
             discordLink.Text = "Discord";
             discordLink.TextAlign = ContentAlignment.MiddleCenter;
             discordLink.LinkClicked += discordLink_LinkClicked;
-            // 
-            // enableDebugCommands
-            // 
-            enableDebugCommands.AutoSize = true;
-            enableDebugCommands.BackColor = Color.FromArgb(37, 37, 37);
-            enableDebugCommands.ForeColor = SystemColors.ControlLight;
-            enableDebugCommands.Location = new Point(166, 22);
-            enableDebugCommands.Name = "enableDebugCommands";
-            enableDebugCommands.Size = new Size(184, 19);
-            enableDebugCommands.TabIndex = 111;
-            enableDebugCommands.Text = "Enable Debug For Commands";
-            enableDebugCommands.UseVisualStyleBackColor = false;
-            enableDebugCommands.CheckedChanged += enableDebugCommands_CheckedChanged;
             // 
             // SettingMenu
             // 

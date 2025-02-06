@@ -85,12 +85,12 @@
             panel3 = new Panel();
             label8 = new Label();
             panel4 = new Panel();
+            btnAddOrUpdate = new Button();
+            btnRemove = new Button();
             chkRemove = new CheckBox();
             chkAdd = new CheckBox();
             chkGive = new CheckBox();
             chkRefund = new CheckBox();
-            btnRemove = new Button();
-            btnAddOrUpdate = new Button();
             txtUsername = new TextBox();
             lstModWhitelist = new ListBox();
             pictureBox3 = new PictureBox();
@@ -132,13 +132,16 @@
             // 
             // saveButton
             // 
+            saveButton.BackColor = SystemColors.ButtonFace;
+            saveButton.FlatAppearance.BorderSize = 0;
+            saveButton.FlatStyle = FlatStyle.Flat;
             saveButton.ForeColor = SystemColors.ControlText;
             saveButton.Location = new Point(4, 24);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(160, 43);
             saveButton.TabIndex = 6;
             saveButton.Text = "Save";
-            saveButton.UseVisualStyleBackColor = true;
+            saveButton.UseVisualStyleBackColor = false;
             saveButton.Click += saveButton_Click;
             // 
             // panel1
@@ -197,7 +200,7 @@
             enableRateDelayBox.Checked = true;
             enableRateDelayBox.CheckState = CheckState.Checked;
             enableRateDelayBox.ForeColor = SystemColors.ControlText;
-            enableRateDelayBox.Location = new Point(13, 55);
+            enableRateDelayBox.Location = new Point(12, 55);
             enableRateDelayBox.Name = "enableRateDelayBox";
             enableRateDelayBox.Size = new Size(177, 19);
             enableRateDelayBox.TabIndex = 140;
@@ -305,7 +308,7 @@
             bitGambleCheck.AutoSize = true;
             bitGambleCheck.BackColor = Color.FromArgb(156, 155, 151);
             bitGambleCheck.ForeColor = SystemColors.ControlText;
-            bitGambleCheck.Location = new Point(13, 180);
+            bitGambleCheck.Location = new Point(12, 180);
             bitGambleCheck.Name = "bitGambleCheck";
             bitGambleCheck.Size = new Size(133, 19);
             bitGambleCheck.TabIndex = 130;
@@ -342,7 +345,7 @@
             sendkeyButton.Checked = true;
             sendkeyButton.CheckState = CheckState.Checked;
             sendkeyButton.ForeColor = SystemColors.ControlText;
-            sendkeyButton.Location = new Point(13, 155);
+            sendkeyButton.Location = new Point(12, 155);
             sendkeyButton.Name = "sendkeyButton";
             sendkeyButton.Size = new Size(232, 19);
             sendkeyButton.TabIndex = 122;
@@ -357,7 +360,7 @@
             bitcostButton.Checked = true;
             bitcostButton.CheckState = CheckState.Checked;
             bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(13, 130);
+            bitcostButton.Location = new Point(12, 130);
             bitcostButton.Name = "bitcostButton";
             bitcostButton.Size = new Size(205, 19);
             bitcostButton.TabIndex = 121;
@@ -370,7 +373,7 @@
             enableBotToggle.AutoSize = true;
             enableBotToggle.BackColor = Color.FromArgb(156, 155, 151);
             enableBotToggle.ForeColor = SystemColors.ControlText;
-            enableBotToggle.Location = new Point(13, 80);
+            enableBotToggle.Location = new Point(12, 80);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
             enableBotToggle.TabIndex = 109;
@@ -385,7 +388,7 @@
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
             checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(13, 105);
+            checkEnableBitMsg.Location = new Point(12, 105);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -420,13 +423,16 @@
             // 
             // restart_AppButton
             // 
+            restart_AppButton.BackColor = SystemColors.ButtonFace;
+            restart_AppButton.FlatAppearance.BorderSize = 0;
+            restart_AppButton.FlatStyle = FlatStyle.Flat;
             restart_AppButton.ForeColor = SystemColors.ControlText;
             restart_AppButton.Location = new Point(169, 24);
             restart_AppButton.Name = "restart_AppButton";
             restart_AppButton.Size = new Size(160, 43);
             restart_AppButton.TabIndex = 29;
             restart_AppButton.Text = "Restart App";
-            restart_AppButton.UseVisualStyleBackColor = true;
+            restart_AppButton.UseVisualStyleBackColor = false;
             restart_AppButton.Click += button1_Click;
             // 
             // label2
@@ -569,7 +575,7 @@
             enableAutoMessageCheck.AutoSize = true;
             enableAutoMessageCheck.BackColor = Color.FromArgb(156, 155, 151);
             enableAutoMessageCheck.ForeColor = SystemColors.ControlText;
-            enableAutoMessageCheck.Location = new Point(10, 31);
+            enableAutoMessageCheck.Location = new Point(12, 31);
             enableAutoMessageCheck.Name = "enableAutoMessageCheck";
             enableAutoMessageCheck.Size = new Size(139, 19);
             enableAutoMessageCheck.TabIndex = 26;
@@ -604,13 +610,16 @@
             // 
             // openModWhitelist
             // 
+            openModWhitelist.BackColor = SystemColors.ButtonFace;
+            openModWhitelist.FlatAppearance.BorderSize = 0;
+            openModWhitelist.FlatStyle = FlatStyle.Flat;
             openModWhitelist.Font = new Font("Segoe UI", 9F);
             openModWhitelist.Location = new Point(282, 28);
             openModWhitelist.Name = "openModWhitelist";
             openModWhitelist.Size = new Size(95, 23);
             openModWhitelist.TabIndex = 85;
             openModWhitelist.Text = "Open Whitelist";
-            openModWhitelist.UseVisualStyleBackColor = true;
+            openModWhitelist.UseVisualStyleBackColor = false;
             openModWhitelist.Click += openModWhitelist_Click;
             // 
             // panel2
@@ -802,6 +811,32 @@
             panel4.Size = new Size(434, 185);
             panel4.TabIndex = 123;
             // 
+            // btnAddOrUpdate
+            // 
+            btnAddOrUpdate.BackColor = SystemColors.ButtonFace;
+            btnAddOrUpdate.FlatAppearance.BorderSize = 0;
+            btnAddOrUpdate.FlatStyle = FlatStyle.Flat;
+            btnAddOrUpdate.Location = new Point(335, 88);
+            btnAddOrUpdate.Name = "btnAddOrUpdate";
+            btnAddOrUpdate.Size = new Size(86, 23);
+            btnAddOrUpdate.TabIndex = 124;
+            btnAddOrUpdate.Text = "Add/Update";
+            btnAddOrUpdate.UseVisualStyleBackColor = false;
+            btnAddOrUpdate.Click += btnAddOrUpdate_Click;
+            // 
+            // btnRemove
+            // 
+            btnRemove.BackColor = SystemColors.ButtonFace;
+            btnRemove.FlatAppearance.BorderSize = 0;
+            btnRemove.FlatStyle = FlatStyle.Flat;
+            btnRemove.Location = new Point(345, 117);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(75, 23);
+            btnRemove.TabIndex = 125;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = false;
+            btnRemove.Click += btnRemove_Click;
+            // 
             // chkRemove
             // 
             chkRemove.AutoSize = true;
@@ -841,26 +876,6 @@
             chkRefund.TabIndex = 127;
             chkRefund.Text = "Refund";
             chkRefund.UseVisualStyleBackColor = true;
-            // 
-            // btnRemove
-            // 
-            btnRemove.Location = new Point(345, 117);
-            btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(75, 23);
-            btnRemove.TabIndex = 125;
-            btnRemove.Text = "Remove";
-            btnRemove.UseVisualStyleBackColor = true;
-            btnRemove.Click += btnRemove_Click;
-            // 
-            // btnAddOrUpdate
-            // 
-            btnAddOrUpdate.Location = new Point(335, 88);
-            btnAddOrUpdate.Name = "btnAddOrUpdate";
-            btnAddOrUpdate.Size = new Size(86, 23);
-            btnAddOrUpdate.TabIndex = 124;
-            btnAddOrUpdate.Text = "Add/Update";
-            btnAddOrUpdate.UseVisualStyleBackColor = true;
-            btnAddOrUpdate.Click += btnAddOrUpdate_Click;
             // 
             // txtUsername
             // 

@@ -303,7 +303,7 @@ namespace UiBot
 
             if (bannedUsers.Contains(e.ChatMessage.DisplayName))
             {
-                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, you are banned from using the bot.");
+                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, you are banned from Sweatbot!");
                 return;
             }
 
@@ -601,13 +601,6 @@ namespace UiBot
             int lastHow2useTimerDuration = 30;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
-
-            // Check if the user is banned
-            if (bannedUsers.Contains(Chatter))
-            {
-                client.SendMessage(channelId, $"{Chatter}, you are banned from using the bot.");
-                return; // Exit early, don't process the command
-            }
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())

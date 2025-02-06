@@ -71,7 +71,7 @@
             // 
             enablePrapor.AutoSize = true;
             enablePrapor.ForeColor = SystemColors.ControlLight;
-            enablePrapor.Location = new Point(12, 70);
+            enablePrapor.Location = new Point(13, 70);
             enablePrapor.Name = "enablePrapor";
             enablePrapor.Size = new Size(99, 19);
             enablePrapor.TabIndex = 12;
@@ -83,7 +83,7 @@
             // 
             enableTherapist.AutoSize = true;
             enableTherapist.ForeColor = SystemColors.ControlLight;
-            enableTherapist.Location = new Point(12, 95);
+            enableTherapist.Location = new Point(13, 95);
             enableTherapist.Name = "enableTherapist";
             enableTherapist.Size = new Size(112, 19);
             enableTherapist.TabIndex = 13;
@@ -143,7 +143,7 @@
             // 
             enableSkier.AutoSize = true;
             enableSkier.ForeColor = SystemColors.ControlLight;
-            enableSkier.Location = new Point(12, 220);
+            enableSkier.Location = new Point(13, 220);
             enableSkier.Name = "enableSkier";
             enableSkier.Size = new Size(89, 19);
             enableSkier.TabIndex = 18;

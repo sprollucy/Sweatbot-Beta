@@ -122,22 +122,28 @@
             // 
             // connectButton
             // 
+            connectButton.BackColor = SystemColors.ButtonFace;
+            connectButton.FlatAppearance.BorderSize = 0;
+            connectButton.FlatStyle = FlatStyle.Flat;
             connectButton.Location = new Point(53, 445);
             connectButton.Name = "connectButton";
             connectButton.Size = new Size(75, 23);
             connectButton.TabIndex = 2;
             connectButton.Text = "Connect";
-            connectButton.UseVisualStyleBackColor = true;
+            connectButton.UseVisualStyleBackColor = false;
             connectButton.Click += connectButton_Click;
             // 
             // disconnectButton
             // 
+            disconnectButton.BackColor = SystemColors.ButtonFace;
+            disconnectButton.FlatAppearance.BorderSize = 0;
+            disconnectButton.FlatStyle = FlatStyle.Flat;
             disconnectButton.Location = new Point(134, 445);
             disconnectButton.Name = "disconnectButton";
             disconnectButton.Size = new Size(75, 23);
             disconnectButton.TabIndex = 3;
             disconnectButton.Text = "Disconnect";
-            disconnectButton.UseVisualStyleBackColor = true;
+            disconnectButton.UseVisualStyleBackColor = false;
             disconnectButton.Click += disconnectButton_Click;
             // 
             // label4
@@ -345,22 +351,28 @@
             // 
             // backupButton
             // 
+            backupButton.BackColor = SystemColors.ButtonFace;
+            backupButton.FlatAppearance.BorderSize = 0;
+            backupButton.FlatStyle = FlatStyle.Flat;
             backupButton.Location = new Point(33, 94);
             backupButton.Name = "backupButton";
             backupButton.Size = new Size(103, 23);
             backupButton.TabIndex = 29;
             backupButton.Text = "Start Backup";
-            backupButton.UseVisualStyleBackColor = true;
+            backupButton.UseVisualStyleBackColor = false;
             backupButton.Click += backupButton_Click;
             // 
             // twitchOpen
             // 
+            twitchOpen.BackColor = SystemColors.ButtonFace;
+            twitchOpen.FlatAppearance.BorderSize = 0;
+            twitchOpen.FlatStyle = FlatStyle.Flat;
             twitchOpen.Location = new Point(33, 123);
             twitchOpen.Name = "twitchOpen";
             twitchOpen.Size = new Size(103, 23);
             twitchOpen.TabIndex = 28;
             twitchOpen.Text = "Open Twitch";
-            twitchOpen.UseVisualStyleBackColor = true;
+            twitchOpen.UseVisualStyleBackColor = false;
             twitchOpen.Click += twitchOpen_Click;
             // 
             // pauseCommands
@@ -477,13 +489,16 @@
             // 
             // ramSnapButton
             // 
+            ramSnapButton.BackColor = SystemColors.ButtonFace;
+            ramSnapButton.FlatAppearance.BorderSize = 0;
+            ramSnapButton.FlatStyle = FlatStyle.Flat;
             ramSnapButton.ForeColor = SystemColors.ControlText;
             ramSnapButton.Location = new Point(6, 69);
             ramSnapButton.Name = "ramSnapButton";
             ramSnapButton.Size = new Size(188, 23);
             ramSnapButton.TabIndex = 39;
             ramSnapButton.Text = "Snapshot ram use to file";
-            ramSnapButton.UseVisualStyleBackColor = true;
+            ramSnapButton.UseVisualStyleBackColor = false;
             ramSnapButton.Click += ramSnapButton_Click;
             // 
             // label20

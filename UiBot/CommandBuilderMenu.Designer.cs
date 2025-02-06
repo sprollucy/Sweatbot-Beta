@@ -146,6 +146,7 @@
             pictureBox11 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -556,9 +557,10 @@
             mouseposButton.BackColor = SystemColors.ButtonFace;
             mouseposButton.FlatAppearance.BorderSize = 0;
             mouseposButton.FlatStyle = FlatStyle.Flat;
-            mouseposButton.Location = new Point(89, 18);
+            mouseposButton.Font = new Font("Segoe UI", 8F);
+            mouseposButton.Location = new Point(78, 18);
             mouseposButton.Name = "mouseposButton";
-            mouseposButton.Size = new Size(93, 38);
+            mouseposButton.Size = new Size(82, 38);
             mouseposButton.TabIndex = 57;
             mouseposButton.Text = "Mouse to Position";
             mouseposButton.UseVisualStyleBackColor = false;
@@ -635,9 +637,9 @@
             ahitkeyloopButton.BackColor = SystemColors.ButtonFace;
             ahitkeyloopButton.FlatAppearance.BorderSize = 0;
             ahitkeyloopButton.FlatStyle = FlatStyle.Flat;
-            ahitkeyloopButton.Location = new Point(3, 211);
+            ahitkeyloopButton.Location = new Point(84, 94);
             ahitkeyloopButton.Name = "ahitkeyloopButton";
-            ahitkeyloopButton.Size = new Size(75, 40);
+            ahitkeyloopButton.Size = new Size(75, 38);
             ahitkeyloopButton.TabIndex = 51;
             ahitkeyloopButton.Text = "Sync Hit Key Loop";
             ahitkeyloopButton.UseVisualStyleBackColor = false;
@@ -648,7 +650,7 @@
             hitkeyloopButton.BackColor = SystemColors.ButtonFace;
             hitkeyloopButton.FlatAppearance.BorderSize = 0;
             hitkeyloopButton.FlatStyle = FlatStyle.Flat;
-            hitkeyloopButton.Location = new Point(3, 169);
+            hitkeyloopButton.Location = new Point(3, 94);
             hitkeyloopButton.Name = "hitkeyloopButton";
             hitkeyloopButton.Size = new Size(75, 38);
             hitkeyloopButton.TabIndex = 50;
@@ -739,9 +741,10 @@
             aturnButton.BackColor = SystemColors.ButtonFace;
             aturnButton.FlatAppearance.BorderSize = 0;
             aturnButton.FlatStyle = FlatStyle.Flat;
-            aturnButton.Location = new Point(3, 59);
+            aturnButton.Font = new Font("Segoe UI", 8F);
+            aturnButton.Location = new Point(3, 62);
             aturnButton.Name = "aturnButton";
-            aturnButton.Size = new Size(80, 40);
+            aturnButton.Size = new Size(69, 40);
             aturnButton.TabIndex = 35;
             aturnButton.Text = "Sync Turn Mouse";
             aturnButton.UseVisualStyleBackColor = false;
@@ -752,7 +755,7 @@
             ahitkeyButton.BackColor = SystemColors.ButtonFace;
             ahitkeyButton.FlatAppearance.BorderSize = 0;
             ahitkeyButton.FlatStyle = FlatStyle.Flat;
-            ahitkeyButton.Location = new Point(3, 123);
+            ahitkeyButton.Location = new Point(84, 48);
             ahitkeyButton.Name = "ahitkeyButton";
             ahitkeyButton.Size = new Size(75, 40);
             ahitkeyButton.TabIndex = 34;
@@ -844,9 +847,10 @@
             turnButton.BackColor = SystemColors.ButtonFace;
             turnButton.FlatAppearance.BorderSize = 0;
             turnButton.FlatStyle = FlatStyle.Flat;
+            turnButton.Font = new Font("Segoe UI", 8F);
             turnButton.Location = new Point(3, 18);
             turnButton.Name = "turnButton";
-            turnButton.Size = new Size(80, 38);
+            turnButton.Size = new Size(69, 38);
             turnButton.TabIndex = 27;
             turnButton.Text = "Turn Mouse";
             turnButton.UseVisualStyleBackColor = false;
@@ -857,7 +861,7 @@
             hitkeyButton.BackColor = SystemColors.ButtonFace;
             hitkeyButton.FlatAppearance.BorderSize = 0;
             hitkeyButton.FlatStyle = FlatStyle.Flat;
-            hitkeyButton.Location = new Point(3, 94);
+            hitkeyButton.Location = new Point(84, 20);
             hitkeyButton.Name = "hitkeyButton";
             hitkeyButton.Size = new Size(75, 23);
             hitkeyButton.TabIndex = 26;
@@ -949,7 +953,7 @@
             panel2.Controls.Add(pictureBox3);
             panel2.Location = new Point(245, 22);
             panel2.Name = "panel2";
-            panel2.Size = new Size(81, 255);
+            panel2.Size = new Size(163, 136);
             panel2.TabIndex = 31;
             // 
             // label1
@@ -969,7 +973,7 @@
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(81, 15);
+            pictureBox3.Size = new Size(163, 15);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 58;
             pictureBox3.TabStop = false;
@@ -985,7 +989,7 @@
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(439, 22);
+            panel3.Location = new Point(521, 23);
             panel3.Name = "panel3";
             panel3.Size = new Size(109, 225);
             panel3.TabIndex = 32;
@@ -1017,9 +1021,10 @@
             amouseposButton.BackColor = SystemColors.ButtonFace;
             amouseposButton.FlatAppearance.BorderSize = 0;
             amouseposButton.FlatStyle = FlatStyle.Flat;
-            amouseposButton.Location = new Point(89, 59);
+            amouseposButton.Font = new Font("Segoe UI", 8F);
+            amouseposButton.Location = new Point(78, 62);
             amouseposButton.Name = "amouseposButton";
-            amouseposButton.Size = new Size(93, 40);
+            amouseposButton.Size = new Size(82, 40);
             amouseposButton.TabIndex = 58;
             amouseposButton.Text = "Sync Mouse to Position";
             amouseposButton.UseVisualStyleBackColor = false;
@@ -1028,6 +1033,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
+            panel4.Controls.Add(button1);
             panel4.Controls.Add(pixelateButton);
             panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
@@ -1037,9 +1043,9 @@
             panel4.Controls.Add(delayButton);
             panel4.Controls.Add(muteButton);
             panel4.Controls.Add(pictureBox4);
-            panel4.Location = new Point(551, 130);
+            panel4.Location = new Point(636, 23);
             panel4.Name = "panel4";
-            panel4.Size = new Size(309, 93);
+            panel4.Size = new Size(309, 135);
             panel4.TabIndex = 33;
             // 
             // pixelateButton
@@ -1516,7 +1522,7 @@
             usagePanel.Controls.Add(commanduseBox);
             usagePanel.Controls.Add(label6);
             usagePanel.Controls.Add(pictureBox6);
-            usagePanel.Location = new Point(53, 690);
+            usagePanel.Location = new Point(53, 678);
             usagePanel.Name = "usagePanel";
             usagePanel.Size = new Size(969, 352);
             usagePanel.TabIndex = 58;
@@ -1531,7 +1537,7 @@
             inspectorPanel.Controls.Add(panel4);
             inspectorPanel.Location = new Point(53, 396);
             inspectorPanel.Name = "inspectorPanel";
-            inspectorPanel.Size = new Size(969, 283);
+            inspectorPanel.Size = new Size(969, 276);
             inspectorPanel.TabIndex = 61;
             // 
             // panel11
@@ -1545,7 +1551,7 @@
             panel11.Controls.Add(leftholdButton);
             panel11.Controls.Add(aleftButton);
             panel11.Controls.Add(leftloopButton);
-            panel11.Location = new Point(332, 22);
+            panel11.Location = new Point(414, 23);
             panel11.Name = "panel11";
             panel11.Size = new Size(101, 225);
             panel11.TabIndex = 60;
@@ -1581,9 +1587,9 @@
             panel10.Controls.Add(turnButton);
             panel10.Controls.Add(mouseposButton);
             panel10.Controls.Add(aturnButton);
-            panel10.Location = new Point(551, 22);
+            panel10.Location = new Point(245, 164);
             panel10.Name = "panel10";
-            panel10.Size = new Size(186, 102);
+            panel10.Size = new Size(163, 106);
             panel10.TabIndex = 59;
             // 
             // label25
@@ -1633,6 +1639,18 @@
             buttonTab.SizeMode = PictureBoxSizeMode.StretchImage;
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(3, 94);
+            button1.Name = "button1";
+            button1.Size = new Size(301, 36);
+            button1.TabIndex = 60;
+            button1.Text = "More Coming Soon!";
+            button1.UseVisualStyleBackColor = false;
             // 
             // CommandBuilderMenu
             // 
@@ -1830,5 +1848,6 @@
         private Panel panel11;
         private Label label26;
         private PictureBox pictureBox15;
+        private Button button1;
     }
 }

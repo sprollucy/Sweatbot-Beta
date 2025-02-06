@@ -18,6 +18,20 @@ public class PixelateOverlay : Form
     [DllImport("user32.dll", SetLastError = true)]
     private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
+    private void InitializeComponent()
+    {
+        SuspendLayout();
+        // 
+        // PixelateOverlay
+        // 
+        ClientSize = new Size(10, 10);
+        ControlBox = false;
+        FormBorderStyle = FormBorderStyle.None;
+        Name = "PixelateOverlay";
+        StartPosition = FormStartPosition.CenterScreen;
+        ResumeLayout(false);
+    }
+
     [DllImport("user32.dll", SetLastError = true)]
     private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
@@ -35,6 +49,7 @@ public class PixelateOverlay : Form
     {
         if (!this.Visible)
         {
+            this.Bounds = GetWindowBounds(GetForegroundWindow());
             this.Show();
         }
 
