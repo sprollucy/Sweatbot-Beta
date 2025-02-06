@@ -71,6 +71,8 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 
 ## **Getting Started with Sweat Bot**
+First download .Net 8 runtime from Microsoft
+https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
