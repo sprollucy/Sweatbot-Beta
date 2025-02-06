@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
@@ -6,7 +7,7 @@ using UiBot.Properties;
 
 public class CustomCommandHandler
 {
-    private readonly Dictionary<string, Command> _commands;
+    private readonly ConcurrentDictionary<string, Command> _commands;
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _syncMethodMap;
     private readonly Dictionary<string, Func<TwitchClient, string, string, Task>> _asyncMethodMap;
 
@@ -102,7 +103,7 @@ public class CustomCommandHandler
         );
     }
 
-    public static Dictionary<string, Command> LoadCommandsFromFile(string filePath)
+    public static ConcurrentDictionary<string, Command> LoadCommandsFromFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -113,8 +114,10 @@ public class CustomCommandHandler
         var json = File.ReadAllText(filePath);
         var commands = JsonConvert.DeserializeObject<Dictionary<string, Command>>(json);
 
-        return commands;
+        // Convert to ConcurrentDictionary before returning
+        return new ConcurrentDictionary<string, Command>(commands);
     }
+
     public void ReloadCommands(string filePath)
     {
         _commands.Clear();

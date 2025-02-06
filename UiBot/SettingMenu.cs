@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Media;
 using System.Reflection;
 
 namespace UiBot
 {
     public partial class SettingMenu : Form
     {
+        private int clickCount = 0;
+
         public SettingMenu()
         {
             string packageVersion = Assembly.GetExecutingAssembly()
@@ -263,6 +266,36 @@ namespace UiBot
             {
                 UseShellExecute = true
             });
+        }
+
+        private void versionNumber_Click(object sender, EventArgs e)
+        {
+            string soundFilePathClick = @"C:\Windows\Media\Windows Recycle.wav";
+
+            // Load and play the sound
+            using (SoundPlayer player = new SoundPlayer(soundFilePathClick))
+            {
+                player.Play();
+            }
+            clickCount++; // Increment the click count
+
+            if (clickCount == 3)
+            {
+                // Path to Tada.wav sound file (Windows default location)
+                string soundFilePath = @"C:\Windows\Media\chimes.wav";
+
+                // Load and play the sound
+                using (SoundPlayer player = new SoundPlayer(soundFilePath))
+                {
+                    player.Play();
+                }
+
+                // Toggle the isEasterEgg setting when the click count reaches 3
+                Properties.Settings.Default.isEasterEgg = !Properties.Settings.Default.isEasterEgg;
+                Properties.Settings.Default.Save();
+                // Reset the click count
+                clickCount = 0;
+            }
         }
     }
 }

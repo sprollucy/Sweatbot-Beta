@@ -23,6 +23,7 @@ namespace UiBot
         private int lastSpent;
         string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
         private bool isExpanded = false; // Track the state of the panel
+        Dictionary<string, (int usageCount, int bitCost, int totalSpent)> commandUsageData = new Dictionary<string, (int, int, int)>();
 
         private FileSystemWatcher fileWatcher;
 
@@ -920,6 +921,11 @@ namespace UiBot
                 // Reload the log entries when the file changes
                 LoadLogEntries();
             }
+        }
+
+        private void printUseButton_Click(object sender, EventArgs e)
+        {
+            bot.PrintSortedCommandUsageCounts();
         }
     }
 }

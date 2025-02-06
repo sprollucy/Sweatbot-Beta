@@ -11,6 +11,7 @@ using TwitchLib.PubSub;
 using TwitchLib.Api.Helix.Models.Chat.GetChatters;
 using UiBot.Properties;
 using System.Text.RegularExpressions;
+using System.Media;
 
 
 namespace UiBot
@@ -30,6 +31,8 @@ namespace UiBot
         private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
         private static HashSet<string> bannedUsers = BanManager.LoadBanList();  // Load the banned users on startup
         public Dictionary<string, string> commandConfigData;
+        Dictionary<string, (int usageCount, int bitCost, int totalSpent)> commandUsageData = new Dictionary<string, (int, int, int)>();
+
 
         // Keyboard Events
         [DllImport("user32.dll", SetLastError = true)]
@@ -274,11 +277,44 @@ namespace UiBot
             }
         }
 
+        public void PrintSortedCommandUsageCounts()
+        {
+            var sortedCommands = commandUsageData.OrderByDescending(entry => entry.Value.usageCount);
+
+            Console.WriteLine("Popularity========================================================");
+
+            int index = 1;
+
+            foreach (var entry in sortedCommands)
+            {
+                Console.WriteLine($" {index}. {entry.Key,-20} Used: {entry.Value.usageCount,-5} Total Spent: {entry.Value.totalSpent}");
+
+                index++;
+            }
+            Console.WriteLine("===============================================================");
+        }
+
+
         private async void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             DateTime currentTime = DateTime.Now;
-            if (e.ChatMessage.DisplayName.Equals("Sprollucy") && !creatorMessage)
+            if (e.ChatMessage.DisplayName.Equals("Sprollucy") && !creatorMessage && Settings.Default.isEasterEgg)
             {
+                try
+                {
+                    // Path to Tada.wav sound file (Windows default location)
+                    string soundFilePath = @"C:\Windows\Media\Tada.wav";
+
+                    // Load and play the sound
+                    using (SoundPlayer player = new SoundPlayer(soundFilePath))
+                    {
+                        player.Play();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error playing sound: {ex.Message}");
+                }
                 creatorMessage = true;
                 client.SendMessage(channelId, $"My creator is here!");
             }
@@ -344,8 +380,17 @@ namespace UiBot
                         {
                             try
                             {
-                                // Execute the command
-                                commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+                                await commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+
+                                if (!commandUsageData.ContainsKey(commandName))
+                                {
+                                    commandUsageData[commandName] = (0, command.BitCost, 0);
+                                }
+
+                                var commandData = commandUsageData[commandName];
+                                commandData.usageCount++;  
+                                commandData.totalSpent += command.BitCost;
+                                commandUsageData[commandName] = commandData;
 
                                 // Log the command execution
                                 LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, command.BitCost, MainBot.userBits, timestamp);
@@ -413,8 +458,18 @@ namespace UiBot
                                 // Execute the command since user now has enough bits
                                 try
                                 {
-                                    // Execute the command
-                                    commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+                                    await commandHandler.ExecuteCommandAsync(commandName, client, e.ChatMessage.Channel);
+
+                                    if (!commandUsageData.ContainsKey(commandName))
+                                    {
+                                        commandUsageData[commandName] = (0, cheerAmount, 0);
+                                    }
+
+                                    var commandData = commandUsageData[commandName];
+                                    commandData.usageCount++;
+                                    commandData.totalSpent += cheerAmount;
+                                    commandUsageData[commandName] = commandData;
+
 
                                     // Log the command execution
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, commandName, cheerAmount, MainBot.userBits, timestamp);

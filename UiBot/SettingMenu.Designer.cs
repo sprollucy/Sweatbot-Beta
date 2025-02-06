@@ -256,6 +256,7 @@
             versionNumber.TabIndex = 28;
             versionNumber.Text = "versionNumber";
             versionNumber.TextAlign = ContentAlignment.MiddleRight;
+            versionNumber.Click += versionNumber_Click;
             // 
             // label7
             // 

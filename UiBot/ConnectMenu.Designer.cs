@@ -34,6 +34,7 @@
             disconnectButton = new Button();
             label4 = new Label();
             econoPanel = new Panel();
+            printUseButton = new Button();
             economyLastLabel = new Label();
             label7 = new Label();
             pictureBox7 = new PictureBox();
@@ -161,6 +162,7 @@
             // econoPanel
             // 
             econoPanel.BackColor = Color.FromArgb(156, 155, 151);
+            econoPanel.Controls.Add(printUseButton);
             econoPanel.Controls.Add(economyLastLabel);
             econoPanel.Controls.Add(label7);
             econoPanel.Controls.Add(pictureBox7);
@@ -170,10 +172,23 @@
             econoPanel.Controls.Add(label5);
             econoPanel.Controls.Add(economyLabel);
             econoPanel.Controls.Add(pictureBox1);
-            econoPanel.Location = new Point(657, 228);
+            econoPanel.Location = new Point(657, 191);
             econoPanel.Name = "econoPanel";
-            econoPanel.Size = new Size(163, 148);
+            econoPanel.Size = new Size(163, 192);
             econoPanel.TabIndex = 40;
+            // 
+            // printUseButton
+            // 
+            printUseButton.BackColor = SystemColors.ButtonFace;
+            printUseButton.FlatAppearance.BorderSize = 0;
+            printUseButton.FlatStyle = FlatStyle.Flat;
+            printUseButton.Location = new Point(8, 146);
+            printUseButton.Name = "printUseButton";
+            printUseButton.Size = new Size(148, 40);
+            printUseButton.TabIndex = 144;
+            printUseButton.Text = "Print Command Popularity To Console";
+            printUseButton.UseVisualStyleBackColor = false;
+            printUseButton.Click += printUseButton_Click;
             // 
             // economyLastLabel
             // 
@@ -181,7 +196,7 @@
             economyLastLabel.AutoSize = true;
             economyLastLabel.Font = new Font("Segoe UI", 11F);
             economyLastLabel.ForeColor = SystemColors.ControlText;
-            economyLastLabel.Location = new Point(5, 125);
+            economyLastLabel.Location = new Point(5, 124);
             economyLastLabel.Name = "economyLastLabel";
             economyLastLabel.Size = new Size(17, 20);
             economyLastLabel.TabIndex = 131;
@@ -240,7 +255,7 @@
             economySpentLabel.AutoSize = true;
             economySpentLabel.Font = new Font("Segoe UI", 11F);
             economySpentLabel.ForeColor = SystemColors.ControlText;
-            economySpentLabel.Location = new Point(5, 76);
+            economySpentLabel.Location = new Point(5, 75);
             economySpentLabel.Name = "economySpentLabel";
             economySpentLabel.Size = new Size(17, 20);
             economySpentLabel.TabIndex = 126;
@@ -265,7 +280,7 @@
             economyLabel.AutoSize = true;
             economyLabel.Font = new Font("Segoe UI", 11F);
             economyLabel.ForeColor = SystemColors.ControlText;
-            economyLabel.Location = new Point(5, 27);
+            economyLabel.Location = new Point(5, 26);
             economyLabel.Name = "economyLabel";
             economyLabel.Size = new Size(17, 20);
             economyLabel.TabIndex = 34;
@@ -319,7 +334,7 @@
             panel2.Controls.Add(pictureBox8);
             panel2.Location = new Point(657, 30);
             panel2.Name = "panel2";
-            panel2.Size = new Size(163, 192);
+            panel2.Size = new Size(163, 155);
             panel2.TabIndex = 33;
             // 
             // economyCheckBox
@@ -331,9 +346,9 @@
             economyCheckBox.ForeColor = SystemColors.ControlText;
             economyCheckBox.Location = new Point(5, 54);
             economyCheckBox.Name = "economyCheckBox";
-            economyCheckBox.Size = new Size(131, 34);
+            economyCheckBox.Size = new Size(114, 34);
             economyCheckBox.TabIndex = 123;
-            economyCheckBox.Text = "Enable Bit Economy\r\nTracking";
+            economyCheckBox.Text = "Enable Economy\r\nTracking";
             economyCheckBox.UseVisualStyleBackColor = false;
             economyCheckBox.CheckedChanged += economyCheckBox_CheckedChanged;
             // 
@@ -354,9 +369,9 @@
             backupButton.BackColor = SystemColors.ButtonFace;
             backupButton.FlatAppearance.BorderSize = 0;
             backupButton.FlatStyle = FlatStyle.Flat;
-            backupButton.Location = new Point(33, 94);
+            backupButton.Location = new Point(8, 96);
             backupButton.Name = "backupButton";
-            backupButton.Size = new Size(103, 23);
+            backupButton.Size = new Size(148, 23);
             backupButton.TabIndex = 29;
             backupButton.Text = "Start Backup";
             backupButton.UseVisualStyleBackColor = false;
@@ -367,9 +382,9 @@
             twitchOpen.BackColor = SystemColors.ButtonFace;
             twitchOpen.FlatAppearance.BorderSize = 0;
             twitchOpen.FlatStyle = FlatStyle.Flat;
-            twitchOpen.Location = new Point(33, 123);
+            twitchOpen.Location = new Point(8, 123);
             twitchOpen.Name = "twitchOpen";
-            twitchOpen.Size = new Size(103, 23);
+            twitchOpen.Size = new Size(148, 23);
             twitchOpen.TabIndex = 28;
             twitchOpen.Text = "Open Twitch";
             twitchOpen.UseVisualStyleBackColor = false;
@@ -825,5 +840,6 @@
         public Panel refundPanel;
         private Label label22;
         private Label refundTab;
+        private Button printUseButton;
     }
 }

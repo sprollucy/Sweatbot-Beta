@@ -577,13 +577,13 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsDarkMode {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isEasterEgg {
             get {
-                return ((bool)(this["IsDarkMode"]));
+                return ((bool)(this["isEasterEgg"]));
             }
             set {
-                this["IsDarkMode"] = value;
+                this["isEasterEgg"] = value;
             }
         }
     }
