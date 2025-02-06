@@ -67,7 +67,14 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 ## **Download**
 #### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.81)
+> *Important*: The files have not been verified by Microsoft and may be detected as *Trojan:Script/Wacatac.B!ml* by Windows Security and deleted when downloading. I will be resubmitting the files once in the beta stages
 
+>### How to Allow It:  
+>- Open **Windows Security** (search for it in the Start menu).  
+>- Go to **Virus & threat protection**.  
+>- Click **Protection history**.  
+>- Find the downloaded file that was detected as *Trojan:Script/Wacatac.B!ml*.  
+>- Click **Restore** if you are confident it is safe.  
 ---
 
 ## **Getting Started with Sweat Bot**
