@@ -6,12 +6,12 @@ Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to kee
 ## Table of Contents
 - [Features](#features)
 - [How it Works](#how-it-works)
-- [Setup Guide](#getting-started-with-sweat-bot)
+- [*Setup Guide*](#getting-started-with-sweat-bot)
 - [Commands](#viewer-commands)
 - [Screenshots](#screenshots)
-- [Download](#download)
+- [*Download*](#download)
 - [Upcoming Features](#upcomingpotential-features)
-- [Support](#support)
+- [*Support*](#support)
 - [Changelog](#latest-changelog)
 
 ### **Features**
@@ -66,6 +66,9 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 ## **Download**
 #### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.83)
+> First download .Net 8 runtime from Microsoft
+> https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
+> 
 > *Important*: The files have not been verified by Microsoft and may be detected as *Trojan:Script/Wacatac.B!ml* by Windows Security and deleted when downloading. I will be resubmitting the files once in the beta stages
 
 >### How to Allow It:  
@@ -77,8 +80,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 
 ## **Getting Started with Sweat Bot**
-First download .Net 8 runtime from Microsoft
-https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
+
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
