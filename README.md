@@ -52,7 +52,6 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 - Support for Linux/Mac by switching to another UI framework.
 - Expanded Moderation controls.
 - Disable banking(stores user currency for later use)
-- Ban user from using bot
 - Open to suggestions!
 
 ---
