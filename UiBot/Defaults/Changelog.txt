@@ -1,7 +1,5 @@
 1.0.0.82-alpha
--Added file locking to prevent errors if users are spamming commands to rapidly 
--Added debug mode to only show commands that are processing
--Adjusted bit multiplier and sub multiplier to be percentage based. If enabled when a user cheers bits they can get a bonus. example 100 cheered bits with a 20% multiplier = 20 bonus bits
+-Hotfix for bit multiplier stacking issue
 
 1.0.0.81-alpha
 -Fixed In Raid Check from running multiple instances

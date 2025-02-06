@@ -14,6 +14,7 @@ namespace UiBot
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
         private int mouseX;
         private int mouseY;
+        private bool isExpanded;
 
         public CommandBuilderMenu()
         {
@@ -21,6 +22,9 @@ namespace UiBot
             this.TopLevel = false;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(this.CommandBuilderMenu_KeyDown);
+            isExpanded = false;
+            inspectorPanel.Height = 0;
+            usagePanel.Top = inspectorPanel.Bottom + 28;
 
             commandHandler = new CustomCommandHandler(_commandsFilePath);
 
@@ -49,6 +53,24 @@ namespace UiBot
             // Register the event for profile selection change
             profileComboBox.SelectedIndexChanged += ProfileComboBox_SelectedIndexChanged;
         }
+
+        private void showhideInspector_Click(object sender, EventArgs e)
+        {
+            if (isExpanded)
+            {
+                inspectorPanel.Height = 0;
+                usagePanel.Top = inspectorPanel.Bottom + 25;
+
+            }
+            else
+            {
+                inspectorPanel.Height = 283;
+                usagePanel.Top = inspectorPanel.Bottom + 10;
+
+            }
+            isExpanded = !isExpanded;
+        }
+
 
         private void LoadProfilesIntoComboBox()
         {
@@ -811,7 +833,6 @@ namespace UiBot
                 Console.WriteLine($"Cannot execute command '{selectedCommand}'. Command does not exist or is broken.");
             }
         }
-
 
     }
 }

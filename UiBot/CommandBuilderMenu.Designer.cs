@@ -46,8 +46,11 @@
             restartButton = new Button();
             holdkeyButton = new Button();
             panel1 = new Panel();
-            testButton = new Button();
+            label24 = new Label();
+            pictureBox5 = new PictureBox();
+            label7 = new Label();
             label14 = new Label();
+            pictureBox8 = new PictureBox();
             mouseposTextBox = new TextBox();
             directionBox = new TextBox();
             speedBox = new TextBox();
@@ -57,6 +60,7 @@
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
+            testButton = new Button();
             mouseposButton = new Button();
             arightloopButton = new Button();
             aleftloopButton = new Button();
@@ -82,7 +86,6 @@
             turnButton = new Button();
             hitkeyButton = new Button();
             aholdkeyButton = new Button();
-            pictureBox5 = new PictureBox();
             disabledcommandsListBox = new ListBox();
             disablecommandButton = new Button();
             restorecommandButton = new Button();
@@ -92,9 +95,9 @@
             label1 = new Label();
             pictureBox3 = new PictureBox();
             panel3 = new Panel();
-            amouseposButton = new Button();
             label15 = new Label();
             pictureBox2 = new PictureBox();
+            amouseposButton = new Button();
             panel4 = new Panel();
             pixelateButton = new Button();
             adelayButton = new Button();
@@ -133,10 +136,21 @@
             remProfileButton = new Button();
             label21 = new Label();
             pictureBox7 = new PictureBox();
+            usagePanel = new Panel();
+            inspectorPanel = new Panel();
+            panel11 = new Panel();
+            label26 = new Label();
+            pictureBox15 = new PictureBox();
+            panel10 = new Panel();
+            label25 = new Label();
+            pictureBox11 = new PictureBox();
+            showhideInspector = new Button();
+            buttonTab = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel3.SuspendLayout();
@@ -154,11 +168,19 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            usagePanel.SuspendLayout();
+            inspectorPanel.SuspendLayout();
+            panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)buttonTab).BeginInit();
             SuspendLayout();
             // 
             // nametextBox
             // 
-            nametextBox.BackColor = SystemColors.ControlLight;
+            nametextBox.BackColor = Color.FromArgb(196, 197, 204);
+            nametextBox.BorderStyle = BorderStyle.FixedSingle;
             nametextBox.Location = new Point(53, 368);
             nametextBox.Name = "nametextBox";
             nametextBox.PlaceholderText = "spin";
@@ -167,7 +189,8 @@
             // 
             // costtextBox
             // 
-            costtextBox.BackColor = SystemColors.ControlLight;
+            costtextBox.BackColor = Color.FromArgb(196, 197, 204);
+            costtextBox.BorderStyle = BorderStyle.FixedSingle;
             costtextBox.Location = new Point(159, 368);
             costtextBox.Name = "costtextBox";
             costtextBox.PlaceholderText = "15";
@@ -176,11 +199,12 @@
             // 
             // commandtextBox
             // 
-            commandtextBox.BackColor = SystemColors.ControlLight;
+            commandtextBox.BackColor = Color.FromArgb(196, 197, 204);
+            commandtextBox.BorderStyle = BorderStyle.FixedSingle;
             commandtextBox.Location = new Point(216, 368);
             commandtextBox.Name = "commandtextBox";
             commandtextBox.PlaceholderText = "TM=RAND(5000,10)";
-            commandtextBox.Size = new Size(804, 23);
+            commandtextBox.Size = new Size(806, 23);
             commandtextBox.TabIndex = 3;
             // 
             // label2
@@ -222,19 +246,22 @@
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Location = new Point(53, 349);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(967, 42);
+            pictureBox1.Size = new Size(969, 42);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(106, 161);
+            saveButton.BackColor = SystemColors.ButtonFace;
+            saveButton.FlatAppearance.BorderSize = 0;
+            saveButton.FlatStyle = FlatStyle.Flat;
+            saveButton.Location = new Point(132, 392);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(114, 40);
+            saveButton.Size = new Size(114, 20);
             saveButton.TabIndex = 9;
             saveButton.Text = "Save Command";
-            saveButton.UseVisualStyleBackColor = true;
+            saveButton.UseVisualStyleBackColor = false;
             saveButton.Click += saveButton_Click;
             // 
             // commanduseBox
@@ -242,7 +269,7 @@
             commanduseBox.BackColor = Color.FromArgb(156, 155, 151);
             commanduseBox.BorderStyle = BorderStyle.None;
             commanduseBox.ForeColor = SystemColors.ControlText;
-            commanduseBox.Location = new Point(63, 675);
+            commanduseBox.Location = new Point(10, 26);
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
@@ -252,12 +279,15 @@
             // 
             // openCustomJson
             // 
+            openCustomJson.BackColor = SystemColors.ButtonFace;
+            openCustomJson.FlatAppearance.BorderSize = 0;
+            openCustomJson.FlatStyle = FlatStyle.Flat;
             openCustomJson.Location = new Point(33, 54);
             openCustomJson.Name = "openCustomJson";
             openCustomJson.Size = new Size(132, 23);
             openCustomJson.TabIndex = 13;
             openCustomJson.Text = "Open Enabled Json";
-            openCustomJson.UseVisualStyleBackColor = true;
+            openCustomJson.UseVisualStyleBackColor = false;
             openCustomJson.Click += openCustomJson_Click;
             // 
             // commandListBox
@@ -274,12 +304,15 @@
             // 
             // removeCommandButton
             // 
+            removeCommandButton.BackColor = SystemColors.ButtonFace;
+            removeCommandButton.FlatAppearance.BorderSize = 0;
+            removeCommandButton.FlatStyle = FlatStyle.Flat;
             removeCommandButton.Location = new Point(4, 230);
             removeCommandButton.Name = "removeCommandButton";
             removeCommandButton.Size = new Size(74, 45);
             removeCommandButton.TabIndex = 17;
             removeCommandButton.Text = "Delete Command";
-            removeCommandButton.UseVisualStyleBackColor = true;
+            removeCommandButton.UseVisualStyleBackColor = false;
             removeCommandButton.Click += removeCommandButton_Click;
             // 
             // label6
@@ -288,7 +321,7 @@
             label6.BackColor = Color.FromArgb(71, 83, 92);
             label6.Font = new Font("Constantia", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.ControlLight;
-            label6.Location = new Point(56, 649);
+            label6.Location = new Point(3, 0);
             label6.Name = "label6";
             label6.Size = new Size(179, 19);
             label6.TabIndex = 18;
@@ -298,80 +331,121 @@
             // 
             pictureBox6.BackColor = Color.FromArgb(71, 83, 92);
             pictureBox6.BackgroundImageLayout = ImageLayout.None;
-            pictureBox6.Location = new Point(53, 649);
+            pictureBox6.Location = new Point(0, 0);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(967, 23);
+            pictureBox6.Size = new Size(969, 23);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 19;
             pictureBox6.TabStop = false;
             // 
             // restartButton
             // 
-            restartButton.Location = new Point(226, 161);
+            restartButton.BackColor = SystemColors.ButtonFace;
+            restartButton.FlatAppearance.BorderSize = 0;
+            restartButton.FlatStyle = FlatStyle.Flat;
+            restartButton.Location = new Point(247, 392);
             restartButton.Name = "restartButton";
-            restartButton.Size = new Size(78, 40);
+            restartButton.Size = new Size(78, 20);
             restartButton.TabIndex = 23;
             restartButton.Text = "Restart";
-            restartButton.UseVisualStyleBackColor = true;
+            restartButton.UseVisualStyleBackColor = false;
             restartButton.Click += restartButton_Click;
             // 
             // holdkeyButton
             // 
+            holdkeyButton.BackColor = SystemColors.ButtonFace;
+            holdkeyButton.FlatAppearance.BorderSize = 0;
+            holdkeyButton.FlatStyle = FlatStyle.Flat;
             holdkeyButton.Location = new Point(3, 19);
             holdkeyButton.Name = "holdkeyButton";
             holdkeyButton.Size = new Size(75, 23);
             holdkeyButton.TabIndex = 24;
             holdkeyButton.Text = "Hold Key";
-            holdkeyButton.UseVisualStyleBackColor = true;
+            holdkeyButton.UseVisualStyleBackColor = false;
             holdkeyButton.Click += holdkeyButton_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
-            panel1.Controls.Add(testButton);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(pictureBox5);
+            panel1.Controls.Add(label7);
             panel1.Controls.Add(label14);
+            panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(mouseposTextBox);
             panel1.Controls.Add(directionBox);
             panel1.Controls.Add(speedBox);
             panel1.Controls.Add(keyBox);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(durBox);
-            panel1.Controls.Add(saveButton);
             panel1.Controls.Add(label10);
             panel1.Controls.Add(label9);
-            panel1.Controls.Add(restartButton);
             panel1.Controls.Add(label8);
-            panel1.Location = new Point(53, 397);
+            panel1.Location = new Point(0, 22);
             panel1.Name = "panel1";
-            panel1.Size = new Size(335, 220);
+            panel1.Size = new Size(239, 201);
             panel1.TabIndex = 25;
             // 
-            // testButton
+            // label24
             // 
-            testButton.Location = new Point(22, 161);
-            testButton.Name = "testButton";
-            testButton.Size = new Size(78, 40);
-            testButton.TabIndex = 58;
-            testButton.Text = "Test Command";
-            testButton.UseVisualStyleBackColor = true;
-            testButton.Click += testButton_Click;
+            label24.AutoSize = true;
+            label24.BackColor = Color.FromArgb(71, 83, 92);
+            label24.ForeColor = SystemColors.ControlLight;
+            label24.Location = new Point(0, 137);
+            label24.Name = "label24";
+            label24.Size = new Size(89, 15);
+            label24.TabIndex = 62;
+            label24.Text = "Mouse Position";
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox5.BackgroundImageLayout = ImageLayout.None;
+            pictureBox5.Location = new Point(0, 137);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(239, 15);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 61;
+            pictureBox5.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(71, 83, 92);
+            label7.ForeColor = SystemColors.ControlLight;
+            label7.Location = new Point(0, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(88, 15);
+            label7.TabIndex = 59;
+            label7.Text = "Input Modifiers";
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.BackColor = Color.FromArgb(156, 155, 151);
             label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(96, 127);
+            label14.Location = new Point(4, 181);
             label14.Name = "label14";
             label14.Size = new Size(230, 15);
             label14.TabIndex = 59;
             label14.Text = "Click box then hit Shift for Mouse Position";
             // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox8.BackgroundImageLayout = ImageLayout.None;
+            pictureBox8.Location = new Point(0, 0);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(239, 15);
+            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.TabIndex = 60;
+            pictureBox8.TabStop = false;
+            // 
             // mouseposTextBox
             // 
-            mouseposTextBox.BackColor = SystemColors.ControlLight;
+            mouseposTextBox.BackColor = Color.FromArgb(196, 197, 204);
             mouseposTextBox.BorderStyle = BorderStyle.FixedSingle;
-            mouseposTextBox.Location = new Point(3, 124);
+            mouseposTextBox.Location = new Point(3, 155);
             mouseposTextBox.Name = "mouseposTextBox";
             mouseposTextBox.Size = new Size(87, 23);
             mouseposTextBox.TabIndex = 58;
@@ -379,9 +453,9 @@
             // 
             // directionBox
             // 
-            directionBox.BackColor = SystemColors.ControlLight;
+            directionBox.BackColor = Color.FromArgb(196, 197, 204);
             directionBox.BorderStyle = BorderStyle.FixedSingle;
-            directionBox.Location = new Point(2, 91);
+            directionBox.Location = new Point(2, 108);
             directionBox.Name = "directionBox";
             directionBox.Size = new Size(39, 23);
             directionBox.TabIndex = 45;
@@ -389,9 +463,9 @@
             // 
             // speedBox
             // 
-            speedBox.BackColor = SystemColors.ControlLight;
+            speedBox.BackColor = Color.FromArgb(196, 197, 204);
             speedBox.BorderStyle = BorderStyle.FixedSingle;
-            speedBox.Location = new Point(2, 62);
+            speedBox.Location = new Point(2, 79);
             speedBox.Name = "speedBox";
             speedBox.Size = new Size(39, 23);
             speedBox.TabIndex = 44;
@@ -400,9 +474,9 @@
             // 
             // keyBox
             // 
-            keyBox.BackColor = SystemColors.ControlLight;
+            keyBox.BackColor = Color.FromArgb(196, 197, 204);
             keyBox.BorderStyle = BorderStyle.FixedSingle;
-            keyBox.Location = new Point(2, 33);
+            keyBox.Location = new Point(2, 50);
             keyBox.Name = "keyBox";
             keyBox.Size = new Size(39, 23);
             keyBox.TabIndex = 43;
@@ -414,7 +488,7 @@
             label11.AutoSize = true;
             label11.BackColor = Color.FromArgb(156, 155, 151);
             label11.ForeColor = SystemColors.ControlText;
-            label11.Location = new Point(45, 94);
+            label11.Location = new Point(45, 111);
             label11.Name = "label11";
             label11.Size = new Size(139, 15);
             label11.TabIndex = 49;
@@ -422,9 +496,9 @@
             // 
             // durBox
             // 
-            durBox.BackColor = SystemColors.ControlLight;
+            durBox.BackColor = Color.FromArgb(196, 197, 204);
             durBox.BorderStyle = BorderStyle.FixedSingle;
-            durBox.Location = new Point(2, 4);
+            durBox.Location = new Point(2, 21);
             durBox.Name = "durBox";
             durBox.Size = new Size(39, 23);
             durBox.TabIndex = 42;
@@ -436,7 +510,7 @@
             label10.AutoSize = true;
             label10.BackColor = Color.FromArgb(156, 155, 151);
             label10.ForeColor = SystemColors.ControlText;
-            label10.Location = new Point(45, 67);
+            label10.Location = new Point(45, 84);
             label10.Name = "label10";
             label10.Size = new Size(73, 15);
             label10.TabIndex = 48;
@@ -447,7 +521,7 @@
             label9.AutoSize = true;
             label9.BackColor = Color.FromArgb(156, 155, 151);
             label9.ForeColor = SystemColors.ControlText;
-            label9.Location = new Point(45, 36);
+            label9.Location = new Point(45, 53);
             label9.Name = "label9";
             label9.Size = new Size(57, 15);
             label9.TabIndex = 47;
@@ -458,271 +532,351 @@
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(156, 155, 151);
             label8.ForeColor = SystemColors.ControlText;
-            label8.Location = new Point(45, 7);
+            label8.Location = new Point(45, 24);
             label8.Name = "label8";
             label8.Size = new Size(139, 15);
             label8.TabIndex = 46;
             label8.Text = "Amount/Duration(in ms)";
             // 
+            // testButton
+            // 
+            testButton.BackColor = SystemColors.ButtonFace;
+            testButton.FlatAppearance.BorderSize = 0;
+            testButton.FlatStyle = FlatStyle.Flat;
+            testButton.Location = new Point(53, 392);
+            testButton.Name = "testButton";
+            testButton.Size = new Size(78, 20);
+            testButton.TabIndex = 58;
+            testButton.Text = "Test Command";
+            testButton.UseVisualStyleBackColor = false;
+            testButton.Click += testButton_Click;
+            // 
             // mouseposButton
             // 
-            mouseposButton.Location = new Point(3, 94);
+            mouseposButton.BackColor = SystemColors.ButtonFace;
+            mouseposButton.FlatAppearance.BorderSize = 0;
+            mouseposButton.FlatStyle = FlatStyle.Flat;
+            mouseposButton.Location = new Point(89, 18);
             mouseposButton.Name = "mouseposButton";
-            mouseposButton.Size = new Size(85, 67);
+            mouseposButton.Size = new Size(93, 38);
             mouseposButton.TabIndex = 57;
-            mouseposButton.Text = "Move Mouse to Position";
-            mouseposButton.UseVisualStyleBackColor = true;
+            mouseposButton.Text = "Mouse to Position";
+            mouseposButton.UseVisualStyleBackColor = false;
             mouseposButton.Click += mouseposButton_Click;
             // 
             // arightloopButton
             // 
-            arightloopButton.Location = new Point(207, 195);
+            arightloopButton.BackColor = SystemColors.ButtonFace;
+            arightloopButton.FlatAppearance.BorderSize = 0;
+            arightloopButton.FlatStyle = FlatStyle.Flat;
+            arightloopButton.Location = new Point(3, 181);
             arightloopButton.Name = "arightloopButton";
-            arightloopButton.Size = new Size(104, 40);
+            arightloopButton.Size = new Size(103, 40);
             arightloopButton.TabIndex = 56;
             arightloopButton.Text = "Sync Loop Right Click";
-            arightloopButton.UseVisualStyleBackColor = true;
+            arightloopButton.UseVisualStyleBackColor = false;
             arightloopButton.Click += arightloopButton_Click;
             // 
             // aleftloopButton
             // 
-            aleftloopButton.Location = new Point(101, 195);
+            aleftloopButton.BackColor = SystemColors.ButtonFace;
+            aleftloopButton.FlatAppearance.BorderSize = 0;
+            aleftloopButton.FlatStyle = FlatStyle.Flat;
+            aleftloopButton.Location = new Point(3, 182);
             aleftloopButton.Name = "aleftloopButton";
-            aleftloopButton.Size = new Size(104, 40);
+            aleftloopButton.Size = new Size(95, 40);
             aleftloopButton.TabIndex = 55;
             aleftloopButton.Text = "Sync Loop Left Click";
-            aleftloopButton.UseVisualStyleBackColor = true;
+            aleftloopButton.UseVisualStyleBackColor = false;
             aleftloopButton.Click += aleftloopButton_Click;
             // 
             // rightloopButton
             // 
-            rightloopButton.Location = new Point(207, 166);
+            rightloopButton.BackColor = SystemColors.ButtonFace;
+            rightloopButton.FlatAppearance.BorderSize = 0;
+            rightloopButton.FlatStyle = FlatStyle.Flat;
+            rightloopButton.Font = new Font("Segoe UI", 8F);
+            rightloopButton.Location = new Point(3, 153);
             rightloopButton.Name = "rightloopButton";
-            rightloopButton.Size = new Size(104, 23);
+            rightloopButton.Size = new Size(103, 23);
             rightloopButton.TabIndex = 54;
             rightloopButton.Text = "Loop Right Click";
-            rightloopButton.UseVisualStyleBackColor = true;
+            rightloopButton.UseVisualStyleBackColor = false;
             rightloopButton.Click += rightloopButton_Click;
             // 
             // leftloopButton
             // 
-            leftloopButton.Location = new Point(101, 166);
+            leftloopButton.BackColor = SystemColors.ButtonFace;
+            leftloopButton.FlatAppearance.BorderSize = 0;
+            leftloopButton.FlatStyle = FlatStyle.Flat;
+            leftloopButton.Location = new Point(3, 153);
             leftloopButton.Name = "leftloopButton";
-            leftloopButton.Size = new Size(104, 23);
+            leftloopButton.Size = new Size(95, 23);
             leftloopButton.TabIndex = 53;
             leftloopButton.Text = "Loop Left Click";
-            leftloopButton.UseVisualStyleBackColor = true;
+            leftloopButton.UseVisualStyleBackColor = false;
             leftloopButton.Click += leftloopButton_Click;
             // 
             // amuteButton
             // 
+            amuteButton.BackColor = SystemColors.ButtonFace;
+            amuteButton.FlatAppearance.BorderSize = 0;
+            amuteButton.FlatStyle = FlatStyle.Flat;
             amuteButton.Location = new Point(84, 48);
             amuteButton.Name = "amuteButton";
             amuteButton.Size = new Size(75, 40);
             amuteButton.TabIndex = 52;
             amuteButton.Text = "Sync Mute Vol";
-            amuteButton.UseVisualStyleBackColor = true;
+            amuteButton.UseVisualStyleBackColor = false;
             amuteButton.Click += amuteButton_Click;
             // 
             // ahitkeyloopButton
             // 
-            ahitkeyloopButton.Location = new Point(167, 65);
+            ahitkeyloopButton.BackColor = SystemColors.ButtonFace;
+            ahitkeyloopButton.FlatAppearance.BorderSize = 0;
+            ahitkeyloopButton.FlatStyle = FlatStyle.Flat;
+            ahitkeyloopButton.Location = new Point(3, 211);
             ahitkeyloopButton.Name = "ahitkeyloopButton";
-            ahitkeyloopButton.Size = new Size(73, 40);
+            ahitkeyloopButton.Size = new Size(75, 40);
             ahitkeyloopButton.TabIndex = 51;
             ahitkeyloopButton.Text = "Sync Hit Key Loop";
-            ahitkeyloopButton.UseVisualStyleBackColor = true;
+            ahitkeyloopButton.UseVisualStyleBackColor = false;
             ahitkeyloopButton.Click += ahitkeyloopButton_Click;
             // 
             // hitkeyloopButton
             // 
-            hitkeyloopButton.Location = new Point(165, 19);
+            hitkeyloopButton.BackColor = SystemColors.ButtonFace;
+            hitkeyloopButton.FlatAppearance.BorderSize = 0;
+            hitkeyloopButton.FlatStyle = FlatStyle.Flat;
+            hitkeyloopButton.Location = new Point(3, 169);
             hitkeyloopButton.Name = "hitkeyloopButton";
-            hitkeyloopButton.Size = new Size(75, 40);
+            hitkeyloopButton.Size = new Size(75, 38);
             hitkeyloopButton.TabIndex = 50;
             hitkeyloopButton.Text = "Hit Key Loop";
-            hitkeyloopButton.UseVisualStyleBackColor = true;
+            hitkeyloopButton.UseVisualStyleBackColor = false;
             hitkeyloopButton.Click += hitkeyloopButton_Click;
             // 
             // muteButton
             // 
+            muteButton.BackColor = SystemColors.ButtonFace;
+            muteButton.FlatAppearance.BorderSize = 0;
+            muteButton.FlatStyle = FlatStyle.Flat;
             muteButton.Location = new Point(84, 19);
             muteButton.Name = "muteButton";
             muteButton.Size = new Size(75, 23);
             muteButton.TabIndex = 41;
             muteButton.Text = "Mute Vol";
-            muteButton.UseVisualStyleBackColor = true;
+            muteButton.UseVisualStyleBackColor = false;
             muteButton.Click += muteButton_Click;
             // 
             // aplaysoundButton
             // 
+            aplaysoundButton.BackColor = SystemColors.ButtonFace;
+            aplaysoundButton.FlatAppearance.BorderSize = 0;
+            aplaysoundButton.FlatStyle = FlatStyle.Flat;
             aplaysoundButton.Location = new Point(165, 48);
             aplaysoundButton.Name = "aplaysoundButton";
             aplaysoundButton.Size = new Size(75, 40);
             aplaysoundButton.TabIndex = 40;
             aplaysoundButton.Text = "Sync Play Sound";
-            aplaysoundButton.UseVisualStyleBackColor = true;
+            aplaysoundButton.UseVisualStyleBackColor = false;
             aplaysoundButton.Click += aplaysoundButton_Click;
             // 
             // arightholdButton
             // 
-            arightholdButton.Location = new Point(207, 123);
+            arightholdButton.BackColor = SystemColors.ButtonFace;
+            arightholdButton.FlatAppearance.BorderSize = 0;
+            arightholdButton.FlatStyle = FlatStyle.Flat;
+            arightholdButton.Location = new Point(3, 105);
             arightholdButton.Name = "arightholdButton";
-            arightholdButton.Size = new Size(105, 40);
+            arightholdButton.Size = new Size(103, 42);
             arightholdButton.TabIndex = 39;
             arightholdButton.Text = "Sync Right Click Hold";
-            arightholdButton.UseVisualStyleBackColor = true;
+            arightholdButton.UseVisualStyleBackColor = false;
             arightholdButton.Click += arightholdButton_Click;
             // 
             // aleftholdButton
             // 
-            aleftholdButton.Location = new Point(101, 123);
+            aleftholdButton.BackColor = SystemColors.ButtonFace;
+            aleftholdButton.FlatAppearance.BorderSize = 0;
+            aleftholdButton.FlatStyle = FlatStyle.Flat;
+            aleftholdButton.Location = new Point(3, 106);
             aleftholdButton.Name = "aleftholdButton";
-            aleftholdButton.Size = new Size(100, 40);
+            aleftholdButton.Size = new Size(95, 41);
             aleftholdButton.TabIndex = 38;
             aleftholdButton.Text = "Sync Left Click Hold";
-            aleftholdButton.UseVisualStyleBackColor = true;
+            aleftholdButton.UseVisualStyleBackColor = false;
             aleftholdButton.Click += aleftholdButton_Click;
             // 
             // arightButton
             // 
-            arightButton.Location = new Point(237, 48);
+            arightButton.BackColor = SystemColors.ButtonFace;
+            arightButton.FlatAppearance.BorderSize = 0;
+            arightButton.FlatStyle = FlatStyle.Flat;
+            arightButton.Location = new Point(3, 47);
             arightButton.Name = "arightButton";
-            arightButton.Size = new Size(75, 40);
+            arightButton.Size = new Size(103, 23);
             arightButton.TabIndex = 37;
             arightButton.Text = "Sync Right Click";
-            arightButton.UseVisualStyleBackColor = true;
+            arightButton.UseVisualStyleBackColor = false;
             arightButton.Click += arightButton_Click;
             // 
             // aleftButton
             // 
-            aleftButton.Location = new Point(156, 48);
+            aleftButton.BackColor = SystemColors.ButtonFace;
+            aleftButton.FlatAppearance.BorderSize = 0;
+            aleftButton.FlatStyle = FlatStyle.Flat;
+            aleftButton.Location = new Point(3, 48);
             aleftButton.Name = "aleftButton";
-            aleftButton.Size = new Size(75, 40);
+            aleftButton.Size = new Size(95, 23);
             aleftButton.TabIndex = 36;
             aleftButton.Text = "Sync Left Click";
-            aleftButton.UseVisualStyleBackColor = true;
+            aleftButton.UseVisualStyleBackColor = false;
             aleftButton.Click += aleftButton_Click;
             // 
             // aturnButton
             // 
-            aturnButton.Location = new Point(3, 48);
+            aturnButton.BackColor = SystemColors.ButtonFace;
+            aturnButton.FlatAppearance.BorderSize = 0;
+            aturnButton.FlatStyle = FlatStyle.Flat;
+            aturnButton.Location = new Point(3, 59);
             aturnButton.Name = "aturnButton";
-            aturnButton.Size = new Size(85, 40);
+            aturnButton.Size = new Size(80, 40);
             aturnButton.TabIndex = 35;
             aturnButton.Text = "Sync Turn Mouse";
-            aturnButton.UseVisualStyleBackColor = true;
+            aturnButton.UseVisualStyleBackColor = false;
             aturnButton.Click += aturnButton_Click;
             // 
             // ahitkeyButton
             // 
-            ahitkeyButton.Location = new Point(84, 48);
+            ahitkeyButton.BackColor = SystemColors.ButtonFace;
+            ahitkeyButton.FlatAppearance.BorderSize = 0;
+            ahitkeyButton.FlatStyle = FlatStyle.Flat;
+            ahitkeyButton.Location = new Point(3, 123);
             ahitkeyButton.Name = "ahitkeyButton";
             ahitkeyButton.Size = new Size(75, 40);
             ahitkeyButton.TabIndex = 34;
             ahitkeyButton.Text = "Sync Hit Key";
-            ahitkeyButton.UseVisualStyleBackColor = true;
+            ahitkeyButton.UseVisualStyleBackColor = false;
             ahitkeyButton.Click += ahitkeyButton_Click;
             // 
             // delayButton
             // 
+            delayButton.BackColor = SystemColors.ButtonFace;
+            delayButton.FlatAppearance.BorderSize = 0;
+            delayButton.FlatStyle = FlatStyle.Flat;
             delayButton.Location = new Point(3, 19);
             delayButton.Name = "delayButton";
             delayButton.Size = new Size(75, 23);
             delayButton.TabIndex = 33;
             delayButton.Text = "Delay";
-            delayButton.UseVisualStyleBackColor = true;
+            delayButton.UseVisualStyleBackColor = false;
             delayButton.Click += delayButton_Click;
             // 
             // playsoundButton
             // 
+            playsoundButton.BackColor = SystemColors.ButtonFace;
+            playsoundButton.FlatAppearance.BorderSize = 0;
+            playsoundButton.FlatStyle = FlatStyle.Flat;
             playsoundButton.Location = new Point(165, 19);
             playsoundButton.Name = "playsoundButton";
             playsoundButton.Size = new Size(75, 23);
             playsoundButton.TabIndex = 32;
             playsoundButton.Text = "Play Sound Clip";
-            playsoundButton.UseVisualStyleBackColor = true;
+            playsoundButton.UseVisualStyleBackColor = false;
             playsoundButton.Click += playsoundButton_Click;
             // 
             // rightholdButton
             // 
-            rightholdButton.Location = new Point(207, 94);
+            rightholdButton.BackColor = SystemColors.ButtonFace;
+            rightholdButton.FlatAppearance.BorderSize = 0;
+            rightholdButton.FlatStyle = FlatStyle.Flat;
+            rightholdButton.Font = new Font("Segoe UI", 8F);
+            rightholdButton.Location = new Point(3, 76);
             rightholdButton.Name = "rightholdButton";
-            rightholdButton.Size = new Size(105, 23);
+            rightholdButton.Size = new Size(103, 23);
             rightholdButton.TabIndex = 31;
             rightholdButton.Text = "Right Click Hold";
-            rightholdButton.UseVisualStyleBackColor = true;
+            rightholdButton.UseVisualStyleBackColor = false;
             rightholdButton.Click += rightholdButton_Click;
             // 
             // leftholdButton
             // 
-            leftholdButton.Location = new Point(101, 94);
+            leftholdButton.BackColor = SystemColors.ButtonFace;
+            leftholdButton.FlatAppearance.BorderSize = 0;
+            leftholdButton.FlatStyle = FlatStyle.Flat;
+            leftholdButton.Location = new Point(3, 77);
             leftholdButton.Name = "leftholdButton";
-            leftholdButton.Size = new Size(100, 23);
+            leftholdButton.Size = new Size(95, 23);
             leftholdButton.TabIndex = 30;
             leftholdButton.Text = "Left Click Hold";
-            leftholdButton.UseVisualStyleBackColor = true;
+            leftholdButton.UseVisualStyleBackColor = false;
             leftholdButton.Click += leftholdButton_Click;
             // 
             // rightButton
             // 
-            rightButton.Location = new Point(237, 19);
+            rightButton.BackColor = SystemColors.ButtonFace;
+            rightButton.FlatAppearance.BorderSize = 0;
+            rightButton.FlatStyle = FlatStyle.Flat;
+            rightButton.Location = new Point(3, 18);
             rightButton.Name = "rightButton";
-            rightButton.Size = new Size(75, 23);
+            rightButton.Size = new Size(103, 23);
             rightButton.TabIndex = 29;
             rightButton.Text = "Right Click";
-            rightButton.UseVisualStyleBackColor = true;
+            rightButton.UseVisualStyleBackColor = false;
             rightButton.Click += rightButton_Click;
             // 
             // leftButton
             // 
-            leftButton.Location = new Point(156, 19);
+            leftButton.BackColor = SystemColors.ButtonFace;
+            leftButton.FlatAppearance.BorderSize = 0;
+            leftButton.FlatStyle = FlatStyle.Flat;
+            leftButton.Location = new Point(3, 19);
             leftButton.Name = "leftButton";
-            leftButton.Size = new Size(75, 23);
+            leftButton.Size = new Size(95, 23);
             leftButton.TabIndex = 28;
             leftButton.Text = "Left Click";
-            leftButton.UseVisualStyleBackColor = true;
+            leftButton.UseVisualStyleBackColor = false;
             leftButton.Click += leftButton_Click;
             // 
             // turnButton
             // 
-            turnButton.Location = new Point(3, 19);
+            turnButton.BackColor = SystemColors.ButtonFace;
+            turnButton.FlatAppearance.BorderSize = 0;
+            turnButton.FlatStyle = FlatStyle.Flat;
+            turnButton.Location = new Point(3, 18);
             turnButton.Name = "turnButton";
-            turnButton.Size = new Size(85, 23);
+            turnButton.Size = new Size(80, 38);
             turnButton.TabIndex = 27;
             turnButton.Text = "Turn Mouse";
-            turnButton.UseVisualStyleBackColor = true;
+            turnButton.UseVisualStyleBackColor = false;
             turnButton.Click += turnButton_Click;
             // 
             // hitkeyButton
             // 
-            hitkeyButton.Location = new Point(84, 19);
+            hitkeyButton.BackColor = SystemColors.ButtonFace;
+            hitkeyButton.FlatAppearance.BorderSize = 0;
+            hitkeyButton.FlatStyle = FlatStyle.Flat;
+            hitkeyButton.Location = new Point(3, 94);
             hitkeyButton.Name = "hitkeyButton";
             hitkeyButton.Size = new Size(75, 23);
             hitkeyButton.TabIndex = 26;
             hitkeyButton.Text = "Hit Key";
-            hitkeyButton.UseVisualStyleBackColor = true;
+            hitkeyButton.UseVisualStyleBackColor = false;
             hitkeyButton.Click += hitkeyButton_Click;
             // 
             // aholdkeyButton
             // 
+            aholdkeyButton.BackColor = SystemColors.ButtonFace;
+            aholdkeyButton.FlatAppearance.BorderSize = 0;
+            aholdkeyButton.FlatStyle = FlatStyle.Flat;
             aholdkeyButton.Location = new Point(3, 48);
             aholdkeyButton.Name = "aholdkeyButton";
             aholdkeyButton.Size = new Size(75, 40);
             aholdkeyButton.TabIndex = 25;
             aholdkeyButton.Text = "Sync Hold Key";
-            aholdkeyButton.UseVisualStyleBackColor = true;
+            aholdkeyButton.UseVisualStyleBackColor = false;
             aholdkeyButton.Click += aholdkeyButton_Click;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = Color.FromArgb(156, 155, 151);
-            pictureBox5.Location = new Point(53, 665);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(967, 336);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 12;
-            pictureBox5.TabStop = false;
             // 
             // disabledcommandsListBox
             // 
@@ -738,21 +892,27 @@
             // 
             // disablecommandButton
             // 
+            disablecommandButton.BackColor = SystemColors.ButtonFace;
+            disablecommandButton.FlatAppearance.BorderSize = 0;
+            disablecommandButton.FlatStyle = FlatStyle.Flat;
             disablecommandButton.Location = new Point(85, 230);
             disablecommandButton.Name = "disablecommandButton";
             disablecommandButton.Size = new Size(72, 45);
             disablecommandButton.TabIndex = 27;
             disablecommandButton.Text = "Disable Command";
-            disablecommandButton.UseVisualStyleBackColor = true;
+            disablecommandButton.UseVisualStyleBackColor = false;
             // 
             // restorecommandButton
             // 
+            restorecommandButton.BackColor = SystemColors.ButtonFace;
+            restorecommandButton.FlatAppearance.BorderSize = 0;
+            restorecommandButton.FlatStyle = FlatStyle.Flat;
             restorecommandButton.Location = new Point(183, 230);
             restorecommandButton.Name = "restorecommandButton";
             restorecommandButton.Size = new Size(153, 45);
             restorecommandButton.TabIndex = 28;
             restorecommandButton.Text = "Enable Selected Command";
-            restorecommandButton.UseVisualStyleBackColor = true;
+            restorecommandButton.UseVisualStyleBackColor = false;
             // 
             // label12
             // 
@@ -779,17 +939,17 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(label1);
             panel2.Controls.Add(holdkeyButton);
             panel2.Controls.Add(aholdkeyButton);
             panel2.Controls.Add(hitkeyButton);
             panel2.Controls.Add(ahitkeyButton);
             panel2.Controls.Add(hitkeyloopButton);
             panel2.Controls.Add(ahitkeyloopButton);
+            panel2.Controls.Add(label1);
             panel2.Controls.Add(pictureBox3);
-            panel2.Location = new Point(394, 396);
+            panel2.Location = new Point(245, 22);
             panel2.Name = "panel2";
-            panel2.Size = new Size(246, 117);
+            panel2.Size = new Size(81, 255);
             panel2.TabIndex = 31;
             // 
             // label1
@@ -809,7 +969,7 @@
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(246, 15);
+            pictureBox3.Size = new Size(81, 15);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 58;
             pictureBox3.TabStop = false;
@@ -817,38 +977,18 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(156, 155, 151);
-            panel3.Controls.Add(amouseposButton);
             panel3.Controls.Add(label15);
-            panel3.Controls.Add(turnButton);
-            panel3.Controls.Add(aturnButton);
             panel3.Controls.Add(arightloopButton);
-            panel3.Controls.Add(mouseposButton);
-            panel3.Controls.Add(aleftloopButton);
-            panel3.Controls.Add(leftButton);
             panel3.Controls.Add(rightloopButton);
             panel3.Controls.Add(rightButton);
-            panel3.Controls.Add(leftloopButton);
-            panel3.Controls.Add(aleftButton);
             panel3.Controls.Add(arightButton);
-            panel3.Controls.Add(leftholdButton);
-            panel3.Controls.Add(aleftholdButton);
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(707, 396);
+            panel3.Location = new Point(439, 22);
             panel3.Name = "panel3";
-            panel3.Size = new Size(313, 244);
+            panel3.Size = new Size(109, 225);
             panel3.TabIndex = 32;
-            // 
-            // amouseposButton
-            // 
-            amouseposButton.Location = new Point(3, 166);
-            amouseposButton.Name = "amouseposButton";
-            amouseposButton.Size = new Size(85, 67);
-            amouseposButton.TabIndex = 58;
-            amouseposButton.Text = "Sync Move Mouse to Position";
-            amouseposButton.UseVisualStyleBackColor = true;
-            amouseposButton.Click += amouseposButton_Click;
             // 
             // label15
             // 
@@ -857,9 +997,9 @@
             label15.ForeColor = SystemColors.ControlLight;
             label15.Location = new Point(0, 0);
             label15.Name = "label15";
-            label15.Size = new Size(98, 15);
+            label15.Size = new Size(64, 15);
             label15.TabIndex = 52;
-            label15.Text = "Mouse Functions";
+            label15.Text = "Right Click";
             // 
             // pictureBox2
             // 
@@ -867,10 +1007,23 @@
             pictureBox2.BackgroundImageLayout = ImageLayout.None;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(363, 15);
+            pictureBox2.Size = new Size(109, 15);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 34;
             pictureBox2.TabStop = false;
+            // 
+            // amouseposButton
+            // 
+            amouseposButton.BackColor = SystemColors.ButtonFace;
+            amouseposButton.FlatAppearance.BorderSize = 0;
+            amouseposButton.FlatStyle = FlatStyle.Flat;
+            amouseposButton.Location = new Point(89, 59);
+            amouseposButton.Name = "amouseposButton";
+            amouseposButton.Size = new Size(93, 40);
+            amouseposButton.TabIndex = 58;
+            amouseposButton.Text = "Sync Mouse to Position";
+            amouseposButton.UseVisualStyleBackColor = false;
+            amouseposButton.Click += amouseposButton_Click;
             // 
             // panel4
             // 
@@ -884,29 +1037,35 @@
             panel4.Controls.Add(delayButton);
             panel4.Controls.Add(muteButton);
             panel4.Controls.Add(pictureBox4);
-            panel4.Location = new Point(394, 524);
+            panel4.Location = new Point(551, 130);
             panel4.Name = "panel4";
-            panel4.Size = new Size(307, 107);
+            panel4.Size = new Size(309, 93);
             panel4.TabIndex = 33;
             // 
             // pixelateButton
             // 
+            pixelateButton.BackColor = SystemColors.ButtonFace;
+            pixelateButton.FlatAppearance.BorderSize = 0;
+            pixelateButton.FlatStyle = FlatStyle.Flat;
             pixelateButton.Location = new Point(246, 19);
             pixelateButton.Name = "pixelateButton";
             pixelateButton.Size = new Size(58, 69);
             pixelateButton.TabIndex = 59;
             pixelateButton.Text = "Pixelate Screen";
-            pixelateButton.UseVisualStyleBackColor = true;
+            pixelateButton.UseVisualStyleBackColor = false;
             pixelateButton.Click += pixelateButton_Click;
             // 
             // adelayButton
             // 
+            adelayButton.BackColor = SystemColors.ButtonFace;
+            adelayButton.FlatAppearance.BorderSize = 0;
+            adelayButton.FlatStyle = FlatStyle.Flat;
             adelayButton.Location = new Point(3, 48);
             adelayButton.Name = "adelayButton";
             adelayButton.Size = new Size(75, 40);
             adelayButton.TabIndex = 59;
             adelayButton.Text = "Sync Delay";
-            adelayButton.UseVisualStyleBackColor = true;
+            adelayButton.UseVisualStyleBackColor = false;
             adelayButton.Click += adelayButton_Click;
             // 
             // label16
@@ -926,7 +1085,7 @@
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(307, 15);
+            pictureBox4.Size = new Size(309, 15);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
@@ -946,87 +1105,119 @@
             // 
             // walkButton
             // 
+            walkButton.BackColor = SystemColors.ButtonFace;
+            walkButton.FlatAppearance.BorderSize = 0;
+            walkButton.FlatStyle = FlatStyle.Flat;
+            walkButton.Font = new Font("Segoe UI", 8F);
             walkButton.Location = new Point(12, 30);
             walkButton.Name = "walkButton";
             walkButton.Size = new Size(75, 23);
             walkButton.TabIndex = 35;
             walkButton.Text = "Walk";
-            walkButton.UseVisualStyleBackColor = true;
+            walkButton.UseVisualStyleBackColor = false;
             walkButton.Click += walkButton_Click;
             // 
             // wiggleButton
             // 
+            wiggleButton.BackColor = SystemColors.ButtonFace;
+            wiggleButton.FlatAppearance.BorderSize = 0;
+            wiggleButton.FlatStyle = FlatStyle.Flat;
+            wiggleButton.Font = new Font("Segoe UI", 8F);
             wiggleButton.Location = new Point(93, 30);
             wiggleButton.Name = "wiggleButton";
             wiggleButton.Size = new Size(91, 23);
             wiggleButton.TabIndex = 40;
             wiggleButton.Text = "Wiggle Mouse";
-            wiggleButton.UseVisualStyleBackColor = true;
+            wiggleButton.UseVisualStyleBackColor = false;
             wiggleButton.Click += wiggleButton_Click;
             // 
             // spinButton
             // 
+            spinButton.BackColor = SystemColors.ButtonFace;
+            spinButton.FlatAppearance.BorderSize = 0;
+            spinButton.FlatStyle = FlatStyle.Flat;
+            spinButton.Font = new Font("Segoe UI", 8F);
             spinButton.Location = new Point(12, 59);
             spinButton.Name = "spinButton";
             spinButton.Size = new Size(75, 23);
             spinButton.TabIndex = 41;
             spinButton.Text = "Spin";
-            spinButton.UseVisualStyleBackColor = true;
+            spinButton.UseVisualStyleBackColor = false;
             spinButton.Click += spinButton_Click;
             // 
             // crouchButton
             // 
+            crouchButton.BackColor = SystemColors.ButtonFace;
+            crouchButton.FlatAppearance.BorderSize = 0;
+            crouchButton.FlatStyle = FlatStyle.Flat;
+            crouchButton.Font = new Font("Segoe UI", 8F);
             crouchButton.Location = new Point(12, 88);
             crouchButton.Name = "crouchButton";
             crouchButton.Size = new Size(75, 23);
             crouchButton.TabIndex = 42;
             crouchButton.Text = "Crouch";
-            crouchButton.UseVisualStyleBackColor = true;
+            crouchButton.UseVisualStyleBackColor = false;
             crouchButton.Click += crouchButton_Click;
             // 
             // mdumpButton
             // 
+            mdumpButton.BackColor = SystemColors.ButtonFace;
+            mdumpButton.FlatAppearance.BorderSize = 0;
+            mdumpButton.FlatStyle = FlatStyle.Flat;
+            mdumpButton.Font = new Font("Segoe UI", 8F);
             mdumpButton.Location = new Point(93, 88);
             mdumpButton.Name = "mdumpButton";
             mdumpButton.Size = new Size(91, 23);
             mdumpButton.TabIndex = 43;
             mdumpButton.Text = "360 Mag Dump";
-            mdumpButton.UseVisualStyleBackColor = true;
+            mdumpButton.UseVisualStyleBackColor = false;
             mdumpButton.Click += mdumpButton_Click;
             // 
             // firemodeButton
             // 
+            firemodeButton.BackColor = SystemColors.ButtonFace;
+            firemodeButton.FlatAppearance.BorderSize = 0;
+            firemodeButton.FlatStyle = FlatStyle.Flat;
+            firemodeButton.Font = new Font("Segoe UI", 8F);
             firemodeButton.Location = new Point(93, 59);
             firemodeButton.Name = "firemodeButton";
             firemodeButton.Size = new Size(91, 23);
             firemodeButton.TabIndex = 44;
             firemodeButton.Text = "Fire Mode Select";
-            firemodeButton.UseVisualStyleBackColor = true;
+            firemodeButton.UseVisualStyleBackColor = false;
             firemodeButton.Click += firemodeButton_Click;
             // 
             // hotmicButton
             // 
+            hotmicButton.BackColor = SystemColors.ButtonFace;
+            hotmicButton.FlatAppearance.BorderSize = 0;
+            hotmicButton.FlatStyle = FlatStyle.Flat;
+            hotmicButton.Font = new Font("Segoe UI", 8F);
             hotmicButton.Location = new Point(93, 117);
             hotmicButton.Name = "hotmicButton";
             hotmicButton.Size = new Size(91, 23);
             hotmicButton.TabIndex = 45;
             hotmicButton.Text = "Hot Mic";
-            hotmicButton.UseVisualStyleBackColor = true;
+            hotmicButton.UseVisualStyleBackColor = false;
             hotmicButton.Click += hotmicButton_Click;
             // 
             // alftf4Button
             // 
+            alftf4Button.BackColor = SystemColors.ButtonFace;
+            alftf4Button.FlatAppearance.BorderSize = 0;
+            alftf4Button.FlatStyle = FlatStyle.Flat;
+            alftf4Button.Font = new Font("Segoe UI", 8F);
             alftf4Button.Location = new Point(12, 117);
             alftf4Button.Name = "alftf4Button";
             alftf4Button.Size = new Size(75, 23);
             alftf4Button.TabIndex = 46;
             alftf4Button.Text = "Alt F4";
-            alftf4Button.UseVisualStyleBackColor = true;
+            alftf4Button.UseVisualStyleBackColor = false;
             alftf4Button.Click += alftf4Button_Click;
             // 
             // pictureBox12
             // 
-            pictureBox12.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox12.BackColor = Color.FromArgb(196, 197, 204);
             pictureBox12.BackgroundImageLayout = ImageLayout.None;
             pictureBox12.Location = new Point(53, 320);
             pictureBox12.Name = "pictureBox12";
@@ -1038,9 +1229,9 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.BackColor = Color.FromArgb(71, 83, 92);
+            label18.BackColor = Color.FromArgb(196, 197, 204);
             label18.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label18.ForeColor = SystemColors.ControlLight;
+            label18.ForeColor = SystemColors.ControlText;
             label18.Location = new Point(53, 326);
             label18.Name = "label18";
             label18.Size = new Size(229, 19);
@@ -1062,12 +1253,15 @@
             // 
             // openDisabledJson
             // 
+            openDisabledJson.BackColor = SystemColors.ButtonFace;
+            openDisabledJson.FlatAppearance.BorderSize = 0;
+            openDisabledJson.FlatStyle = FlatStyle.Flat;
             openDisabledJson.Location = new Point(33, 83);
             openDisabledJson.Name = "openDisabledJson";
             openDisabledJson.Size = new Size(132, 23);
             openDisabledJson.TabIndex = 52;
             openDisabledJson.Text = "Open Disabled Json";
-            openDisabledJson.UseVisualStyleBackColor = true;
+            openDisabledJson.UseVisualStyleBackColor = false;
             openDisabledJson.Click += openDisabledJson_Click;
             // 
             // label19
@@ -1244,12 +1438,15 @@
             // 
             // newProfileButton
             // 
+            newProfileButton.BackColor = SystemColors.ButtonFace;
+            newProfileButton.FlatAppearance.BorderSize = 0;
+            newProfileButton.FlatStyle = FlatStyle.Flat;
             newProfileButton.Location = new Point(13, 58);
             newProfileButton.Name = "newProfileButton";
             newProfileButton.Size = new Size(83, 23);
             newProfileButton.TabIndex = 59;
             newProfileButton.Text = "New Profile";
-            newProfileButton.UseVisualStyleBackColor = true;
+            newProfileButton.UseVisualStyleBackColor = false;
             newProfileButton.Click += newProfileButton_Click;
             // 
             // panel9
@@ -1279,12 +1476,15 @@
             // 
             // remProfileButton
             // 
+            remProfileButton.BackColor = SystemColors.ButtonFace;
+            remProfileButton.FlatAppearance.BorderSize = 0;
+            remProfileButton.FlatStyle = FlatStyle.Flat;
             remProfileButton.Location = new Point(100, 58);
             remProfileButton.Name = "remProfileButton";
             remProfileButton.Size = new Size(81, 23);
             remProfileButton.TabIndex = 60;
             remProfileButton.Text = "Delete Profile";
-            remProfileButton.UseVisualStyleBackColor = true;
+            remProfileButton.UseVisualStyleBackColor = false;
             remProfileButton.Click += remProfileButton_Click;
             // 
             // label21
@@ -1310,37 +1510,160 @@
             pictureBox7.TabIndex = 50;
             pictureBox7.TabStop = false;
             // 
+            // usagePanel
+            // 
+            usagePanel.BackColor = Color.FromArgb(156, 155, 151);
+            usagePanel.Controls.Add(commanduseBox);
+            usagePanel.Controls.Add(label6);
+            usagePanel.Controls.Add(pictureBox6);
+            usagePanel.Location = new Point(53, 690);
+            usagePanel.Name = "usagePanel";
+            usagePanel.Size = new Size(969, 352);
+            usagePanel.TabIndex = 58;
+            // 
+            // inspectorPanel
+            // 
+            inspectorPanel.Controls.Add(panel3);
+            inspectorPanel.Controls.Add(panel11);
+            inspectorPanel.Controls.Add(panel10);
+            inspectorPanel.Controls.Add(panel1);
+            inspectorPanel.Controls.Add(panel2);
+            inspectorPanel.Controls.Add(panel4);
+            inspectorPanel.Location = new Point(53, 396);
+            inspectorPanel.Name = "inspectorPanel";
+            inspectorPanel.Size = new Size(969, 283);
+            inspectorPanel.TabIndex = 61;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.FromArgb(156, 155, 151);
+            panel11.Controls.Add(label26);
+            panel11.Controls.Add(pictureBox15);
+            panel11.Controls.Add(aleftloopButton);
+            panel11.Controls.Add(leftButton);
+            panel11.Controls.Add(aleftholdButton);
+            panel11.Controls.Add(leftholdButton);
+            panel11.Controls.Add(aleftButton);
+            panel11.Controls.Add(leftloopButton);
+            panel11.Location = new Point(332, 22);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(101, 225);
+            panel11.TabIndex = 60;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.BackColor = Color.FromArgb(71, 83, 92);
+            label26.ForeColor = SystemColors.ControlLight;
+            label26.Location = new Point(0, 0);
+            label26.Name = "label26";
+            label26.Size = new Size(56, 15);
+            label26.TabIndex = 33;
+            label26.Text = "Left Click";
+            // 
+            // pictureBox15
+            // 
+            pictureBox15.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox15.BackgroundImageLayout = ImageLayout.None;
+            pictureBox15.Location = new Point(0, 0);
+            pictureBox15.Name = "pictureBox15";
+            pictureBox15.Size = new Size(101, 15);
+            pictureBox15.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox15.TabIndex = 58;
+            pictureBox15.TabStop = false;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(156, 155, 151);
+            panel10.Controls.Add(amouseposButton);
+            panel10.Controls.Add(label25);
+            panel10.Controls.Add(pictureBox11);
+            panel10.Controls.Add(turnButton);
+            panel10.Controls.Add(mouseposButton);
+            panel10.Controls.Add(aturnButton);
+            panel10.Location = new Point(551, 22);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(186, 102);
+            panel10.TabIndex = 59;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.BackColor = Color.FromArgb(71, 83, 92);
+            label25.ForeColor = SystemColors.ControlLight;
+            label25.Location = new Point(0, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(104, 15);
+            label25.TabIndex = 33;
+            label25.Text = "Mouse Movement";
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox11.BackgroundImageLayout = ImageLayout.None;
+            pictureBox11.Location = new Point(0, 0);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(186, 15);
+            pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox11.TabIndex = 58;
+            pictureBox11.TabStop = false;
+            // 
+            // showhideInspector
+            // 
+            showhideInspector.BackColor = Color.FromArgb(196, 197, 204);
+            showhideInspector.FlatAppearance.BorderSize = 0;
+            showhideInspector.FlatStyle = FlatStyle.Flat;
+            showhideInspector.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            showhideInspector.ForeColor = SystemColors.ControlText;
+            showhideInspector.Location = new Point(769, 319);
+            showhideInspector.Name = "showhideInspector";
+            showhideInspector.Size = new Size(252, 30);
+            showhideInspector.TabIndex = 62;
+            showhideInspector.Text = "Show/Hide Inspector Controls";
+            showhideInspector.UseVisualStyleBackColor = false;
+            showhideInspector.Click += showhideInspector_Click;
+            // 
+            // buttonTab
+            // 
+            buttonTab.BackColor = Color.FromArgb(71, 83, 92);
+            buttonTab.BackgroundImageLayout = ImageLayout.None;
+            buttonTab.Location = new Point(53, 391);
+            buttonTab.Name = "buttonTab";
+            buttonTab.Size = new Size(969, 22);
+            buttonTab.SizeMode = PictureBoxSizeMode.StretchImage;
+            buttonTab.TabIndex = 63;
+            buttonTab.TabStop = false;
+            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(37, 37, 37);
-            ClientSize = new Size(1042, 1027);
+            ClientSize = new Size(1042, 1155);
             ControlBox = false;
+            Controls.Add(testButton);
+            Controls.Add(showhideInspector);
             Controls.Add(panel9);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(label22);
             Controls.Add(panel6);
             Controls.Add(panel5);
+            Controls.Add(saveButton);
             Controls.Add(label18);
-            Controls.Add(panel4);
-            Controls.Add(panel3);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
-            Controls.Add(label6);
-            Controls.Add(pictureBox6);
-            Controls.Add(commanduseBox);
             Controls.Add(label4);
             Controls.Add(label3);
+            Controls.Add(restartButton);
             Controls.Add(label2);
             Controls.Add(commandtextBox);
             Controls.Add(costtextBox);
             Controls.Add(nametextBox);
             Controls.Add(pictureBox1);
-            Controls.Add(pictureBox5);
             Controls.Add(pictureBox12);
+            Controls.Add(usagePanel);
+            Controls.Add(buttonTab);
+            Controls.Add(inspectorPanel);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CommandBuilderMenu";
             Text = "QuestMenu";
@@ -1349,6 +1672,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -1374,6 +1698,16 @@
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            usagePanel.ResumeLayout(false);
+            usagePanel.PerformLayout();
+            inspectorPanel.ResumeLayout(false);
+            panel11.ResumeLayout(false);
+            panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)buttonTab).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1421,7 +1755,6 @@
         private Label label10;
         private Label label9;
         private Label label8;
-        private PictureBox pictureBox5;
         private ListBox disabledcommandsListBox;
         private Button disablecommandButton;
         private Button restorecommandButton;
@@ -1483,5 +1816,19 @@
         private Button remProfileButton;
         private Label label23;
         private Button testButton;
+        private Panel usagePanel;
+        private Panel inspectorPanel;
+        private Button showhideInspector;
+        private Label label7;
+        private PictureBox pictureBox8;
+        private Label label24;
+        private PictureBox pictureBox5;
+        private PictureBox buttonTab;
+        private Panel panel10;
+        private Label label25;
+        private PictureBox pictureBox11;
+        private Panel panel11;
+        private Label label26;
+        private PictureBox pictureBox15;
     }
 }
