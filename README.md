@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.83 Alpha**
+# **Sweat Bot 1.0.1.00 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -50,7 +50,6 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 *(Not guaranteed, but under consideration)*
 
 - Support for Linux/Mac by switching to another UI framework.
-- Expanded Moderation controls.
 - Disable banking(stores user currency for later use)
 - Open to suggestions!
 
@@ -159,28 +158,4 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
-1.0.0.82-alpha
-- Fixed bug in Pixelate Window that caused a white square to flash before starting(Flash of your past bug still exist for now)
-- Updated UI Styling for Command Builder
-- Updated Button Styling
-- Fixed banned user message from playing twice
-- Added command popularity on Connect Menu under Enable Economy Tracking to help visualize the most popular commands
-- Fixed another issue where if users spam commands to fast, the app will get confused and fail to find the command path
-- Added easter egg
 
-1.0.0.82-alpha
-- Hotfix for bit multiplier stacking issue
-- Reduced exe size from 168mb down to 5.6mb by tweaking build settings
-
-1.0.0.81-alpha
-- Fixed In Raid Check from running multiple instances
-- Fixed Settings saving and loading. All changed settings should carry over from version to version 
-- Fixed blerp checkbox from not staying toggled
-- Changed blerp integration system to use regex magic to find the user. This should fix it not working
-- Added Test Command button to the Command Builder Menu
-- Added rate limit controls. This Adds a delay between processing messages, which can help command accuracy if users are spamming commands
-- Added file locking to prevent errors if users are spamming commands to rapidly 
-- Added debug mode to only show commands that are processing
-- Adjusted bit multiplier and sub multiplier to be percentage based. If enabled when a user cheers bits they can get a bonus. example 100 cheered bits with a 20% multiplier = 20 bonus bits
-- Adjusted bit multiplier to be percentage based
-- Added easier to use Moderator Controls Whitelist
