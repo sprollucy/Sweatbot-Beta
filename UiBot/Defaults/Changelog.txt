@@ -1,3 +1,6 @@
 1.0.0-beta
+-Minor UI Tweaks
 -Added Volume adjustments to custom sound clips
 -Added Xbox Mappings(buttons only)
+-Added Loop Mouse to position. Now you can set a position and "stick" your mouse cursor there
+-Adjusted command execution patterns so Async commands correctly execute after or during a delay. This should help with some timing issues

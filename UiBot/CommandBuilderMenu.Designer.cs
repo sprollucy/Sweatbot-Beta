@@ -100,7 +100,7 @@
             amouseposButton = new Button();
             panel4 = new Panel();
             button1 = new Button();
-            pixelateButton = new Button();
+            apixelateButton = new Button();
             adelayButton = new Button();
             label16 = new Label();
             pictureBox4 = new PictureBox();
@@ -139,14 +139,17 @@
             pictureBox7 = new PictureBox();
             usagePanel = new Panel();
             inspectorPanel = new Panel();
+            panel10 = new Panel();
+            mposLoopButton = new Button();
+            amposLoopButton = new Button();
+            label25 = new Label();
+            pictureBox11 = new PictureBox();
             panel11 = new Panel();
             label26 = new Label();
             pictureBox15 = new PictureBox();
-            panel10 = new Panel();
-            label25 = new Label();
-            pictureBox11 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
+            pixelateButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -171,10 +174,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             usagePanel.SuspendLayout();
             inspectorPanel.SuspendLayout();
-            panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).BeginInit();
             SuspendLayout();
             // 
@@ -951,7 +954,7 @@
             panel2.Controls.Add(ahitkeyloopButton);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(pictureBox3);
-            panel2.Location = new Point(245, 22);
+            panel2.Location = new Point(467, 23);
             panel2.Name = "panel2";
             panel2.Size = new Size(163, 136);
             panel2.TabIndex = 31;
@@ -989,7 +992,7 @@
             panel3.Controls.Add(rightholdButton);
             panel3.Controls.Add(arightholdButton);
             panel3.Controls.Add(pictureBox2);
-            panel3.Location = new Point(521, 23);
+            panel3.Location = new Point(352, 23);
             panel3.Name = "panel3";
             panel3.Size = new Size(109, 225);
             panel3.TabIndex = 32;
@@ -1033,8 +1036,9 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
-            panel4.Controls.Add(button1);
             panel4.Controls.Add(pixelateButton);
+            panel4.Controls.Add(button1);
+            panel4.Controls.Add(apixelateButton);
             panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
             panel4.Controls.Add(playsoundButton);
@@ -1055,23 +1059,23 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Location = new Point(3, 94);
             button1.Name = "button1";
-            button1.Size = new Size(301, 36);
+            button1.Size = new Size(237, 36);
             button1.TabIndex = 60;
             button1.Text = "More Coming Soon!";
             button1.UseVisualStyleBackColor = false;
             // 
-            // pixelateButton
+            // apixelateButton
             // 
-            pixelateButton.BackColor = SystemColors.ButtonFace;
-            pixelateButton.FlatAppearance.BorderSize = 0;
-            pixelateButton.FlatStyle = FlatStyle.Flat;
-            pixelateButton.Location = new Point(246, 19);
-            pixelateButton.Name = "pixelateButton";
-            pixelateButton.Size = new Size(58, 69);
-            pixelateButton.TabIndex = 59;
-            pixelateButton.Text = "Pixelate Screen";
-            pixelateButton.UseVisualStyleBackColor = false;
-            pixelateButton.Click += pixelateButton_Click;
+            apixelateButton.BackColor = SystemColors.ButtonFace;
+            apixelateButton.FlatAppearance.BorderSize = 0;
+            apixelateButton.FlatStyle = FlatStyle.Flat;
+            apixelateButton.Location = new Point(246, 73);
+            apixelateButton.Name = "apixelateButton";
+            apixelateButton.Size = new Size(58, 57);
+            apixelateButton.TabIndex = 59;
+            apixelateButton.Text = "Sync Pixelate Screen";
+            apixelateButton.UseVisualStyleBackColor = false;
+            apixelateButton.Click += apixelateButton_Click;
             // 
             // adelayButton
             // 
@@ -1541,16 +1545,80 @@
             // 
             // inspectorPanel
             // 
+            inspectorPanel.Controls.Add(panel10);
+            inspectorPanel.Controls.Add(panel2);
             inspectorPanel.Controls.Add(panel3);
             inspectorPanel.Controls.Add(panel11);
-            inspectorPanel.Controls.Add(panel10);
             inspectorPanel.Controls.Add(panel1);
-            inspectorPanel.Controls.Add(panel2);
             inspectorPanel.Controls.Add(panel4);
             inspectorPanel.Location = new Point(53, 396);
             inspectorPanel.Name = "inspectorPanel";
             inspectorPanel.Size = new Size(969, 276);
             inspectorPanel.TabIndex = 61;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(156, 155, 151);
+            panel10.Controls.Add(mposLoopButton);
+            panel10.Controls.Add(amposLoopButton);
+            panel10.Controls.Add(amouseposButton);
+            panel10.Controls.Add(label25);
+            panel10.Controls.Add(pictureBox11);
+            panel10.Controls.Add(turnButton);
+            panel10.Controls.Add(mouseposButton);
+            panel10.Controls.Add(aturnButton);
+            panel10.Location = new Point(467, 165);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(265, 106);
+            panel10.TabIndex = 59;
+            // 
+            // mposLoopButton
+            // 
+            mposLoopButton.BackColor = SystemColors.ButtonFace;
+            mposLoopButton.FlatAppearance.BorderSize = 0;
+            mposLoopButton.FlatStyle = FlatStyle.Flat;
+            mposLoopButton.Location = new Point(166, 18);
+            mposLoopButton.Name = "mposLoopButton";
+            mposLoopButton.Size = new Size(95, 38);
+            mposLoopButton.TabIndex = 60;
+            mposLoopButton.Text = "Lock Mouse to Position";
+            mposLoopButton.UseVisualStyleBackColor = false;
+            mposLoopButton.Click += mposLoopButton_Click;
+            // 
+            // amposLoopButton
+            // 
+            amposLoopButton.BackColor = SystemColors.ButtonFace;
+            amposLoopButton.FlatAppearance.BorderSize = 0;
+            amposLoopButton.FlatStyle = FlatStyle.Flat;
+            amposLoopButton.Location = new Point(166, 63);
+            amposLoopButton.Name = "amposLoopButton";
+            amposLoopButton.Size = new Size(95, 38);
+            amposLoopButton.TabIndex = 59;
+            amposLoopButton.Text = "Lock Mouse to Position Sync";
+            amposLoopButton.UseVisualStyleBackColor = false;
+            amposLoopButton.Click += amposLoopButton_Click;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.BackColor = Color.FromArgb(71, 83, 92);
+            label25.ForeColor = SystemColors.ControlLight;
+            label25.Location = new Point(0, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(104, 15);
+            label25.TabIndex = 33;
+            label25.Text = "Mouse Movement";
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox11.BackgroundImageLayout = ImageLayout.None;
+            pictureBox11.Location = new Point(0, 0);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(265, 15);
+            pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox11.TabIndex = 58;
+            pictureBox11.TabStop = false;
             // 
             // panel11
             // 
@@ -1563,7 +1631,7 @@
             panel11.Controls.Add(leftholdButton);
             panel11.Controls.Add(aleftButton);
             panel11.Controls.Add(leftloopButton);
-            panel11.Location = new Point(414, 23);
+            panel11.Location = new Point(245, 23);
             panel11.Name = "panel11";
             panel11.Size = new Size(101, 225);
             panel11.TabIndex = 60;
@@ -1590,42 +1658,6 @@
             pictureBox15.TabIndex = 58;
             pictureBox15.TabStop = false;
             // 
-            // panel10
-            // 
-            panel10.BackColor = Color.FromArgb(156, 155, 151);
-            panel10.Controls.Add(amouseposButton);
-            panel10.Controls.Add(label25);
-            panel10.Controls.Add(pictureBox11);
-            panel10.Controls.Add(turnButton);
-            panel10.Controls.Add(mouseposButton);
-            panel10.Controls.Add(aturnButton);
-            panel10.Location = new Point(245, 164);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(163, 106);
-            panel10.TabIndex = 59;
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.BackColor = Color.FromArgb(71, 83, 92);
-            label25.ForeColor = SystemColors.ControlLight;
-            label25.Location = new Point(0, 0);
-            label25.Name = "label25";
-            label25.Size = new Size(104, 15);
-            label25.TabIndex = 33;
-            label25.Text = "Mouse Movement";
-            // 
-            // pictureBox11
-            // 
-            pictureBox11.BackColor = Color.FromArgb(71, 83, 92);
-            pictureBox11.BackgroundImageLayout = ImageLayout.None;
-            pictureBox11.Location = new Point(0, 0);
-            pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(186, 15);
-            pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox11.TabIndex = 58;
-            pictureBox11.TabStop = false;
-            // 
             // showhideInspector
             // 
             showhideInspector.BackColor = Color.FromArgb(196, 197, 204);
@@ -1651,6 +1683,19 @@
             buttonTab.SizeMode = PictureBoxSizeMode.StretchImage;
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
+            // 
+            // pixelateButton
+            // 
+            pixelateButton.BackColor = SystemColors.ButtonFace;
+            pixelateButton.FlatAppearance.BorderSize = 0;
+            pixelateButton.FlatStyle = FlatStyle.Flat;
+            pixelateButton.Location = new Point(246, 18);
+            pixelateButton.Name = "pixelateButton";
+            pixelateButton.Size = new Size(58, 49);
+            pixelateButton.TabIndex = 61;
+            pixelateButton.Text = "Pixelate Screen";
+            pixelateButton.UseVisualStyleBackColor = false;
+            pixelateButton.Click += pixelateButton_Click;
             // 
             // CommandBuilderMenu
             // 
@@ -1719,12 +1764,12 @@
             usagePanel.ResumeLayout(false);
             usagePanel.PerformLayout();
             inspectorPanel.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            panel11.ResumeLayout(false);
+            panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1825,7 +1870,7 @@
         private Panel panel8;
         private Label label17;
         private PictureBox pictureBox9;
-        private Button pixelateButton;
+        private Button apixelateButton;
         private ComboBox profileComboBox;
         private Button newProfileButton;
         private Panel panel9;
@@ -1849,5 +1894,8 @@
         private Label label26;
         private PictureBox pictureBox15;
         private Button button1;
+        private Button mposLoopButton;
+        private Button amposLoopButton;
+        private Button pixelateButton;
     }
 }

@@ -208,6 +208,7 @@ namespace UiBot
         private void delayButton_Click(object sender, EventArgs e) => AppendCommandText(" Delay=Speed ");
         private void muteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVol=dur ");
         private void mouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPos({mouseX},{mouseY}) ");
+        private void mposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosLoop={mouseX},{mouseY}(dur) ");
         private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreen=dur ");
 
         // Asynchronous commands
@@ -225,6 +226,8 @@ namespace UiBot
         private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText(" DelayAsync=Speed ");
         private void amuteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVolAsync=dur ");
         private void amouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosAsync({mouseX},{mouseY}) ");
+        private void amposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosLoopAsync={mouseX},{mouseY}(dur) ");
+        private void apixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreenAsync=dur ");
 
 
         private void disablecommandButton_Click(object sender, EventArgs e)
@@ -833,6 +836,5 @@ namespace UiBot
                 Console.WriteLine($"Cannot execute command '{selectedCommand}'. Command does not exist or is broken.");
             }
         }
-
     }
 }

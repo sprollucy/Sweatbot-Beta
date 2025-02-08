@@ -11,9 +11,11 @@ public class CustomCommandHandler
     private readonly ConcurrentDictionary<string, Command> _commands;
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _syncMethodMap;
     private readonly Dictionary<string, Func<TwitchClient, string, string, Task>> _asyncMethodMap;
+    private static SemaphoreSlim _overlayPixelate = new SemaphoreSlim(1, 1);
 
     private Random random = new Random();  // Class-level Random object
     private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
+    private Random _random = new Random(); // To generate random numbers
 
     string filePath;
     string LastUsedProfile = Settings.Default.LastUsedProfile;
@@ -66,6 +68,7 @@ public class CustomCommandHandler
         { "rc", RightClick },
         { "tm", TurnMouse },
         { "mpos", MousePos },
+        { "mposloop", MouseLoop },
         { "psound", PlaySoundClip },
         { "rchold", RightClickHold },
         { "lchold", LeftClickHold },
@@ -86,13 +89,16 @@ public class CustomCommandHandler
         { "rcasync", RightClickAsync },
         { "tmasync", TurnMouseAsync },
         { "mposasync", MousePosAsync },
+        { "mposloopasync", MouseLoopAsync },
         { "psoundasync", PlaySoundClipAsync },
         { "rcholdasync", RightClickHoldAsync },
         { "lcholdasync", LeftClickHoldAsync },
         { "mutevolasync", MuteVolumeAsync },
         { "delayasync", DelayAsync },
         { "lcloopasync", LeftClickLoopAsync },
-        { "rcloopasync", RightClickLoopAsync }
+        { "rcloopasync", RightClickLoopAsync },
+        { "pixelatescreenasync", PixelateScreenAsync }
+
     };
     }
 
@@ -163,6 +169,7 @@ public class CustomCommandHandler
 
         List<Task> runningTasks = new List<Task>();  // List to track asynchronous tasks
 
+        // First loop through the methods
         foreach (var methodName in command.Methods)
         {
             string method;
@@ -202,11 +209,13 @@ public class CustomCommandHandler
                 // Handle delay explicitly
                 if (method == "delayasync" && int.TryParse(parameters, out int delayMilliseconds))
                 {
-                    await Task.Delay(delayMilliseconds);
+                    // Introduce a delay before continuing to the next actions
+                    Console.WriteLine($"Delaying for {delayMilliseconds} milliseconds...");
+                    await Task.Delay(delayMilliseconds);  // Delay before running next tasks
                 }
                 else
                 {
-                    // Add the async method to the list of running tasks (doesn't block the main thread)
+                    // Add the async method to the list of tasks to run concurrently
                     runningTasks.Add(asyncAction(client, channel, parameters));
                 }
             }
@@ -216,8 +225,11 @@ public class CustomCommandHandler
             }
         }
 
-        // Wait for all running asynchronous tasks to complete (if needed)
-        await Task.WhenAll(runningTasks);
+        // After the delay, run the tasks concurrently
+        if (runningTasks.Any())
+        {
+            await Task.WhenAll(runningTasks);  // Wait for all async tasks to complete concurrently
+        }
     }
 
     public string AddChatCommand(string commandName, int bitCost, string methods)
@@ -350,7 +362,6 @@ public class CustomCommandHandler
         File.WriteAllText(filePath, updatedJson);  // Use class-level filePath
         Console.WriteLine($"Commands have been successfully updated in {LastUsedProfile}.json.");
     }
-
 
     private void HoldKey(TwitchClient client, string channel, string parameter = null)
     {
@@ -856,7 +867,7 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for MousePos.");
+            Console.WriteLine("No parameters specified for Mpos.");
             return;
         }
 
@@ -879,7 +890,7 @@ public class CustomCommandHandler
     {
         if (parameter == null)
         {
-            Console.WriteLine("No parameters specified for MousePos.");
+            Console.WriteLine("No parameters specified for Mpos.");
             return;
         }
 
@@ -897,6 +908,92 @@ public class CustomCommandHandler
 
         // Run SetCursorPos on a separate thread to avoid blocking.
         await Task.Run(() => SetCursorPos(x, y));
+    }
+
+    private void MouseLoop(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for Mpos.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+),(\d+)\((\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int x) || !int.TryParse(match.Groups[2].Value, out int y) || !int.TryParse(match.Groups[3].Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format:");
+            return;
+        }
+        var endTime = DateTime.Now.AddMilliseconds(duration);
+
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
+        {
+            Console.WriteLine($"Moving mouse to position ({x}, {y}).");
+        }
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Holding mouse at {x},{y} for {duration} milliseconds.");
+            }
+            while (DateTime.Now < endTime)
+            {
+                SetCursorPos(x, y);  
+                Thread.Sleep(10);
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseLoop: {ex.Message}");
+            Console.WriteLine($"StackTrace: {ex.StackTrace}");
+        }
+    }
+
+    private async Task MouseLoopAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for Mpos.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+),(\d+)\((\d+)\)");
+        if (!match.Success || !int.TryParse(match.Groups[1].Value, out int x) || !int.TryParse(match.Groups[2].Value, out int y) || !int.TryParse(match.Groups[3].Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format:");
+            return;
+        }
+        var endTime = DateTime.Now.AddMilliseconds(duration);
+
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
+        {
+            Console.WriteLine($"Moving mouse to position ({x}, {y}).");
+        }
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Holding mouse at {x},{y} for {duration} milliseconds.");
+            }
+            while (DateTime.Now < endTime)
+            {
+                // Your code to execute every 50ms
+                SetCursorPos(x, y);  // Move the mouse to the target position
+
+                // Wait for 50ms before running the loop again
+                await Task.Delay(10);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseLoop: {ex.Message}");
+            Console.WriteLine($"StackTrace: {ex.StackTrace}");
+        }
     }
 
     private void LeftClick(TwitchClient client, string channel, string parameter = null)
@@ -1005,6 +1102,7 @@ public class CustomCommandHandler
             System.Threading.Thread.Sleep(delay);
         }
     }
+
     private async Task LeftClickLoopAsync(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
@@ -1507,9 +1605,55 @@ public class CustomCommandHandler
         return null; // Return null if file does not exist
     }
 
-    private static SemaphoreSlim _overlayPixelate = new SemaphoreSlim(1, 1);
+    private void PixelateScreen(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for PixelateScreen.");
+            return;
+        }
 
-    private async void PixelateScreen(TwitchClient client, string channel, string parameter = null)
+        var match = Regex.Match(parameter, @"(\d+)"); // Match numeric parameters
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        _overlayPixelate.Wait(); // Ensure sequential execution
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"PixelateScreen for {duration} milliseconds.");
+            }
+
+            // Ensure UI thread safety
+            pixelateOverlay.Invoke((MethodInvoker)(() =>
+            {
+                pixelateOverlay.StartOverlay();
+            }));
+
+            // Synchronously wait for the specified duration
+            Thread.Sleep(duration); // Use Thread.Sleep to wait for the duration
+
+            pixelateOverlay.Invoke((MethodInvoker)(() =>
+            {
+                pixelateOverlay.StopOverlay();
+            }));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in PixelateScreen: {ex.Message}");
+        }
+        finally
+        {
+            _overlayPixelate.Release(); // Allow the next overlay to proceed
+        }
+    }
+
+    private async Task PixelateScreenAsync(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
         {
@@ -1555,6 +1699,7 @@ public class CustomCommandHandler
             _overlayPixelate.Release(); // Allow the next overlay to proceed
         }
     }
+
 
     // Helper method to convert key characters to virtual key codes
     public static int ToVirtualKey(string key)
