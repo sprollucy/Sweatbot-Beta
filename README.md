@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0.82 Alpha**
+# **Sweat Bot 1.0.0.83 Alpha**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -6,12 +6,12 @@ Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to kee
 ## Table of Contents
 - [Features](#features)
 - [How it Works](#how-it-works)
-- [Setup Guide](#getting-started-with-sweat-bot)
+- [*Setup Guide*](#getting-started-with-sweat-bot)
 - [Commands](#viewer-commands)
 - [Screenshots](#screenshots)
-- [Download](#download)
+- [*Download*](#download)
 - [Upcoming Features](#upcomingpotential-features)
-- [Support](#support)
+- [*Support*](#support)
 - [Changelog](#latest-changelog)
 
 ### **Features**
@@ -65,7 +65,10 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.81)
+#### [**Download Latest Release**](https://github.com/sprollucy/Tarkov-Twitch-Bot-Working/releases/tag/1.0.0.83)
+> First download .Net 8 runtime from Microsoft
+> https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
+> 
 > *Important*: The files have not been verified by Microsoft and may be detected as *Trojan:Script/Wacatac.B!ml* by Windows Security and deleted when downloading. I will be resubmitting the files once in the beta stages
 
 >### How to Allow It:  
@@ -77,8 +80,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ---
 
 ## **Getting Started with Sweat Bot**
-First download .Net 8 runtime from Microsoft
-https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
+
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
@@ -158,6 +160,15 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ## **Latest Changelog**
 1.0.0.82-alpha
+- Fixed bug in Pixelate Window that caused a white square to flash before starting(Flash of your past bug still exist for now)
+- Updated UI Styling for Command Builder
+- Updated Button Styling
+- Fixed banned user message from playing twice
+- Added command popularity on Connect Menu under Enable Economy Tracking to help visualize the most popular commands
+- Fixed another issue where if users spam commands to fast, the app will get confused and fail to find the command path
+- Added easter egg
+
+1.0.0.82-alpha
 - Hotfix for bit multiplier stacking issue
 - Reduced exe size from 168mb down to 5.6mb by tweaking build settings
 
@@ -173,26 +184,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Adjusted bit multiplier and sub multiplier to be percentage based. If enabled when a user cheers bits they can get a bonus. example 100 cheered bits with a 20% multiplier = 20 bonus bits
 - Adjusted bit multiplier to be percentage based
 - Added easier to use Moderator Controls Whitelist
-
-1.0.0.80-alpha
-- Fixed !sweatbot from showing incorrect state
-- Added condition for !sweatbot and !sbgamble that if subs only is checked in the control menu, only subs can use the command
-- Added Sub only mode for bot commands
-- Adjusted Pixelate overlay to prevent a 'after image' after being ran more than once
-- Added custom names for the bots currency
-- Resize custom name
-- Changed file watcher so it only runs while the refund tab is open
-- Menu adjustments 
-- Removed redundant property saves
-- Added Game profile switching in the Command Builder menu
-- Corrected !sbadd and !sbremove to write into the current profile
-- Fixed bug where if console tab is clicked while on that tab causing a crash
-- Added integrity check on start up that verifies necessary files and folders are in the directory
-- Removed trader services from start. Now only runs if Tarkov Traders are enabled
-- Increased readability of Refund Menu
-- Added rudimentary In raid check for tarkov(buggy) that will pause and unpause commands in and out of raid
-
-1.0.0.79-alpha
-- Fixed refund menu taking awhile to refresh after ever refund
-- Potentially fixed issue when multiple users send a message at once, causing the refund menu to crash the program
-- Fixed refund menu not creating a new bitlog text and loading the previous days data
