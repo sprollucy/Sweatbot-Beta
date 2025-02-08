@@ -48,7 +48,6 @@
             label8 = new Label();
             currentTab = new Label();
             minBox = new PictureBox();
-            label5 = new Label();
             label9 = new Label();
             eftTrader = new PictureBox();
             conStatus = new Label();
@@ -207,11 +206,11 @@
             label3.BackColor = Color.FromArgb(30, 30, 30);
             label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label3.ForeColor = SystemColors.ControlLight;
-            label3.Location = new Point(-73, 141);
+            label3.Location = new Point(-73, 130);
             label3.Name = "label3";
-            label3.Size = new Size(104, 23);
+            label3.Size = new Size(81, 46);
             label3.TabIndex = 13;
-            label3.Text = "Command";
+            label3.Text = "Chat\r\nSettings";
             // 
             // label4
             // 
@@ -290,29 +289,17 @@
             minBox.TabStop = false;
             minBox.Click += minBox_Click;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(30, 30, 30);
-            label5.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label5.ForeColor = SystemColors.ControlLight;
-            label5.Location = new Point(-41, 207);
-            label5.Name = "label5";
-            label5.Size = new Size(77, 23);
-            label5.TabIndex = 15;
-            label5.Text = "Builder";
-            // 
             // label9
             // 
             label9.AutoSize = true;
             label9.BackColor = Color.FromArgb(30, 30, 30);
             label9.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
             label9.ForeColor = SystemColors.ControlLight;
-            label9.Location = new Point(-73, 188);
+            label9.Location = new Point(-73, 185);
             label9.Name = "label9";
-            label9.Size = new Size(104, 23);
+            label9.Size = new Size(104, 46);
             label9.TabIndex = 21;
-            label9.Text = "Command";
+            label9.Text = "Command\r\nBuilder";
             // 
             // eftTrader
             // 
@@ -364,7 +351,6 @@
             Controls.Add(pictureBox2);
             Controls.Add(label7);
             Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -420,7 +406,6 @@
         private Label label8;
         private Label currentTab;
         private PictureBox minBox;
-        private Label label5;
         private Label label9;
         private PictureBox eftTrader;
         private Label conStatus;

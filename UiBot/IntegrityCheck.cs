@@ -56,6 +56,24 @@ namespace UiBot
                     Console.WriteLine($"Error moving CustomCommands.json: {ex.Message}");
                 }
             }
+
+            // Ensure the SendKeyExclude file exists in the Data directory
+            string sendKeyExcludeFile = Path.Combine(appDirectory, "Data", "SendKeyExclude");
+            if (!File.Exists(sendKeyExcludeFile))
+            {
+                string defaultContent = "";
+                File.WriteAllText(sendKeyExcludeFile, defaultContent);
+                Console.WriteLine($"Created missing file: {sendKeyExcludeFile}");
+            }
+
+            // Ensure the ModWhitelist file exists in the Data directory
+            string modWhitelistFile = Path.Combine(appDirectory, "Data", "ModWhitelist");
+            if (!File.Exists(modWhitelistFile))
+            {
+                string defaultContent = "Example:refund,give,remove,add_remove_command"; 
+                File.WriteAllText(modWhitelistFile, defaultContent);
+                Console.WriteLine($"Created missing file: {modWhitelistFile}");
+            }
         }
     }
 }

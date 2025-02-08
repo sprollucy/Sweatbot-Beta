@@ -355,7 +355,7 @@ namespace UiBot
                 this.Controls.Add(controlMenu);
                 controlMenu.Show();
                 isControlMenuVisible = true;
-                currentTab.Text = "Command Settings";
+                currentTab.Text = "Chat Settings";
 
             }
         }

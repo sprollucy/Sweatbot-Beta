@@ -1,3 +1,7 @@
+1.0.0.84-alpha
+-Added exclusions for keys in !sendkey command
+-Renamed Command Settings to Chat Settings
+
 1.0.0.83-alpha
 -Fixed bug in Pixelate Window that caused a white square to flash before starting(Flash of your past bug still exist for now)
 -Updated UI Styling for Command Builder
@@ -5,6 +9,7 @@
 -Fixed banned user message from playing twice
 -Added command popularity on Connect Menu under Enable Economy Tracking to help visualize the most popular commands
 -Fixed another issue where if users spam commands to fast, the app will get confused and fail to find the command path
+-Added easter egg
 
 1.0.0.82-alpha
 -Hotfix for bit multiplier stacking issue

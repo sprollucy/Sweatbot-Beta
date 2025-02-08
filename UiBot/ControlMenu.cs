@@ -8,6 +8,7 @@ namespace UiBot
         private Dictionary<string, TextBox> textBoxes = new Dictionary<string, TextBox>();
         private TarkovInRaidCheck tarkovMonitor;
         private static readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
+        private static readonly string excludefilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "SendkeyExclude.txt");
 
 
         public ControlMenu()
@@ -346,6 +347,14 @@ namespace UiBot
             Properties.Settings.Default.Save();
             StartInRaidFileCheck();
         }
+        private void openSendkeyButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = excludefilePath,
+                UseShellExecute = true
+            });
+        }
 
         private void StartInRaidFileCheck()
         {
@@ -496,6 +505,5 @@ namespace UiBot
                 }
             }
         }
-
     }
 }

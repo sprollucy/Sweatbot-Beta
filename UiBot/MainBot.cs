@@ -85,7 +85,7 @@ namespace UiBot
             if (isBotConnected)
             {
                 // Disconnect and clean up resources here
-                Console.WriteLine("[Sweat Bot]: Disconnected");
+                Console.WriteLine("[Sweatbot]: Disconnected");
 
                 client.Disconnect();
 
@@ -631,7 +631,7 @@ namespace UiBot
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            Console.WriteLine("[Sweat Bot]: Connected");
+            Console.WriteLine("[Sweatbot]: Connected");
         }
 
         public void SendMessage(string message)
@@ -643,7 +643,7 @@ namespace UiBot
             }
             else
             {
-                Console.WriteLine("Sweat Bot is not connected to Twitch. Cannot send message.");
+                Console.WriteLine("Sweatbot is not connected to Twitch. Cannot send message.");
             }
         }
 
@@ -1031,17 +1031,14 @@ namespace UiBot
                 case "sendkey":
                     if (Properties.Settings.Default.isSendKeyEnabled)
                     {
-                        // Check if the user's bits are loaded
                         if (userBits.ContainsKey(Chatter))
                         {
                             if (int.TryParse(controlMenu.SendKeyCostBox.Text, out int bitCost))
                             {
                                 if (int.TryParse(controlMenu.SendKeyTimeBox.Text, out int holdtime))
                                 {
-                                    // Check if the user has enough bits
                                     if (userBits[Chatter] >= bitCost)
                                     {
-                                        // Extract the key to be sent from the command message
                                         string[] sendKeyCommandParts = e.Command.ChatMessage.Message.Split(' ');
 
                                         if (sendKeyCommandParts.Length > 1)
@@ -1050,18 +1047,29 @@ namespace UiBot
 
                                             try
                                             {
-                                                // Get the virtual key for the specified key
+                                                string filePath = @"Data\SendKeyExclude.txt";
+                                                string[] excludedKeys = File.ReadAllText(filePath)
+                                                                             .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                                                             .Select(k => k.Trim().ToUpper())
+                                                                             .ToArray();
+
+                                                Console.WriteLine($"Excluded keys: {string.Join(", ", excludedKeys)}");
+
+                                                if (excludedKeys.Contains(keyToSend))
+                                                {
+                                                    client.SendMessage(channelId, $"{Chatter}, the key '{keyToSend}' is excluded from being sent.");
+                                                    return; 
+                                                }
+
                                                 int virtualKey = CustomCommandHandler.ToVirtualKey(keyToSend);
 
-                                                // Simulate key press and hold asynchronously
                                                 await Task.Run(async () =>
                                                 {
-                                                    keybd_event((byte)virtualKey, 0, 0, 0); // Key down
-                                                    await Task.Delay(holdtime);          // Hold for the specified time
-                                                    keybd_event((byte)virtualKey, 0, 2, 0); // Key up
+                                                    keybd_event((byte)virtualKey, 0, 0, 0);
+                                                    await Task.Delay(holdtime);          
+                                                    keybd_event((byte)virtualKey, 0, 2, 0); 
                                                 });
 
-                                                // If successful, log the command usage and deduct bits
                                                 LogHandler.LogCommand(Chatter, "sendkey", bitCost, userBits, timestamp);
                                                 userBits[Chatter] -= bitCost;
 
@@ -1072,47 +1080,39 @@ namespace UiBot
 
                                                 Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCost} Remaining bits:{userBits[Chatter]}");
 
-                                                // Save the updated bit data
                                                 LogHandler.WriteUserBitsToJson("user_bits.json");
                                             }
                                             catch (ArgumentException)
                                             {
-                                                // Send an error message if the key is not supported
                                                 client.SendMessage(channelId, $"{Chatter}, the key '{keyToSend}' is not supported.");
                                             }
                                             catch (Exception ex)
                                             {
-                                                // Send a general error message
                                                 client.SendMessage(channelId, $"{Chatter}, there was an error processing your command: {ex.Message}");
                                             }
                                         }
                                         else
                                         {
-                                            // Notify the user to specify a key
                                             client.SendMessage(channelId, $"{Chatter}, please specify a key to send (e.g., !sendkey A or ESC).");
                                         }
                                     }
                                     else
                                     {
-                                        // Send message indicating insufficient bits
                                         client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to use this command! The cost is {bitCost} {userBitName}.");
                                     }
                                 }
                                 else
                                 {
-                                    // Send message indicating invalid hold time value
                                     client.SendMessage(channelId, "Invalid hold time value.");
                                 }
                             }
                             else
                             {
-                                // Send message indicating invalid cost value
                                 client.SendMessage(channelId, "Invalid cost value.");
                             }
                         }
                         else
                         {
-                            // Send message indicating user's bits data not found
                             client.SendMessage(channelId, $"{Chatter}, your {userBitName} data is not found!");
                         }
                     }
