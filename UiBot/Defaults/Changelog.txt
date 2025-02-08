@@ -1,6 +1,7 @@
 1.0.0.84-alpha
 -Added exclusions for keys in !sendkey command
 -Renamed Command Settings to Chat Settings
+-Final update till beta 
 
 1.0.0.83-alpha
 -Fixed bug in Pixelate Window that caused a white square to flash before starting(Flash of your past bug still exist for now)

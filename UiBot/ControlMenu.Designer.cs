@@ -251,9 +251,9 @@
             label2.ForeColor = SystemColors.ControlLight;
             label2.Location = new Point(0, 1);
             label2.Name = "label2";
-            label2.Size = new Size(153, 19);
+            label2.Size = new Size(109, 19);
             label2.TabIndex = 29;
-            label2.Text = "Command Settings";
+            label2.Text = "Chat Settings";
             // 
             // bitGambleCDBox
             // 

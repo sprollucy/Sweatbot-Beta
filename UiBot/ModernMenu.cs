@@ -14,6 +14,7 @@ namespace UiBot
         private DateTime transitionStartTime;
         private Timer transitionTimer;
         private Color originalPictureBox2BackColor; // Store the original background color
+        private Color originalSlideBackColor; // Store the original background color
         private bool isDragging = false;
         private Point offset;
         private ConnectMenu connectMenu;
@@ -83,36 +84,70 @@ namespace UiBot
             transitionTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother transition
             transitionTimer.Tick += TransitionTimer_Tick;
             originalPictureBox2BackColor = pictureBox2.BackColor; // Store the original background color
+            originalSlideBackColor = slidebarHighlight1.BackColor; // Store the original background color
             labelsOriginalLeft = label1.Left;
             labelsTargetLeft = label1.Left + 130; // Adjust this value as needed
             labelsSlideTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother animation
             labelsSlideTimer.Tick += LabelsSlideTimer_Tick;
 
-            // Mouse events for pictureBox2 and pictureBox3 to pictureBox8
-            Action<PictureBox> setMouseEvents = pictureBox =>
+            Action<PictureBox, PictureBox, Label> setMouseEventsSlide = (pictureBox, pictureBoxside, label) =>
             {
-                pictureBox.MouseEnter += (s, e) =>
+                EventHandler mouseEnter = (s, e) =>
                 {
-                    pictureBox.BackColor = Color.FromArgb(156, 155, 151); // Change this ARGB color to your desired color
+                    pictureBox.BackColor = Color.FromArgb(108, 108, 108);
+                    pictureBoxside.BackColor = Color.FromArgb(156, 155, 151);
+                    label.BackColor = Color.FromArgb(108, 108, 108);
                 };
 
-                pictureBox.MouseLeave += (s, e) =>
+                EventHandler mouseLeave = (s, e) =>
                 {
-                    pictureBox.BackColor = originalPictureBox2BackColor;
+                    pictureBox.BackColor = originalSlideBackColor;
+                    pictureBoxside.BackColor = originalPictureBox2BackColor;
+                    label.BackColor = originalSlideBackColor;
                 };
+
+                pictureBox.MouseEnter += mouseEnter;
+                pictureBox.MouseLeave += mouseLeave;
+                pictureBoxside.MouseEnter += mouseEnter;
+                pictureBoxside.MouseLeave += mouseLeave;
+                label.MouseEnter += mouseEnter;
+                label.MouseLeave += mouseLeave;
             };
 
-            setMouseEvents(pictureBox2);
-            setMouseEvents(connectButton);
-            setMouseEvents(commandMenu);
-            setMouseEvents(eftTrader);
-            setMouseEvents(commandBuilder);
-            //setMouseEvents(pictureBox7);
-            //setMouseEvents(pictureBox8);
-            setMouseEvents(settingsButton);
+            // Apply to your sidebar items
+            setMouseEventsSlide(slidebarHighlight1, connectButton, connectLabel);
+            setMouseEventsSlide(slidebarHighlight2, commandMenu, chatsettingLabel);
+            setMouseEventsSlide(slidebarHighlight3, commandBuilder, commandBulderLabel);
+            setMouseEventsSlide(slidebarHighlight4, eftTrader, traderLabel);
+            setMouseEventsSlide(slidebarHighlight5, settingsButton, settingsLabel);
+
+            connectLabel.Click += (s, e) => connectMenu_Click(s, e);
+            slidebarHighlight1.Click += (s, e) => connectMenu_Click(s, e);
+            chatsettingLabel.Click += (s, e) => commandMenu_Click(s, e);
+            slidebarHighlight2.Click += (s, e) => commandMenu_Click(s, e);
+            traderLabel.Click += (s, e) => pictureBox5_Click(s, e);
+            slidebarHighlight4.Click += (s, e) => pictureBox5_Click(s, e);
+            commandBulderLabel.Click += (s, e) => commandBuilder_Click(s, e);
+            slidebarHighlight3.Click += (s, e) => commandBuilder_Click(s, e);
+            settingsLabel.Click += (s, e) => settingsButton_Click(s, e);
+            slidebarHighlight5.Click += (s, e) => settingsButton_Click(s, e);
+
             CheckStart();
+            BetaLabel();
             // Attach event handler to detect setting changes
             PropertySaver();
+        }
+
+        private void BetaLabel()
+        {
+            string packageVersion = Assembly.GetExecutingAssembly()
+.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0];
+            versionLabel.Text = packageVersion;
+            // Position the label at the bottom-right corner of the form
+            versionLabel.Location = new Point(
+                this.ClientSize.Width - versionLabel.Width,  // 10 is padding from the right edge
+                this.ClientSize.Height - versionLabel.Height  // 10 is padding from the bottom edge
+            );
         }
 
         public void CheckStart()
@@ -120,13 +155,13 @@ namespace UiBot
             if (Properties.Settings.Default.isTraderMenuEnabled)
             {
                 eftTrader.Visible = true; // Ensure the picture box is visible (optional, depending on your requirement)
-                label4.Visible = true;
+                traderLabel.Visible = true;
                 var traderResetInfoService = new TraderResetInfoService();
             }
             else
             {
                 eftTrader.Visible = false; // Optionally hide the picture box if it's disabled
-                label4.Visible = false;
+                traderLabel.Visible = false;
             }
 
         }
@@ -179,6 +214,11 @@ namespace UiBot
 
             newWidth = Math.Min(Math.Max(newWidth, originalWidth), enlargedWidth);
             slideBar.Width = newWidth;
+            slidebarHighlight1.Width = newWidth;
+            slidebarHighlight2.Width = newWidth;
+            slidebarHighlight3.Width = newWidth;
+            slidebarHighlight4.Width = newWidth;
+            slidebarHighlight5.Width = newWidth;
 
             if (progress >= 1.0)
             {
@@ -198,7 +238,7 @@ namespace UiBot
             {
                 if (control is Label label)
                 {
-                    if (label.Name == "label1" || label.Name == "label2" || label.Name == "label3" ||  label.Name == "label4" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "label8" || label.Name == "label9")
+                    if (label.Name == "label1" || label.Name == "connectLabel" || label.Name == "chatsettingLabel" ||  label.Name == "traderLabel" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "settingsLabel" || label.Name == "commandBulderLabel")
                     {
                         label.Left = newLeft;
                     }

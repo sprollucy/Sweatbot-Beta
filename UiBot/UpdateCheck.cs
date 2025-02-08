@@ -8,7 +8,7 @@ namespace UiBot
     {
         public async Task CheckForUpdatesAsync()
         {
-            string repo = "sprollucy/Tarkov-Twitch-Bot-Working"; // GitHub repository details
+            string repo = "sprollucy/Sweatbot-Beta"; // GitHub repository details
 
             string localVersion = GetLocalVersion();
             if (string.IsNullOrEmpty(localVersion))
@@ -55,7 +55,7 @@ namespace UiBot
 
         public async Task ButtonCheckForUpdatesAsync()
         {
-            string repo = "sprollucy/Tarkov-Twitch-Bot-Working"; // GitHub repository details
+            string repo = "sprollucy/Sweatbot-Beta"; // GitHub repository details
 
             string localVersion = GetLocalVersion();
             if (string.IsNullOrEmpty(localVersion))

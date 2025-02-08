@@ -40,18 +40,25 @@
             pictureBox10 = new PictureBox();
             settingsButton = new PictureBox();
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            connectLabel = new Label();
+            chatsettingLabel = new Label();
+            traderLabel = new Label();
             label6 = new Label();
             label7 = new Label();
-            label8 = new Label();
+            settingsLabel = new Label();
             currentTab = new Label();
             minBox = new PictureBox();
-            label9 = new Label();
+            commandBulderLabel = new Label();
             eftTrader = new PictureBox();
             conStatus = new Label();
             slideBar = new PictureBox();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            slidebarHighlight1 = new PictureBox();
+            slidebarHighlight2 = new PictureBox();
+            slidebarHighlight3 = new PictureBox();
+            slidebarHighlight4 = new PictureBox();
+            slidebarHighlight5 = new PictureBox();
+            versionLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
@@ -65,6 +72,11 @@
             ((System.ComponentModel.ISupportInitialize)minBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slideBar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -188,41 +200,41 @@
             label1.TabIndex = 11;
             label1.Text = "Menu";
             // 
-            // label2
+            // connectLabel
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(30, 30, 30);
-            label2.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label2.ForeColor = SystemColors.ControlLight;
-            label2.Location = new Point(-43, 86);
-            label2.Name = "label2";
-            label2.Size = new Size(84, 23);
-            label2.TabIndex = 12;
-            label2.Text = "Connect";
+            connectLabel.AutoSize = true;
+            connectLabel.BackColor = Color.FromArgb(30, 30, 30);
+            connectLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            connectLabel.ForeColor = SystemColors.ControlLight;
+            connectLabel.Location = new Point(-43, 86);
+            connectLabel.Name = "connectLabel";
+            connectLabel.Size = new Size(84, 23);
+            connectLabel.TabIndex = 12;
+            connectLabel.Text = "Connect";
             // 
-            // label3
+            // chatsettingLabel
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(30, 30, 30);
-            label3.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label3.ForeColor = SystemColors.ControlLight;
-            label3.Location = new Point(-73, 130);
-            label3.Name = "label3";
-            label3.Size = new Size(81, 46);
-            label3.TabIndex = 13;
-            label3.Text = "Chat\r\nSettings";
+            chatsettingLabel.AutoSize = true;
+            chatsettingLabel.BackColor = Color.FromArgb(30, 30, 30);
+            chatsettingLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            chatsettingLabel.ForeColor = SystemColors.ControlLight;
+            chatsettingLabel.Location = new Point(-73, 130);
+            chatsettingLabel.Name = "chatsettingLabel";
+            chatsettingLabel.Size = new Size(81, 46);
+            chatsettingLabel.TabIndex = 13;
+            chatsettingLabel.Text = "Chat\r\nSettings";
             // 
-            // label4
+            // traderLabel
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(30, 30, 30);
-            label4.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.ControlLight;
-            label4.Location = new Point(-33, 250);
-            label4.Name = "label4";
-            label4.Size = new Size(78, 23);
-            label4.TabIndex = 14;
-            label4.Text = "Traders";
+            traderLabel.AutoSize = true;
+            traderLabel.BackColor = Color.FromArgb(30, 30, 30);
+            traderLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            traderLabel.ForeColor = SystemColors.ControlLight;
+            traderLabel.Location = new Point(-33, 250);
+            traderLabel.Name = "traderLabel";
+            traderLabel.Size = new Size(78, 23);
+            traderLabel.TabIndex = 14;
+            traderLabel.Text = "Traders";
             // 
             // label6
             // 
@@ -250,17 +262,17 @@
             label7.Text = "label7";
             label7.Visible = false;
             // 
-            // label8
+            // settingsLabel
             // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.FromArgb(30, 30, 30);
-            label8.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label8.ForeColor = SystemColors.ControlLight;
-            label8.Location = new Point(-35, 574);
-            label8.Name = "label8";
-            label8.Size = new Size(81, 23);
-            label8.TabIndex = 18;
-            label8.Text = "Settings";
+            settingsLabel.AutoSize = true;
+            settingsLabel.BackColor = Color.FromArgb(30, 30, 30);
+            settingsLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            settingsLabel.ForeColor = SystemColors.ControlLight;
+            settingsLabel.Location = new Point(-35, 574);
+            settingsLabel.Name = "settingsLabel";
+            settingsLabel.Size = new Size(81, 23);
+            settingsLabel.TabIndex = 18;
+            settingsLabel.Text = "Settings";
             // 
             // currentTab
             // 
@@ -289,17 +301,17 @@
             minBox.TabStop = false;
             minBox.Click += minBox_Click;
             // 
-            // label9
+            // commandBulderLabel
             // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.FromArgb(30, 30, 30);
-            label9.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label9.ForeColor = SystemColors.ControlLight;
-            label9.Location = new Point(-73, 185);
-            label9.Name = "label9";
-            label9.Size = new Size(104, 46);
-            label9.TabIndex = 21;
-            label9.Text = "Command\r\nBuilder";
+            commandBulderLabel.AutoSize = true;
+            commandBulderLabel.BackColor = Color.FromArgb(30, 30, 30);
+            commandBulderLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            commandBulderLabel.ForeColor = SystemColors.ControlLight;
+            commandBulderLabel.Location = new Point(-73, 185);
+            commandBulderLabel.Name = "commandBulderLabel";
+            commandBulderLabel.Size = new Size(104, 46);
+            commandBulderLabel.TabIndex = 21;
+            commandBulderLabel.Text = "Command\r\nBuilder";
             // 
             // eftTrader
             // 
@@ -334,6 +346,64 @@
             slideBar.TabIndex = 23;
             slideBar.TabStop = false;
             // 
+            // slidebarHighlight1
+            // 
+            slidebarHighlight1.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight1.Location = new Point(0, 73);
+            slidebarHighlight1.Name = "slidebarHighlight1";
+            slidebarHighlight1.Size = new Size(47, 50);
+            slidebarHighlight1.TabIndex = 24;
+            slidebarHighlight1.TabStop = false;
+            // 
+            // slidebarHighlight2
+            // 
+            slidebarHighlight2.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight2.Location = new Point(0, 128);
+            slidebarHighlight2.Name = "slidebarHighlight2";
+            slidebarHighlight2.Size = new Size(47, 50);
+            slidebarHighlight2.TabIndex = 25;
+            slidebarHighlight2.TabStop = false;
+            // 
+            // slidebarHighlight3
+            // 
+            slidebarHighlight3.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight3.Location = new Point(0, 183);
+            slidebarHighlight3.Name = "slidebarHighlight3";
+            slidebarHighlight3.Size = new Size(47, 50);
+            slidebarHighlight3.TabIndex = 26;
+            slidebarHighlight3.TabStop = false;
+            // 
+            // slidebarHighlight4
+            // 
+            slidebarHighlight4.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight4.Location = new Point(0, 238);
+            slidebarHighlight4.Name = "slidebarHighlight4";
+            slidebarHighlight4.Size = new Size(47, 50);
+            slidebarHighlight4.TabIndex = 27;
+            slidebarHighlight4.TabStop = false;
+            // 
+            // slidebarHighlight5
+            // 
+            slidebarHighlight5.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight5.Location = new Point(0, 561);
+            slidebarHighlight5.Name = "slidebarHighlight5";
+            slidebarHighlight5.Size = new Size(47, 50);
+            slidebarHighlight5.TabIndex = 28;
+            slidebarHighlight5.TabStop = false;
+            // 
+            // versionLabel
+            // 
+            versionLabel.AutoSize = true;
+            versionLabel.BackColor = Color.FromArgb(63, 78, 79);
+            versionLabel.Font = new Font("Trebuchet MS", 8F);
+            versionLabel.ForeColor = Color.Salmon;
+            versionLabel.Location = new Point(975, 593);
+            versionLabel.Name = "versionLabel";
+            versionLabel.Size = new Size(13, 16);
+            versionLabel.TabIndex = 30;
+            versionLabel.Text = "1";
+            versionLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // ModernMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -341,6 +411,7 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1042, 611);
             ControlBox = false;
+            Controls.Add(versionLabel);
             Controls.Add(conStatus);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
@@ -351,18 +422,23 @@
             Controls.Add(pictureBox2);
             Controls.Add(label7);
             Controls.Add(label6);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(traderLabel);
+            Controls.Add(chatsettingLabel);
+            Controls.Add(connectLabel);
             Controls.Add(label1);
-            Controls.Add(label9);
+            Controls.Add(commandBulderLabel);
             Controls.Add(minBox);
             Controls.Add(currentTab);
             Controls.Add(closeBox);
             Controls.Add(settingsButton);
-            Controls.Add(label8);
+            Controls.Add(settingsLabel);
             Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
+            Controls.Add(slidebarHighlight5);
+            Controls.Add(slidebarHighlight4);
+            Controls.Add(slidebarHighlight3);
+            Controls.Add(slidebarHighlight2);
+            Controls.Add(slidebarHighlight1);
             Controls.Add(slideBar);
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
@@ -381,6 +457,11 @@
             ((System.ComponentModel.ISupportInitialize)minBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).EndInit();
             ((System.ComponentModel.ISupportInitialize)slideBar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -398,17 +479,24 @@
         private PictureBox pictureBox10;
         private PictureBox settingsButton;
         private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label connectLabel;
+        private Label chatsettingLabel;
+        private Label traderLabel;
         private Label label6;
         private Label label7;
-        private Label label8;
+        private Label settingsLabel;
         private Label currentTab;
         private PictureBox minBox;
-        private Label label9;
+        private Label commandBulderLabel;
         private PictureBox eftTrader;
         private Label conStatus;
         private PictureBox slideBar;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private PictureBox slidebarHighlight1;
+        private PictureBox slidebarHighlight2;
+        private PictureBox slidebarHighlight3;
+        private PictureBox slidebarHighlight4;
+        private PictureBox slidebarHighlight5;
+        private Label versionLabel;
     }
 }

@@ -29,7 +29,7 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
         private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
-        private static HashSet<string> bannedUsers = BanManager.LoadBanList();  // Load the banned users on startup
+        private static HashSet<string> bannedUsers = ChatCommandMethods.LoadBanList();  // Load the banned users on startup
         public Dictionary<string, string> commandConfigData;
         Dictionary<string, (int usageCount, int bitCost, int totalSpent)> commandUsageData = new Dictionary<string, (int, int, int)>();
 
@@ -1472,7 +1472,7 @@ namespace UiBot
                             if (!bannedUsers.Contains(bannedUsername))
                             {
                                 bannedUsers.Add(bannedUsername);
-                                BanManager.SaveBanList(bannedUsers);
+                                ChatCommandMethods.SaveBanList(bannedUsers);
                                 client.SendMessage(channelId, $"{bannedUsername} has been banned from using the bot.");
                             }
                             else
@@ -1496,7 +1496,7 @@ namespace UiBot
                             if (bannedUsers.Contains(unbannedUsername))
                             {
                                 bannedUsers.Remove(unbannedUsername);
-                                BanManager.SaveBanList(bannedUsers);
+                                ChatCommandMethods.SaveBanList(bannedUsers);
                                 client.SendMessage(channelId, $"{unbannedUsername} has been unbanned and can use the bot again.");
                             }
                             else
@@ -1530,15 +1530,6 @@ namespace UiBot
                     creds = new ConnectionCredentials(data.ChannelName, data.BotToken);
                     channelId = data.ChannelName;
                 }
-                else
-                {
-                    // Handle the case where the ChannelName is empty or invalid.
-                    // You can show a message to the user or take appropriate action.
-                }
-            }
-            else
-            {
-                // Handle the absence of the JSON file as needed.
             }
         }
 

@@ -24,6 +24,8 @@ namespace UiBot
 
     internal class ChatCommandMethods
     {
+        private static string banListFilePath = Path.Combine("Data", "BanList.json");
+
         private static readonly object fileLock = new object();
 
         //command dictionary
@@ -281,5 +283,24 @@ namespace UiBot
             }
         }
 
+        public static HashSet<string> LoadBanList()
+        {
+            if (File.Exists(banListFilePath))
+            {
+                string json = File.ReadAllText(banListFilePath);
+                return JsonConvert.DeserializeObject<HashSet<string>>(json) ?? new HashSet<string>();
+            }
+            else
+            {
+                return new HashSet<string>();
+            }
+        }
+
+        // Saves the banned users to the BanList.json file
+        public static void SaveBanList(HashSet<string> banList)
+        {
+            string json = JsonConvert.SerializeObject(banList, Formatting.Indented);
+            File.WriteAllText(banListFilePath, json);
+        }
     }
 }
