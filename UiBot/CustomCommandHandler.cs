@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using NAudio.Wave;
+using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -1342,34 +1343,73 @@ public class CustomCommandHandler
             return;
         }
 
-        // Remove leading and trailing spaces and quotes from the parameter
-        var fileName = parameter.Trim(' ', '(', ')', '"');
+        var parameterParts = parameter.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        // Get the file path
-        string filePath = GetSoundFilePath(fileName);
-
-        if (filePath == null)
+        if (parameterParts.Length < 1)
         {
-            Console.WriteLine($"Sound file not found: {fileName}");
+            Console.WriteLine("Invalid command format.");
             return;
         }
 
-        try
+        string command = parameterParts[0]; 
+
+        string volumeString = null;
+        string fileName = null;
+
+        int startIdx = command.IndexOf('(');
+        int endIdx = command.IndexOf(')');
+
+        if (startIdx != -1 && endIdx != -1 && endIdx > startIdx)
         {
-            // Play the sound file
-            using (var player = new System.Media.SoundPlayer(filePath))
+            volumeString = command.Substring(startIdx + 1, endIdx - startIdx - 1);
+            fileName = command.Substring(endIdx + 1).Trim();
+
+            if (float.TryParse(volumeString, out float parsedVolume))
             {
-                player.Play();
+                float volume = Math.Clamp(parsedVolume / 100.0f, 0.0f, 1.0f);
+
+                string filePath = GetSoundFilePath(fileName);
+
+                if (filePath == null)
+                {
+                    Console.WriteLine($"Sound file not found: {fileName}");
+                    return;
+                }
+
+                try
+                {
+                    using (var audioFileReader = new AudioFileReader(filePath))
+                    using (var waveOut = new WaveOutEvent())
+                    {
+                        waveOut.Volume = volume; 
+                        waveOut.Init(audioFileReader);
+                        waveOut.Play();
+
+                        if (UiBot.Properties.Settings.Default.isDebugCommands)
+                        {
+                            Console.WriteLine($"Playing sound for {fileName} at volume {volume * 100}%.");
+                        }
+
+                        while (waveOut.PlaybackState == PlaybackState.Playing)
+                        {
+                            System.Threading.Thread.Sleep(100);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error playing sound: {ex.Message}");
+                    Console.WriteLine($"Error playing sound: {fileName}");
+                }
             }
-            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            else
             {
-                Console.WriteLine($"Playing sound for {fileName}.");
+                Console.WriteLine("Invalid volume specified.");
             }
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Error playing sound: {ex.Message}");
-            Console.WriteLine($"Error playing sound: {fileName}");
+            Console.WriteLine("Invalid command format. Expected format: PSOUND=(Volume)filename.wav");
         }
     }
 
@@ -1381,31 +1421,76 @@ public class CustomCommandHandler
             return;
         }
 
-        var fileName = parameter.Trim(' ', '(', ')', '"');
-        string filePath = GetSoundFilePath(fileName);
+        var parameterParts = parameter.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        if (filePath == null)
+        if (parameterParts.Length < 1)
         {
-            Console.WriteLine($"Sound file not found: {fileName}");
+            Console.WriteLine("Invalid command format.");
             return;
         }
 
-        try
+        string command = parameterParts[0]; 
+
+        string volumeString = null;
+        string fileName = null;
+
+        int startIdx = command.IndexOf('(');
+        int endIdx = command.IndexOf(')');
+
+        if (startIdx != -1 && endIdx != -1 && endIdx > startIdx)
         {
-            // Play the sound file
-            using (var player = new System.Media.SoundPlayer(filePath))
+            volumeString = command.Substring(startIdx + 1, endIdx - startIdx - 1);
+            fileName = command.Substring(endIdx + 1).Trim();
+
+            if (float.TryParse(volumeString, out float parsedVolume))
             {
-                // SoundPlayer doesn't support async playback, but you can use a Task.Run to avoid blocking
-                await Task.Run(() => player.Play());
+                float volume = Math.Clamp(parsedVolume / 100.0f, 0.0f, 1.0f);
+
+                string filePath = GetSoundFilePath(fileName);
+
+                if (filePath == null)
+                {
+                    Console.WriteLine($"Sound file not found: {fileName}");
+                    return;
+                }
+
+                try
+                {
+                    await Task.Run(() =>
+                    {
+                        using (var audioFileReader = new AudioFileReader(filePath))
+                        using (var waveOut = new WaveOutEvent())
+                        {
+                            waveOut.Volume = volume;
+                            waveOut.Init(audioFileReader);
+                            waveOut.Play();
+
+                            if (UiBot.Properties.Settings.Default.isDebugCommands)
+                            {
+                                Console.WriteLine($"Async Playing sound for {fileName} at volume {volume * 100}%.");
+                            }
+
+                            // Wait until playback finishes asynchronously
+                            while (waveOut.PlaybackState == PlaybackState.Playing)
+                            {
+                                Task.Delay(100).Wait();
+                            }
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error playing sound: {ex.Message}");
+                }
             }
-            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            else
             {
-                Console.WriteLine($"Async Playing sound for {fileName}.");
+                Console.WriteLine("Invalid volume specified.");
             }
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Error playing sound: {ex.Message}");
+            Console.WriteLine("Invalid command format. Expected format: PSOUND=(Volume)filename.wav");
         }
     }
 
@@ -1570,14 +1655,32 @@ public class CustomCommandHandler
             case "NUMPADMULTIPLY": return 0x6A; // VK_MULTIPLY
             case "NUMPADDIVIDE": return 0x6F; // VK_DIVIDE
 
-            // Stupid People Mouse buttons
-            case "MOUSE1": return 0x01; // VK_LBUTTON (Left Mouse Button)
-            case "MOUSE2": return 0x02; // VK_RBUTTON (Right Mouse Button)
-            case "MOUSE3": return 0x04; // VK_MBUTTON (Middle Mouse Button)
-            case "MOUSE4": return 0x05; // VK_XBUTTON1 (XButton1)
-            case "MOUSE5": return 0x06; // VK_XBUTTON2 (XButton2)
+            // Xbox Mapping
+            case "XBA": return 0x41; // VK_A (Map Xbox A button to 'A')
+            case "XBB": return 0x42; // VK_B (Map Xbox B button to 'B')
+            case "XBX": return 0x58; // VK_X (Map Xbox X button to 'X')
+            case "XBY": return 0x59; // VK_Y (Map Xbox Y button to 'Y')
 
-            // Additional keys can be mapped here
+            case "LB": return 0x10; // VK_SHIFT (Map Xbox Left Bumper to Shift)
+            case "RB": return 0x11; // VK_CONTROL (Map Xbox Right Bumper to Ctrl)
+
+            // Start, Back, and other buttons
+            case "START": return 0x1B; // VK_ESCAPE (Map Xbox Start button to ESC)
+            case "BACK": return 0x0D; // VK_RETURN (Map Xbox Back button to Enter)
+
+            // D-Pad buttons (you can map these to arrow keys or other keys)
+            case "DPAD_UP": return 0x26; // VK_UP (Map D-Pad Up to UP Arrow)
+            case "DPAD_DOWN": return 0x28; // VK_DOWN (Map D-Pad Down to DOWN Arrow)
+            case "DPAD_LEFT": return 0x25; // VK_LEFT (Map D-Pad Left to LEFT Arrow)
+            case "DPAD_RIGHT": return 0x27; // VK_RIGHT (Map D-Pad Right to RIGHT Arrow)
+
+            // Thumbstick buttons (Clicking the sticks)
+            case "LS_CLICK": return 0x5A; // VK_Z (Map Left Stick Button to 'Z')
+            case "RS_CLICK": return 0x5B; // VK_LWIN (Map Right Stick Button to 'WIN')
+
+            // Analog triggers
+            case "LT": return 0xA0; // VK_LBUTTON (Map Left Trigger to Left Mouse Button)
+            case "RT": return 0xA1; // VK_RBUTTON (Map Right Trigger to Right Mouse Button)
 
             default:
                 throw new ArgumentException("Unsupported key");

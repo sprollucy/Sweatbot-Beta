@@ -99,6 +99,7 @@
             pictureBox2 = new PictureBox();
             amouseposButton = new Button();
             panel4 = new Panel();
+            button1 = new Button();
             pixelateButton = new Button();
             adelayButton = new Button();
             label16 = new Label();
@@ -146,7 +147,6 @@
             pictureBox11 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -513,9 +513,9 @@
             label10.ForeColor = SystemColors.ControlText;
             label10.Location = new Point(45, 84);
             label10.Name = "label10";
-            label10.Size = new Size(73, 15);
+            label10.Size = new Size(170, 15);
             label10.TabIndex = 48;
-            label10.Text = "Speed/Delay";
+            label10.Text = "Speed/Delay/Volume(100 max)";
             // 
             // label9
             // 
@@ -1047,6 +1047,18 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(309, 135);
             panel4.TabIndex = 33;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(3, 94);
+            button1.Name = "button1";
+            button1.Size = new Size(301, 36);
+            button1.TabIndex = 60;
+            button1.Text = "More Coming Soon!";
+            button1.UseVisualStyleBackColor = false;
             // 
             // pixelateButton
             // 
@@ -1639,18 +1651,6 @@
             buttonTab.SizeMode = PictureBoxSizeMode.StretchImage;
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(3, 94);
-            button1.Name = "button1";
-            button1.Size = new Size(301, 36);
-            button1.TabIndex = 60;
-            button1.Text = "More Coming Soon!";
-            button1.UseVisualStyleBackColor = false;
             // 
             // CommandBuilderMenu
             // 

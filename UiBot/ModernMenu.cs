@@ -32,6 +32,7 @@ namespace UiBot
         private int labelsTargetLeft;
         private Timer labelsSlideTimer;
         private MainBot bot;
+
         public static ModernMenu Instance { get; private set; }
 
         public ModernMenu()
@@ -45,7 +46,7 @@ namespace UiBot
 
             // Create a GraphicsPath with rounded corners
             GraphicsPath path = new GraphicsPath();
-            int radius = 10; // Adjust the radius as needed
+            int radius = 12; // Adjust the radius as needed
             Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
             path.AddArc(rect.Left, rect.Top, radius * 2, radius * 2, 180, 90);
             path.AddArc(rect.Right - (radius * 2), rect.Top, radius * 2, radius * 2, 270, 90);
@@ -55,38 +56,16 @@ namespace UiBot
 
             // Set the form's region to the rounded shape
             this.Region = new Region(path);
-            // Mouse events for pictureBox10
-            pictureBox10.MouseDown += (s, e) =>
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    isDragging = true;
-                    offset = e.Location;
-                }
-            };
-
-            pictureBox10.MouseMove += (s, e) =>
-            {
-                if (isDragging)
-                {
-                    Point newLocation = this.PointToScreen(new Point(e.X - offset.X, e.Y - offset.Y));
-                    this.Location = newLocation;
-                }
-            };
-
-            pictureBox10.MouseUp += (s, e) =>
-            {
-                isDragging = false;
-            };
+            // Mouse events for titleBar
 
             originalWidth = slideBar.Width;
-            enlargedWidth = originalWidth + 130; // Adjust the enlarged width as needed
+            enlargedWidth = originalWidth + 117; // Adjust the enlarged width as needed
             transitionTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother transition
             transitionTimer.Tick += TransitionTimer_Tick;
-            originalPictureBox2BackColor = pictureBox2.BackColor; // Store the original background color
+            originalPictureBox2BackColor = menuButton.BackColor; // Store the original background color
             originalSlideBackColor = slidebarHighlight1.BackColor; // Store the original background color
-            labelsOriginalLeft = label1.Left;
-            labelsTargetLeft = label1.Left + 130; // Adjust this value as needed
+            labelsOriginalLeft = menuLabel.Left;
+            labelsTargetLeft = menuLabel.Left + 125; // Adjust this value as needed
             labelsSlideTimer = new Timer { Interval = 1 }; // Adjust the interval for smoother animation
             labelsSlideTimer.Tick += LabelsSlideTimer_Tick;
 
@@ -115,12 +94,15 @@ namespace UiBot
             };
 
             // Apply to your sidebar items
+            setMouseEventsSlide(slidebarHighlight0, menuButton, menuLabel);
             setMouseEventsSlide(slidebarHighlight1, connectButton, connectLabel);
             setMouseEventsSlide(slidebarHighlight2, commandMenu, chatsettingLabel);
             setMouseEventsSlide(slidebarHighlight3, commandBuilder, commandBulderLabel);
             setMouseEventsSlide(slidebarHighlight4, eftTrader, traderLabel);
             setMouseEventsSlide(slidebarHighlight5, settingsButton, settingsLabel);
 
+            menuLabel.Click += (s, e) => connectMenu_Click(s, e);
+            slidebarHighlight0.Click += (s, e) => connectMenu_Click(s, e);
             connectLabel.Click += (s, e) => connectMenu_Click(s, e);
             slidebarHighlight1.Click += (s, e) => connectMenu_Click(s, e);
             chatsettingLabel.Click += (s, e) => commandMenu_Click(s, e);
@@ -131,24 +113,112 @@ namespace UiBot
             slidebarHighlight3.Click += (s, e) => commandBuilder_Click(s, e);
             settingsLabel.Click += (s, e) => settingsButton_Click(s, e);
             slidebarHighlight5.Click += (s, e) => settingsButton_Click(s, e);
-
+            TitleBar();
             CheckStart();
-            BetaLabel();
-            // Attach event handler to detect setting changes
             PropertySaver();
         }
 
-        private void BetaLabel()
+        private void TitleBar()
         {
-            string packageVersion = Assembly.GetExecutingAssembly()
-.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0];
-            versionLabel.Text = packageVersion;
-            // Position the label at the bottom-right corner of the form
-            versionLabel.Location = new Point(
-                this.ClientSize.Width - versionLabel.Width,  // 10 is padding from the right edge
-                this.ClientSize.Height - versionLabel.Height  // 10 is padding from the bottom edge
-            );
+            titleBar.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    isDragging = true;
+                    offset = e.Location;
+                }
+            };
+
+            titleBar.MouseMove += (s, e) =>
+            {
+                if (isDragging)
+                {
+                    Point newLocation = this.PointToScreen(new Point(e.X - offset.X, e.Y - offset.Y));
+                    this.Location = newLocation;
+                }
+            };
+
+            titleBar.MouseUp += (s, e) =>
+            {
+                isDragging = false;
+            };
+
+            versionLabel.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    isDragging = true;
+                    offset = e.Location;
+                }
+            };
+
+            versionLabel.MouseMove += (s, e) =>
+            {
+                if (isDragging)
+                {
+                    Point newLocation = this.PointToScreen(new Point(e.X - offset.X, e.Y - offset.Y));
+                    this.Location = newLocation;
+                }
+            };
+
+            versionLabel.MouseUp += (s, e) =>
+            {
+                isDragging = false;
+            };
+
+            conStatus.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    isDragging = true;
+                    offset = e.Location;
+                }
+            };
+
+            conStatus.MouseMove += (s, e) =>
+            {
+                if (isDragging)
+                {
+                    Point newLocation = this.PointToScreen(new Point(e.X - offset.X, e.Y - offset.Y));
+                    this.Location = newLocation;
+                }
+            };
+
+            conStatus.MouseUp += (s, e) =>
+            {
+                isDragging = false;
+            };
+
+            currentTab.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    isDragging = true;
+                    offset = e.Location;
+                }
+            };
+
+            currentTab.MouseMove += (s, e) =>
+            {
+                if (isDragging)
+                {
+                    Point newLocation = this.PointToScreen(new Point(e.X - offset.X, e.Y - offset.Y));
+                    this.Location = newLocation;
+                }
+            };
+
+            currentTab.MouseUp += (s, e) =>
+            {
+                isDragging = false;
+            };
+
+            versionLabel.Text = "Beta - Unfinished software. Things will be broken or changed";
+            versionLabel.Left = currentTab.Left + 10;
+            versionLabel.Left = (this.ClientSize.Width - versionLabel.Width) / 2;
+            //versionLabel.Top = (this.ClientSize.Height - versionLabel.Height) / 2;
         }
+
+
 
         public void CheckStart()
         {
@@ -191,7 +261,7 @@ namespace UiBot
         {
             if (isConnected)
             {
-                conStatus.Text = "Connected";
+                conStatus.Text = "      Connected";
                 conStatus.ForeColor = Color.Green;
 
             }
@@ -214,6 +284,7 @@ namespace UiBot
 
             newWidth = Math.Min(Math.Max(newWidth, originalWidth), enlargedWidth);
             slideBar.Width = newWidth;
+            slidebarHighlight0.Width = newWidth;
             slidebarHighlight1.Width = newWidth;
             slidebarHighlight2.Width = newWidth;
             slidebarHighlight3.Width = newWidth;
@@ -238,7 +309,7 @@ namespace UiBot
             {
                 if (control is Label label)
                 {
-                    if (label.Name == "label1" || label.Name == "connectLabel" || label.Name == "chatsettingLabel" ||  label.Name == "traderLabel" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "settingsLabel" || label.Name == "commandBulderLabel")
+                    if (label.Name == "menuLabel" || label.Name == "connectLabel" || label.Name == "chatsettingLabel" ||  label.Name == "traderLabel" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "settingsLabel" || label.Name == "commandBulderLabel")
                     {
                         label.Left = newLeft;
                     }
@@ -314,7 +385,7 @@ namespace UiBot
                 this.Controls.Add(connectMenu);
                 connectMenu.Show();
                 isConnectMenuVisible = true;
-                currentTab.Text = "Connection Menu";
+                currentTab.Text = " Connection Menu";
             }
         }
 
@@ -341,7 +412,7 @@ namespace UiBot
                 this.Controls.Add(settingMenu);
                 settingMenu.Show();
                 isSettingMenuVisible = true;
-                currentTab.Text = "Settings";
+                currentTab.Text = " Settings";
             }
         }
 
@@ -367,7 +438,7 @@ namespace UiBot
                 this.Controls.Add(traderMenu);
                 traderMenu.Show();
                 isTraderMenuVisible = true;
-                currentTab.Text = "Trader Menu";
+                currentTab.Text = " Trader Menu";
 
             }
         }
@@ -395,7 +466,7 @@ namespace UiBot
                 this.Controls.Add(controlMenu);
                 controlMenu.Show();
                 isControlMenuVisible = true;
-                currentTab.Text = "Chat Settings";
+                currentTab.Text = " Chat Settings";
 
             }
         }
@@ -422,7 +493,7 @@ namespace UiBot
                 this.Controls.Add(builderMenu);
                 builderMenu.Show();
                 isCommandBuilderMenuVisible = true;
-                currentTab.Text = "Command Builder";
+                currentTab.Text = " Command Builder";
 
             }
         }

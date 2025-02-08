@@ -202,12 +202,12 @@ namespace UiBot
         private void leftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoop=(dur,Speed) ");
         private void rightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoop=(dur,Speed) ");
         private void turnButton_Click(object sender, EventArgs e) => AppendCommandText(" TM=Direction(dur,Speed) ");
-        private void playsoundButton_Click(object sender, EventArgs e) => commandtextBox.Text += " PSOUND=filename.wav ";
+        private void playsoundButton_Click(object sender, EventArgs e) => AppendCommandText(" PSOUND=(Speed)filename.wav ");
         private void leftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHOLD=dur ");
         private void rightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHOLD=dur ");
         private void delayButton_Click(object sender, EventArgs e) => AppendCommandText(" Delay=Speed ");
         private void muteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVol=dur ");
-        private void mouseposButton_Click(object sender, EventArgs e) => commandtextBox.Text += GetCommandText($" MPos({mouseX},{mouseY}) ");
+        private void mouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPos({mouseX},{mouseY}) ");
         private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreen=dur ");
 
         // Asynchronous commands
@@ -219,12 +219,12 @@ namespace UiBot
         private void aleftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoopAsync=(dur,Speed) ");
         private void arightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoopAsync=(dur,Speed) ");
         private void aturnButton_Click(object sender, EventArgs e) => AppendCommandText(" TMAsync=Direction(dur,Speed) ");
-        private void aplaysoundButton_Click(object sender, EventArgs e) => commandtextBox.Text += " PSOUNDAsync=filename.wav ";
+        private void aplaysoundButton_Click(object sender, EventArgs e) => AppendCommandText(" PSOUND=(Speed)filename.wav ");
         private void aleftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHoldAsync=dur ");
         private void arightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHoldAsync=dur ");
         private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText(" DelayAsync=Speed ");
         private void amuteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVolAsync=dur ");
-        private void amouseposButton_Click(object sender, EventArgs e) => commandtextBox.Text += GetCommandText($" MPosAsync({mouseX},{mouseY}) ");
+        private void amouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosAsync({mouseX},{mouseY}) ");
 
 
         private void disablecommandButton_Click(object sender, EventArgs e)

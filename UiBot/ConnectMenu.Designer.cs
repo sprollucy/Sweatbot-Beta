@@ -53,7 +53,6 @@
             twitchOpen = new Button();
             pauseCommands = new CheckBox();
             pictureBox8 = new PictureBox();
-            label2 = new Label();
             consoleTab = new Label();
             pictureBox2 = new PictureBox();
             pictureBox5 = new PictureBox();
@@ -102,10 +101,11 @@
             // 
             messageTextBox.BackColor = SystemColors.ControlLight;
             messageTextBox.BorderStyle = BorderStyle.None;
+            messageTextBox.Font = new Font("Segoe UI", 10F);
             messageTextBox.Location = new Point(53, 419);
             messageTextBox.Name = "messageTextBox";
             messageTextBox.PlaceholderText = "Type here to send a message to chat. Enter to send or test a command with ! in front of its name";
-            messageTextBox.Size = new Size(598, 16);
+            messageTextBox.Size = new Size(598, 18);
             messageTextBox.TabIndex = 0;
             // 
             // consoleTextBox
@@ -413,17 +413,6 @@
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox8.TabIndex = 30;
             pictureBox8.TabStop = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.Red;
-            label2.Location = new Point(215, 445);
-            label2.Name = "label2";
-            label2.Size = new Size(514, 21);
-            label2.TabIndex = 13;
-            label2.Text = "Remember this is unfinished software. Things will be broken or changed!";
             // 
             // consoleTab
             // 
@@ -748,7 +737,6 @@
             Controls.Add(panel2);
             Controls.Add(debugGroup);
             Controls.Add(pictureBox5);
-            Controls.Add(label2);
             Controls.Add(disconnectButton);
             Controls.Add(connectButton);
             Controls.Add(messageTextBox);
@@ -792,7 +780,6 @@
         private Label label1;
         public CheckBox pauseCommands;
         private Button twitchOpen;
-        private Label label2;
         private Label consoleTab;
         private PictureBox pictureBox2;
         private Button backupButton;

@@ -82,11 +82,6 @@ namespace UiBot
             logFilePath = Path.Combine("Logs", logFileName);
             userBits = new Dictionary<string, int>();
 
-            //LoadLogEntries();
-
-            // Set up the file watcher to monitor changes
-            //SetUpFileWatcher();
-
         }
 
         private void chatComPanel_MouseClick(object sender, MouseEventArgs e)
@@ -220,10 +215,6 @@ namespace UiBot
             {
                 Console.WriteLine("Commands are not paused.");
             }
-        }
-        private void pauseRaidBox_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void twitchOpen_Click(object sender, EventArgs e)
@@ -499,12 +490,27 @@ namespace UiBot
             long allocmemoryUsed = currentProcess.WorkingSet64;
             long memoryUsed = currentProcess.PrivateMemorySize64;
             long gcmemoryUsed = GC.GetTotalMemory(false);
+            long virtualMemoryUsed = currentProcess.VirtualMemorySize64;
 
-            // Write memory usage details to the console
-            Console.WriteLine($"[{timestamp}] Ram snapshot writen to 'Debug File.txt' in 'Logs' folder");
+            // Print memory usage details for the current application to the console
+            Console.WriteLine($"[{timestamp}] Memory snapshot for this application:");
             Console.WriteLine($"[RamSnap] Managed GC Memory: {gcmemoryUsed / 1024 / 1024} MB");
             Console.WriteLine($"[RamSnap] Actual Memory Usage: {memoryUsed / 1024 / 1024} MB");
             Console.WriteLine($"[RamSnap] Total Allocated Memory: {allocmemoryUsed / 1024 / 1024} MB");
+            Console.WriteLine($"[RamSnap] Virtual Memory Usage: {virtualMemoryUsed / 1024 / 1024} MB");
+
+            // Print the current process information to the console
+            Console.WriteLine($"[{timestamp}] Current Application Process Info:");
+            Console.WriteLine($"[Process Info] Process Name: {currentProcess.ProcessName}, ID: {currentProcess.Id}");
+            Console.WriteLine($"[Process Info] Start Time: {currentProcess.StartTime}");
+            Console.WriteLine($"[Process Info] Total Processor Time: {currentProcess.TotalProcessorTime}");
+            Console.WriteLine($"[Process Info] User Processor Time: {currentProcess.UserProcessorTime}");
+            Console.WriteLine($"[Process Info] Privileged Processor Time: {currentProcess.PrivilegedProcessorTime}");
+
+            // Print number of threads and handles
+            Console.WriteLine($"[Process Info] Number of Threads: {currentProcess.Threads.Count}");
+            Console.WriteLine($"[Process Info] Handle Count: {currentProcess.HandleCount}");
+
         }
 
         // Custom TextWriter to redirect Console output to a TextBox
@@ -826,7 +832,6 @@ namespace UiBot
             LogHandler.UpdateUserBits(userName, bitsCost);
 
             // Notify about successful update
-            string timestamp = DateTime.Now.ToString("MM/dd HH:mm:ss");
             bot.SendMessage($"{bitsCost} bits refunded to {userName}. New total: {MainBot.userBits[userName]} bits");
             Console.WriteLine($"[{timestamp}] Refunded {bitsCost} bits to {userName}. New total: {MainBot.userBits[userName]} bits");
 

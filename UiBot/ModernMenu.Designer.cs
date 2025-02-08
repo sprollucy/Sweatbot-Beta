@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModernMenu));
             pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
+            menuButton = new PictureBox();
             connectButton = new PictureBox();
             commandMenu = new PictureBox();
             commandBuilder = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox8 = new PictureBox();
             closeBox = new PictureBox();
-            pictureBox10 = new PictureBox();
+            titleBar = new PictureBox();
             settingsButton = new PictureBox();
-            label1 = new Label();
+            menuLabel = new Label();
             connectLabel = new Label();
             chatsettingLabel = new Label();
             traderLabel = new Label();
@@ -59,15 +59,16 @@
             slidebarHighlight4 = new PictureBox();
             slidebarHighlight5 = new PictureBox();
             versionLabel = new Label();
+            slidebarHighlight0 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)commandBuilder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)titleBar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)minBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).BeginInit();
@@ -77,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight0).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -88,17 +90,17 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // pictureBox2
+            // menuButton
             // 
-            pictureBox2.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(0, 19);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(47, 50);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 1;
-            pictureBox2.TabStop = false;
-            pictureBox2.Click += menuButton_Click;
+            menuButton.BackColor = Color.FromArgb(63, 78, 79);
+            menuButton.Image = (Image)resources.GetObject("menuButton.Image");
+            menuButton.Location = new Point(0, 19);
+            menuButton.Name = "menuButton";
+            menuButton.Size = new Size(47, 50);
+            menuButton.SizeMode = PictureBoxSizeMode.Zoom;
+            menuButton.TabIndex = 1;
+            menuButton.TabStop = false;
+            menuButton.Click += menuButton_Click;
             // 
             // connectButton
             // 
@@ -167,14 +169,14 @@
             closeBox.TabStop = false;
             closeBox.Click += closeBox_Click;
             // 
-            // pictureBox10
+            // titleBar
             // 
-            pictureBox10.BackColor = Color.FromArgb(63, 78, 79);
-            pictureBox10.Location = new Point(0, 0);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(1042, 20);
-            pictureBox10.TabIndex = 9;
-            pictureBox10.TabStop = false;
+            titleBar.BackColor = Color.FromArgb(63, 78, 79);
+            titleBar.Location = new Point(0, 0);
+            titleBar.Name = "titleBar";
+            titleBar.Size = new Size(1042, 20);
+            titleBar.TabIndex = 9;
+            titleBar.TabStop = false;
             // 
             // settingsButton
             // 
@@ -188,17 +190,17 @@
             settingsButton.TabStop = false;
             settingsButton.Click += settingsButton_Click;
             // 
-            // label1
+            // menuLabel
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(30, 30, 30);
-            label1.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            label1.ForeColor = SystemColors.ControlLight;
-            label1.Location = new Point(-73, 32);
-            label1.Name = "label1";
-            label1.Size = new Size(62, 23);
-            label1.TabIndex = 11;
-            label1.Text = "Menu";
+            menuLabel.AutoSize = true;
+            menuLabel.BackColor = Color.FromArgb(30, 30, 30);
+            menuLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
+            menuLabel.ForeColor = SystemColors.ControlLight;
+            menuLabel.Location = new Point(-73, 32);
+            menuLabel.Name = "menuLabel";
+            menuLabel.Size = new Size(62, 23);
+            menuLabel.TabIndex = 11;
+            menuLabel.Text = "Menu";
             // 
             // connectLabel
             // 
@@ -277,9 +279,8 @@
             // currentTab
             // 
             currentTab.AutoSize = true;
-            currentTab.BackColor = Color.FromArgb(63, 78, 79);
+            currentTab.BackColor = Color.FromArgb(162, 123, 92);
             currentTab.Font = new Font("Cambria", 14.25F, FontStyle.Bold);
-            currentTab.Image = (Image)resources.GetObject("currentTab.Image");
             currentTab.ImageAlign = ContentAlignment.MiddleRight;
             currentTab.Location = new Point(0, -2);
             currentTab.Name = "currentTab";
@@ -397,12 +398,22 @@
             versionLabel.BackColor = Color.FromArgb(63, 78, 79);
             versionLabel.Font = new Font("Trebuchet MS", 8F);
             versionLabel.ForeColor = Color.Salmon;
-            versionLabel.Location = new Point(975, 593);
+            versionLabel.Location = new Point(529, 4);
             versionLabel.Name = "versionLabel";
+            versionLabel.RightToLeft = RightToLeft.Yes;
             versionLabel.Size = new Size(13, 16);
             versionLabel.TabIndex = 30;
             versionLabel.Text = "1";
-            versionLabel.TextAlign = ContentAlignment.MiddleLeft;
+            versionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // slidebarHighlight0
+            // 
+            slidebarHighlight0.BackColor = Color.FromArgb(30, 30, 30);
+            slidebarHighlight0.Location = new Point(0, 19);
+            slidebarHighlight0.Name = "slidebarHighlight0";
+            slidebarHighlight0.Size = new Size(47, 50);
+            slidebarHighlight0.TabIndex = 35;
+            slidebarHighlight0.TabStop = false;
             // 
             // ModernMenu
             // 
@@ -411,28 +422,29 @@
             BackColor = Color.FromArgb(37, 37, 37);
             ClientSize = new Size(1042, 611);
             ControlBox = false;
+            Controls.Add(currentTab);
             Controls.Add(versionLabel);
             Controls.Add(conStatus);
+            Controls.Add(minBox);
+            Controls.Add(closeBox);
+            Controls.Add(titleBar);
+            Controls.Add(menuButton);
+            Controls.Add(menuLabel);
+            Controls.Add(slidebarHighlight0);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
             Controls.Add(commandBuilder);
             Controls.Add(eftTrader);
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
-            Controls.Add(pictureBox2);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(traderLabel);
             Controls.Add(chatsettingLabel);
             Controls.Add(connectLabel);
-            Controls.Add(label1);
             Controls.Add(commandBulderLabel);
-            Controls.Add(minBox);
-            Controls.Add(currentTab);
-            Controls.Add(closeBox);
             Controls.Add(settingsButton);
             Controls.Add(settingsLabel);
-            Controls.Add(pictureBox10);
             Controls.Add(pictureBox1);
             Controls.Add(slidebarHighlight5);
             Controls.Add(slidebarHighlight4);
@@ -445,14 +457,14 @@
             Text = "Sweat Bot";
             Load += ModernMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)connectButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)commandBuilder).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)closeBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)titleBar).EndInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)minBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)eftTrader).EndInit();
@@ -462,6 +474,7 @@
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slidebarHighlight0).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -469,16 +482,16 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
+        private PictureBox menuButton;
         private PictureBox connectButton;
         private PictureBox commandMenu;
         private PictureBox commandBuilder;
         private PictureBox pictureBox7;
         private PictureBox pictureBox8;
         private PictureBox closeBox;
-        private PictureBox pictureBox10;
+        private PictureBox titleBar;
         private PictureBox settingsButton;
-        private Label label1;
+        private Label menuLabel;
         private Label connectLabel;
         private Label chatsettingLabel;
         private Label traderLabel;
@@ -498,5 +511,6 @@
         private PictureBox slidebarHighlight4;
         private PictureBox slidebarHighlight5;
         private Label versionLabel;
+        private PictureBox slidebarHighlight0;
     }
 }

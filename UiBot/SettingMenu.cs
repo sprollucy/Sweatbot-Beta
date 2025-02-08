@@ -25,7 +25,10 @@ namespace UiBot
             accessBox.Text = existingData.BotToken;
             channelBox2.Text = existingData.ChannelName;
             versionNumber.Text = "Version: " + packageVersion;
-
+            versionNumber.Location = new Point(
+    this.ClientSize.Width - versionNumber.Width - 10,  // 10 is padding from the right edge
+    this.ClientSize.Height - versionNumber.Height - 10 // 10 is padding from the bottom edge
+);
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
             enableDebug.Checked = Properties.Settings.Default.isDebugOn;
             enableEFTtrade.Checked = Properties.Settings.Default.isTraderMenuEnabled;
