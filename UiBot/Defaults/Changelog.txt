@@ -1,6 +1,12 @@
-1.0.0-beta
+1.0.02-beta
 -Minor UI Tweaks
 -Added Volume adjustments to custom sound clips
 -Added Xbox Mappings(buttons only)
 -Added Loop Mouse to position. Now you can set a position and "stick" your mouse cursor there
 -Adjusted command execution patterns so Async commands correctly execute after or during a delay. This should help with some timing issues
+-Updated Pixelate Screen with normal non Sync command. Useful if you wish to stack multiple after another
+-Removed Trader Menu as it doesn't fit what I'm planning on doing. the !traders command is still available for chat.
+-Added option for if commands are paused, it will tell the user that it is paused when they try to run a command. If you pause the commands on the menu, it will notify chat as well
+-I made a terrible icon for now
+-Added Shutdown PC
+-Added Restart PC

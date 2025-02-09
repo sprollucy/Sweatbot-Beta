@@ -20,7 +20,6 @@ namespace UiBot
         private ConnectMenu connectMenu;
         private SettingMenu settingMenu;
         private ControlMenu controlMenu;
-        private TraderMenu traderMenu;
         private CommandBuilderMenu builderMenu;
         private bool isConnectMenuVisible = false;
         private bool isSettingMenuVisible = false;
@@ -98,7 +97,6 @@ namespace UiBot
             setMouseEventsSlide(slidebarHighlight1, connectButton, connectLabel);
             setMouseEventsSlide(slidebarHighlight2, commandMenu, chatsettingLabel);
             setMouseEventsSlide(slidebarHighlight3, commandBuilder, commandBulderLabel);
-            setMouseEventsSlide(slidebarHighlight4, eftTrader, traderLabel);
             setMouseEventsSlide(slidebarHighlight5, settingsButton, settingsLabel);
 
             menuLabel.Click += (s, e) => connectMenu_Click(s, e);
@@ -107,14 +105,11 @@ namespace UiBot
             slidebarHighlight1.Click += (s, e) => connectMenu_Click(s, e);
             chatsettingLabel.Click += (s, e) => commandMenu_Click(s, e);
             slidebarHighlight2.Click += (s, e) => commandMenu_Click(s, e);
-            traderLabel.Click += (s, e) => pictureBox5_Click(s, e);
-            slidebarHighlight4.Click += (s, e) => pictureBox5_Click(s, e);
             commandBulderLabel.Click += (s, e) => commandBuilder_Click(s, e);
             slidebarHighlight3.Click += (s, e) => commandBuilder_Click(s, e);
             settingsLabel.Click += (s, e) => settingsButton_Click(s, e);
             slidebarHighlight5.Click += (s, e) => settingsButton_Click(s, e);
             TitleBar();
-            CheckStart();
             PropertySaver();
         }
 
@@ -218,24 +213,6 @@ namespace UiBot
             //versionLabel.Top = (this.ClientSize.Height - versionLabel.Height) / 2;
         }
 
-
-
-        public void CheckStart()
-        {
-            if (Properties.Settings.Default.isTraderMenuEnabled)
-            {
-                eftTrader.Visible = true; // Ensure the picture box is visible (optional, depending on your requirement)
-                traderLabel.Visible = true;
-                var traderResetInfoService = new TraderResetInfoService();
-            }
-            else
-            {
-                eftTrader.Visible = false; // Optionally hide the picture box if it's disabled
-                traderLabel.Visible = false;
-            }
-
-        }
-
         public void PropertySaver()
         {
             Properties.Settings.Default.PropertyChanged += (sender, e) =>
@@ -288,7 +265,6 @@ namespace UiBot
             slidebarHighlight1.Width = newWidth;
             slidebarHighlight2.Width = newWidth;
             slidebarHighlight3.Width = newWidth;
-            slidebarHighlight4.Width = newWidth;
             slidebarHighlight5.Width = newWidth;
 
             if (progress >= 1.0)
@@ -309,7 +285,7 @@ namespace UiBot
             {
                 if (control is Label label)
                 {
-                    if (label.Name == "menuLabel" || label.Name == "connectLabel" || label.Name == "chatsettingLabel" ||  label.Name == "traderLabel" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "settingsLabel" || label.Name == "commandBulderLabel")
+                    if (label.Name == "menuLabel" || label.Name == "connectLabel" || label.Name == "chatsettingLabel" || label.Name == "label5" || label.Name == "label6" || label.Name == "label6" || label.Name == "label7" || label.Name == "settingsLabel" || label.Name == "commandBulderLabel")
                     {
                         label.Left = newLeft;
                     }
@@ -425,33 +401,6 @@ namespace UiBot
                 isSettingMenuVisible = false;
             }
         }
-        private void ShowTraderMenu()
-        {
-            if (!isTraderMenuVisible)
-            {
-                if (traderMenu == null || traderMenu.IsDisposed)
-                {
-                    traderMenu = new TraderMenu();
-                    traderMenu.Dock = DockStyle.Fill;
-                    traderMenu.Location = new Point(-traderMenu.Width, 0);
-                }
-                this.Controls.Add(traderMenu);
-                traderMenu.Show();
-                isTraderMenuVisible = true;
-                currentTab.Text = " Trader Menu";
-
-            }
-        }
-
-        private void HideTraderMenu()
-        {
-            if (isTraderMenuVisible)
-            {
-                this.Controls.Remove(traderMenu);
-                traderMenu.Hide();
-                isTraderMenuVisible = false;
-            }
-        }
 
         private void ShowControlMenu()
         {
@@ -524,10 +473,6 @@ namespace UiBot
             {
                 HideControlMenu();
             }
-            else if (isTraderMenuVisible)
-            {
-                HideTraderMenu();
-            }
             else if (isCommandBuilderMenuVisible)
             {
                 HideCommandBuilderMenu();
@@ -563,17 +508,6 @@ namespace UiBot
                 controlMenu.Visible = false; // Keep it hidden on load
                 this.Controls.Add(controlMenu);
             }
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            if (isEnlarged)
-            {
-                menuButton_Click(sender, e);
-            }
-
-            HideOpenMenu();
-            ShowTraderMenu();
         }
 
         private void commandBuilder_Click(object sender, EventArgs e)

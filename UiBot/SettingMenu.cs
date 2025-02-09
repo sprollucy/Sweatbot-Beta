@@ -31,7 +31,6 @@ namespace UiBot
             );
             enableUpdateCheck.Checked = Properties.Settings.Default.isUpdateCheckEnabled;
             enableDebug.Checked = Properties.Settings.Default.isDebugOn;
-            enableEFTtrade.Checked = Properties.Settings.Default.isTraderMenuEnabled;
             enableDebugCommands.Checked = Properties.Settings.Default.isDebugCommands;
 
             LoadChangelog();
@@ -250,12 +249,6 @@ namespace UiBot
         private void enableDebugCommands_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isDebugCommands = enableDebugCommands.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void enableEFTtrade_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.isTraderMenuEnabled = enableEFTtrade.Checked;
             Properties.Settings.Default.Save();
         }
 

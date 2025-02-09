@@ -361,18 +361,6 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool isTraderMenuEnabled {
-            get {
-                return ((bool)(this["isTraderMenuEnabled"]));
-            }
-            set {
-                this["isTraderMenuEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isFollowBonusEnabled {
             get {
@@ -584,6 +572,18 @@ namespace UiBot.Properties {
             }
             set {
                 this["isEasterEgg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isPausedMessage {
+            get {
+                return ((bool)(this["isPausedMessage"]));
+            }
+            set {
+                this["isPausedMessage"] = value;
             }
         }
     }

@@ -99,11 +99,14 @@
             pictureBox2 = new PictureBox();
             amouseposButton = new Button();
             panel4 = new Panel();
-            button1 = new Button();
+            shutdownpcButton = new Button();
+            pixelateButton = new Button();
+            restartpcButton = new Button();
             apixelateButton = new Button();
             adelayButton = new Button();
             label16 = new Label();
             pictureBox4 = new PictureBox();
+            comingButton = new Button();
             confCheckBox = new CheckBox();
             walkButton = new Button();
             wiggleButton = new Button();
@@ -139,6 +142,7 @@
             pictureBox7 = new PictureBox();
             usagePanel = new Panel();
             inspectorPanel = new Panel();
+            panel12 = new Panel();
             panel10 = new Panel();
             mposLoopButton = new Button();
             amposLoopButton = new Button();
@@ -149,7 +153,6 @@
             pictureBox15 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
-            pixelateButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -174,6 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             usagePanel.SuspendLayout();
             inspectorPanel.SuspendLayout();
+            panel12.SuspendLayout();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
             panel11.SuspendLayout();
@@ -1036,8 +1040,9 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
+            panel4.Controls.Add(shutdownpcButton);
             panel4.Controls.Add(pixelateButton);
-            panel4.Controls.Add(button1);
+            panel4.Controls.Add(restartpcButton);
             panel4.Controls.Add(apixelateButton);
             panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
@@ -1049,20 +1054,47 @@
             panel4.Controls.Add(pictureBox4);
             panel4.Location = new Point(636, 23);
             panel4.Name = "panel4";
-            panel4.Size = new Size(309, 135);
+            panel4.Size = new Size(309, 136);
             panel4.TabIndex = 33;
             // 
-            // button1
+            // shutdownpcButton
             // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(3, 94);
-            button1.Name = "button1";
-            button1.Size = new Size(237, 36);
-            button1.TabIndex = 60;
-            button1.Text = "More Coming Soon!";
-            button1.UseVisualStyleBackColor = false;
+            shutdownpcButton.BackColor = SystemColors.ButtonFace;
+            shutdownpcButton.FlatAppearance.BorderSize = 0;
+            shutdownpcButton.FlatStyle = FlatStyle.Flat;
+            shutdownpcButton.Location = new Point(84, 94);
+            shutdownpcButton.Name = "shutdownpcButton";
+            shutdownpcButton.Size = new Size(75, 39);
+            shutdownpcButton.TabIndex = 61;
+            shutdownpcButton.Text = "Shutdown PC";
+            shutdownpcButton.UseVisualStyleBackColor = false;
+            shutdownpcButton.Click += shutdownpcButton_Click;
+            // 
+            // pixelateButton
+            // 
+            pixelateButton.BackColor = SystemColors.ButtonFace;
+            pixelateButton.FlatAppearance.BorderSize = 0;
+            pixelateButton.FlatStyle = FlatStyle.Flat;
+            pixelateButton.Location = new Point(246, 18);
+            pixelateButton.Name = "pixelateButton";
+            pixelateButton.Size = new Size(58, 49);
+            pixelateButton.TabIndex = 61;
+            pixelateButton.Text = "Pixelate Screen";
+            pixelateButton.UseVisualStyleBackColor = false;
+            pixelateButton.Click += pixelateButton_Click;
+            // 
+            // restartpcButton
+            // 
+            restartpcButton.BackColor = SystemColors.ButtonFace;
+            restartpcButton.FlatAppearance.BorderSize = 0;
+            restartpcButton.FlatStyle = FlatStyle.Flat;
+            restartpcButton.Location = new Point(3, 94);
+            restartpcButton.Name = "restartpcButton";
+            restartpcButton.Size = new Size(75, 39);
+            restartpcButton.TabIndex = 62;
+            restartpcButton.Text = "Restart PC";
+            restartpcButton.UseVisualStyleBackColor = false;
+            restartpcButton.Click += restartpcButton_Click;
             // 
             // apixelateButton
             // 
@@ -1111,6 +1143,19 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
+            // 
+            // comingButton
+            // 
+            comingButton.BackColor = SystemColors.ActiveCaption;
+            comingButton.FlatAppearance.BorderSize = 0;
+            comingButton.FlatStyle = FlatStyle.Flat;
+            comingButton.Location = new Point(3, 4);
+            comingButton.Name = "comingButton";
+            comingButton.Size = new Size(201, 36);
+            comingButton.TabIndex = 60;
+            comingButton.Text = "More Coming Soon!";
+            comingButton.UseVisualStyleBackColor = false;
+            comingButton.Click += comingButton_Click;
             // 
             // confCheckBox
             // 
@@ -1545,6 +1590,7 @@
             // 
             // inspectorPanel
             // 
+            inspectorPanel.Controls.Add(panel12);
             inspectorPanel.Controls.Add(panel10);
             inspectorPanel.Controls.Add(panel2);
             inspectorPanel.Controls.Add(panel3);
@@ -1555,6 +1601,15 @@
             inspectorPanel.Name = "inspectorPanel";
             inspectorPanel.Size = new Size(969, 276);
             inspectorPanel.TabIndex = 61;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(156, 155, 151);
+            panel12.Controls.Add(comingButton);
+            panel12.Location = new Point(738, 159);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(207, 46);
+            panel12.TabIndex = 61;
             // 
             // panel10
             // 
@@ -1684,19 +1739,6 @@
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
             // 
-            // pixelateButton
-            // 
-            pixelateButton.BackColor = SystemColors.ButtonFace;
-            pixelateButton.FlatAppearance.BorderSize = 0;
-            pixelateButton.FlatStyle = FlatStyle.Flat;
-            pixelateButton.Location = new Point(246, 18);
-            pixelateButton.Name = "pixelateButton";
-            pixelateButton.Size = new Size(58, 49);
-            pixelateButton.TabIndex = 61;
-            pixelateButton.Text = "Pixelate Screen";
-            pixelateButton.UseVisualStyleBackColor = false;
-            pixelateButton.Click += pixelateButton_Click;
-            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1764,6 +1806,7 @@
             usagePanel.ResumeLayout(false);
             usagePanel.PerformLayout();
             inspectorPanel.ResumeLayout(false);
+            panel12.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
@@ -1893,9 +1936,12 @@
         private Panel panel11;
         private Label label26;
         private PictureBox pictureBox15;
-        private Button button1;
+        private Button comingButton;
         private Button mposLoopButton;
         private Button amposLoopButton;
         private Button pixelateButton;
+        private Button restartpcButton;
+        private Button shutdownpcButton;
+        private Panel panel12;
     }
 }

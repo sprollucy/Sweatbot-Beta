@@ -42,21 +42,18 @@
             menuLabel = new Label();
             connectLabel = new Label();
             chatsettingLabel = new Label();
-            traderLabel = new Label();
             label6 = new Label();
             label7 = new Label();
             settingsLabel = new Label();
             currentTab = new Label();
             minBox = new PictureBox();
             commandBulderLabel = new Label();
-            eftTrader = new PictureBox();
             conStatus = new Label();
             slideBar = new PictureBox();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             slidebarHighlight1 = new PictureBox();
             slidebarHighlight2 = new PictureBox();
             slidebarHighlight3 = new PictureBox();
-            slidebarHighlight4 = new PictureBox();
             slidebarHighlight5 = new PictureBox();
             versionLabel = new Label();
             slidebarHighlight0 = new PictureBox();
@@ -71,12 +68,10 @@
             ((System.ComponentModel.ISupportInitialize)titleBar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)minBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)eftTrader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slideBar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight0).BeginInit();
             SuspendLayout();
@@ -226,18 +221,6 @@
             chatsettingLabel.TabIndex = 13;
             chatsettingLabel.Text = "Chat\r\nSettings";
             // 
-            // traderLabel
-            // 
-            traderLabel.AutoSize = true;
-            traderLabel.BackColor = Color.FromArgb(30, 30, 30);
-            traderLabel.Font = new Font("Constantia", 14.25F, FontStyle.Bold);
-            traderLabel.ForeColor = SystemColors.ControlLight;
-            traderLabel.Location = new Point(-33, 250);
-            traderLabel.Name = "traderLabel";
-            traderLabel.Size = new Size(78, 23);
-            traderLabel.TabIndex = 14;
-            traderLabel.Text = "Traders";
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -314,18 +297,6 @@
             commandBulderLabel.TabIndex = 21;
             commandBulderLabel.Text = "Command\r\nBuilder";
             // 
-            // eftTrader
-            // 
-            eftTrader.BackColor = Color.FromArgb(63, 78, 79);
-            eftTrader.Image = (Image)resources.GetObject("eftTrader.Image");
-            eftTrader.Location = new Point(0, 238);
-            eftTrader.Name = "eftTrader";
-            eftTrader.Size = new Size(47, 50);
-            eftTrader.SizeMode = PictureBoxSizeMode.Zoom;
-            eftTrader.TabIndex = 4;
-            eftTrader.TabStop = false;
-            eftTrader.Click += pictureBox5_Click;
-            // 
             // conStatus
             // 
             conStatus.AutoSize = true;
@@ -373,15 +344,6 @@
             slidebarHighlight3.Size = new Size(47, 50);
             slidebarHighlight3.TabIndex = 26;
             slidebarHighlight3.TabStop = false;
-            // 
-            // slidebarHighlight4
-            // 
-            slidebarHighlight4.BackColor = Color.FromArgb(30, 30, 30);
-            slidebarHighlight4.Location = new Point(0, 238);
-            slidebarHighlight4.Name = "slidebarHighlight4";
-            slidebarHighlight4.Size = new Size(47, 50);
-            slidebarHighlight4.TabIndex = 27;
-            slidebarHighlight4.TabStop = false;
             // 
             // slidebarHighlight5
             // 
@@ -434,12 +396,10 @@
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox7);
             Controls.Add(commandBuilder);
-            Controls.Add(eftTrader);
             Controls.Add(commandMenu);
             Controls.Add(connectButton);
             Controls.Add(label7);
             Controls.Add(label6);
-            Controls.Add(traderLabel);
             Controls.Add(chatsettingLabel);
             Controls.Add(connectLabel);
             Controls.Add(commandBulderLabel);
@@ -447,11 +407,11 @@
             Controls.Add(settingsLabel);
             Controls.Add(pictureBox1);
             Controls.Add(slidebarHighlight5);
-            Controls.Add(slidebarHighlight4);
             Controls.Add(slidebarHighlight3);
             Controls.Add(slidebarHighlight2);
             Controls.Add(slidebarHighlight1);
             Controls.Add(slideBar);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ModernMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sweat Bot";
@@ -467,12 +427,10 @@
             ((System.ComponentModel.ISupportInitialize)titleBar).EndInit();
             ((System.ComponentModel.ISupportInitialize)settingsButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)minBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)eftTrader).EndInit();
             ((System.ComponentModel.ISupportInitialize)slideBar).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight1).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight2).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)slidebarHighlight4).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight5).EndInit();
             ((System.ComponentModel.ISupportInitialize)slidebarHighlight0).EndInit();
             ResumeLayout(false);
@@ -494,21 +452,18 @@
         private Label menuLabel;
         private Label connectLabel;
         private Label chatsettingLabel;
-        private Label traderLabel;
         private Label label6;
         private Label label7;
         private Label settingsLabel;
         private Label currentTab;
         private PictureBox minBox;
         private Label commandBulderLabel;
-        private PictureBox eftTrader;
         private Label conStatus;
         private PictureBox slideBar;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private PictureBox slidebarHighlight1;
         private PictureBox slidebarHighlight2;
         private PictureBox slidebarHighlight3;
-        private PictureBox slidebarHighlight4;
         private PictureBox slidebarHighlight5;
         private Label versionLabel;
         private PictureBox slidebarHighlight0;

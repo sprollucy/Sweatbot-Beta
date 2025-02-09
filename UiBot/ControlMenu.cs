@@ -10,7 +10,6 @@ namespace UiBot
         private static readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ModWhitelist.txt");
         private static readonly string excludefilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "SendkeyExclude.txt");
 
-
         public ControlMenu()
         {
             InitializeComponent();
@@ -38,16 +37,8 @@ namespace UiBot
             subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
             enableInRaid.Checked = Properties.Settings.Default.isInRaid;
             enableRateDelayBox.Checked = Properties.Settings.Default.isRateDelayEnabled;
+            pauseMessageBox.Checked = Properties.Settings.Default.isPausedMessage;
 
-
-            if (Properties.Settings.Default.isTraderMenuEnabled)
-            {
-                enableTradersCommand.Visible = true;
-            }
-            else
-            {
-                enableTradersCommand.Visible = false;
-            }
             InitializeToolTips();
         }
 
@@ -356,6 +347,12 @@ namespace UiBot
             });
         }
 
+        private void pauseMessageBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.isPausedMessage = pauseMessageBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         private void StartInRaidFileCheck()
         {
             if (Settings.Default.isInRaid)
@@ -504,6 +501,13 @@ namespace UiBot
                     }
                 }
             }
+        }
+
+        private void traderConfigButton_Click(object sender, EventArgs e)
+        {
+            TraderMenuConfig traderMenuConfig = new TraderMenuConfig();
+
+            traderMenuConfig.Show();
         }
     }
 }

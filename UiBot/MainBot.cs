@@ -348,6 +348,15 @@ namespace UiBot
                 return;
             }
 
+            if(Settings.Default.isPausedMessage)
+            {
+                if(Settings.Default.isCommandsPaused)
+                {
+                    client.SendMessage(channelId, "Commands are currently paused");
+                    return;
+                }
+            }
+
             bool isSubscriber = e.ChatMessage.IsSubscriber;
             bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
 

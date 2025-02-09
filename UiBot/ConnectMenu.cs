@@ -210,10 +210,18 @@ namespace UiBot
             if (pauseCommands.Checked)
             {
                 Console.WriteLine("Commands are paused.");
+                if (bot.IsConnected && Settings.Default.isPausedMessage)
+                {
+                    bot.SendMessage("Commands are paused!");
+                }
             }
             else
             {
                 Console.WriteLine("Commands are not paused.");
+                if (bot.IsConnected && Settings.Default.isPausedMessage)
+                {
+                    bot.SendMessage("Commands are unpaused!");
+                }
             }
         }
 

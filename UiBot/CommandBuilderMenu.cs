@@ -194,40 +194,42 @@ namespace UiBot
         }
 
         // Synchronous commands
-        private void holdkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KH=KeyIn(dur) ");
-        private void hitkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KP=KeyIn ");
-        private void hitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText(" KPLoop=KeyIn(dur,Speed) ");
-        private void leftButton_Click(object sender, EventArgs e) => commandtextBox.Text += " LC ";
-        private void rightButton_Click(object sender, EventArgs e) => commandtextBox.Text += " RC ";
-        private void leftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoop=(dur,Speed) ");
-        private void rightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoop=(dur,Speed) ");
-        private void turnButton_Click(object sender, EventArgs e) => AppendCommandText(" TM=Direction(dur,Speed) ");
-        private void playsoundButton_Click(object sender, EventArgs e) => AppendCommandText(" PSOUND=(Speed)filename.wav ");
-        private void leftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHOLD=dur ");
-        private void rightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHOLD=dur ");
-        private void delayButton_Click(object sender, EventArgs e) => AppendCommandText(" Delay=Speed ");
-        private void muteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVol=dur ");
-        private void mouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPos({mouseX},{mouseY}) ");
-        private void mposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosLoop={mouseX},{mouseY}(dur) ");
-        private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreen=dur ");
+        private void holdkeyButton_Click(object sender, EventArgs e) => AppendCommandText("KH=KeyIn(dur) ");
+        private void hitkeyButton_Click(object sender, EventArgs e) => AppendCommandText("KP=KeyIn ");
+        private void hitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText("KPLoop=KeyIn(dur,Speed) ");
+        private void leftButton_Click(object sender, EventArgs e) => commandtextBox.Text += "LC ";
+        private void rightButton_Click(object sender, EventArgs e) => commandtextBox.Text += "RC ";
+        private void leftloopButton_Click(object sender, EventArgs e) => AppendCommandText("LCLoop=(dur,Speed) ");
+        private void rightloopButton_Click(object sender, EventArgs e) => AppendCommandText("RCLoop=(dur,Speed) ");
+        private void turnButton_Click(object sender, EventArgs e) => AppendCommandText("TM=Direction(dur,Speed) ");
+        private void playsoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSOUND=(Speed)filename.wav ");
+        private void leftholdButton_Click(object sender, EventArgs e) => AppendCommandText("LCHOLD=dur ");
+        private void rightholdButton_Click(object sender, EventArgs e) => AppendCommandText("RCHOLD=dur ");
+        private void delayButton_Click(object sender, EventArgs e) => AppendCommandText("Delay=Speed ");
+        private void muteButton_Click(object sender, EventArgs e) => AppendCommandText("MuteVol=dur ");
+        private void mouseposButton_Click(object sender, EventArgs e) => AppendCommandText($"MPos({mouseX},{mouseY}) ");
+        private void mposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($"MPosLoop={mouseX},{mouseY}(dur) ");
+        private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText("PixelateScreen=dur ");
+        private void shutdownpcButton_Click(object sender, EventArgs e) => AppendCommandText("shutdownpc ");
+        private void restartpcButton_Click(object sender, EventArgs e) => AppendCommandText("restartpc ");
 
         // Asynchronous commands
-        private void aholdkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KHAsync=KeyIn(dur) ");
-        private void ahitkeyButton_Click(object sender, EventArgs e) => AppendCommandText(" KPAsync=KeyIn ");
-        private void ahitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText(" KPLoopAsync=KeyIn(dur,Speed) ");
-        private void aleftButton_Click(object sender, EventArgs e) => commandtextBox.Text += " LCAsync ";
-        private void arightButton_Click(object sender, EventArgs e) => commandtextBox.Text += " RCAsync ";
-        private void aleftloopButton_Click(object sender, EventArgs e) => AppendCommandText(" LCLoopAsync=(dur,Speed) ");
-        private void arightloopButton_Click(object sender, EventArgs e) => AppendCommandText(" RCLoopAsync=(dur,Speed) ");
-        private void aturnButton_Click(object sender, EventArgs e) => AppendCommandText(" TMAsync=Direction(dur,Speed) ");
-        private void aplaysoundButton_Click(object sender, EventArgs e) => AppendCommandText(" PSOUND=(Speed)filename.wav ");
-        private void aleftholdButton_Click(object sender, EventArgs e) => AppendCommandText(" LCHoldAsync=dur ");
-        private void arightholdButton_Click(object sender, EventArgs e) => AppendCommandText(" RCHoldAsync=dur ");
-        private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText(" DelayAsync=Speed ");
+        private void aholdkeyButton_Click(object sender, EventArgs e) => AppendCommandText("KHAsync=KeyIn(dur) ");
+        private void ahitkeyButton_Click(object sender, EventArgs e) => AppendCommandText("KPAsync=KeyIn ");
+        private void ahitkeyloopButton_Click(object sender, EventArgs e) => AppendCommandText("KPLoopAsync=KeyIn(dur,Speed) ");
+        private void aleftButton_Click(object sender, EventArgs e) => commandtextBox.Text += "LCAsync ";
+        private void arightButton_Click(object sender, EventArgs e) => commandtextBox.Text += "RCAsync ";
+        private void aleftloopButton_Click(object sender, EventArgs e) => AppendCommandText("LCLoopAsync=(dur,Speed) ");
+        private void arightloopButton_Click(object sender, EventArgs e) => AppendCommandText("RCLoopAsync=(dur,Speed) ");
+        private void aturnButton_Click(object sender, EventArgs e) => AppendCommandText("TMAsync=Direction(dur,Speed) ");
+        private void aplaysoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSOUND=(Speed)filename.wav ");
+        private void aleftholdButton_Click(object sender, EventArgs e) => AppendCommandText("LCHoldAsync=dur ");
+        private void arightholdButton_Click(object sender, EventArgs e) => AppendCommandText("RCHoldAsync=dur ");
+        private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText("DelayAsync=Speed ");
         private void amuteButton_Click(object sender, EventArgs e) => AppendCommandText(" MuteVolAsync=dur ");
-        private void amouseposButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosAsync({mouseX},{mouseY}) ");
-        private void amposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($" MPosLoopAsync={mouseX},{mouseY}(dur) ");
-        private void apixelateButton_Click(object sender, EventArgs e) => AppendCommandText(" PixelateScreenAsync=dur ");
+        private void amouseposButton_Click(object sender, EventArgs e) => AppendCommandText($"MPosAsync({mouseX},{mouseY}) ");
+        private void amposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($"MPosLoopAsync={mouseX},{mouseY}(dur) ");
+        private void apixelateButton_Click(object sender, EventArgs e) => AppendCommandText("PixelateScreenAsync=dur ");
 
 
         private void disablecommandButton_Click(object sender, EventArgs e)
@@ -835,6 +837,15 @@ namespace UiBot
             {
                 Console.WriteLine($"Cannot execute command '{selectedCommand}'. Command does not exist or is broken.");
             }
+        }
+
+        private void comingButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://trello.com/b/F94X7GKB/sweat-bot",
+                UseShellExecute = true
+            });
         }
     }
 }

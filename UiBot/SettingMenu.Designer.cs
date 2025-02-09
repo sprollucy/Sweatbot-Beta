@@ -57,8 +57,6 @@
             enableDebug = new CheckBox();
             groupBox4 = new GroupBox();
             enableDebugCommands = new CheckBox();
-            enableEFTtrade = new CheckBox();
-            groupBox5 = new GroupBox();
             cashappLink = new LinkLabel();
             discordLink = new LinkLabel();
             panel5 = new Panel();
@@ -71,7 +69,6 @@
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             groupBox4.SuspendLayout();
-            groupBox5.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             SuspendLayout();
@@ -440,30 +437,6 @@
             enableDebugCommands.UseVisualStyleBackColor = false;
             enableDebugCommands.CheckedChanged += enableDebugCommands_CheckedChanged;
             // 
-            // enableEFTtrade
-            // 
-            enableEFTtrade.AutoSize = true;
-            enableEFTtrade.ForeColor = SystemColors.ControlText;
-            enableEFTtrade.Location = new Point(9, 22);
-            enableEFTtrade.Name = "enableEFTtrade";
-            enableEFTtrade.Size = new Size(193, 19);
-            enableEFTtrade.TabIndex = 112;
-            enableEFTtrade.Text = "Enable Tarkov trade timer menu";
-            enableEFTtrade.UseVisualStyleBackColor = true;
-            enableEFTtrade.CheckedChanged += enableEFTtrade_CheckedChanged;
-            // 
-            // groupBox5
-            // 
-            groupBox5.BackColor = Color.FromArgb(156, 155, 151);
-            groupBox5.Controls.Add(enableEFTtrade);
-            groupBox5.ForeColor = SystemColors.ControlText;
-            groupBox5.Location = new Point(5, 348);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(417, 55);
-            groupBox5.TabIndex = 112;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Other Game Menus (Must Restart)";
-            // 
             // cashappLink
             // 
             cashappLink.AutoSize = true;
@@ -480,7 +453,7 @@
             // 
             discordLink.AutoSize = true;
             discordLink.BackColor = Color.FromArgb(135, 135, 135);
-            discordLink.Location = new Point(400, 547);
+            discordLink.Location = new Point(394, 547);
             discordLink.Name = "discordLink";
             discordLink.Size = new Size(47, 15);
             discordLink.TabIndex = 114;
@@ -495,13 +468,12 @@
             panel5.Controls.Add(label19);
             panel5.Controls.Add(pictureBox13);
             panel5.Controls.Add(groupBox1);
-            panel5.Controls.Add(groupBox5);
             panel5.Controls.Add(groupBox2);
             panel5.Controls.Add(groupBox4);
             panel5.Controls.Add(groupBox3);
             panel5.Location = new Point(53, 31);
             panel5.Name = "panel5";
-            panel5.Size = new Size(428, 408);
+            panel5.Size = new Size(428, 358);
             panel5.TabIndex = 115;
             // 
             // label19
@@ -562,8 +534,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
-            groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
@@ -604,8 +574,6 @@
         private PictureBox pictureBox6;
         private CheckBox enableDebug;
         private GroupBox groupBox4;
-        private CheckBox enableEFTtrade;
-        private GroupBox groupBox5;
         private LinkLabel cashappLink;
         private LinkLabel discordLink;
         private CheckBox enableDebugCommands;

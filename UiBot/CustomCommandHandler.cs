@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
@@ -76,7 +77,9 @@ public class CustomCommandHandler
         { "delay", Delay },
         { "lcloop", LeftClickLoop },
         { "rcloop", RightClickLoop },
-        { "pixelatescreen", PixelateScreen }
+        { "pixelatescreen", PixelateScreen },
+        { "shutdownpc", ShutDownPC },
+        { "restartpc", RestartPC },
     };
 
         // Async method map
@@ -1700,6 +1703,25 @@ public class CustomCommandHandler
         }
     }
 
+    private void ShutDownPC(TwitchClient client, string channel, string parameter = null)
+    {
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
+        {
+            Console.WriteLine("Goodbye!");
+        }
+        Process.Start("shutdown", "/s /t 0");
+
+    }
+
+    private void RestartPC(TwitchClient client, string channel, string parameter = null)
+    {
+        if (UiBot.Properties.Settings.Default.isDebugCommands)
+        {
+            Console.WriteLine("Goodbye!");
+        }
+        Process.Start("restart", "/r /t 0");
+
+    }
 
     // Helper method to convert key characters to virtual key codes
     public static int ToVirtualKey(string key)

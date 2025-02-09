@@ -52,7 +52,7 @@ public class PixelateOverlay : Form
             this.Bounds = GetWindowBounds(GetForegroundWindow());
             this.Show();
         }
-
+        Thread.Sleep(100);
         // Take a fresh screenshot immediately before starting the timer
         ForceFreshCapture();
 

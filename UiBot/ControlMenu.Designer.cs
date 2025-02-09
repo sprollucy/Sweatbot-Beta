@@ -104,6 +104,7 @@
             pictureBox4 = new PictureBox();
             gameIntegrationPanel = new Panel();
             groupBox2 = new GroupBox();
+            traderConfigButton = new Button();
             enableInRaid = new CheckBox();
             label14 = new Label();
             pictureBox5 = new PictureBox();
@@ -114,6 +115,7 @@
             bitMultiTip = new ToolTip(components);
             subMultiTip = new ToolTip(components);
             modWhitelistTip = new ToolTip(components);
+            pauseMessageBox = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -148,6 +150,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(pauseMessageBox);
             panel1.Controls.Add(rateDelayBox);
             panel1.Controls.Add(openSendkeyButton);
             panel1.Controls.Add(label15);
@@ -174,7 +177,7 @@
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(311, 318);
+            panel1.Size = new Size(311, 342);
             panel1.TabIndex = 20;
             // 
             // rateDelayBox
@@ -1020,13 +1023,14 @@
             gameIntegrationPanel.Controls.Add(label14);
             gameIntegrationPanel.Controls.Add(pictureBox5);
             gameIntegrationPanel.ForeColor = SystemColors.ControlText;
-            gameIntegrationPanel.Location = new Point(53, 361);
+            gameIntegrationPanel.Location = new Point(53, 409);
             gameIntegrationPanel.Name = "gameIntegrationPanel";
             gameIntegrationPanel.Size = new Size(311, 114);
             gameIntegrationPanel.TabIndex = 149;
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(traderConfigButton);
             groupBox2.Controls.Add(enableInRaid);
             groupBox2.Controls.Add(enableTradersCommand);
             groupBox2.Font = new Font("Segoe UI", 11F);
@@ -1036,6 +1040,21 @@
             groupBox2.TabIndex = 150;
             groupBox2.TabStop = false;
             groupBox2.Text = "Escape from Tarkov";
+            // 
+            // traderConfigButton
+            // 
+            traderConfigButton.BackColor = SystemColors.ButtonFace;
+            traderConfigButton.FlatAppearance.BorderSize = 0;
+            traderConfigButton.FlatStyle = FlatStyle.Flat;
+            traderConfigButton.Font = new Font("Segoe UI", 9F);
+            traderConfigButton.ForeColor = SystemColors.ControlText;
+            traderConfigButton.Location = new Point(214, 48);
+            traderConfigButton.Name = "traderConfigButton";
+            traderConfigButton.Size = new Size(75, 23);
+            traderConfigButton.TabIndex = 150;
+            traderConfigButton.Text = "Configure";
+            traderConfigButton.UseVisualStyleBackColor = false;
+            traderConfigButton.Click += traderConfigButton_Click;
             // 
             // enableInRaid
             // 
@@ -1073,6 +1092,19 @@
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 120;
             pictureBox5.TabStop = false;
+            // 
+            // pauseMessageBox
+            // 
+            pauseMessageBox.AutoSize = true;
+            pauseMessageBox.BackColor = Color.FromArgb(156, 155, 151);
+            pauseMessageBox.ForeColor = SystemColors.ControlText;
+            pauseMessageBox.Location = new Point(12, 307);
+            pauseMessageBox.Name = "pauseMessageBox";
+            pauseMessageBox.Size = new Size(151, 19);
+            pauseMessageBox.TabIndex = 144;
+            pauseMessageBox.Text = "Enable Paused Message";
+            pauseMessageBox.UseVisualStyleBackColor = false;
+            pauseMessageBox.CheckedChanged += pauseMessageBox_CheckedChanged;
             // 
             // ControlMenu
             // 
@@ -1206,5 +1238,7 @@
         private CheckBox chkRefund;
         private Button openSendkeyButton;
         private Label label15;
+        private Button traderConfigButton;
+        private CheckBox pauseMessageBox;
     }
 }
