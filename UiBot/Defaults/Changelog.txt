@@ -10,3 +10,4 @@
 -I made a terrible icon for now
 -Added Shutdown PC
 -Added Restart PC
+-Adjusted the pause out of raid feature. It does not currently save its state and will need to be turned on each time till I rewrite how it checks. Will need to do further testing to make sure it fully functions

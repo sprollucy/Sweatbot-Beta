@@ -15,10 +15,14 @@ namespace UiBot
         {
             try
             {
-                // Get all boolean and string properties dynamically
+                // List of properties to exclude from saving
+                HashSet<string> excludedProperties = new HashSet<string> { "isInRaid" };
+
+                // Get all boolean and string properties dynamically, excluding specified properties
                 var settings = Properties.Settings.Default.GetType()
                     .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.PropertyType == typeof(bool) || p.PropertyType == typeof(string))
+                    .Where(p => (p.PropertyType == typeof(bool) || p.PropertyType == typeof(string))
+                                && !excludedProperties.Contains(p.Name)) // Exclude properties
                     .ToDictionary(p => p.Name, p =>
                     {
                         if (p.PropertyType == typeof(bool))
@@ -40,6 +44,7 @@ namespace UiBot
                 Console.WriteLine($"Error saving settings: {ex.Message}");
             }
         }
+
 
         public static void LoadSettings()
         {

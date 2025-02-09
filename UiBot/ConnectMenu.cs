@@ -45,8 +45,7 @@ namespace UiBot
             controlMenu.LoadSettings();
             this.TopLevel = false;
 
-            pauseCommands.Checked = Properties.Settings.Default.isCommandsPaused;
-            economyCheckBox.Checked = Properties.Settings.Default.isEconomyOn;
+
 
             // Initialize the Timer
             economyTimer = new Timer();
@@ -538,10 +537,15 @@ namespace UiBot
                     // Ensure the Log folder exists
                     Directory.CreateDirectory("Logs");
                     // Open the file in append mode
-                    fileWriter = new StreamWriter(Path.Combine("Logs", "Debug File.txt"), true)
-                    {
-                        AutoFlush = true // Ensure the buffer is flushed to the file immediately
-                    };
+fileWriter = new StreamWriter(new FileStream(
+    Path.Combine("Logs", "Debug File.txt"), 
+    FileMode.Append, 
+    FileAccess.Write, 
+    FileShare.ReadWrite))
+{
+    AutoFlush = true
+};
+
                 }
             }
 

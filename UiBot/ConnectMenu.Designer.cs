@@ -791,7 +791,6 @@
         private PictureBox pictureBox10;
         private Panel panel2;
         private Label economyLabel;
-        private CheckBox economyCheckBox;
         private Label manramLabel;
         private Label allocramLabel;
         private Label ramLabel;
@@ -828,5 +827,6 @@
         private Label label22;
         private Label refundTab;
         private Button printUseButton;
+        public CheckBox economyCheckBox;
     }
 }

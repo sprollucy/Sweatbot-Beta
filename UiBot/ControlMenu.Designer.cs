@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             saveButton = new Button();
             panel1 = new Panel();
+            pauseMessageBox = new CheckBox();
             rateDelayBox = new TextBox();
             openSendkeyButton = new Button();
             label15 = new Label();
@@ -115,7 +116,6 @@
             bitMultiTip = new ToolTip(components);
             subMultiTip = new ToolTip(components);
             modWhitelistTip = new ToolTip(components);
-            pauseMessageBox = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -177,14 +177,27 @@
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(311, 342);
+            panel1.Size = new Size(311, 334);
             panel1.TabIndex = 20;
+            // 
+            // pauseMessageBox
+            // 
+            pauseMessageBox.AutoSize = true;
+            pauseMessageBox.BackColor = Color.FromArgb(156, 155, 151);
+            pauseMessageBox.ForeColor = SystemColors.ControlText;
+            pauseMessageBox.Location = new Point(12, 54);
+            pauseMessageBox.Name = "pauseMessageBox";
+            pauseMessageBox.Size = new Size(151, 19);
+            pauseMessageBox.TabIndex = 144;
+            pauseMessageBox.Text = "Enable Paused Message";
+            pauseMessageBox.UseVisualStyleBackColor = false;
+            pauseMessageBox.CheckedChanged += pauseMessageBox_CheckedChanged;
             // 
             // rateDelayBox
             // 
             rateDelayBox.BackColor = Color.FromArgb(196, 197, 204);
             rateDelayBox.BorderStyle = BorderStyle.FixedSingle;
-            rateDelayBox.Location = new Point(200, 75);
+            rateDelayBox.Location = new Point(200, 99);
             rateDelayBox.Name = "rateDelayBox";
             rateDelayBox.Size = new Size(45, 23);
             rateDelayBox.TabIndex = 141;
@@ -195,7 +208,7 @@
             openSendkeyButton.BackColor = SystemColors.ButtonFace;
             openSendkeyButton.FlatAppearance.BorderSize = 0;
             openSendkeyButton.FlatStyle = FlatStyle.Flat;
-            openSendkeyButton.Location = new Point(200, 246);
+            openSendkeyButton.Location = new Point(200, 270);
             openSendkeyButton.Name = "openSendkeyButton";
             openSendkeyButton.Size = new Size(91, 25);
             openSendkeyButton.TabIndex = 143;
@@ -206,7 +219,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(31, 77);
+            label15.Location = new Point(31, 101);
             label15.Name = "label15";
             label15.Size = new Size(173, 15);
             label15.TabIndex = 142;
@@ -219,7 +232,7 @@
             enableRateDelayBox.Checked = true;
             enableRateDelayBox.CheckState = CheckState.Checked;
             enableRateDelayBox.ForeColor = SystemColors.ControlText;
-            enableRateDelayBox.Location = new Point(12, 55);
+            enableRateDelayBox.Location = new Point(12, 79);
             enableRateDelayBox.Name = "enableRateDelayBox";
             enableRateDelayBox.Size = new Size(177, 19);
             enableRateDelayBox.TabIndex = 140;
@@ -262,7 +275,7 @@
             // 
             bitGambleCDBox.BackColor = Color.FromArgb(196, 197, 204);
             bitGambleCDBox.BorderStyle = BorderStyle.FixedSingle;
-            bitGambleCDBox.Location = new Point(231, 217);
+            bitGambleCDBox.Location = new Point(231, 241);
             bitGambleCDBox.Name = "bitGambleCDBox";
             bitGambleCDBox.Size = new Size(26, 23);
             bitGambleCDBox.TabIndex = 133;
@@ -271,7 +284,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(147, 219);
+            label11.Location = new Point(147, 243);
             label11.Name = "label11";
             label11.Size = new Size(87, 15);
             label11.TabIndex = 137;
@@ -281,7 +294,7 @@
             // 
             bitChanceBox.BackColor = Color.FromArgb(196, 197, 204);
             bitChanceBox.BorderStyle = BorderStyle.FixedSingle;
-            bitChanceBox.Location = new Point(113, 217);
+            bitChanceBox.Location = new Point(113, 241);
             bitChanceBox.Name = "bitChanceBox";
             bitChanceBox.Size = new Size(26, 23);
             bitChanceBox.TabIndex = 131;
@@ -290,7 +303,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(31, 219);
+            label10.Location = new Point(31, 243);
             label10.Name = "label10";
             label10.Size = new Size(84, 15);
             label10.TabIndex = 136;
@@ -300,7 +313,7 @@
             // 
             sendkeyCostBox.BackColor = Color.FromArgb(196, 197, 204);
             sendkeyCostBox.BorderStyle = BorderStyle.FixedSingle;
-            sendkeyCostBox.Location = new Point(61, 262);
+            sendkeyCostBox.Location = new Point(61, 286);
             sendkeyCostBox.Name = "sendkeyCostBox";
             sendkeyCostBox.Size = new Size(34, 23);
             sendkeyCostBox.TabIndex = 123;
@@ -310,7 +323,7 @@
             // 
             bottoggleCostBox.BackColor = Color.FromArgb(196, 197, 204);
             bottoggleCostBox.BorderStyle = BorderStyle.FixedSingle;
-            bottoggleCostBox.Location = new Point(61, 121);
+            bottoggleCostBox.Location = new Point(61, 145);
             bottoggleCostBox.Name = "bottoggleCostBox";
             bottoggleCostBox.Size = new Size(34, 23);
             bottoggleCostBox.TabIndex = 108;
@@ -319,7 +332,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(31, 123);
+            label9.Location = new Point(31, 147);
             label9.Name = "label9";
             label9.Size = new Size(34, 15);
             label9.TabIndex = 135;
@@ -328,7 +341,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 263);
+            label1.Location = new Point(31, 287);
             label1.Name = "label1";
             label1.Size = new Size(34, 15);
             label1.TabIndex = 134;
@@ -339,7 +352,7 @@
             bitGambleCheck.AutoSize = true;
             bitGambleCheck.BackColor = Color.FromArgb(156, 155, 151);
             bitGambleCheck.ForeColor = SystemColors.ControlText;
-            bitGambleCheck.Location = new Point(12, 197);
+            bitGambleCheck.Location = new Point(12, 221);
             bitGambleCheck.Name = "bitGambleCheck";
             bitGambleCheck.Size = new Size(133, 19);
             bitGambleCheck.TabIndex = 130;
@@ -351,7 +364,7 @@
             // 
             sendkeyTimeBox.BackColor = Color.FromArgb(196, 197, 204);
             sendkeyTimeBox.BorderStyle = BorderStyle.FixedSingle;
-            sendkeyTimeBox.Location = new Point(159, 283);
+            sendkeyTimeBox.Location = new Point(159, 307);
             sendkeyTimeBox.Name = "sendkeyTimeBox";
             sendkeyTimeBox.Size = new Size(38, 23);
             sendkeyTimeBox.TabIndex = 125;
@@ -362,7 +375,7 @@
             textBox4.BackColor = Color.FromArgb(156, 155, 151);
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.ForeColor = SystemColors.ControlText;
-            textBox4.Location = new Point(32, 285);
+            textBox4.Location = new Point(32, 309);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(131, 16);
             textBox4.TabIndex = 126;
@@ -376,7 +389,7 @@
             sendkeyButton.Checked = true;
             sendkeyButton.CheckState = CheckState.Checked;
             sendkeyButton.ForeColor = SystemColors.ControlText;
-            sendkeyButton.Location = new Point(12, 243);
+            sendkeyButton.Location = new Point(12, 267);
             sendkeyButton.Name = "sendkeyButton";
             sendkeyButton.Size = new Size(188, 19);
             sendkeyButton.TabIndex = 122;
@@ -391,7 +404,7 @@
             bitcostButton.Checked = true;
             bitcostButton.CheckState = CheckState.Checked;
             bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(12, 172);
+            bitcostButton.Location = new Point(12, 196);
             bitcostButton.Name = "bitcostButton";
             bitcostButton.Size = new Size(205, 19);
             bitcostButton.TabIndex = 121;
@@ -404,7 +417,7 @@
             enableBotToggle.AutoSize = true;
             enableBotToggle.BackColor = Color.FromArgb(156, 155, 151);
             enableBotToggle.ForeColor = SystemColors.ControlText;
-            enableBotToggle.Location = new Point(12, 101);
+            enableBotToggle.Location = new Point(12, 125);
             enableBotToggle.Name = "enableBotToggle";
             enableBotToggle.Size = new Size(151, 19);
             enableBotToggle.TabIndex = 109;
@@ -419,7 +432,7 @@
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
             checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(12, 147);
+            checkEnableBitMsg.Location = new Point(12, 171);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -1023,7 +1036,7 @@
             gameIntegrationPanel.Controls.Add(label14);
             gameIntegrationPanel.Controls.Add(pictureBox5);
             gameIntegrationPanel.ForeColor = SystemColors.ControlText;
-            gameIntegrationPanel.Location = new Point(53, 409);
+            gameIntegrationPanel.Location = new Point(53, 379);
             gameIntegrationPanel.Name = "gameIntegrationPanel";
             gameIntegrationPanel.Size = new Size(311, 114);
             gameIntegrationPanel.TabIndex = 149;
@@ -1048,7 +1061,7 @@
             traderConfigButton.FlatStyle = FlatStyle.Flat;
             traderConfigButton.Font = new Font("Segoe UI", 9F);
             traderConfigButton.ForeColor = SystemColors.ControlText;
-            traderConfigButton.Location = new Point(214, 48);
+            traderConfigButton.Location = new Point(217, 48);
             traderConfigButton.Name = "traderConfigButton";
             traderConfigButton.Size = new Size(75, 23);
             traderConfigButton.TabIndex = 150;
@@ -1093,19 +1106,6 @@
             pictureBox5.TabIndex = 120;
             pictureBox5.TabStop = false;
             // 
-            // pauseMessageBox
-            // 
-            pauseMessageBox.AutoSize = true;
-            pauseMessageBox.BackColor = Color.FromArgb(156, 155, 151);
-            pauseMessageBox.ForeColor = SystemColors.ControlText;
-            pauseMessageBox.Location = new Point(12, 307);
-            pauseMessageBox.Name = "pauseMessageBox";
-            pauseMessageBox.Size = new Size(151, 19);
-            pauseMessageBox.TabIndex = 144;
-            pauseMessageBox.Text = "Enable Paused Message";
-            pauseMessageBox.UseVisualStyleBackColor = false;
-            pauseMessageBox.CheckedChanged += pauseMessageBox_CheckedChanged;
-            // 
             // ControlMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1124,7 +1124,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ControlMenu";
-            Text = "ControlMenu";
+            Text = "W";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -1158,21 +1158,14 @@
         private TextBox autoMessageBox;
         private TextBox autoSendMessageCD;
         private Label autoMessageLabel;
-        private CheckBox enableAutoMessageCheck;
         private Label label2;
-        private CheckBox enableTradersCommand;
-        private CheckBox enableChatBonus;
         private TextBox bonusTextBox;
         private Label label4;
         private Button restart_AppButton;
         private Label label3;
-        private CheckBox modWhitelistCheck;
         private Button openModWhitelist;
-        private CheckBox enableBonusMulti;
         private TextBox bonusMultiplierBox;
-        private CheckBox enableBotToggle;
         private TextBox bottoggleCostBox;
-        private CheckBox checkEnableBitMsg;
         private Label label5;
         private PictureBox pictureBox8;
         private PictureBox pictureBox2;
@@ -1183,38 +1176,27 @@
         private PictureBox pictureBox3;
         private TextBox subTextBox;
         private Label label7;
-        private CheckBox enableSubBonus;
         private TextBox followTextBox;
         private Label label6;
-        private CheckBox enableFollowBonus;
         private Label label8;
-        private CheckBox bitcostButton;
         private GroupBox groupBox1;
-        private CheckBox sendkeyButton;
         private TextBox sendkeyCostBox;
         private TextBox sendkeyTimeBox;
         private TextBox textBox4;
         private TextBox subbonusMultiplierBox;
-        private CheckBox enableSubBonusMulti;
         private TextBox bitChanceBox;
-        private CheckBox bitGambleCheck;
         private TextBox bitGambleCDBox;
         private Label label11;
         private Label label10;
         private Label label9;
         private Label label1;
-        private CheckBox blerpBox;
         private Label label13;
         private Panel panel5;
-        private CheckBox subsweatbotBox;
         private Label label21;
         private PictureBox pictureBox4;
-        private CheckBox subgambleBox;
-        private CheckBox subbotBox;
         private TextBox custombitnameBox;
         private Label label12;
         private Panel gameIntegrationPanel;
-        private CheckBox enableInRaid;
         private Label label14;
         private PictureBox pictureBox5;
         private Label label16;
@@ -1224,7 +1206,6 @@
         private ToolTip sweatbottogTip;
         private ToolTip chatbonusTip;
         private TextBox rateDelayBox;
-        private CheckBox enableRateDelayBox;
         private ToolTip bitMultiTip;
         private ToolTip subMultiTip;
         private ToolTip modWhitelistTip;
@@ -1239,6 +1220,25 @@
         private Button openSendkeyButton;
         private Label label15;
         private Button traderConfigButton;
-        private CheckBox pauseMessageBox;
+        public CheckBox enableAutoMessageCheck;
+        public CheckBox enableTradersCommand;
+        public CheckBox enableChatBonus;
+        public CheckBox modWhitelistCheck;
+        public CheckBox enableBonusMulti;
+        public CheckBox enableBotToggle;
+        public CheckBox checkEnableBitMsg;
+        public CheckBox enableSubBonus;
+        public CheckBox enableFollowBonus;
+        public CheckBox bitcostButton;
+        public CheckBox sendkeyButton;
+        public CheckBox enableSubBonusMulti;
+        public CheckBox bitGambleCheck;
+        public CheckBox blerpBox;
+        public CheckBox subsweatbotBox;
+        public CheckBox subgambleBox;
+        public CheckBox subbotBox;
+        public CheckBox enableInRaid;
+        public CheckBox enableRateDelayBox;
+        public CheckBox pauseMessageBox;
     }
 }

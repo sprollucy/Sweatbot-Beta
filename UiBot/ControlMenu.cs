@@ -35,7 +35,6 @@ namespace UiBot
             subsweatbotBox.Checked = Properties.Settings.Default.isSubOnlySweatbotCommand;
             subgambleBox.Checked = Properties.Settings.Default.isSubOnlyGambleCommand;
             subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
-            enableInRaid.Checked = Properties.Settings.Default.isInRaid;
             enableRateDelayBox.Checked = Properties.Settings.Default.isRateDelayEnabled;
             pauseMessageBox.Checked = Properties.Settings.Default.isPausedMessage;
 
@@ -335,7 +334,6 @@ namespace UiBot
         private void enableInRaid_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.isInRaid = enableInRaid.Checked;
-            Properties.Settings.Default.Save();
             StartInRaidFileCheck();
         }
         private void openSendkeyButton_Click(object sender, EventArgs e)
@@ -373,6 +371,7 @@ namespace UiBot
                             Console.WriteLine("Starting log monitoring...");
 
                         }
+
                         tarkovMonitor.Start();
                     }
                     else
@@ -391,6 +390,10 @@ namespace UiBot
                     }
                     tarkovMonitor.Stop();
                     tarkovMonitor = null; // Clear reference to allow re-initialization
+                    ConnectMenu.Instance.pauseCommands.Invoke(new Action(() =>
+                    {
+                        ConnectMenu.Instance.pauseCommands.Checked = false;  // Ensure it reflects the state in the UI
+                    }));
                 }
             }
         }

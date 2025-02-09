@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using UiBot.Properties;
 
 namespace UiBot
@@ -140,6 +135,8 @@ namespace UiBot
             Created?.Invoke(this, new FileChangedEventArgs(e.FullPath));
         }
 
+        private bool gameStartedDetected = false;
+
         private void CheckFile(string filePath)
         {
             while (!isStopping)
@@ -179,7 +176,7 @@ namespace UiBot
                                                 ConnectMenu.Instance.pauseCommands.Checked = false;  // Ensure it reflects the state in the UI
                                             }));
                                         }
-
+                                        Settings.Default.isCommandsPaused = false;
                                         if (Settings.Default.isDebugOn)
                                             Console.WriteLine($"Found 'GameStarted' in the log, resuming chat commands.");
                                     }
@@ -202,6 +199,7 @@ namespace UiBot
                                                 ConnectMenu.Instance.pauseCommands.Checked = true;  // Ensure it reflects the state in the UI
                                             }));
                                         }
+                                        Settings.Default.isCommandsPaused = true;
 
                                         if (Settings.Default.isDebugOn)
                                             Console.WriteLine($"Detected '{line.Trim()}', pausing chat commands.");
@@ -283,7 +281,7 @@ namespace UiBot
         {
 
             // Update to the newest folder after creation
-            _currentLogsFolder = GetLatestLogFolder();            
+            _currentLogsFolder = GetLatestLogFolder();
             if (Settings.Default.isDebugOn)
             {
                 Console.WriteLine($"New folder created: {e.FullPath}");
