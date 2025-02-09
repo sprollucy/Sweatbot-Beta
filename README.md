@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0 Beta**
+# **Sweat Bot 1.0.02 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -158,4 +158,16 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
-
+1.0.02-beta
+- Minor UI Tweaks
+- Added Volume adjustments to custom sound clips
+- Added Xbox Mappings(buttons only)
+- Added Loop Mouse to position. Now you can set a position and "stick" your mouse cursor there
+- Adjusted command execution patterns so Async commands correctly execute after or during a delay. This should help with some timing issues
+- Updated Pixelate Screen with normal non Sync command. Useful if you wish to stack multiple after another
+- Removed Trader Menu as it doesn't fit what I'm planning on doing. the !traders command is still available for chat.
+- Added option for if commands are paused, it will tell the user that it is paused when they try to run a command. If you pause the commands on the menu, it will notify chat as well
+- I made a terrible icon for now
+- Added Shutdown PC
+- Added Restart PC
+- Adjusted the pause out of raid feature. It does not currently save its state and will need to be turned on each time till I rewrite how it checks. Will need to do further testing to make sure it fully functions
