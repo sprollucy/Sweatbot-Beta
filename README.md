@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.0 Beta**
+# **Sweat Bot 1.0.02 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -15,6 +15,7 @@ Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to kee
 - [Changelog](#latest-changelog)
 
 ### **Features**
+
 - **Interact with your PC/games via Twitch chat**: Move your mouse, click buttons, hold down keys, fire your gun while you're off-screen, make your screen go wacky with pixelation, trigger funky sound effects, and so much more!
 - **No need to rely on a website and a bunch of sign ups**: Works locally, requiring connections only to Twitch and tarkov.dev API(Soon to be disconnectable for 1 connection out).
 - **Quick Setup**: Once you get your twitch bot token set up and connected, Just enable a command or make your own and hit connect!
@@ -50,7 +51,6 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 *(Not guaranteed, but under consideration)*
 
 - Support for Linux/Mac by switching to another UI framework.
-- Disable banking(stores user currency for later use)
 - Open to suggestions!
 
 ---
@@ -58,16 +58,15 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ## **Upcoming Custom Command Functions**
 *(Not guaranteed, but under consideration)*
 
-- Controller support
 - Open Photo
-- Maybe ShutdownPc
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.0.84)
-> First download .Net 8 runtime from Microsoft
+#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.02)
+
+First download .Net 8 runtime from Microsoft
 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
-> 
+
 > *Important*: The files have not been verified by Microsoft and may be detected as *Trojan:Script/Wacatac.B!ml* by Windows Security and deleted when downloading. I will be resubmitting the files once in the beta stages
 
 >### How to Allow It:  
@@ -131,6 +130,8 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 - `!refund @user` – Refund the last command a user used
 - `!sbadd <commandname> <methods>` - Add a command through chat
 - `!sbremove <commandname>` - Remove a command through chat
+- `!sbban @user` - Ban a user from using the bot
+- `!sbunban @user` - Unban a user from using the bot
 
 ---
 
@@ -146,7 +147,7 @@ To add your own sounds:
 
 - Ensure the sound files are in `.wav` format.
 - Place them in the **Sound Clips** folder.
-- Access them in-game with the `!playsound` command or use the Command Builder to integrate sounds into commands
+- Use the Command Builder Menu to make a command using the play sound button, just change filename.wav on the Command input line to the name of your file and you are all set!
 
 ---
 
@@ -158,4 +159,16 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
-
+1.0.02-beta
+- Minor UI Tweaks
+- Added Volume adjustments to custom sound clips
+- Added Xbox Mappings(buttons only)
+- Added Loop Mouse to position. Now you can set a position and "stick" your mouse cursor there
+- Adjusted command execution patterns so Async commands correctly execute after or during a delay. This should help with some timing issues
+- Updated Pixelate Screen with normal non Sync command. Useful if you wish to stack multiple after another
+- Removed Trader Menu as it doesn't fit what I'm planning on doing. the !traders command is still available for chat.
+- Added option for if commands are paused, it will tell the user that it is paused when they try to run a command. If you pause the commands on the menu, it will notify chat as well
+- I made a terrible icon for now
+- Added Shutdown PC
+- Added Restart PC
+- Adjusted the pause out of raid feature. It does not currently save its state and will need to be turned on each time till I rewrite how it checks. Will need to do further testing to make sure it fully functions
