@@ -58,7 +58,7 @@ namespace UiBot
             }
 
             // Ensure the SendKeyExclude file exists in the Data directory
-            string sendKeyExcludeFile = Path.Combine(appDirectory, "Data", "SendKeyExclude");
+            string sendKeyExcludeFile = Path.Combine(appDirectory, "Data", "SendKeyExclude.txt");
             if (!File.Exists(sendKeyExcludeFile))
             {
                 string defaultContent = "";
@@ -67,7 +67,7 @@ namespace UiBot
             }
 
             // Ensure the ModWhitelist file exists in the Data directory
-            string modWhitelistFile = Path.Combine(appDirectory, "Data", "ModWhitelist");
+            string modWhitelistFile = Path.Combine(appDirectory, "Data", "ModWhitelist.txt");
             if (!File.Exists(modWhitelistFile))
             {
                 string defaultContent = "Example:refund,give,remove,add_remove_command"; 
