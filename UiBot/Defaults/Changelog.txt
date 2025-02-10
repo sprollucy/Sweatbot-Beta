@@ -1,6 +1,6 @@
 1.0.03-beta
 -Added a auto updater/installer to ease updating. It will download any missing file/changes you may miss while updating it the drag and drop way. You can use it as a stand alone installer as well
--When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well. I
+-When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well.
 
 1.0.02-beta
 -Minor UI Tweaks
