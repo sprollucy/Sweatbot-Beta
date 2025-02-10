@@ -47,10 +47,6 @@ namespace UiBot
                         }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("You have the latest version installed.", "Update Checker", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
             }
             else
             {

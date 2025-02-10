@@ -29,6 +29,7 @@ namespace UiBot
         public static Dictionary<string, int> userBits = new Dictionary<string, int>();
         private Dictionary<string, DateTime> lastGambleTime = new Dictionary<string, DateTime>();
         private Dictionary<string, DateTime> lastExecutionTimes = new Dictionary<string, DateTime>();
+
         private static HashSet<string> bannedUsers = ChatCommandMethods.LoadBanList();  // Load the banned users on startup
         public Dictionary<string, string> commandConfigData;
         Dictionary<string, (int usageCount, int bitCost, int totalSpent)> commandUsageData = new Dictionary<string, (int, int, int)>();
@@ -316,26 +317,27 @@ namespace UiBot
                     MessageBox.Show($"Error playing sound: {ex.Message}");
                 }
                 creatorMessage = true;
-                client.SendMessage(channelId, $"My creator is here!");
+                //Thanks ace
+                client.SendMessage(channelId, $"Father is here!");
             }
 
             if (Properties.Settings.Default.isRateDelayEnabled)
             {
-                int delayMs;
-                if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayMs))
+                int delayS;
+                if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
                 {
-                    delayMs = 100;
+                    delayS = 1;
                 }
 
                 if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
                 {
                     TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
 
-                    if (timeDifference < TimeSpan.FromMilliseconds(delayMs))
+                    if (timeDifference < TimeSpan.FromSeconds(delayS))
                     {
-                        int remainingDelayMs = (int)(delayMs - timeDifference.TotalMilliseconds);
-
-                        await Task.Delay(remainingDelayMs);
+                        int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, You can use another command in {remainingDelayS} seconds!");
+                        await Task.Delay(remainingDelayS);
                     }
                 }
 
@@ -702,24 +704,28 @@ namespace UiBot
                         // Check if the user is a moderator
                         if (e.Command.ChatMessage.IsModerator)
                         {
-                            if (Properties.Settings.Default.isModBitsEnabled)
+                            if (LogHandler.HasPermission(Chatter, "give"))
                             {
-                                message.Append(", !addbits, !rembits");
+                                message.Append(", !addbits");
+                            }
+                            if (LogHandler.HasPermission(Chatter, "remove"))
+                            {
+                                message.Append(", !addbits");
                             }
 
-                            if (Properties.Settings.Default.isModRefundEnabled)
+                            if (LogHandler.HasPermission(Chatter, "refund"))
                             {
                                 message.Append(", !refund");
                             }
 
-                            if (Properties.Settings.Default.isModAddEnabled)
+                            if (LogHandler.HasPermission(Chatter, "add_remove_command"))
                             {
-                                message.Append(", !sbadd");
+                                message.Append(", !sbadd, !sbremove");
                             }
 
-                            if (Properties.Settings.Default.isModRemoveEnabled)
+                            if (LogHandler.HasPermission(Chatter, "ban"))
                             {
-                                message.Append(", !sbremove");
+                                message.Append(", !sbban, !sbunban");
                             }
                         }
 
@@ -1288,7 +1294,7 @@ namespace UiBot
                 {
 
                     case "addbits":
-                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "give"))
                         {
                             ChatCommandMethods.AddBitCommand(client, e);
                         }
@@ -1299,7 +1305,7 @@ namespace UiBot
                         break;
 
                     case "rembits":
-                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "remove"))
                         {
                             ChatCommandMethods.RemoveBitCommand(client, e);
                         }
@@ -1310,7 +1316,7 @@ namespace UiBot
                         break;
 
                     case "refund":
-                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "refund"))
                         {
                             string[] refundArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1333,7 +1339,7 @@ namespace UiBot
                         break;
 
                     case "sbadd":
-                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
                         {
                             var sbaddArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1360,7 +1366,7 @@ namespace UiBot
                         break;
 
                     case "sbremove":
-                        if (!Properties.Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
                         {
                             var sbremoveArgs = e.Command.ArgumentsAsString.Split(' ');
 
@@ -1383,6 +1389,59 @@ namespace UiBot
                             {
                                 client.SendMessage(channelId, "Invalid syntax. Usage: !sbremove {commandName}");
                             }
+                        }
+                        break;
+                    case "sbban":
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "ban"))
+                        {
+                            var sbbanArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (sbbanArgs.Length == 1)
+                            {
+                                string bannedUsername = sbbanArgs[0].StartsWith("@") ? sbbanArgs[0].Substring(1) : sbbanArgs[0];
+
+                                if (!bannedUsers.Contains(bannedUsername))
+                                {
+                                    bannedUsers.Add(bannedUsername);
+                                    ChatCommandMethods.SaveBanList(bannedUsers);
+                                    client.SendMessage(channelId, $"{bannedUsername} has been banned from using the bot.");
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, $"{bannedUsername} is already banned.");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbban [username]");
+                        }
+                        break;
+
+                    case "sbunban":
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "ban"))
+                        {
+                            var sbunbanArgs = e.Command.ArgumentsAsString.Split(' ');
+
+                            if (sbunbanArgs.Length == 1)
+                            {
+                                string unbannedUsername = sbunbanArgs[0].StartsWith("@") ? sbunbanArgs[0].Substring(1) : sbunbanArgs[0];
+
+                                if (bannedUsers.Contains(unbannedUsername))
+                                {
+                                    bannedUsers.Remove(unbannedUsername);
+                                    ChatCommandMethods.SaveBanList(bannedUsers);
+                                    client.SendMessage(channelId, $"{unbannedUsername} has been unbanned and can use the bot again.");
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, $"{unbannedUsername} is not on the ban list.");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, "Invalid syntax. Usage: !sbunban [username]");
                         }
                         break;
                 }

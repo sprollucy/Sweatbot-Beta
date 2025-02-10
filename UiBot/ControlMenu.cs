@@ -39,6 +39,8 @@ namespace UiBot
             pauseMessageBox.Checked = Properties.Settings.Default.isPausedMessage;
 
             InitializeToolTips();
+            this.lstModWhitelist.SelectedIndexChanged += new System.EventHandler(this.lstModWhitelist_SelectedIndexChanged);
+
         }
 
         public void InitializeToolTips()
@@ -351,6 +353,13 @@ namespace UiBot
             Properties.Settings.Default.Save();
         }
 
+        private void traderConfigButton_Click(object sender, EventArgs e)
+        {
+            TraderMenuConfig traderMenuConfig = new TraderMenuConfig();
+
+            traderMenuConfig.Show();
+        }
+
         private void StartInRaidFileCheck()
         {
             if (Settings.Default.isInRaid)
@@ -419,8 +428,9 @@ namespace UiBot
 
             if (chkRefund.Checked) permissions.Add("refund");
             if (chkGive.Checked) permissions.Add("give");
-            if (chkAdd.Checked) permissions.Add("add");
             if (chkRemove.Checked) permissions.Add("remove");
+            if (chkAdd.Checked) permissions.Add("add_remove_command");
+            if (chkBan.Checked) permissions.Add("ban");
 
             if (string.IsNullOrEmpty(username) || permissions.Count == 0)
             {
@@ -499,18 +509,11 @@ namespace UiBot
                     {
                         if (perm.Trim().Equals("refund", StringComparison.OrdinalIgnoreCase)) chkRefund.Checked = true;
                         if (perm.Trim().Equals("give", StringComparison.OrdinalIgnoreCase)) chkGive.Checked = true;
-                        if (perm.Trim().Equals("add", StringComparison.OrdinalIgnoreCase)) chkAdd.Checked = true;
+                        if (perm.Trim().Equals("add_remove_command", StringComparison.OrdinalIgnoreCase)) chkAdd.Checked = true;
                         if (perm.Trim().Equals("remove", StringComparison.OrdinalIgnoreCase)) chkRemove.Checked = true;
                     }
                 }
             }
-        }
-
-        private void traderConfigButton_Click(object sender, EventArgs e)
-        {
-            TraderMenuConfig traderMenuConfig = new TraderMenuConfig();
-
-            traderMenuConfig.Show();
         }
     }
 }
