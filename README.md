@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.03 Beta**
+# **Sweat Bot 1.0.04 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -159,6 +159,12 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.04-beta
+- Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming
+- Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot
+- Updated "Rate Delay" setting to properly reflect what it does which is add a cooldown per use so they can't spam commands. Added a message that alerts the user of how much time is remaining
+- Fixed potential issue of "you have the latest version installed" popping up on start
+  
 1.0.03-beta
 - Added a auto updater/installer to ease updating. It will download any missing file/changes you may miss while updating it the drag and drop way. You can use it as a stand alone installer as well
 - When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well.
