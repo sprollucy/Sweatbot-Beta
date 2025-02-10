@@ -24,23 +24,32 @@ namespace UiBot
                 string latestVersion = latestRelease["tag_name"].ToString();
                 if (IsNewerVersionAvailable(localVersion, latestVersion))
                 {
-                    DialogResult result = MessageBox.Show($"A new version ({latestVersion}) is available. Do you want to check it out?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
+                    // Instead of MessageBox, use the custom form
+                    using (var updateDialog = new UpdateDialogForm(latestVersion))
                     {
-                        string url = latestRelease["html_url"].ToString();
-                        try
+                        updateDialog.ShowDialog();
+
+                        if (updateDialog.UserWantsToCheck)
                         {
-                            Process.Start(new ProcessStartInfo
+                            string url = latestRelease["html_url"].ToString();
+                            try
                             {
-                                FileName = url,
-                                UseShellExecute = true
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error opening URL: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Process.Start(new ProcessStartInfo
+                                {
+                                    FileName = url,
+                                    UseShellExecute = true
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error opening URL: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("You have the latest version installed.", "Update Checker", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
@@ -67,21 +76,26 @@ namespace UiBot
                 string latestVersion = latestRelease["tag_name"].ToString();
                 if (IsNewerVersionAvailable(localVersion, latestVersion))
                 {
-                    DialogResult result = MessageBox.Show($"A new version ({latestVersion}) is available. Do you want to check it out?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
+                    // Instead of MessageBox, use the custom form
+                    using (var updateDialog = new UpdateDialogForm(latestVersion))
                     {
-                        string url = latestRelease["html_url"].ToString();
-                        try
+                        updateDialog.ShowDialog();
+
+                        if (updateDialog.UserWantsToCheck)
                         {
-                            Process.Start(new ProcessStartInfo
+                            string url = latestRelease["html_url"].ToString();
+                            try
                             {
-                                FileName = url,
-                                UseShellExecute = true
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error opening URL: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Process.Start(new ProcessStartInfo
+                                {
+                                    FileName = url,
+                                    UseShellExecute = true
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error opening URL: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }

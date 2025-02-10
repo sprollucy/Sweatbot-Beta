@@ -494,11 +494,7 @@ namespace UiBot
 
         private async void ModernMenu_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.isUpdateCheckEnabled)
-            {
-                UpdateCheck updateChecker = new UpdateCheck();
-                await updateChecker.CheckForUpdatesAsync();
-            }
+
             ShowConnectMenu();
             // Preload ControlMenu but keep it hidden
             if (controlMenu == null || controlMenu.IsDisposed)
@@ -507,6 +503,11 @@ namespace UiBot
                 controlMenu.Dock = DockStyle.Fill;
                 controlMenu.Visible = false; // Keep it hidden on load
                 this.Controls.Add(controlMenu);
+            }
+            if (Properties.Settings.Default.isUpdateCheckEnabled)
+            {
+                UpdateCheck updateChecker = new UpdateCheck();
+                await updateChecker.CheckForUpdatesAsync();
             }
         }
 

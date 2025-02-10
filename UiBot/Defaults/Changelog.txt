@@ -1,3 +1,7 @@
+1.0.03-beta
+-Added a auto updater/installer to ease updating. It will download any missing file/changes you may miss while updating it the drag and drop way. You can use it as a stand alone installer as well
+-When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well. I
+
 1.0.02-beta
 -Minor UI Tweaks
 -Added Volume adjustments to custom sound clips
@@ -11,3 +15,5 @@
 -Added Shutdown PC
 -Added Restart PC
 -Adjusted the pause out of raid feature. It does not currently save its state and will need to be turned on each time till I rewrite how it checks. Will need to do further testing to make sure it fully functions
+-Fixed issue with integrity check generating files without extensions 
+-Fixed paypal link
