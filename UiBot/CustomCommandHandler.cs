@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
+using UiBot;
 using UiBot.Properties;
 
 public class CustomCommandHandler
@@ -13,6 +14,7 @@ public class CustomCommandHandler
     private readonly Dictionary<string, Action<TwitchClient, string, string>> _syncMethodMap;
     private readonly Dictionary<string, Func<TwitchClient, string, string, Task>> _asyncMethodMap;
     private static SemaphoreSlim _overlayPixelate = new SemaphoreSlim(1, 1);
+    private static SemaphoreSlim _screenOverlay = new SemaphoreSlim(1, 1);
 
     private Random random = new Random();  // Class-level Random object
     private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
@@ -37,6 +39,7 @@ public class CustomCommandHandler
 
 
     private PixelateOverlay pixelateOverlay;
+    private ScreenOverlay screenOverlay;
 
     // Event constants for mouse and keyboard actions
     public const int MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -56,6 +59,7 @@ public class CustomCommandHandler
         this.filePath = Path.Combine("Data", "Profiles", $"{LastUsedProfile}.json");  // Use this.filePath
 
         pixelateOverlay = new PixelateOverlay();
+        screenOverlay = new ScreenOverlay();
 
         _commands = LoadCommandsFromFile(this.filePath);  // Use this.filePath here as well
 
@@ -77,7 +81,7 @@ public class CustomCommandHandler
         { "delay", Delay },
         { "lcloop", LeftClickLoop },
         { "rcloop", RightClickLoop },
-        { "pixelatescreen", PixelateScreen },
+        { "pixelatescreen", OverlayScreen },
         { "shutdownpc", ShutDownPC },
         { "restartpc", RestartPC },
     };
@@ -1702,6 +1706,55 @@ public class CustomCommandHandler
             _overlayPixelate.Release(); // Allow the next overlay to proceed
         }
     }
+
+    private void OverlayScreen(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for OverlayScreen.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)"); // Match numeric parameters
+        if (!match.Success || !int.TryParse(match.Value, out int duration))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Duration.");
+            return;
+        }
+
+        _screenOverlay.Wait(); // Ensure sequential execution
+
+        try
+        {
+            if (UiBot.Properties.Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"OverlayScreen for {duration} milliseconds.");
+            }
+
+            // Ensure UI thread safety
+            screenOverlay.Invoke((MethodInvoker)(() =>
+            {
+                screenOverlay.StartOverlay();
+            }));
+
+            // Synchronously wait for the specified duration
+            Thread.Sleep(duration); // Use Thread.Sleep to wait for the duration
+
+            screenOverlay.Invoke((MethodInvoker)(() =>
+            {
+                screenOverlay.StopOverlay();
+            }));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in OverlayScreen: {ex.Message}");
+        }
+        finally
+        {
+            _screenOverlay.Release(); // Allow the next overlay to proceed
+        }
+    }
+
 
     private void ShutDownPC(TwitchClient client, string channel, string parameter = null)
     {

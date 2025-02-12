@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 public class PixelateOverlay : Form
 {
     private System.Windows.Forms.Timer timer;
-    private int pixelSize = 6; // Adjust pixelation level
+    private int pixelSize = 2; // Adjust pixelation level
     private IntPtr lastWindow = IntPtr.Zero;
     private Bitmap lastFrame = null; // Store last frame for disposal
 
@@ -18,20 +18,6 @@ public class PixelateOverlay : Form
     [DllImport("user32.dll", SetLastError = true)]
     private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-    private void InitializeComponent()
-    {
-        SuspendLayout();
-        // 
-        // PixelateOverlay
-        // 
-        ClientSize = new Size(10, 10);
-        ControlBox = false;
-        FormBorderStyle = FormBorderStyle.None;
-        Name = "PixelateOverlay";
-        StartPosition = FormStartPosition.CenterScreen;
-        ResumeLayout(false);
-    }
-
     [DllImport("user32.dll", SetLastError = true)]
     private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
@@ -44,21 +30,40 @@ public class PixelateOverlay : Form
     {
         public int Left, Top, Right, Bottom;
     }
+    public PixelateOverlay()
+    {
+        this.BackColor = Color.Black;
+        this.Opacity = 0.85; // Semi-transparent overlay
+        this.FormBorderStyle = FormBorderStyle.None;
+        this.TopMost = true;
+        this.ShowInTaskbar = false;
+        this.DoubleBuffered = true;
+        this.Visible = false;
+
+        int exStyle = GetWindowLong(this.Handle, GWL_EXSTYLE);
+        SetWindowLong(this.Handle, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+    }
 
     public void StartOverlay()
     {
         if (!this.Visible)
         {
             this.Bounds = GetWindowBounds(GetForegroundWindow());
-            this.Show();
         }
-        Thread.Sleep(100);
-        // Take a fresh screenshot immediately before starting the timer
+        // Work around for "White Box" of form showing on first draw
+        this.Location = new Point(-10000, -10000); 
+
+        Thread.Sleep(100); 
         ForceFreshCapture();
+
+        this.Invoke((MethodInvoker)delegate {
+            this.Show(); 
+        });
 
         if (timer == null)
         {
             timer = new System.Windows.Forms.Timer { Interval = 100 }; // 10 FPS
+            //timer = new System.Windows.Forms.Timer { Interval = 16 }; // Set to 60 FPS (~16.67ms)
             timer.Tick += (s, e) => UpdateOverlay();
         }
 
@@ -70,13 +75,11 @@ public class PixelateOverlay : Form
 
     private void ForceFreshCapture()
     {
-        // Take a new screenshot and immediately apply it
         Bitmap screenshot = CaptureScreen();
         if (screenshot != null)
         {
             Bitmap pixelated = Pixelate(screenshot, pixelSize);
 
-            // Dispose old frame to free memory
             if (lastFrame != null)
             {
                 lastFrame.Dispose();
@@ -84,16 +87,10 @@ public class PixelateOverlay : Form
 
             lastFrame = pixelated; // Store current frame for next disposal
 
-            // Ensure old background image is disposed before assigning a new one
-            if (this.BackgroundImage != null)
-            {
-                this.BackgroundImage.Dispose();
-            }
-
             this.BackgroundImage = pixelated;
             this.Invalidate(); // Redraw smoothly
 
-            screenshot.Dispose(); // Dispose of the original screenshot immediately
+            screenshot.Dispose(); 
         }
     }
 
@@ -109,20 +106,6 @@ public class PixelateOverlay : Form
         {
             timer.Stop();
         }
-    }
-
-    public PixelateOverlay()
-    {
-        this.FormBorderStyle = FormBorderStyle.None;
-        this.TopMost = true;
-        this.ShowInTaskbar = false;
-        this.DoubleBuffered = true;
-        this.BackColor = Color.Black;
-        this.Opacity = 0.85; // Semi-transparent overlay
-
-        // Make window transparent to mouse clicks
-        int exStyle = GetWindowLong(this.Handle, GWL_EXSTYLE);
-        SetWindowLong(this.Handle, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
     }
 
     private void UpdateOverlay()
@@ -202,7 +185,7 @@ public class PixelateOverlay : Form
         small.Dispose(); // Dispose the small resized version
         return pixelated;
     }
-
+    
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
         // Ensure the last frame is properly disposed when closing

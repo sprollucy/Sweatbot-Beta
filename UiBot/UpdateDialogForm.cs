@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.Media;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -14,7 +15,9 @@ namespace UiBot
 
         public UpdateDialogForm(string latestVersion)
         {
+
             InitializeComponent();
+            SystemSounds.Exclamation.Play();
             GraphicsPath path = new GraphicsPath();
             int radius = 12; // Adjust the radius as needed
             Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);

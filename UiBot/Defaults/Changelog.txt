@@ -1,3 +1,9 @@
+1.0.05-beta
+-Fixed white box issue on the pixelate overlay
+-More pixelated overlay. It wasn't bad enough
+-Updated !about
+-Fixed issue with blerp integration not working
+
 1.0.04-beta
 -Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming
 -Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot

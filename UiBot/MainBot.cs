@@ -605,7 +605,7 @@ namespace UiBot
             {
                 string message = e.ChatMessage.Message;
 
-                if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase) && message.StartsWith("blerp:"))
+                if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase))
                 {
                     // Expected format: "blerp: (username) used (bitsUsed) bits to play [sound name]"
                     string pattern = @"blerp:\s+(\S+)\s+used\s+(\d+)\s+bits";
@@ -756,7 +756,7 @@ namespace UiBot
                     {
                         chatCommandMethods.lastAboutCommandTimer = DateTime.Now; // Update the last "help" execution time
                         client.SendMessage(channelId, $"I am a bot created by Sprollucy. This is a small project that was inspired by bitbot and to help practice my coding. Many features may be incomplete or missing at this time.");
-                        client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Tarkov-Twitch-Bot-Working for more information, bug reporting, and suggestions");
+                        client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Sweatbot-Beta for more information, bug reporting, and suggestions");
                     }
                     break;
 

@@ -912,6 +912,7 @@
             disablecommandButton.TabIndex = 27;
             disablecommandButton.Text = "Disable Command";
             disablecommandButton.UseVisualStyleBackColor = false;
+            disablecommandButton.Click += disablecommandButton_Click;
             // 
             // restorecommandButton
             // 
