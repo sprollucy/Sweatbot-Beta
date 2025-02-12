@@ -24,6 +24,8 @@ namespace UiBot
 
     internal class ChatCommandMethods
     {
+        private static string userBitName;
+
         private static string banListFilePath = Path.Combine("Data", "BanList.json");
 
         private static readonly object fileLock = new object();
@@ -54,6 +56,12 @@ namespace UiBot
 
         public static int BitBonusMultiplier { get; private set; }
         public static int SubBonusMultiplier { get; private set; }
+
+        internal ChatCommandMethods()
+        {
+            userBitName = controlMenu.CustombitnameBox.Text;
+        }
+
 
         public static void BitMultiplier()
         {
@@ -206,7 +214,7 @@ namespace UiBot
                     Console.WriteLine($"[{timestamp}] {e.Command.ChatMessage.DisplayName} refunded {bitsCost} bits to {logUserName}. They now have {userBits[logUserName]} bits.");
 
                     // Send message to chat
-                    client.SendMessage(channelId, $"{bitsCost} bits were refunded to {logUserName}. They now have {userBits[logUserName]} bits.");
+                    client.SendMessage(channelId, $"{bitsCost} {userBitName} were refunded to {logUserName}. They now have {userBits[logUserName]} {userBitName}.");
                     Task.Delay(500).ContinueWith(t =>
                     {
                         ConnectMenu.Instance.LoadLogEntries(); // Reload log entries from the updated file
@@ -240,13 +248,13 @@ namespace UiBot
                     }
 
                     // Notify about successful update
-                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToAdd} bits added to {username}. New total: {MainBot.userBits[username]} bits");
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToAdd} {userBitName} added to {username}. New total: {MainBot.userBits[username]} {userBitName}");
                     Console.WriteLine($"[{timestamp}] User [{e.Command.ChatMessage.DisplayName}] added {bitsToAdd} bits to {username}. New total: {MainBot.userBits[username]} bits");
 
                 }
                 else
                 {
-                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid number of bits specified.");
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"Invalid number of {userBitName} specified.");
                 }
             }
         }
@@ -272,13 +280,13 @@ namespace UiBot
                     }
 
                     // Notify about successful update
-                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToRemove} bits removed from {username}. New total: {MainBot.userBits[username]} bits");
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"{bitsToRemove} {userBitName} removed from {username}. New total: {MainBot.userBits[username]} {userBitName}");
                     Console.WriteLine($"[{timestamp}] User [{e.Command.ChatMessage.DisplayName}] removed {bitsToRemove} bits to {username}. New total: {MainBot.userBits[username]} bits");
 
                 }
                 else
                 {
-                    client.SendMessage(e.Command.ChatMessage.Channel, "Invalid number of bits specified.");
+                    client.SendMessage(e.Command.ChatMessage.Channel, $"Invalid number of {userBitName} specified.");
                 }
             }
         }

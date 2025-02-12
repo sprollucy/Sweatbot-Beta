@@ -1,8 +1,12 @@
 1.0.05-beta
 -Fixed white box issue on the pixelate overlay
 -More pixelated overlay. It wasn't bad enough
--Updated !about
+-Update window now plays a notification sound
+-Updated !help 
+-Updated !about to the new GitHub link
 -Fixed issue with blerp integration not working
+-Fixed "You don't have enough bits to execute the command" not replacing bits with your currency name
+-Updated admin/moderator chat commands to print out your currency name instead of just bits
 
 1.0.04-beta
 -Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming

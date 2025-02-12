@@ -299,6 +299,9 @@ namespace UiBot
         private async void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             DateTime currentTime = DateTime.Now;
+            bool isSubscriber = e.ChatMessage.IsSubscriber;
+            bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
+
             if (e.ChatMessage.DisplayName.Equals("Sprollucy") && !creatorMessage && Settings.Default.isEasterEgg)
             {
                 try
@@ -358,9 +361,6 @@ namespace UiBot
                     return;
                 }
             }
-
-            bool isSubscriber = e.ChatMessage.IsSubscriber;
-            bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
 
             if (isSubOnly && !isSubscriber)
             {
@@ -436,7 +436,7 @@ namespace UiBot
                         else
                         {
                             // Inform the user they do not have enough bits
-                            client.SendMessage(channelId, $"You don't have enough bits to execute the command '{commandName}'.");
+                            client.SendMessage(channelId, $"You don't have enough {userBitName} to execute the command '{commandName}'.");
                         }
                     }
                 }
@@ -665,11 +665,11 @@ namespace UiBot
             string Chatter = e.Command.ChatMessage.DisplayName;
 
             //antispam cooldowns
-            int helpCooldownDuration = 30;
-            int aboutCooldownDuration = 60;
+            int helpCooldownDuration = 15;
+            int aboutCooldownDuration = 30;
             int tradersCooldownDuration = 90;
-            int bitcostCooldownDuration = 30;
-            int lastHow2useTimerDuration = 30;
+            int bitcostCooldownDuration = 15;
+            int lastHow2useTimerDuration = 15;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
 
@@ -680,9 +680,8 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= helpCooldownDuration)
                     {
-                        chatCommandMethods.lastHelpCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        chatCommandMethods.lastHelpCommandTimer = DateTime.Now;
 
-                        // Construct the base message using StringBuilder
                         StringBuilder message = new StringBuilder();
                         message.Append("!how2use, !about, !mybits");
 
@@ -701,7 +700,6 @@ namespace UiBot
                             message.Append(", !sbgamble");
                         }
 
-                        // Check if the user is a moderator
                         if (e.Command.ChatMessage.IsModerator)
                         {
                             if (LogHandler.HasPermission(Chatter, "give"))
@@ -710,7 +708,7 @@ namespace UiBot
                             }
                             if (LogHandler.HasPermission(Chatter, "remove"))
                             {
-                                message.Append(", !addbits");
+                                message.Append(", !rembits");
                             }
 
                             if (LogHandler.HasPermission(Chatter, "refund"))
@@ -720,7 +718,7 @@ namespace UiBot
 
                             if (LogHandler.HasPermission(Chatter, "add_remove_command"))
                             {
-                                message.Append(", !sbadd, !sbremove");
+                                message.Append(", !sbadd, !sbremove, !cdebug");
                             }
 
                             if (LogHandler.HasPermission(Chatter, "ban"))
@@ -729,10 +727,9 @@ namespace UiBot
                             }
                         }
 
-                        // Check if the user is a broadcaster
                         if (e.Command.ChatMessage.IsBroadcaster)
                         {
-                            message.Append(", !addbits, !refund, !sbadd, !rembits, !sbremove, !sbban, !sbunban");
+                            message.Append(", !addbits, !refund, !rembits, !sbadd, !sbremove, !cdebug, !sbban, !sbunban");
                         }
 
                         client.SendMessage(channelId, message.ToString());
@@ -744,8 +741,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
-                        client.SendMessage(channelId, "To use Sweatbot, simply cheer Bits in the chat, and the bot will track how many you've given or do !{cheeramount} to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs. When you have enough Bits, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`."
-);
+                        client.SendMessage(channelId, $"To use Sweatbot, simply cheer Bits in the chat, and the bot will track how many you've given or do ![cheeramount] to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs. When you have enough {userBitName}, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`.");
                     }
                     break;
 
@@ -754,7 +750,7 @@ namespace UiBot
 
                     if (timeSinceLastExecution.TotalSeconds >= aboutCooldownDuration)
                     {
-                        chatCommandMethods.lastAboutCommandTimer = DateTime.Now; // Update the last "help" execution time
+                        chatCommandMethods.lastAboutCommandTimer = DateTime.Now;
                         client.SendMessage(channelId, $"I am a bot created by Sprollucy. This is a small project that was inspired by bitbot and to help practice my coding. Many features may be incomplete or missing at this time.");
                         client.SendMessage(channelId, $"If you want to learn more about this project, visit https://github.com/sprollucy/Sweatbot-Beta for more information, bug reporting, and suggestions");
                     }
@@ -1391,6 +1387,7 @@ namespace UiBot
                             }
                         }
                         break;
+
                     case "sbban":
                         if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "ban"))
                         {
@@ -1415,6 +1412,23 @@ namespace UiBot
                         else
                         {
                             client.SendMessage(channelId, "Invalid syntax. Usage: !sbban [username]");
+                        }
+                        break;
+
+                    // Command Debug
+                    case "cdebug":
+                        if (Settings.Default.isModWhitelistEnabled || LogHandler.HasPermission(Chatter, "add_remove_command"))
+                        {
+                            if (e.Command.ArgumentsAsList.Count == 0)
+                            {
+                                client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, please specify a command to print to chat. Example: !cdebug pop");
+                                break;
+                            }
+
+                            string debugCommandName = e.Command.ArgumentsAsList[0];
+                            string debugResponse = commandHandler.DebugCommand(debugCommandName);
+
+                            client.SendMessage(channelId, debugResponse);
                         }
                         break;
 
@@ -1578,6 +1592,19 @@ namespace UiBot
                         }
                         break;
 
+                    // Command Debug
+                    case "cdebug":
+                        if (e.Command.ArgumentsAsList.Count == 0)
+                        {
+                            client.SendMessage(channelId, $"{e.Command.ChatMessage.DisplayName}, please specify a command to print to chat. Example: !cdebug pop");
+                            break;
+                        }
+
+                        string debugCommandName = e.Command.ArgumentsAsList[0];
+                        string debugResponse = commandHandler.DebugCommand(debugCommandName);
+
+                        client.SendMessage(channelId, debugResponse);
+                        break;
                 }
             }
         }
