@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.04 Beta**
+# **Sweat Bot 1.0.05 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -159,6 +159,16 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.05-beta
+- Fixed white box issue on the pixelate overlay
+- More pixelated overlay. It wasn't bad enough
+- Update window now plays a notification sound
+- Updated !help 
+- Updated !about to the new GitHub link
+- Fixed issue with blerp integration not working
+- Fixed "You don't have enough bits to execute the command" not replacing bits with your currency name
+- Updated admin/moderator chat commands to print out your currency name instead of just bits
+  
 1.0.04-beta
 - Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming
 - Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot
@@ -168,17 +178,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 1.0.03-beta
 - Added a auto updater/installer to ease updating. It will download any missing file/changes you may miss while updating it the drag and drop way. You can use it as a stand alone installer as well
 - When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well.
-
-1.0.02-beta
-- Minor UI Tweaks
-- Added Volume adjustments to custom sound clips
-- Added Xbox Mappings(buttons only)
-- Added Loop Mouse to position. Now you can set a position and "stick" your mouse cursor there
-- Adjusted command execution patterns so Async commands correctly execute after or during a delay. This should help with some timing issues
-- Updated Pixelate Screen with normal non Sync command. Useful if you wish to stack multiple after another
-- Removed Trader Menu as it doesn't fit what I'm planning on doing. the !traders command is still available for chat.
-- Added option for if commands are paused, it will tell the user that it is paused when they try to run a command. If you pause the commands on the menu, it will notify chat as well
-- I made a terrible icon for now
-- Added Shutdown PC
-- Added Restart PC
-- Adjusted the pause out of raid feature. It does not currently save its state and will need to be turned on each time till I rewrite how it checks. Will need to do further testing to make sure it fully functions
