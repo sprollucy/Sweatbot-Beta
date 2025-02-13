@@ -1,4 +1,4 @@
-# **Sweat Bot 1.0.05 Beta**
+# **Sweat Bot 1.0.06 Beta**
 
 Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -62,7 +62,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.02)
+#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.06)
 
 First download .Net 8 runtime from Microsoft
 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
@@ -130,6 +130,7 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 - `!refund @user` – Refund the last command a user used
 - `!sbadd <commandname> <methods>` - Add a command through chat
 - `!sbremove <commandname>` - Remove a command through chat
+- `!cdebug <commandname>` - Prints command functions to chat
 - `!sbban @user` - Ban a user from using the bot
 - `!sbunban @user` - Unban a user from using the bot
 
@@ -159,6 +160,10 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.06-beta
+- Added a random up or down for turn mouse commands
+- Added OR function to command builder. The OR operator in your script is used to randomly choose between two functions. When the script encounters OR, it will pick one of the next two methods at random and skip the other
+
 1.0.05-beta
 - Fixed white box issue on the pixelate overlay
 - More pixelated overlay. It wasn't bad enough
@@ -174,7 +179,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot
 - Updated "Rate Delay" setting to properly reflect what it does which is add a cooldown per use so they can't spam commands. Added a message that alerts the user of how much time is remaining
 - Fixed potential issue of "you have the latest version installed" popping up on start
-  
-1.0.03-beta
-- Added a auto updater/installer to ease updating. It will download any missing file/changes you may miss while updating it the drag and drop way. You can use it as a stand alone installer as well
-- When updating this time make sure you replace the 'Sweat bot.exe' and also add 'Sweat bot Updater.exe' as well.
