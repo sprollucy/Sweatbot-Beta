@@ -42,9 +42,6 @@ namespace UiBot
 
         public Random random = new Random();
 
-        //random key press
-        public DateTime lastRandomKeyPressesTime = DateTime.MinValue;
-
         //spam command
         public DateTime lastStatCommandTimer = DateTime.MinValue;
         public DateTime lastWipeStatCommandTimer = DateTime.MinValue;

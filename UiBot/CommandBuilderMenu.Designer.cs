@@ -99,6 +99,7 @@
             pictureBox2 = new PictureBox();
             amouseposButton = new Button();
             panel4 = new Panel();
+            orButton = new Button();
             shutdownpcButton = new Button();
             pixelateButton = new Button();
             restartpcButton = new Button();
@@ -498,9 +499,9 @@
             label11.ForeColor = SystemColors.ControlText;
             label11.Location = new Point(45, 111);
             label11.Name = "label11";
-            label11.Size = new Size(139, 15);
+            label11.Size = new Size(192, 15);
             label11.TabIndex = 49;
-            label11.Text = "Direction(U,D,L,R, RAND)";
+            label11.Text = "Direction(U,D,L,R, RAND, RANDUP)";
             // 
             // durBox
             // 
@@ -631,7 +632,7 @@
             amuteButton.BackColor = SystemColors.ButtonFace;
             amuteButton.FlatAppearance.BorderSize = 0;
             amuteButton.FlatStyle = FlatStyle.Flat;
-            amuteButton.Location = new Point(84, 48);
+            amuteButton.Location = new Point(84, 47);
             amuteButton.Name = "amuteButton";
             amuteButton.Size = new Size(75, 40);
             amuteButton.TabIndex = 52;
@@ -683,7 +684,7 @@
             aplaysoundButton.BackColor = SystemColors.ButtonFace;
             aplaysoundButton.FlatAppearance.BorderSize = 0;
             aplaysoundButton.FlatStyle = FlatStyle.Flat;
-            aplaysoundButton.Location = new Point(165, 48);
+            aplaysoundButton.Location = new Point(165, 47);
             aplaysoundButton.Name = "aplaysoundButton";
             aplaysoundButton.Size = new Size(75, 40);
             aplaysoundButton.TabIndex = 40;
@@ -1041,6 +1042,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(156, 155, 151);
+            panel4.Controls.Add(orButton);
             panel4.Controls.Add(shutdownpcButton);
             panel4.Controls.Add(pixelateButton);
             panel4.Controls.Add(restartpcButton);
@@ -1058,12 +1060,25 @@
             panel4.Size = new Size(309, 136);
             panel4.TabIndex = 33;
             // 
+            // orButton
+            // 
+            orButton.BackColor = SystemColors.ButtonFace;
+            orButton.FlatAppearance.BorderSize = 0;
+            orButton.FlatStyle = FlatStyle.Flat;
+            orButton.Location = new Point(3, 91);
+            orButton.Name = "orButton";
+            orButton.Size = new Size(75, 39);
+            orButton.TabIndex = 62;
+            orButton.Text = "OR Random";
+            orButton.UseVisualStyleBackColor = false;
+            orButton.Click += orButton_Click;
+            // 
             // shutdownpcButton
             // 
             shutdownpcButton.BackColor = SystemColors.ButtonFace;
             shutdownpcButton.FlatAppearance.BorderSize = 0;
             shutdownpcButton.FlatStyle = FlatStyle.Flat;
-            shutdownpcButton.Location = new Point(84, 94);
+            shutdownpcButton.Location = new Point(165, 91);
             shutdownpcButton.Name = "shutdownpcButton";
             shutdownpcButton.Size = new Size(75, 39);
             shutdownpcButton.TabIndex = 61;
@@ -1089,7 +1104,7 @@
             restartpcButton.BackColor = SystemColors.ButtonFace;
             restartpcButton.FlatAppearance.BorderSize = 0;
             restartpcButton.FlatStyle = FlatStyle.Flat;
-            restartpcButton.Location = new Point(3, 94);
+            restartpcButton.Location = new Point(84, 91);
             restartpcButton.Name = "restartpcButton";
             restartpcButton.Size = new Size(75, 39);
             restartpcButton.TabIndex = 62;
@@ -1115,7 +1130,7 @@
             adelayButton.BackColor = SystemColors.ButtonFace;
             adelayButton.FlatAppearance.BorderSize = 0;
             adelayButton.FlatStyle = FlatStyle.Flat;
-            adelayButton.Location = new Point(3, 48);
+            adelayButton.Location = new Point(3, 47);
             adelayButton.Name = "adelayButton";
             adelayButton.Size = new Size(75, 40);
             adelayButton.TabIndex = 59;
@@ -1316,7 +1331,7 @@
             panel5.Controls.Add(openCustomJson);
             panel5.Location = new Point(610, 31);
             panel5.Name = "panel5";
-            panel5.Size = new Size(197, 116);
+            panel5.Size = new Size(197, 117);
             panel5.TabIndex = 49;
             // 
             // openDisabledJson
@@ -1944,5 +1959,7 @@
         private Button restartpcButton;
         private Button shutdownpcButton;
         private Panel panel12;
+        private Button orButton;
+        private Button showPixFormButton;
     }
 }

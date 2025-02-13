@@ -172,11 +172,32 @@ public class CustomCommandHandler
             return;
         }
 
-        List<Task> runningTasks = new List<Task>();  // List to track asynchronous tasks
+        List<Task> runningTasks = new List<Task>();  // Track async tasks
+        Random random = new Random();  // Random instance for OR selection
 
-        // First loop through the methods
-        foreach (var methodName in command.Methods)
+        for (int i = 0; i < command.Methods.Count; i++)
         {
+            string methodName = command.Methods[i];
+
+            // Check for OR in script
+            if (methodName.Equals("OR", StringComparison.OrdinalIgnoreCase) && i + 2 < command.Methods.Count)
+            {
+                int choice = random.Next(0, 2); 
+                string chosenMethod = command.Methods[i + 1 + choice];
+                if (Settings.Default.isDebugCommands)
+                {
+                    Console.WriteLine($"'OR' detected, randomly selecting: {chosenMethod}");
+                }
+
+                i += 2;
+                methodName = chosenMethod;
+            }
+            else if (methodName.Equals("OR", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Invalid 'OR' usage. It must be followed by two methods.");
+                continue;
+            }
+
             string method;
             string parameters = null;
 
@@ -205,22 +226,18 @@ public class CustomCommandHandler
             // Handle synchronous actions
             if (_syncMethodMap.TryGetValue(method, out var syncAction))
             {
-                // Execute sync method as a blocking task
                 await Task.Run(() => syncAction(client, channel, parameters));
             }
             // Handle asynchronous actions
             else if (_asyncMethodMap.TryGetValue(method, out var asyncAction))
             {
-                // Handle delay explicitly
                 if (method == "delayasync" && int.TryParse(parameters, out int delayMilliseconds))
                 {
-                    // Introduce a delay before continuing to the next actions
                     Console.WriteLine($"Delaying for {delayMilliseconds} milliseconds...");
-                    await Task.Delay(delayMilliseconds);  // Delay before running next tasks
+                    await Task.Delay(delayMilliseconds);
                 }
                 else
                 {
-                    // Add the async method to the list of tasks to run concurrently
                     runningTasks.Add(asyncAction(client, channel, parameters));
                 }
             }
@@ -230,10 +247,10 @@ public class CustomCommandHandler
             }
         }
 
-        // After the delay, run the tasks concurrently
+        // Wait for all async tasks to complete concurrently
         if (runningTasks.Any())
         {
-            await Task.WhenAll(runningTasks);  // Wait for all async tasks to complete concurrently
+            await Task.WhenAll(runningTasks);
         }
     }
 
@@ -702,7 +719,7 @@ public class CustomCommandHandler
         }
 
         // Regex to match Direction(Duration,Speed)
-        var match = Regex.Match(parameter, @"([UDLR]|RAND)\((\d+),(\d+)\)");
+        var match = Regex.Match(parameter, @"([UDLR]|RAND|RANDUP)\((\d+),(\d+)\)");
         if (!match.Success)
         {
             Console.WriteLine("Invalid parameter format. Expected format: Direction(Duration,Speed).");
@@ -732,25 +749,21 @@ public class CustomCommandHandler
                 Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
             }
 
-            if (direction == "RAND")
+            if (direction == "RAND" || direction == "RANDUD")
             {
-                int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
+                int randomNumber = random.Next(0, 2); // Generates 0 or 1
                 if (UiBot.Properties.Settings.Default.isDebugCommands)
                 {
                     Console.WriteLine($"Random number: {randomNumber}");
                 }
 
-                switch (randomNumber)
+                if (direction == "RAND")
                 {
-                    case 0:
-                        dx = -moveDistance;
-                        break;
-                    case 1:
-                        dx = moveDistance;
-                        break;
-                    default:
-                        Console.WriteLine("Unexpected random number.");
-                        break;
+                    dx = (randomNumber == 0) ? -moveDistance : moveDistance;
+                }
+                else if (direction == "RANDUP")
+                {
+                    dy = (randomNumber == 0) ? -moveDistance : moveDistance;
                 }
             }
             else
@@ -770,7 +783,7 @@ public class CustomCommandHandler
                         dx = -moveDistance;
                         break;
                     default:
-                        Console.WriteLine("Invalid direction specified. Use U, D, L, R, or RAND.");
+                        Console.WriteLine("Invalid direction specified. Use U, D, L, R, RAND, or RANDUD.");
                         return;
                 }
             }
@@ -798,11 +811,11 @@ public class CustomCommandHandler
             return;
         }
 
-        // Regex to match Direction(Duration,Speed) or RAND(Duration,Speed)
-        var match = Regex.Match(parameter, @"([UDLR]|RAND)\((\d+),(\d+)\)");
+        // Regex to match Direction(Duration,Speed) or RAND(Duration,Speed) or RANDUD(Duration,Speed)
+        var match = Regex.Match(parameter, @"([UDLR]|RAND|RANDUP)\((\d+),(\d+)\)");
         if (!match.Success)
         {
-            Console.WriteLine("Invalid parameter format. Expected format: Direction(Duration,Speed) or RAND(Duration,Speed).");
+            Console.WriteLine("Invalid parameter format. Expected format: Direction(Duration,Speed) or RAND(Duration,Speed) or RANDUD(Duration,Speed).");
             return;
         }
 
@@ -829,25 +842,21 @@ public class CustomCommandHandler
                 Console.WriteLine($"Turning mouse '{direction}' for {duration} milliseconds at speed {speed}.");
             }
 
-            if (direction == "RAND")
+            if (direction == "RAND" || direction == "RANDUP")
             {
-                int randomNumber = random.Next(0, 2); // Generates 0 or 1 once
+                int randomNumber = random.Next(0, 2); // Generates 0 or 1
                 if (UiBot.Properties.Settings.Default.isDebugCommands)
                 {
                     Console.WriteLine($"Random number: {randomNumber}");
                 }
 
-                switch (randomNumber)
+                if (direction == "RAND")
                 {
-                    case 0:
-                        dx = -moveDistance;
-                        break;
-                    case 1:
-                        dx = moveDistance;
-                        break;
-                    default:
-                        Console.WriteLine("Unexpected random number.");
-                        break;
+                    dx = (randomNumber == 0) ? -moveDistance : moveDistance;
+                }
+                else if (direction == "RANDUD")
+                {
+                    dy = (randomNumber == 0) ? -moveDistance : moveDistance;
                 }
             }
             else
@@ -867,7 +876,7 @@ public class CustomCommandHandler
                         dx = -moveDistance;
                         break;
                     default:
-                        Console.WriteLine(channel, "Invalid direction specified. Use U, D, L, R, or RAND.");
+                        Console.WriteLine("Invalid direction specified. Use U, D, L, R, RAND, or RANDUD.");
                         return;
                 }
             }

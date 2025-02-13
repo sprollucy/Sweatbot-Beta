@@ -9,6 +9,7 @@ namespace UiBot
     public partial class CommandBuilderMenu : Form
     {
         private static CustomCommandHandler commandHandler;
+        PixelateOverlay pixelateOverlay = new PixelateOverlay();
 
         private string _commandsFilePath;
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
@@ -212,6 +213,7 @@ namespace UiBot
         private void pixelateButton_Click(object sender, EventArgs e) => AppendCommandText("PixelateScreen=dur ");
         private void shutdownpcButton_Click(object sender, EventArgs e) => AppendCommandText("shutdownpc ");
         private void restartpcButton_Click(object sender, EventArgs e) => AppendCommandText("restartpc ");
+        private void orButton_Click(object sender, EventArgs e) => AppendCommandText("OR ");
 
         // Asynchronous commands
         private void aholdkeyButton_Click(object sender, EventArgs e) => AppendCommandText("KHAsync=KeyIn(dur) ");
