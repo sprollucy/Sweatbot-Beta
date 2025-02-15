@@ -1,3 +1,6 @@
+1.0.07-beta
+-Fixed error in how blerp integration reads the twitch message. Should properly work now!
+
 1.0.06-beta
 -Added a random up or down for turn mouse commands
 -Added OR function to command builder. The OR operator in your script is used to randomly choose between two functions. When the script encounters OR, it will pick one of the next two methods at random and skip the other

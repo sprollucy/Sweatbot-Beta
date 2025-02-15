@@ -73,7 +73,6 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
-            label13 = new Label();
             blerpBox = new CheckBox();
             followTextBox = new TextBox();
             label6 = new Label();
@@ -656,7 +655,6 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
-            panel2.Controls.Add(label13);
             panel2.Controls.Add(blerpBox);
             panel2.Controls.Add(followTextBox);
             panel2.Controls.Add(label6);
@@ -673,16 +671,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(229, 174);
             panel2.TabIndex = 121;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.ForeColor = Color.Red;
-            label13.Location = new Point(169, 148);
-            label13.Name = "label13";
-            label13.Size = new Size(57, 15);
-            label13.TabIndex = 145;
-            label13.Text = "In Testing";
             // 
             // blerpBox
             // 
@@ -1200,7 +1188,6 @@
         private Label label10;
         private Label label9;
         private Label label1;
-        private Label label13;
         private Panel panel5;
         private Label label21;
         private PictureBox pictureBox4;

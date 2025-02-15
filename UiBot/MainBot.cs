@@ -353,9 +353,9 @@ namespace UiBot
                 return;
             }
 
-            if(Settings.Default.isPausedMessage)
+            if (Settings.Default.isPausedMessage)
             {
-                if(Settings.Default.isCommandsPaused)
+                if (Settings.Default.isCommandsPaused)
                 {
                     client.SendMessage(channelId, "Commands are currently paused");
                     return;
@@ -399,7 +399,7 @@ namespace UiBot
                                 }
 
                                 var commandData = commandUsageData[commandName];
-                                commandData.usageCount++;  
+                                commandData.usageCount++;
                                 commandData.totalSpent += command.BitCost;
                                 commandUsageData[commandName] = commandData;
 
@@ -607,8 +607,7 @@ namespace UiBot
 
                 if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Expected format: "blerp: (username) used (bitsUsed) bits to play [sound name]"
-                    string pattern = @"blerp:\s+(\S+)\s+used\s+(\d+)\s+bits";
+                    string pattern = @"^(\S+)\s+used\s+(\d+)\s+bits";
 
                     Match match = Regex.Match(message, pattern);
                     if (match.Success)
@@ -625,17 +624,22 @@ namespace UiBot
                             userBits[user] += bitsUsed;
                         }
 
-                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} {userBitName}! Your total is now {userBits[user]}.");
-                        Console.WriteLine($"[{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
+                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} {userBitName} or using blerp! Your total is now {userBits[user]}.");
+                        Console.WriteLine($"Blerp Bonus for [{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
 
                         LogHandler.WriteUserBitsToJson("user_bits.json");
                         LogHandler.LogBits(user, bitsUsed, timestamp);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No match found in the message. Expected '{User} used {bits} in blerp message");
                     }
                 }
             }
         }
 
-        private void Client_OnError(object sender, OnErrorEventArgs e)
+
+            private void Client_OnError(object sender, OnErrorEventArgs e)
         {
             throw new NotImplementedException();
         }
