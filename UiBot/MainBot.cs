@@ -518,6 +518,7 @@ namespace UiBot
 
                                     // Log command details to the console
                                     Console.WriteLine($"[{timestamp}] [{e.ChatMessage.DisplayName}]: {commandName} Cost: {cheerAmount}");
+                                    return;
                                 }
                                 catch (Exception ex)
                                 {
@@ -538,6 +539,8 @@ namespace UiBot
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Added to balance", cheerAmount, MainBot.userBits, timestamp);
                                     client.SendMessage(channelId, $"No command found for {cheerAmount} {userBitName}. Your balance has been updated by {cheerAmount} {userBitName}.");
                                     LogHandler.WriteUserBitsToJson(userBitsFilePath);
+                                    return;
+
                                 }
                                 else
                                 {
@@ -547,6 +550,8 @@ namespace UiBot
                                     // Log the addition of bits
                                     LogHandler.LogCommand(e.ChatMessage.DisplayName, "Initialized balance", cheerAmount, MainBot.userBits, timestamp);
                                     client.SendMessage(channelId, $"Your balance has been initialized with {cheerAmount} {userBitName}.");
+                                    return;
+
                                 }
                             }
                         }
