@@ -1,3 +1,6 @@
+1.0.08.01-beta
+-Fix for rate cooldown spamming chat on every message
+
 1.0.08-beta
 -Added a way to disable storing of user currency allowing commands to only be executed by cheering the exact amount with '!' in front of the cheer
 -Fixed bug with blerp integration where if a user sends a blerp and then 1 bit, it will deduct that bit

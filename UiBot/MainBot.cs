@@ -323,7 +323,7 @@ namespace UiBot
                 client.SendMessage(channelId, $"Father is here!");
             }
 
-            if (Settings.Default.isRateDelayEnabled)
+            if (Settings.Default.isRateDelayEnabled && e.ChatMessage.Message.StartsWith("!"))
             {
                 int delayS;
                 if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
