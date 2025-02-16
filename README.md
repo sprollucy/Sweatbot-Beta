@@ -1,7 +1,7 @@
-# **Sweat Bot 1.0.06 Beta**
+# **Sweatbot 1.0.07 Beta**
 
-Sweat Bot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
-Feel free to join the [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
+Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
+Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
 
 ## Table of Contents
 - [Features](#features)
@@ -62,7 +62,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.06)
+#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.07)
 
 First download .Net 8 runtime from Microsoft
 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
@@ -77,7 +77,7 @@ First download .Net 8 runtime from Microsoft
 >- Click **Restore** if you are confident it is safe.  
 ---
 
-## **Getting Started with Sweat Bot**
+## **Getting Started with Sweatbot**
 
 
 Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
@@ -117,7 +117,7 @@ Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 - `!mybits` – Check how many bits a user has stored. 
 - `!bitcost` – List available commands and their cost
 - `!sbgamble <amount> ` - Gamble your bits in hopes to win more
-- `!sweatbot` - Turn Sweat Bot on and off
+- `!sweatbot` - Turn Sweatbot on and off
 - `!sendkey <key> ` - Send any select key input to the streamers pc
 - `!<cheer>` - Users put a '!' in front of their cheer amount to activate a command with the same cost
 
@@ -160,11 +160,14 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
-1.0.06-beta
+1.0.07
+- Fixed error in how blerp integration reads the twitch message. Should properly work now!
+  
+1.0.06
 - Added a random up or down for turn mouse commands
 - Added OR function to command builder. The OR operator in your script is used to randomly choose between two functions. When the script encounters OR, it will pick one of the next two methods at random and skip the other
 
-1.0.05-beta
+1.0.05
 - Fixed white box issue on the pixelate overlay
 - More pixelated overlay. It wasn't bad enough
 - Update window now plays a notification sound
@@ -174,7 +177,7 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Fixed "You don't have enough bits to execute the command" not replacing bits with your currency name
 - Updated admin/moderator chat commands to print out your currency name instead of just bits
   
-1.0.04-beta
+1.0.04
 - Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming
 - Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot
 - Updated "Rate Delay" setting to properly reflect what it does which is add a cooldown per use so they can't spam commands. Added a message that alerts the user of how much time is remaining
