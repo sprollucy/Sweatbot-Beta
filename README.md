@@ -1,4 +1,4 @@
-# **Sweatbot 1.0.08.01 Beta**
+# **Sweatbot 1.0.09 Beta**
 
 Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -160,6 +160,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.09-beta
+- Added SoundAlerts integrations
+- Added Tangia Integration. Since tangia doesn't show how many bits are spent on it in chat, you will have to set how much to give to the user
+- Changed how Blerp and SoundAlerts works. The return is now a percent based to allow for more finite control
+  
 1.0.08.01-beta
 - Fix for rate cooldown spamming chat on every message
 
@@ -174,13 +179,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 1.0.06
 - Added a random up or down for turn mouse commands
 - Added OR function to command builder. The OR operator in your script is used to randomly choose between two functions. When the script encounters OR, it will pick one of the next two methods at random and skip the other
-
-1.0.05
-- Fixed white box issue on the pixelate overlay
-- More pixelated overlay. It wasn't bad enough
-- Update window now plays a notification sound
-- Updated !help 
-- Updated !about to the new GitHub link
-- Fixed issue with blerp integration not working
-- Fixed "You don't have enough bits to execute the command" not replacing bits with your currency name
-- Updated admin/moderator chat commands to print out your currency name instead of just bits
