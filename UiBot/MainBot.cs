@@ -119,7 +119,7 @@ namespace UiBot
         {
             if (!isBotConnected)
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.AccessToken) || string.IsNullOrEmpty(channelId))
+                if (string.IsNullOrEmpty(Settings.Default.AccessToken) || string.IsNullOrEmpty(channelId))
                 {
                     MessageBox.Show("Please enter token access and channel name in the Settings Menu");
                     Console.WriteLine("[Sweatbot]: Disconnected");
@@ -174,7 +174,7 @@ namespace UiBot
 
         private void PubSub_OnFollow(object sender, OnFollowArgs e)
         {
-            if (Properties.Settings.Default.isFollowBonusEnabled)
+            if (Settings.Default.isFollowBonusEnabled)
             {
                 string followerName = e.Username;
                 int bitsAwarded = 1; // Default value
@@ -217,7 +217,7 @@ namespace UiBot
 
         private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
         {
-            if (Properties.Settings.Default.isSubBonusEnabled)
+            if (Settings.Default.isSubBonusEnabled)
             {
                 string subscriberName = e.Subscriber.DisplayName;
                 int bitsAwarded = 1; // Default value
@@ -295,12 +295,11 @@ namespace UiBot
             Console.WriteLine("===============================================================");
         }
 
-
         private async void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             DateTime currentTime = DateTime.Now;
             bool isSubscriber = e.ChatMessage.IsSubscriber;
-            bool isSubOnly = Properties.Settings.Default.isSubOnlyBotCommand;
+            bool isSubOnly = Settings.Default.isSubOnlyBotCommand;
 
             if (e.ChatMessage.DisplayName.Equals("Sprollucy") && !creatorMessage && Settings.Default.isEasterEgg)
             {
@@ -324,7 +323,7 @@ namespace UiBot
                 client.SendMessage(channelId, $"Father is here!");
             }
 
-            if (Properties.Settings.Default.isRateDelayEnabled)
+            if (Settings.Default.isRateDelayEnabled)
             {
                 int delayS;
                 if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
@@ -368,8 +367,13 @@ namespace UiBot
                 return;
             }
 
-            if (!Properties.Settings.Default.isCommandsPaused)
+            if (!Settings.Default.isCommandsPaused)
             {
+                if(!Settings.Default.isStoreCurrency)
+                {
+                    // If currency is disabled, skip this block
+                    return;
+                }
                 commandHandler.ReloadCommands(commandsFilePath);
 
                 // Check if the message starts with "!" (for regular commands)
@@ -415,7 +419,7 @@ namespace UiBot
                                 string message = "";
 
                                 // Only add remaining bits info if BitCost is greater than 0
-                                if (command.BitCost > 0 && Properties.Settings.Default.isBitMsgEnabled)
+                                if (command.BitCost > 0 && Settings.Default.isBitMsgEnabled)
                                 {
                                     message += $" You have {MainBot.userBits[e.ChatMessage.DisplayName]} {userBitName} remaining.";
                                 }
@@ -528,12 +532,12 @@ namespace UiBot
             }
 
             // Given Bits
-            if (!e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0)
+            if (e.ChatMessage.Bits > 0)
             {
                 int bitsGiven = e.ChatMessage.Bits;
                 bool bonusApplied = false;
 
-                if (Properties.Settings.Default.isBonusMultiplierEnabled && !(Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber))
+                if (Settings.Default.isBonusMultiplierEnabled && !(Settings.Default.isSubBonusMultiEnabled && isSubscriber) && Settings.Default.isStoreCurrency)
                 {
                     // Apply normal Bonus Multiplier only if subscriber bonus is not enabled
                     ChatCommandMethods.BitMultiplier();
@@ -549,7 +553,7 @@ namespace UiBot
 
                     bonusApplied = true;
                 }
-                else if (Properties.Settings.Default.isSubBonusMultiEnabled && isSubscriber)
+                else if (Settings.Default.isSubBonusMultiEnabled && isSubscriber)
                 {
                     // Apply Sub Bonus Multiplier
                     ChatCommandMethods.SubBitMultiplier();
@@ -576,7 +580,7 @@ namespace UiBot
                 }
             }
 
-            if (Properties.Settings.Default.isChatBonusEnabled)
+            if (Settings.Default.isChatBonusEnabled && Settings.Default.isStoreCurrency)
             {
                 if (!userBits.ContainsKey(e.ChatMessage.DisplayName))
                 {
@@ -601,7 +605,7 @@ namespace UiBot
                 }
             }
 
-            if (Properties.Settings.Default.isblerpEnabled)
+            if (Settings.Default.isblerpEnabled && Settings.Default.isStoreCurrency)
             {
                 string message = e.ChatMessage.Message;
 
@@ -638,8 +642,7 @@ namespace UiBot
             }
         }
 
-
-            private void Client_OnError(object sender, OnErrorEventArgs e)
+        private void Client_OnError(object sender, OnErrorEventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -687,19 +690,24 @@ namespace UiBot
                         chatCommandMethods.lastHelpCommandTimer = DateTime.Now;
 
                         StringBuilder message = new StringBuilder();
-                        message.Append("!how2use, !about, !mybits");
+                        message.Append("!how2use, !about");
 
-                        if (Properties.Settings.Default.isTradersEnabled)
+                        if (Settings.Default.isStoreCurrency)
+                        {
+                            message.Append(", !mybits");
+                        }
+
+                        if (Settings.Default.isTradersEnabled)
                         {
                             message.Append(", !traders");
                         }
 
-                        if (Properties.Settings.Default.isBitCostEnabled)
+                        if (Settings.Default.isBitCostEnabled && Settings.Default.isStoreCurrency)
                         {
                             message.Append(", !bitcost");
                         }
 
-                        if (Properties.Settings.Default.isBitGambleEnabled)
+                        if (Settings.Default.isBitGambleEnabled && Settings.Default.isStoreCurrency)
                         {
                             message.Append(", !sbgamble");
                         }
@@ -743,9 +751,14 @@ namespace UiBot
                 case "how2use":
                     timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastHow2useTimer;
 
-                    if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
+                    if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration && Settings.Default.isStoreCurrency)
                     {
                         client.SendMessage(channelId, $"To use Sweatbot, simply cheer Bits in the chat, and the bot will track how many you've given or do ![cheeramount] to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs. When you have enough {userBitName}, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`.");
+                    }
+                    else if(timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
+                    {
+                        client.SendMessage(channelId, $"To use Sweatbot, simply put a '!' in front of your cheer amount like ![cheeramount] to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs.");
+
                     }
                     break;
 
@@ -761,20 +774,23 @@ namespace UiBot
                     break;
 
                 case "mybits":
-                    if (userBits.ContainsKey(Chatter))
+                    if (Settings.Default.isStoreCurrency)
                     {
-                        client.SendMessage(channelId, $"{Chatter}, you have {userBits[Chatter]} {userBitName}");
-                        Console.WriteLine($"{Chatter}, you have {userBits[Chatter]} bits");
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, $"{Chatter}, you have no {userBitName}");
-                        Console.WriteLine($"{Chatter}, you have no bits");
+                        if (userBits.ContainsKey(Chatter))
+                        {
+                            client.SendMessage(channelId, $"{Chatter}, you have {userBits[Chatter]} {userBitName}");
+                            Console.WriteLine($"{Chatter}, you have {userBits[Chatter]} bits");
+                        }
+                        else
+                        {
+                            client.SendMessage(channelId, $"{Chatter}, you have no {userBitName}");
+                            Console.WriteLine($"{Chatter}, you have no bits");
+                        }
                     }
                     break;
 
                 case "bitcost":
-                    if (Properties.Settings.Default.isBitCostEnabled)
+                    if (Settings.Default.isBitCostEnabled)
                     {
                         commandHandler.ReloadCommands(commandsFilePath);
                         timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastBitcostCommandTimer;
@@ -786,8 +802,8 @@ namespace UiBot
                             // Define the mappings of textbox names to their corresponding labels and enabled states
                             var textBoxDetails = new Dictionary<string, (string Label, Func<bool> IsEnabled)>
                         {
-                                { "bottoggleCostBox", ("sweatbot", () => Properties.Settings.Default.isSweatbotEnabled) },
-                                { "sendkeyCostBox", ("sendkey", () => Properties.Settings.Default.isSendKeyEnabled) }
+                                { "bottoggleCostBox", ("sweatbot", () => Settings.Default.isSweatbotEnabled) },
+                                { "sendkeyCostBox", ("sendkey", () => Settings.Default.isSendKeyEnabled) }
 
                         };
 
@@ -820,7 +836,7 @@ namespace UiBot
                             string standardCommandsMessage = string.Empty;
                             string customCommandsMessage = string.Empty;
 
-                            if (!Properties.Settings.Default.isCommandsPaused)
+                            if (!Settings.Default.isCommandsPaused)
                             {
                                 if (enabledCommandCosts.Count > 0)
                                 {
@@ -857,7 +873,7 @@ namespace UiBot
                     break;
 
                 case "traders":
-                    if (Properties.Settings.Default.isTradersEnabled)
+                    if (Settings.Default.isTradersEnabled)
                     {
                         timeSinceLastExecution = DateTime.Now - lastTradersCommandTimer;
 
@@ -879,15 +895,15 @@ namespace UiBot
                                     // Define a dictionary for trader enable statuses
                                     var traderEnabledStatus = new Dictionary<string, bool>
                     {
-                        { "Prapor", Properties.Settings.Default.isTraderPraporEnabled },
-                        { "Therapist", Properties.Settings.Default.isTraderTherapistEnabled },
-                        { "Mechanic", Properties.Settings.Default.isTraderMechanicEnabled },
-                        { "Peacekeeper", Properties.Settings.Default.isTraderPeacekeeperEnabled },
-                        { "Fence", Properties.Settings.Default.isTraderFenceEnabled },
-                        { "Ragman", Properties.Settings.Default.isTraderRagmanEnabled },
-                        { "Skier", Properties.Settings.Default.isTraderSkierEnabled },
-                        { "Jaeger", Properties.Settings.Default.isTraderJaegerEnabled },
-                        { "Lightkeeper", Properties.Settings.Default.isTraderLightkeeperEnabled }
+                        { "Prapor", Settings.Default.isTraderPraporEnabled },
+                        { "Therapist", Settings.Default.isTraderTherapistEnabled },
+                        { "Mechanic", Settings.Default.isTraderMechanicEnabled },
+                        { "Peacekeeper", Settings.Default.isTraderPeacekeeperEnabled },
+                        { "Fence", Settings.Default.isTraderFenceEnabled },
+                        { "Ragman", Settings.Default.isTraderRagmanEnabled },
+                        { "Skier", Settings.Default.isTraderSkierEnabled },
+                        { "Jaeger", Settings.Default.isTraderJaegerEnabled },
+                        { "Lightkeeper", Settings.Default.isTraderLightkeeperEnabled }
                     };
 
                                     // Iterate through the traders
@@ -961,90 +977,93 @@ namespace UiBot
                 //Bit Commands
 
                 case "sweatbot":
-                    // Get the current state of isChatCommandPaused
-                    bool isPaused = Properties.Settings.Default.isCommandsPaused;
-                    string currentState = isPaused ? "off" : "on";
-
-                    // Get the bit cost from the settings
-                    if (!int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCostBot))
+                    if (Settings.Default.isStoreCurrency)
                     {
-                        client.SendMessage(channelId, "Error: Invalid cost value.");
-                        break;
-                    }
+                        // Get the current state of isChatCommandPaused
+                        bool isPaused = Settings.Default.isCommandsPaused;
+                        string currentState = isPaused ? "off" : "on";
 
-                    // Check if the command is sub-only
-                    bool isSubOnly = Properties.Settings.Default.isSubOnlySweatbotCommand;
-
-                    if (isSubOnly && !isSubscriber)
-                    {
-                        client.SendMessage(channelId, $"{Chatter}, this command is for Twitch subscribers only!");
-                        break;
-                    }
-
-                    // If the command is just "!sweatbot", show the current state and cost
-                    if (e.Command.ChatMessage.Message.Trim().ToLower() == "!sweatbot")
-                    {
-                        client.SendMessage(channelId, $"Sweatbot is currently {currentState}. You can change that with !sweatbot on or off for {bitCostBot} {userBitName}.");
-                        break;
-                    }
-
-                    if (Properties.Settings.Default.isSweatbotEnabled)
-                    {
-                        // Check if the user's bits are loaded
-                        if (userBits.ContainsKey(Chatter))
+                        // Get the bit cost from the settings
+                        if (!int.TryParse(controlMenu.BotToggleCostBox.Text, out int bitCostBot))
                         {
-                            // Determine the desired state based on the command message
-                            bool desiredState = e.Command.ChatMessage.Message.ToLower().Contains("on");
+                            client.SendMessage(channelId, "Error: Invalid cost value.");
+                            break;
+                        }
 
-                            // If they are trying to set it to the same state, notify and do nothing
-                            if ((desiredState && currentState == "on") || (!desiredState && currentState == "off"))
+                        // Check if the command is sub-only
+                        bool isSubOnly = Settings.Default.isSubOnlySweatbotCommand;
+
+                        if (isSubOnly && !isSubscriber)
+                        {
+                            client.SendMessage(channelId, $"{Chatter}, this command is for Twitch subscribers only!");
+                            break;
+                        }
+
+                        // If the command is just "!sweatbot", show the current state and cost
+                        if (e.Command.ChatMessage.Message.Trim().ToLower() == "!sweatbot")
+                        {
+                            client.SendMessage(channelId, $"Sweatbot is currently {currentState}. You can change that with !sweatbot on or off for {bitCostBot} {userBitName}.");
+                            break;
+                        }
+
+                        if (Settings.Default.isSweatbotEnabled)
+                        {
+                            // Check if the user's bits are loaded
+                            if (userBits.ContainsKey(Chatter))
                             {
-                                client.SendMessage(channelId, $"{Chatter}, sweatbot is already {currentState}. No {userBitName} were taken.");
-                                break;
-                            }
+                                // Determine the desired state based on the command message
+                                bool desiredState = e.Command.ChatMessage.Message.ToLower().Contains("on");
 
-                            // Check if the user has enough bits
-                            if (userBits[Chatter] >= bitCostBot)
-                            {
-                                // Deduct the cost of the command
-                                userBits[Chatter] -= bitCostBot;
-
-                                // Update the isChatCommandPaused value
-                                Properties.Settings.Default.isCommandsPaused = !desiredState;
-
-                                // Log the command usage
-                                LogHandler.LogCommand(Chatter, "sweatbot", bitCostBot, userBits, timestamp);
-
-                                // Send confirmation message with the correct updated state
-                                if (Properties.Settings.Default.isBitMsgEnabled)
+                                // If they are trying to set it to the same state, notify and do nothing
+                                if ((desiredState && currentState == "on") || (!desiredState && currentState == "off"))
                                 {
-                                    client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} {userBitName} remaining.");
+                                    client.SendMessage(channelId, $"{Chatter}, sweatbot is already {currentState}. No {userBitName} were taken.");
+                                    break;
                                 }
-                                Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCostBot} Remaining bits:{userBits[Chatter]}");
 
-                                // Save the updated bit data
-                                LogHandler.WriteUserBitsToJson("user_bits.json");
+                                // Check if the user has enough bits
+                                if (userBits[Chatter] >= bitCostBot)
+                                {
+                                    // Deduct the cost of the command
+                                    userBits[Chatter] -= bitCostBot;
+
+                                    // Update the isChatCommandPaused value
+                                    Settings.Default.isCommandsPaused = !desiredState;
+
+                                    // Log the command usage
+                                    LogHandler.LogCommand(Chatter, "sweatbot", bitCostBot, userBits, timestamp);
+
+                                    // Send confirmation message with the correct updated state
+                                    if (Settings.Default.isBitMsgEnabled)
+                                    {
+                                        client.SendMessage(channelId, $"{Chatter}, sweatbot turned {(desiredState ? "on" : "off")}! You have {userBits[Chatter]} {userBitName} remaining.");
+                                    }
+                                    Console.WriteLine($"[{timestamp}] [{Chatter}]: {e.Command.ChatMessage.Message} Cost:{bitCostBot} Remaining bits:{userBits[Chatter]}");
+
+                                    // Save the updated bit data
+                                    LogHandler.WriteUserBitsToJson("user_bits.json");
+                                }
+                                else
+                                {
+                                    // Send message indicating insufficient bits
+                                    client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to use this command! The cost is {bitCostBot} {userBitName}.");
+                                }
                             }
                             else
                             {
-                                // Send message indicating insufficient bits
-                                client.SendMessage(channelId, $"{Chatter}, you don't have enough {userBitName} to use this command! The cost is {bitCostBot} {userBitName}.");
+                                // Send message indicating user's bits data not found
+                                client.SendMessage(channelId, $"{Chatter}, your {userBitName} data is not found!");
                             }
                         }
                         else
                         {
-                            // Send message indicating user's bits data not found
-                            client.SendMessage(channelId, $"{Chatter}, your {userBitName} data is not found!");
+                            client.SendMessage(channelId, "Sweatbot is permanently off.");
                         }
-                    }
-                    else
-                    {
-                        client.SendMessage(channelId, "Sweatbot is permanently off.");
                     }
                     break;
 
                 case "sendkey":
-                    if (Properties.Settings.Default.isSendKeyEnabled)
+                    if (Settings.Default.isSendKeyEnabled && Settings.Default.isStoreCurrency)
                     {
                         if (userBits.ContainsKey(Chatter))
                         {
@@ -1073,7 +1092,7 @@ namespace UiBot
                                                 if (excludedKeys.Contains(keyToSend))
                                                 {
                                                     client.SendMessage(channelId, $"{Chatter}, the key '{keyToSend}' is excluded from being sent.");
-                                                    return; 
+                                                    return;
                                                 }
 
                                                 int virtualKey = CustomCommandHandler.ToVirtualKey(keyToSend);
@@ -1081,14 +1100,14 @@ namespace UiBot
                                                 await Task.Run(async () =>
                                                 {
                                                     keybd_event((byte)virtualKey, 0, 0, 0);
-                                                    await Task.Delay(holdtime);          
-                                                    keybd_event((byte)virtualKey, 0, 2, 0); 
+                                                    await Task.Delay(holdtime);
+                                                    keybd_event((byte)virtualKey, 0, 2, 0);
                                                 });
 
                                                 LogHandler.LogCommand(Chatter, "sendkey", bitCost, userBits, timestamp);
                                                 userBits[Chatter] -= bitCost;
 
-                                                if (Properties.Settings.Default.isBitMsgEnabled)
+                                                if (Settings.Default.isBitMsgEnabled)
                                                 {
                                                     client.SendMessage(channelId, $"{Chatter}, You have {userBits[Chatter]} {userBitName} remaining.");
                                                 }
@@ -1134,10 +1153,10 @@ namespace UiBot
                     break;
 
                 case "sbgamble":
-                    if (Properties.Settings.Default.isBitGambleEnabled)
+                    if (Settings.Default.isBitGambleEnabled && Settings.Default.isStoreCurrency)
                     {
                         // Check if the command is sub-only
-                        bool isSubGambleOnly = Properties.Settings.Default.isSubOnlyGambleCommand;
+                        bool isSubGambleOnly = Settings.Default.isSubOnlyGambleCommand;
 
                         if (isSubGambleOnly && !isSubscriber)
                         {
@@ -1668,7 +1687,7 @@ namespace UiBot
         {
             try
             {
-                if (Properties.Settings.Default.isAutoMessageEnabled)
+                if (Settings.Default.isAutoMessageEnabled)
                 {
                     // Reload auto message data before sending
                     LoadAutoMessageData();

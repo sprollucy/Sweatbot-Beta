@@ -586,5 +586,17 @@ namespace UiBot.Properties {
                 this["isPausedMessage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isStoreCurrency {
+            get {
+                return ((bool)(this["isStoreCurrency"]));
+            }
+            set {
+                this["isStoreCurrency"] = value;
+            }
+        }
     }
 }

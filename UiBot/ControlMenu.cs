@@ -37,6 +37,7 @@ namespace UiBot
             subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
             enableRateDelayBox.Checked = Properties.Settings.Default.isRateDelayEnabled;
             pauseMessageBox.Checked = Properties.Settings.Default.isPausedMessage;
+            enableCurrency.Checked = Settings.Default.isStoreCurrency;
 
             InitializeToolTips();
             this.lstModWhitelist.SelectedIndexChanged += new System.EventHandler(this.lstModWhitelist_SelectedIndexChanged);
@@ -359,6 +360,41 @@ namespace UiBot
 
             traderMenuConfig.Show();
         }
+
+        private void enableCurrency_CheckedChanged(object sender, EventArgs e)
+        {
+            // Save the current checked state
+            Settings.Default.isStoreCurrency = enableCurrency.Checked;
+            Settings.Default.Save();
+
+            // Disable and uncheck other checkboxes when enableCurrency is unchecked
+            bool isEnabled = enableCurrency.Checked;
+
+            enableFollowBonus.Enabled = isEnabled;
+
+            enableChatBonus.Enabled = isEnabled;
+
+            enableBonusMulti.Enabled = isEnabled;
+
+            blerpBox.Enabled = isEnabled;
+
+            enableSubBonus.Enabled = isEnabled;
+
+            enableSubBonusMulti.Enabled = isEnabled;
+
+            subsweatbotBox.Enabled = isEnabled;
+
+            subgambleBox.Enabled = isEnabled;
+
+            bitGambleCheck.Enabled = isEnabled;
+
+            sendkeyButton.Enabled = isEnabled;
+
+            enableBotToggle.Enabled = isEnabled;
+
+            checkEnableBitMsg.Enabled = isEnabled;
+        }
+
 
         private void StartInRaidFileCheck()
         {
