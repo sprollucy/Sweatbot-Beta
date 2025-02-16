@@ -18,26 +18,28 @@ namespace UiBot
             LoadModWhitelist(); // Load data on startup
 
             this.TopLevel = false;
-            enableAutoMessageCheck.Checked = Properties.Settings.Default.isAutoMessageEnabled;
-            enableTradersCommand.Checked = Properties.Settings.Default.isTradersEnabled;
-            enableChatBonus.Checked = Properties.Settings.Default.isChatBonusEnabled;
-            modWhitelistCheck.Checked = Properties.Settings.Default.isModWhitelistEnabled;
-            enableBonusMulti.Checked = Properties.Settings.Default.isBonusMultiplierEnabled;
-            enableFollowBonus.Checked = Properties.Settings.Default.isFollowBonusEnabled;
-            enableSubBonus.Checked = Properties.Settings.Default.isSubBonusEnabled;
-            enableBotToggle.Checked = Properties.Settings.Default.isSweatbotEnabled;
-            checkEnableBitMsg.Checked = Properties.Settings.Default.isBitMsgEnabled;
-            bitcostButton.Checked = Properties.Settings.Default.isBitCostEnabled;
-            sendkeyButton.Checked = Properties.Settings.Default.isSendKeyEnabled;
-            enableSubBonusMulti.Checked = Properties.Settings.Default.isSubBonusMultiEnabled;
-            bitGambleCheck.Checked = Properties.Settings.Default.isBitGambleEnabled;
-            blerpBox.Checked = Properties.Settings.Default.isblerpEnabled;
-            subsweatbotBox.Checked = Properties.Settings.Default.isSubOnlySweatbotCommand;
-            subgambleBox.Checked = Properties.Settings.Default.isSubOnlyGambleCommand;
-            subbotBox.Checked = Properties.Settings.Default.isSubOnlyBotCommand;
-            enableRateDelayBox.Checked = Properties.Settings.Default.isRateDelayEnabled;
-            pauseMessageBox.Checked = Properties.Settings.Default.isPausedMessage;
+            enableAutoMessageCheck.Checked = Settings.Default.isAutoMessageEnabled;
+            enableTradersCommand.Checked = Settings.Default.isTradersEnabled;
+            enableChatBonus.Checked = Settings.Default.isChatBonusEnabled;
+            modWhitelistCheck.Checked = Settings.Default.isModWhitelistEnabled;
+            enableBonusMulti.Checked = Settings.Default.isBonusMultiplierEnabled;
+            enableFollowBonus.Checked = Settings.Default.isFollowBonusEnabled;
+            enableSubBonus.Checked = Settings.Default.isSubBonusEnabled;
+            enableBotToggle.Checked = Settings.Default.isSweatbotEnabled;
+            checkEnableBitMsg.Checked = Settings.Default.isBitMsgEnabled;
+            bitcostButton.Checked = Settings.Default.isBitCostEnabled;
+            sendkeyButton.Checked = Settings.Default.isSendKeyEnabled;
+            enableSubBonusMulti.Checked = Settings.Default.isSubBonusMultiEnabled;
+            bitGambleCheck.Checked = Settings.Default.isBitGambleEnabled;
+            blerpBox.Checked = Settings.Default.isblerpEnabled;
+            soundalertsBox.Checked = Settings.Default.isSoundAlertsEnabled;
+            subsweatbotBox.Checked = Settings.Default.isSubOnlySweatbotCommand;
+            subgambleBox.Checked = Settings.Default.isSubOnlyGambleCommand;
+            subbotBox.Checked = Settings.Default.isSubOnlyBotCommand;
+            enableRateDelayBox.Checked = Settings.Default.isRateDelayEnabled;
+            pauseMessageBox.Checked = Settings.Default.isPausedMessage;
             enableCurrency.Checked = Settings.Default.isStoreCurrency;
+            tangiaBox.Checked = Settings.Default.isTangiaEnabled;
 
             InitializeToolTips();
             this.lstModWhitelist.SelectedIndexChanged += new System.EventHandler(this.lstModWhitelist_SelectedIndexChanged);
@@ -46,7 +48,8 @@ namespace UiBot
 
         public void InitializeToolTips()
         {
-            blerpTip.SetToolTip(this.blerpBox, "If a user sends a message with blerp, it will read how many bits they spent and add it to their wallet");
+            blerpTip.SetToolTip(this.blerpBox, "If a user sends a message with blerp, it will read how many bits they spent and add it to their wallet based on a set %");
+            soundalertTip.SetToolTip(this.blerpBox, "If a user sends a message with SoundAlerts, it will read how many bits they spent and add it to their wallet based on a set %");
             traderTip.SetToolTip(this.enableTradersCommand, "Allows chat users to use !trader command to print out their restock timers to chat");
             sweatbottogTip.SetToolTip(this.enableBotToggle, "Allows chat users to use !sweatbot to pause and unpause the commands");
             chatbonusTip.SetToolTip(this.enableChatBonus, "if a user sends a message in chat, it will automatically give them free currency and add it to their wallet");
@@ -72,6 +75,9 @@ namespace UiBot
             textBoxes["bitGambleCDBox"] = BitGambleCDBox;
             textBoxes["custombitnameBox"] = CustombitnameBox;
             textBoxes["rateDelayBox"] = RateDelayBox;
+            textBoxes["blerpReturnBox"] = BlerpReturnBox;
+            textBoxes["soundAlertsReturnBox"] = SoundAlertsReturnBox;
+            textBoxes["tangiaTextBox"] = TangiaTextBox;
         }
 
         public TextBox BotToggleCostBox
@@ -151,6 +157,21 @@ namespace UiBot
             get { return rateDelayBox; }
             set { rateDelayBox = value; }
         }
+        public TextBox BlerpReturnBox
+        {
+            get { return blerpReturnBox; }
+            set { blerpReturnBox = value; }
+        }
+        public TextBox SoundAlertsReturnBox
+        {
+            get { return soundAlertsReturnBox; }
+            set { soundAlertsReturnBox = value; }
+        }
+        public TextBox TangiaTextBox
+        {
+            get { return tangiaTextBox; }
+            set { tangiaTextBox = value; }
+        }
 
         //TODO make save reload on save so app doesnt have to restart
         private void saveButton_Click(object sender, EventArgs e)
@@ -209,32 +230,32 @@ namespace UiBot
 
         private void enableAutoMessageCheck_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isAutoMessageEnabled = enableAutoMessageCheck.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isAutoMessageEnabled = enableAutoMessageCheck.Checked;
+            Settings.Default.Save();
         }
 
         private void enableTradersCommand_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isTradersEnabled = enableTradersCommand.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isTradersEnabled = enableTradersCommand.Checked;
+            Settings.Default.Save();
         }
 
         private void enableChatBonus_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isChatBonusEnabled = enableChatBonus.Checked;
+            Settings.Default.Save();
         }
 
         private void enableFollowBonus_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isFollowBonusEnabled = enableFollowBonus.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isFollowBonusEnabled = enableFollowBonus.Checked;
+            Settings.Default.Save();
         }
 
         private void enableSubBonus_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSubBonusEnabled = enableSubBonus.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSubBonusEnabled = enableSubBonus.Checked;
+            Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -245,8 +266,8 @@ namespace UiBot
 
         private void modWhitelistCheck_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isModWhitelistEnabled = modWhitelistCheck.Checked;
+            Settings.Default.Save();
         }
 
         private void openModWhitelist_Click(object sender, EventArgs e)
@@ -260,26 +281,26 @@ namespace UiBot
 
         private void enableBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isBonusMultiplierEnabled = enableBonusMulti.Checked;
+            Settings.Default.Save();
         }
 
         private void enableBotToggle_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSweatbotEnabled = enableBotToggle.Checked;
+            Settings.Default.Save();
         }
 
 
         private void checkEnableBitMsg_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isBitMsgEnabled = checkEnableBitMsg.Checked;
+            Settings.Default.Save();
         }
         private void bitcostButton_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isBitCostEnabled = bitcostButton.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isBitCostEnabled = bitcostButton.Checked;
+            Settings.Default.Save();
         }
 
         private void bonusMultiplierBox_TextChanged(object sender, EventArgs e)
@@ -289,56 +310,69 @@ namespace UiBot
 
         private void sendkeyButton_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSendKeyEnabled = sendkeyButton.Checked;
+            Settings.Default.Save();
         }
 
         private void enableSubBonusMulti_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSubBonusMultiEnabled = enableSubBonusMulti.Checked;
+            Settings.Default.Save();
         }
 
         private void bitGambleCheck_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isBitGambleEnabled = bitGambleCheck.Checked;
+            Settings.Default.Save();
         }
 
         private void blerpcheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isblerpEnabled = blerpBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isblerpEnabled = blerpBox.Checked;
+            Settings.Default.Save();
+        }
+
+        private void soundalertsBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.isSoundAlertsEnabled = soundalertsBox.Checked;
+            Settings.Default.Save();
         }
 
         private void subsweatbotBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSubOnlySweatbotCommand = subsweatbotBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSubOnlySweatbotCommand = subsweatbotBox.Checked;
+            Settings.Default.Save();
         }
 
         private void subgambleBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSubOnlyGambleCommand = subgambleBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSubOnlyGambleCommand = subgambleBox.Checked;
+            Settings.Default.Save();
         }
 
         private void subbotBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isSubOnlyBotCommand = subbotBox.Checked;
+            Settings.Default.Save();
         }
         private void enableRateDelayBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isRateDelayEnabled = enableRateDelayBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isRateDelayEnabled = enableRateDelayBox.Checked;
+            Settings.Default.Save();
         }
 
         private void enableInRaid_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isInRaid = enableInRaid.Checked;
+            Settings.Default.isInRaid = enableInRaid.Checked;
             StartInRaidFileCheck();
         }
+
+        private void tangiaBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.isTangiaEnabled = tangiaBox.Checked;
+            Settings.Default.Save();
+        }
+
         private void openSendkeyButton_Click(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo
@@ -350,8 +384,8 @@ namespace UiBot
 
         private void pauseMessageBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.isPausedMessage = pauseMessageBox.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.isPausedMessage = pauseMessageBox.Checked;
+            Settings.Default.Save();
         }
 
         private void traderConfigButton_Click(object sender, EventArgs e)
@@ -377,6 +411,10 @@ namespace UiBot
             enableBonusMulti.Enabled = isEnabled;
 
             blerpBox.Enabled = isEnabled;
+
+            soundalertsBox.Enabled = isEnabled;
+
+            tangiaBox.Enabled = isEnabled;
 
             enableSubBonus.Enabled = isEnabled;
 

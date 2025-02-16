@@ -31,14 +31,18 @@
             components = new System.ComponentModel.Container();
             saveButton = new Button();
             panel1 = new Panel();
+            enableCurrency = new CheckBox();
             pauseMessageBox = new CheckBox();
             rateDelayBox = new TextBox();
-            openSendkeyButton = new Button();
             label15 = new Label();
             enableRateDelayBox = new CheckBox();
             custombitnameBox = new TextBox();
             label12 = new Label();
             label2 = new Label();
+            bitcostButton = new CheckBox();
+            checkEnableBitMsg = new CheckBox();
+            pictureBox2 = new PictureBox();
+            openSendkeyButton = new Button();
             bitGambleCDBox = new TextBox();
             label11 = new Label();
             bitChanceBox = new TextBox();
@@ -51,10 +55,7 @@
             sendkeyTimeBox = new TextBox();
             textBox4 = new TextBox();
             sendkeyButton = new CheckBox();
-            bitcostButton = new CheckBox();
             enableBotToggle = new CheckBox();
-            checkEnableBitMsg = new CheckBox();
-            pictureBox2 = new PictureBox();
             enableTradersCommand = new CheckBox();
             restart_AppButton = new Button();
             label5 = new Label();
@@ -73,6 +74,12 @@
             modWhitelistCheck = new CheckBox();
             openModWhitelist = new Button();
             panel2 = new Panel();
+            tangiaTextBox = new TextBox();
+            label16 = new Label();
+            tangiaBox = new CheckBox();
+            soundAlertsReturnBox = new TextBox();
+            blerpReturnBox = new TextBox();
+            soundalertsBox = new CheckBox();
             blerpBox = new CheckBox();
             followTextBox = new TextBox();
             label6 = new Label();
@@ -116,10 +123,10 @@
             bitMultiTip = new ToolTip(components);
             subMultiTip = new ToolTip(components);
             modWhitelistTip = new ToolTip(components);
-            enableCurrency = new CheckBox();
             panel6 = new Panel();
             label13 = new Label();
             pictureBox6 = new PictureBox();
+            soundalertTip = new ToolTip(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -173,6 +180,19 @@
             panel1.Size = new Size(311, 206);
             panel1.TabIndex = 20;
             // 
+            // enableCurrency
+            // 
+            enableCurrency.AutoSize = true;
+            enableCurrency.Checked = true;
+            enableCurrency.CheckState = CheckState.Checked;
+            enableCurrency.Location = new Point(12, 54);
+            enableCurrency.Name = "enableCurrency";
+            enableCurrency.Size = new Size(130, 19);
+            enableCurrency.TabIndex = 150;
+            enableCurrency.Text = "Store User Currency";
+            enableCurrency.UseVisualStyleBackColor = true;
+            enableCurrency.CheckedChanged += enableCurrency_CheckedChanged;
+            // 
             // pauseMessageBox
             // 
             pauseMessageBox.AutoSize = true;
@@ -197,19 +217,6 @@
             rateDelayBox.Size = new Size(32, 23);
             rateDelayBox.TabIndex = 141;
             rateDelayBox.Text = "5";
-            // 
-            // openSendkeyButton
-            // 
-            openSendkeyButton.BackColor = SystemColors.ButtonFace;
-            openSendkeyButton.FlatAppearance.BorderSize = 0;
-            openSendkeyButton.FlatStyle = FlatStyle.Flat;
-            openSendkeyButton.Location = new Point(202, 80);
-            openSendkeyButton.Name = "openSendkeyButton";
-            openSendkeyButton.Size = new Size(91, 34);
-            openSendkeyButton.TabIndex = 143;
-            openSendkeyButton.Text = "Exclude Keys";
-            openSendkeyButton.UseVisualStyleBackColor = false;
-            openSendkeyButton.Click += openSendkeyButton_Click;
             // 
             // label15
             // 
@@ -263,6 +270,60 @@
             label2.Size = new Size(109, 19);
             label2.TabIndex = 29;
             label2.Text = "Chat Settings";
+            // 
+            // bitcostButton
+            // 
+            bitcostButton.AutoSize = true;
+            bitcostButton.BackColor = Color.FromArgb(156, 155, 151);
+            bitcostButton.Checked = true;
+            bitcostButton.CheckState = CheckState.Checked;
+            bitcostButton.ForeColor = SystemColors.ControlText;
+            bitcostButton.Location = new Point(12, 174);
+            bitcostButton.Name = "bitcostButton";
+            bitcostButton.Size = new Size(205, 19);
+            bitcostButton.TabIndex = 121;
+            bitcostButton.Text = "Enable !bitcost command for chat";
+            bitcostButton.UseVisualStyleBackColor = false;
+            bitcostButton.CheckedChanged += bitcostButton_CheckedChanged;
+            // 
+            // checkEnableBitMsg
+            // 
+            checkEnableBitMsg.AutoSize = true;
+            checkEnableBitMsg.BackColor = Color.FromArgb(156, 155, 151);
+            checkEnableBitMsg.Checked = true;
+            checkEnableBitMsg.CheckState = CheckState.Checked;
+            checkEnableBitMsg.ForeColor = SystemColors.ControlText;
+            checkEnableBitMsg.Location = new Point(12, 149);
+            checkEnableBitMsg.Name = "checkEnableBitMsg";
+            checkEnableBitMsg.Size = new Size(295, 19);
+            checkEnableBitMsg.TabIndex = 115;
+            checkEnableBitMsg.Text = "Enable remaining bits message after command use";
+            checkEnableBitMsg.UseVisualStyleBackColor = false;
+            checkEnableBitMsg.CheckedChanged += checkEnableBitMsg_CheckedChanged;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox2.BackgroundImageLayout = ImageLayout.None;
+            pictureBox2.Location = new Point(0, 0);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(311, 24);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 120;
+            pictureBox2.TabStop = false;
+            // 
+            // openSendkeyButton
+            // 
+            openSendkeyButton.BackColor = SystemColors.ButtonFace;
+            openSendkeyButton.FlatAppearance.BorderSize = 0;
+            openSendkeyButton.FlatStyle = FlatStyle.Flat;
+            openSendkeyButton.Location = new Point(202, 80);
+            openSendkeyButton.Name = "openSendkeyButton";
+            openSendkeyButton.Size = new Size(91, 34);
+            openSendkeyButton.TabIndex = 143;
+            openSendkeyButton.Text = "Exclude Keys";
+            openSendkeyButton.UseVisualStyleBackColor = false;
+            openSendkeyButton.Click += openSendkeyButton_Click;
             // 
             // bitGambleCDBox
             // 
@@ -390,21 +451,6 @@
             sendkeyButton.UseVisualStyleBackColor = false;
             sendkeyButton.CheckedChanged += sendkeyButton_CheckedChanged;
             // 
-            // bitcostButton
-            // 
-            bitcostButton.AutoSize = true;
-            bitcostButton.BackColor = Color.FromArgb(156, 155, 151);
-            bitcostButton.Checked = true;
-            bitcostButton.CheckState = CheckState.Checked;
-            bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(12, 174);
-            bitcostButton.Name = "bitcostButton";
-            bitcostButton.Size = new Size(205, 19);
-            bitcostButton.TabIndex = 121;
-            bitcostButton.Text = "Enable !bitcost command for chat";
-            bitcostButton.UseVisualStyleBackColor = false;
-            bitcostButton.CheckedChanged += bitcostButton_CheckedChanged;
-            // 
             // enableBotToggle
             // 
             enableBotToggle.AutoSize = true;
@@ -417,32 +463,6 @@
             enableBotToggle.Text = "Enable Sweatbot Toggle";
             enableBotToggle.UseVisualStyleBackColor = false;
             enableBotToggle.CheckedChanged += enableBotToggle_CheckedChanged;
-            // 
-            // checkEnableBitMsg
-            // 
-            checkEnableBitMsg.AutoSize = true;
-            checkEnableBitMsg.BackColor = Color.FromArgb(156, 155, 151);
-            checkEnableBitMsg.Checked = true;
-            checkEnableBitMsg.CheckState = CheckState.Checked;
-            checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(12, 149);
-            checkEnableBitMsg.Name = "checkEnableBitMsg";
-            checkEnableBitMsg.Size = new Size(295, 19);
-            checkEnableBitMsg.TabIndex = 115;
-            checkEnableBitMsg.Text = "Enable remaining bits message after command use";
-            checkEnableBitMsg.UseVisualStyleBackColor = false;
-            checkEnableBitMsg.CheckedChanged += checkEnableBitMsg_CheckedChanged;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.FromArgb(71, 83, 92);
-            pictureBox2.BackgroundImageLayout = ImageLayout.None;
-            pictureBox2.Location = new Point(0, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(311, 24);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 120;
-            pictureBox2.TabStop = false;
             // 
             // enableTradersCommand
             // 
@@ -490,7 +510,7 @@
             pictureBox8.BackgroundImageLayout = ImageLayout.None;
             pictureBox8.Location = new Point(0, 0);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(229, 24);
+            pictureBox8.Size = new Size(252, 24);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox8.TabIndex = 120;
             pictureBox8.TabStop = false;
@@ -536,9 +556,9 @@
             enableBonusMulti.ForeColor = SystemColors.ControlText;
             enableBonusMulti.Location = new Point(12, 122);
             enableBonusMulti.Name = "enableBonusMulti";
-            enableBonusMulti.Size = new Size(132, 19);
+            enableBonusMulti.Size = new Size(153, 19);
             enableBonusMulti.TabIndex = 86;
-            enableBonusMulti.Text = "Enable Bit Multiplier";
+            enableBonusMulti.Text = "Enable Bit Multiplier (%)";
             enableBonusMulti.UseVisualStyleBackColor = false;
             enableBonusMulti.CheckedChanged += enableBonusMulti_CheckedChanged;
             // 
@@ -546,7 +566,7 @@
             // 
             bonusMultiplierBox.BackColor = Color.FromArgb(196, 197, 204);
             bonusMultiplierBox.BorderStyle = BorderStyle.FixedSingle;
-            bonusMultiplierBox.Location = new Point(140, 121);
+            bonusMultiplierBox.Location = new Point(160, 121);
             bonusMultiplierBox.Name = "bonusMultiplierBox";
             bonusMultiplierBox.Size = new Size(26, 23);
             bonusMultiplierBox.TabIndex = 106;
@@ -589,7 +609,7 @@
             autoMessageLabel.BackColor = Color.FromArgb(71, 83, 92);
             autoMessageLabel.Font = new Font("Constantia", 12F, FontStyle.Bold);
             autoMessageLabel.ForeColor = SystemColors.ControlLight;
-            autoMessageLabel.Location = new Point(0, 0);
+            autoMessageLabel.Location = new Point(0, 1);
             autoMessageLabel.Name = "autoMessageLabel";
             autoMessageLabel.Size = new Size(115, 19);
             autoMessageLabel.TabIndex = 25;
@@ -650,6 +670,12 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(156, 155, 151);
+            panel2.Controls.Add(tangiaTextBox);
+            panel2.Controls.Add(label16);
+            panel2.Controls.Add(tangiaBox);
+            panel2.Controls.Add(soundAlertsReturnBox);
+            panel2.Controls.Add(blerpReturnBox);
+            panel2.Controls.Add(soundalertsBox);
             panel2.Controls.Add(blerpBox);
             panel2.Controls.Add(followTextBox);
             panel2.Controls.Add(label6);
@@ -664,17 +690,80 @@
             panel2.ForeColor = SystemColors.ControlText;
             panel2.Location = new Point(376, 31);
             panel2.Name = "panel2";
-            panel2.Size = new Size(229, 174);
+            panel2.Size = new Size(252, 251);
             panel2.TabIndex = 121;
+            // 
+            // tangiaTextBox
+            // 
+            tangiaTextBox.BackColor = Color.FromArgb(196, 197, 204);
+            tangiaTextBox.BorderStyle = BorderStyle.FixedSingle;
+            tangiaTextBox.Location = new Point(135, 217);
+            tangiaTextBox.Name = "tangiaTextBox";
+            tangiaTextBox.Size = new Size(26, 23);
+            tangiaTextBox.TabIndex = 129;
+            tangiaTextBox.Text = "25";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.BackColor = Color.FromArgb(156, 155, 151);
+            label16.ForeColor = SystemColors.ControlText;
+            label16.Location = new Point(31, 219);
+            label16.Name = "label16";
+            label16.Size = new Size(105, 15);
+            label16.TabIndex = 130;
+            label16.Text = "How much to give";
+            // 
+            // tangiaBox
+            // 
+            tangiaBox.AutoSize = true;
+            tangiaBox.Location = new Point(12, 197);
+            tangiaBox.Name = "tangiaBox";
+            tangiaBox.Size = new Size(159, 19);
+            tangiaBox.TabIndex = 129;
+            tangiaBox.Text = "Enable Tangia Integration";
+            tangiaBox.UseVisualStyleBackColor = true;
+            tangiaBox.CheckedChanged += tangiaBox_CheckedChanged;
+            // 
+            // soundAlertsReturnBox
+            // 
+            soundAlertsReturnBox.BackColor = Color.FromArgb(196, 197, 204);
+            soundAlertsReturnBox.BorderStyle = BorderStyle.FixedSingle;
+            soundAlertsReturnBox.Location = new Point(216, 170);
+            soundAlertsReturnBox.Name = "soundAlertsReturnBox";
+            soundAlertsReturnBox.Size = new Size(26, 23);
+            soundAlertsReturnBox.TabIndex = 128;
+            soundAlertsReturnBox.Text = "100";
+            // 
+            // blerpReturnBox
+            // 
+            blerpReturnBox.BackColor = Color.FromArgb(196, 197, 204);
+            blerpReturnBox.BorderStyle = BorderStyle.FixedSingle;
+            blerpReturnBox.Location = new Point(179, 146);
+            blerpReturnBox.Name = "blerpReturnBox";
+            blerpReturnBox.Size = new Size(26, 23);
+            blerpReturnBox.TabIndex = 127;
+            blerpReturnBox.Text = "100";
+            // 
+            // soundalertsBox
+            // 
+            soundalertsBox.AutoSize = true;
+            soundalertsBox.Location = new Point(12, 172);
+            soundalertsBox.Name = "soundalertsBox";
+            soundalertsBox.Size = new Size(210, 19);
+            soundalertsBox.TabIndex = 126;
+            soundalertsBox.Text = "Enable SoundAlerts Integration (%)";
+            soundalertsBox.UseVisualStyleBackColor = true;
+            soundalertsBox.CheckedChanged += soundalertsBox_CheckedChanged;
             // 
             // blerpBox
             // 
             blerpBox.AutoSize = true;
             blerpBox.Location = new Point(12, 147);
             blerpBox.Name = "blerpBox";
-            blerpBox.Size = new Size(152, 19);
+            blerpBox.Size = new Size(173, 19);
             blerpBox.TabIndex = 125;
-            blerpBox.Text = "Enable Blerp Integration";
+            blerpBox.Text = "Enable Blerp Integration (%)";
             blerpBox.UseVisualStyleBackColor = true;
             blerpBox.CheckedChanged += blerpcheckBox_CheckedChanged;
             // 
@@ -719,9 +808,9 @@
             enableSubBonusMulti.ForeColor = SystemColors.ControlText;
             enableSubBonusMulti.Location = new Point(12, 102);
             enableSubBonusMulti.Name = "enableSubBonusMulti";
-            enableSubBonusMulti.Size = new Size(178, 19);
+            enableSubBonusMulti.Size = new Size(195, 19);
             enableSubBonusMulti.TabIndex = 131;
-            enableSubBonusMulti.Text = "Enable Bit Multiplier for Subs";
+            enableSubBonusMulti.Text = "Enable Bit Multiplier fo Subs (%)";
             enableSubBonusMulti.UseVisualStyleBackColor = false;
             enableSubBonusMulti.CheckedChanged += enableSubBonusMulti_CheckedChanged;
             // 
@@ -729,7 +818,7 @@
             // 
             subbonusMultiplierBox.BackColor = Color.FromArgb(196, 197, 204);
             subbonusMultiplierBox.BorderStyle = BorderStyle.FixedSingle;
-            subbonusMultiplierBox.Location = new Point(187, 101);
+            subbonusMultiplierBox.Location = new Point(201, 101);
             subbonusMultiplierBox.Name = "subbonusMultiplierBox";
             subbonusMultiplierBox.Size = new Size(26, 23);
             subbonusMultiplierBox.TabIndex = 130;
@@ -790,7 +879,7 @@
             panel3.Controls.Add(pictureBox7);
             panel3.Controls.Add(autoMessageBox);
             panel3.ForeColor = SystemColors.ControlText;
-            panel3.Location = new Point(617, 31);
+            panel3.Location = new Point(639, 31);
             panel3.Name = "panel3";
             panel3.Size = new Size(357, 158);
             panel3.TabIndex = 122;
@@ -821,7 +910,7 @@
             panel4.Controls.Add(openModWhitelist);
             panel4.Controls.Add(modWhitelistCheck);
             panel4.ForeColor = SystemColors.ControlText;
-            panel4.Location = new Point(617, 201);
+            panel4.Location = new Point(639, 201);
             panel4.Name = "panel4";
             panel4.Size = new Size(357, 271);
             panel4.TabIndex = 123;
@@ -940,7 +1029,7 @@
             groupBox1.Controls.Add(restart_AppButton);
             groupBox1.Font = new Font("Segoe UI", 10F);
             groupBox1.ForeColor = Color.Salmon;
-            groupBox1.Location = new Point(617, 478);
+            groupBox1.Location = new Point(639, 478);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(357, 79);
             groupBox1.TabIndex = 124;
@@ -961,9 +1050,9 @@
             panel5.Controls.Add(enableSubBonus);
             panel5.Controls.Add(label7);
             panel5.ForeColor = SystemColors.ControlText;
-            panel5.Location = new Point(376, 217);
+            panel5.Location = new Point(376, 288);
             panel5.Name = "panel5";
-            panel5.Size = new Size(229, 179);
+            panel5.Size = new Size(252, 179);
             panel5.TabIndex = 146;
             // 
             // subbotBox
@@ -1017,7 +1106,7 @@
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(229, 24);
+            pictureBox4.Size = new Size(252, 24);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 120;
             pictureBox4.TabStop = false;
@@ -1098,19 +1187,6 @@
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 120;
             pictureBox5.TabStop = false;
-            // 
-            // enableCurrency
-            // 
-            enableCurrency.AutoSize = true;
-            enableCurrency.Checked = true;
-            enableCurrency.CheckState = CheckState.Checked;
-            enableCurrency.Location = new Point(12, 54);
-            enableCurrency.Name = "enableCurrency";
-            enableCurrency.Size = new Size(130, 19);
-            enableCurrency.TabIndex = 150;
-            enableCurrency.Text = "Store User Currency";
-            enableCurrency.UseVisualStyleBackColor = true;
-            enableCurrency.CheckedChanged += enableCurrency_CheckedChanged;
             // 
             // panel6
             // 
@@ -1302,5 +1378,11 @@
         private Panel panel6;
         private Label label13;
         private PictureBox pictureBox6;
+        public CheckBox soundalertsBox;
+        private TextBox soundAlertsReturnBox;
+        private TextBox blerpReturnBox;
+        private ToolTip soundalertTip;
+        private TextBox tangiaTextBox;
+        public CheckBox tangiaBox;
     }
 }

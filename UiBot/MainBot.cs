@@ -161,6 +161,28 @@ namespace UiBot
                 }
             }
         }
+        private void Client_OnError(object sender, OnErrorEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Client_OnConnected(object sender, OnConnectedArgs e)
+        {
+            Console.WriteLine("[Sweatbot]: Connected");
+        }
+
+        public void SendMessage(string message)
+        {
+            if (client != null && client.IsConnected)
+            {
+                // Send the message to the specified channel
+                client.SendMessage(channelId, message);
+            }
+            else
+            {
+                Console.WriteLine("Sweatbot is not connected to Twitch. Cannot send message.");
+            }
+        }
 
         private void InitializePubSub()
         {
@@ -369,11 +391,12 @@ namespace UiBot
 
             if (!Settings.Default.isCommandsPaused)
             {
-                if(!Settings.Default.isStoreCurrency)
+                if (!Settings.Default.isStoreCurrency)
                 {
                     // If currency is disabled, skip this block
                     return;
                 }
+
                 commandHandler.ReloadCommands(commandsFilePath);
 
                 // Check if the message starts with "!" (for regular commands)
@@ -605,63 +628,141 @@ namespace UiBot
                 }
             }
 
-            if (Settings.Default.isblerpEnabled && Settings.Default.isStoreCurrency)
+            MessageIntegrations(e);
+        }
+
+        private void MessageIntegrations(OnMessageReceivedArgs e)
+        {
+            string message = e.ChatMessage.Message;
+
+            if (Settings.Default.isStoreCurrency)
             {
-                string message = e.ChatMessage.Message;
-
-                if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase))
+                if (Settings.Default.isblerpEnabled)
                 {
-                    string pattern = @"^(\S+)\s+used\s+(\d+)\s+bits";
-
-                    Match match = Regex.Match(message, pattern);
-                    if (match.Success)
+                    if (e.ChatMessage.DisplayName.Equals("blerp", StringComparison.OrdinalIgnoreCase))
                     {
-                        string user = match.Groups[1].Value; // Extract username
-                        int bitsUsed = int.Parse(match.Groups[2].Value); // Extract bits amount
-
-                        if (!userBits.ContainsKey(user))
+                        string pattern = @"^(\S+)\s+used\s+(\d+)\s+bits";
+                        Match match = Regex.Match(message, pattern);
+                        if (match.Success)
                         {
-                            userBits[user] = bitsUsed;
+                            string user = match.Groups[1].Value;
+                            int bitsUsed = int.Parse(match.Groups[2].Value);
+
+                            int percentage = int.TryParse(controlMenu.BlerpReturnBox.Text, out int blerpPercentage) ? blerpPercentage : 100;
+                            int adjustedBits = (bitsUsed * percentage) / 100;
+
+                            if (!userBits.ContainsKey(user))
+                            {
+                                userBits[user] = adjustedBits;
+                            }
+                            else
+                            {
+                                userBits[user] += adjustedBits;
+                            }
+
+                            client.SendMessage(channelId, $"{user}, you've received {adjustedBits} {userBitName} for using blerp! Your total is now {userBits[user]}.");
+                            Console.WriteLine($"Blerp Bonus for [{user}]: Used {bitsUsed} bits, Adjusted: {adjustedBits}. Total: {userBits[user]}");
+
+                            LogHandler.WriteUserBitsToJson("user_bits.json");
+                            LogHandler.LogBits(user, adjustedBits, timestamp);
                         }
                         else
                         {
-                            userBits[user] += bitsUsed;
+                            Console.WriteLine("No match found in the message. Expected '{User} used {bits} in blerp message");
                         }
-
-                        client.SendMessage(channelId, $"{user}, you've received {bitsUsed} {userBitName} or using blerp! Your total is now {userBits[user]}.");
-                        Console.WriteLine($"Blerp Bonus for [{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
-
-                        LogHandler.WriteUserBitsToJson("user_bits.json");
-                        LogHandler.LogBits(user, bitsUsed, timestamp);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No match found in the message. Expected '{User} used {bits} in blerp message");
                     }
                 }
-            }
-        }
 
-        private void Client_OnError(object sender, OnErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+                if (Settings.Default.isSoundAlertsEnabled)
+                {
+                    if (e.ChatMessage.DisplayName.Equals("SoundAlerts", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string pattern = @"^(\S+)\s+played\s+.*!\s+for\s+(\d+)\s+Bits";
+                        Match match = Regex.Match(message, pattern);
 
-        private void Client_OnConnected(object sender, OnConnectedArgs e)
-        {
-            Console.WriteLine("[Sweatbot]: Connected");
-        }
+                        if (match.Success)
+                        {
+                            string user = match.Groups[1].Value;
+                            int bitsUsed = int.Parse(match.Groups[2].Value);
 
-        public void SendMessage(string message)
-        {
-            if (client != null && client.IsConnected)
-            {
-                // Send the message to the specified channel
-                client.SendMessage(channelId, message);
-            }
-            else
-            {
-                Console.WriteLine("Sweatbot is not connected to Twitch. Cannot send message.");
+                            if (bitsUsed > 1)
+                            {
+                                int percentage = int.TryParse(controlMenu.SoundAlertsReturnBox.Text, out int soundAlertPercentage) ? soundAlertPercentage : 100;
+                                int adjustedBits = (bitsUsed * percentage) / 100;
+
+                                if (!userBits.ContainsKey(user))
+                                {
+                                    userBits[user] = adjustedBits;
+                                }
+                                else
+                                {
+                                    userBits[user] += adjustedBits;
+                                }
+
+                                client.SendMessage(channelId, $"{user}, you've received {adjustedBits} {userBitName} using SoundAlerts! Your total is now {userBits[user]}.");
+                                Console.WriteLine($"SoundAlerts Bonus for [{user}]: Used {bitsUsed} bits, Adjusted: {adjustedBits}. Total: {userBits[user]}");
+
+                                LogHandler.WriteUserBitsToJson("user_bits.json");
+                                LogHandler.LogBits(user, adjustedBits, timestamp);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{user} played a sound alert for {bitsUsed} bits, but only amounts over 1 bit count.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No match found in the message. Expected format: '{User} played {Sound}! for {bits} Bits'");
+                        }
+                    }
+                }
+
+                if (Settings.Default.isTangiaEnabled)
+                {
+                    if (e.ChatMessage.DisplayName.Equals("TangiaBot", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string pattern = @"^(\S+)";
+                        Match match = Regex.Match(message, pattern);
+
+                        if (match.Success)
+                        {
+                            string user = match.Groups[1].Value; // Extract username
+
+                            // Attempt to parse the bits used
+                            int bitsUsed = 0;
+                            if (int.TryParse(controlMenu.TangiaTextBox.Text, out bitsUsed))
+                            {
+                                if (!userBits.ContainsKey(user))
+                                {
+                                    userBits[user] = bitsUsed; // Initialize the user bits
+                                }
+                                else
+                                {
+                                    userBits[user] += bitsUsed; // Add bits if the user already exists in the dictionary
+                                }
+
+                                // Send the message to the channel
+                                client.SendMessage(channelId, $"{user}, you've received {bitsUsed} {userBitName} for using Tangia! Your total is now {userBits[user]}.");
+
+                                Console.WriteLine($"Tangia Bonus for [{user}]: Used {bitsUsed} bits. Total: {userBits[user]}");
+
+                                // Log the data to the JSON file
+                                LogHandler.WriteUserBitsToJson("user_bits.json");
+
+                                // Log the individual transaction
+                                LogHandler.LogBits(user, bitsUsed, timestamp);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid bits value in TangiaBox.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No match found in the message.");
+                        }
+                    }
+                }
             }
         }
 
@@ -755,7 +856,7 @@ namespace UiBot
                     {
                         client.SendMessage(channelId, $"To use Sweatbot, simply cheer Bits in the chat, and the bot will track how many you've given or do ![cheeramount] to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs. When you have enough {userBitName}, just type the command you want to use in the chat. You can also check your balance at any time with `!mybits`.");
                     }
-                    else if(timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
+                    else if (timeSinceLastExecution.TotalSeconds >= lastHow2useTimerDuration)
                     {
                         client.SendMessage(channelId, $"To use Sweatbot, simply put a '!' in front of your cheer amount like ![cheeramount] to directly run a command that matches that amount. Use `!bitcost` to see a list of available commands and their costs.");
 

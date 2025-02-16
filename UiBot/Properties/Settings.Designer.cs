@@ -598,5 +598,29 @@ namespace UiBot.Properties {
                 this["isStoreCurrency"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isSoundAlertsEnabled {
+            get {
+                return ((bool)(this["isSoundAlertsEnabled"]));
+            }
+            set {
+                this["isSoundAlertsEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isTangiaEnabled {
+            get {
+                return ((bool)(this["isTangiaEnabled"]));
+            }
+            set {
+                this["isTangiaEnabled"] = value;
+            }
+        }
     }
 }

@@ -1,3 +1,8 @@
+1.0.09-beta
+-Added SoundAlerts integrations
+-Added Tangia Integration. Since tangia doesn't show how many bits are spent on it in chat, you will have to set how much to give to the user
+-Changed how Blerp and SoundAlerts works. The return is now a percent based to allow for more finite control
+
 1.0.08.01-beta
 -Fix for rate cooldown spamming chat on every message
 
