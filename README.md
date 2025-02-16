@@ -1,4 +1,4 @@
-# **Sweatbot 1.0.07 Beta**
+# **Sweatbot 1.0.08.01 Beta**
 
 Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -62,7 +62,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.07)
+#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.08.01)
 
 First download .Net 8 runtime from Microsoft
 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
@@ -160,6 +160,14 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.08.01-beta
+- Fix for rate cooldown spamming chat on every message
+
+1.0.08-beta
+- Added a way to disable storing of user currency allowing commands to only be executed by cheering the exact amount with '!' in front of the cheer
+- Fixed bug with blerp integration where if a user sends a blerp and then 1 bit, it will deduct that bit
+- Adjusted chat settings layout for readability
+
 1.0.07
 - Fixed error in how blerp integration reads the twitch message. Should properly work now!
   
@@ -176,9 +184,3 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Fixed issue with blerp integration not working
 - Fixed "You don't have enough bits to execute the command" not replacing bits with your currency name
 - Updated admin/moderator chat commands to print out your currency name instead of just bits
-  
-1.0.04
-- Finished moderator permissions, now you can give certain mods access to help smooth over controlling chat while you focus on gaming
-- Mod permissions include refunds, give or remove currency, add or remove a command, or ban and unban a user from using the bot
-- Updated "Rate Delay" setting to properly reflect what it does which is add a cooldown per use so they can't spam commands. Added a message that alerts the user of how much time is remaining
-- Fixed potential issue of "you have the latest version installed" popping up on start
