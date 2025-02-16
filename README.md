@@ -62,7 +62,7 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 
 ---
 ## **Download**
-#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/tag/1.0.08.01)
+#### [**Download Latest Release**](https://github.com/sprollucy/Sweatbot-Beta/releases/latest)
 
 First download .Net 8 runtime from Microsoft
 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.12-windows-x64-installer
