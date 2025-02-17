@@ -160,7 +160,8 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
-1.0.09-beta
+1.0.09.03-beta
+- Added global cooldown for commands
 - Fixed bug where if you !cheer, it would add the bits to the user also
 - Added check for Per User Cooldown to only check against the bots commands
 - Fixed bug in Per User Cooldown continuing the command even though it shouldn't
