@@ -93,7 +93,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="isBitCostEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="isEconomyOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -154,6 +154,9 @@
     </Setting>
     <Setting Name="isDirectRunEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="isGlobalRateDelayEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

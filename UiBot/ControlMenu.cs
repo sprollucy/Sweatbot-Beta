@@ -42,6 +42,8 @@ namespace UiBot
             enableCurrency.Checked = Settings.Default.isStoreCurrency;
             tangiaBox.Checked = Settings.Default.isTangiaEnabled;
             cheerComBox.Checked = Settings.Default.isDirectRunEnabled;
+            enableGlobalDelayBox.Checked = Settings.Default.isGlobalRateDelayEnabled;
+
 
             InitializeToolTips();
             this.lstModWhitelist.SelectedIndexChanged += new System.EventHandler(this.lstModWhitelist_SelectedIndexChanged);
@@ -359,9 +361,28 @@ namespace UiBot
         }
         private void enableRateDelayBox_CheckedChanged(object sender, EventArgs e)
         {
+            if (enableRateDelayBox.Checked)
+            {
+                enableGlobalDelayBox.Checked = false; // Uncheck global delay
+            }
+
+            Settings.Default.isRateDelayEnabled = enableRateDelayBox.Checked;
+            Settings.Default.isGlobalRateDelayEnabled = enableGlobalDelayBox.Checked;
+            Settings.Default.Save();
+        }
+
+        private void enableGlobalDelayBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (enableGlobalDelayBox.Checked)
+            {
+                enableRateDelayBox.Checked = false; // Uncheck user-specific delay
+            }
+
+            Settings.Default.isGlobalRateDelayEnabled = enableGlobalDelayBox.Checked;
             Settings.Default.isRateDelayEnabled = enableRateDelayBox.Checked;
             Settings.Default.Save();
         }
+
 
         private void enableInRaid_CheckedChanged(object sender, EventArgs e)
         {
@@ -389,6 +410,7 @@ namespace UiBot
             Settings.Default.isPausedMessage = pauseMessageBox.Checked;
             Settings.Default.Save();
         }
+
         private void cheerComBox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.isDirectRunEnabled = cheerComBox.Checked;

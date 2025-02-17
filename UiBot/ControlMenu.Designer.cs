@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             saveButton = new Button();
             panel1 = new Panel();
+            enableGlobalDelayBox = new CheckBox();
+            cheerComBox = new CheckBox();
             enableCurrency = new CheckBox();
             pauseMessageBox = new CheckBox();
             rateDelayBox = new TextBox();
@@ -127,7 +129,7 @@
             label13 = new Label();
             pictureBox6 = new PictureBox();
             soundalertTip = new ToolTip(components);
-            cheerComBox = new CheckBox();
+            groupBox3 = new GroupBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -145,6 +147,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // saveButton
@@ -164,12 +167,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(groupBox3);
             panel1.Controls.Add(cheerComBox);
             panel1.Controls.Add(enableCurrency);
             panel1.Controls.Add(pauseMessageBox);
-            panel1.Controls.Add(rateDelayBox);
-            panel1.Controls.Add(label15);
-            panel1.Controls.Add(enableRateDelayBox);
             panel1.Controls.Add(custombitnameBox);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(label2);
@@ -179,8 +180,36 @@
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(311, 225);
+            panel1.Size = new Size(311, 274);
             panel1.TabIndex = 20;
+            // 
+            // enableGlobalDelayBox
+            // 
+            enableGlobalDelayBox.AutoSize = true;
+            enableGlobalDelayBox.BackColor = Color.FromArgb(156, 155, 151);
+            enableGlobalDelayBox.ForeColor = SystemColors.ControlText;
+            enableGlobalDelayBox.Location = new Point(4, 16);
+            enableGlobalDelayBox.Name = "enableGlobalDelayBox";
+            enableGlobalDelayBox.Size = new Size(156, 19);
+            enableGlobalDelayBox.TabIndex = 152;
+            enableGlobalDelayBox.Text = "Enable Global Cooldown";
+            enableGlobalDelayBox.UseVisualStyleBackColor = false;
+            enableGlobalDelayBox.CheckedChanged += enableGlobalDelayBox_CheckedChanged;
+            // 
+            // cheerComBox
+            // 
+            cheerComBox.AutoSize = true;
+            cheerComBox.BackColor = Color.FromArgb(156, 155, 151);
+            cheerComBox.Checked = true;
+            cheerComBox.CheckState = CheckState.Checked;
+            cheerComBox.ForeColor = SystemColors.ControlText;
+            cheerComBox.Location = new Point(12, 154);
+            cheerComBox.Name = "cheerComBox";
+            cheerComBox.Size = new Size(193, 19);
+            cheerComBox.TabIndex = 151;
+            cheerComBox.Text = "Enable Cheer to use commands";
+            cheerComBox.UseVisualStyleBackColor = false;
+            cheerComBox.CheckedChanged += cheerComBox_CheckedChanged;
             // 
             // enableCurrency
             // 
@@ -214,7 +243,7 @@
             // 
             rateDelayBox.BackColor = Color.FromArgb(196, 197, 204);
             rateDelayBox.BorderStyle = BorderStyle.FixedSingle;
-            rateDelayBox.Location = new Point(202, 124);
+            rateDelayBox.Location = new Point(139, 61);
             rateDelayBox.Name = "rateDelayBox";
             rateDelayBox.Size = new Size(32, 23);
             rateDelayBox.TabIndex = 141;
@@ -223,18 +252,18 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(31, 126);
+            label15.Location = new Point(23, 63);
             label15.Name = "label15";
-            label15.Size = new Size(174, 15);
+            label15.Size = new Size(119, 15);
             label15.TabIndex = 142;
-            label15.Text = "Delay between Commands(sec)";
+            label15.Text = "Cooldown Time (sec)";
             // 
             // enableRateDelayBox
             // 
             enableRateDelayBox.AutoSize = true;
             enableRateDelayBox.BackColor = Color.FromArgb(156, 155, 151);
             enableRateDelayBox.ForeColor = SystemColors.ControlText;
-            enableRateDelayBox.Location = new Point(12, 104);
+            enableRateDelayBox.Location = new Point(4, 41);
             enableRateDelayBox.Name = "enableRateDelayBox";
             enableRateDelayBox.Size = new Size(165, 19);
             enableRateDelayBox.TabIndex = 140;
@@ -280,7 +309,7 @@
             bitcostButton.Checked = true;
             bitcostButton.CheckState = CheckState.Checked;
             bitcostButton.ForeColor = SystemColors.ControlText;
-            bitcostButton.Location = new Point(12, 174);
+            bitcostButton.Location = new Point(12, 129);
             bitcostButton.Name = "bitcostButton";
             bitcostButton.Size = new Size(205, 19);
             bitcostButton.TabIndex = 121;
@@ -295,7 +324,7 @@
             checkEnableBitMsg.Checked = true;
             checkEnableBitMsg.CheckState = CheckState.Checked;
             checkEnableBitMsg.ForeColor = SystemColors.ControlText;
-            checkEnableBitMsg.Location = new Point(12, 149);
+            checkEnableBitMsg.Location = new Point(12, 104);
             checkEnableBitMsg.Name = "checkEnableBitMsg";
             checkEnableBitMsg.Size = new Size(295, 19);
             checkEnableBitMsg.TabIndex = 115;
@@ -472,7 +501,7 @@
             enableTradersCommand.BackColor = Color.FromArgb(156, 155, 151);
             enableTradersCommand.Font = new Font("Segoe UI", 9F);
             enableTradersCommand.ForeColor = SystemColors.ControlText;
-            enableTradersCommand.Location = new Point(18, 51);
+            enableTradersCommand.Location = new Point(4, 51);
             enableTradersCommand.Name = "enableTradersCommand";
             enableTradersCommand.Size = new Size(200, 19);
             enableTradersCommand.TabIndex = 48;
@@ -1120,7 +1149,7 @@
             gameIntegrationPanel.Controls.Add(label14);
             gameIntegrationPanel.Controls.Add(pictureBox5);
             gameIntegrationPanel.ForeColor = SystemColors.ControlText;
-            gameIntegrationPanel.Location = new Point(53, 462);
+            gameIntegrationPanel.Location = new Point(53, 511);
             gameIntegrationPanel.Name = "gameIntegrationPanel";
             gameIntegrationPanel.Size = new Size(311, 114);
             gameIntegrationPanel.TabIndex = 149;
@@ -1145,7 +1174,7 @@
             traderConfigButton.FlatStyle = FlatStyle.Flat;
             traderConfigButton.Font = new Font("Segoe UI", 9F);
             traderConfigButton.ForeColor = SystemColors.ControlText;
-            traderConfigButton.Location = new Point(217, 48);
+            traderConfigButton.Location = new Point(203, 48);
             traderConfigButton.Name = "traderConfigButton";
             traderConfigButton.Size = new Size(75, 23);
             traderConfigButton.TabIndex = 150;
@@ -1159,7 +1188,7 @@
             enableInRaid.BackColor = Color.FromArgb(156, 155, 151);
             enableInRaid.Font = new Font("Segoe UI", 9F);
             enableInRaid.ForeColor = SystemColors.ControlText;
-            enableInRaid.Location = new Point(18, 26);
+            enableInRaid.Location = new Point(4, 26);
             enableInRaid.Name = "enableInRaid";
             enableInRaid.Size = new Size(199, 19);
             enableInRaid.TabIndex = 121;
@@ -1210,7 +1239,7 @@
             panel6.Controls.Add(bitChanceBox);
             panel6.Controls.Add(label10);
             panel6.ForeColor = SystemColors.ControlText;
-            panel6.Location = new Point(53, 262);
+            panel6.Location = new Point(53, 311);
             panel6.Name = "panel6";
             panel6.Size = new Size(311, 194);
             panel6.TabIndex = 151;
@@ -1238,20 +1267,18 @@
             pictureBox6.TabIndex = 120;
             pictureBox6.TabStop = false;
             // 
-            // cheerComBox
+            // groupBox3
             // 
-            cheerComBox.AutoSize = true;
-            cheerComBox.BackColor = Color.FromArgb(156, 155, 151);
-            cheerComBox.Checked = true;
-            cheerComBox.CheckState = CheckState.Checked;
-            cheerComBox.ForeColor = SystemColors.ControlText;
-            cheerComBox.Location = new Point(12, 199);
-            cheerComBox.Name = "cheerComBox";
-            cheerComBox.Size = new Size(193, 19);
-            cheerComBox.TabIndex = 151;
-            cheerComBox.Text = "Enable Cheer to use commands";
-            cheerComBox.UseVisualStyleBackColor = false;
-            cheerComBox.CheckedChanged += cheerComBox_CheckedChanged;
+            groupBox3.Controls.Add(rateDelayBox);
+            groupBox3.Controls.Add(enableGlobalDelayBox);
+            groupBox3.Controls.Add(enableRateDelayBox);
+            groupBox3.Controls.Add(label15);
+            groupBox3.Location = new Point(8, 174);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(200, 93);
+            groupBox3.TabIndex = 152;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Cooldowns";
             // 
             // ControlMenu
             // 
@@ -1298,6 +1325,8 @@
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1402,5 +1431,7 @@
         private TextBox tangiaTextBox;
         public CheckBox tangiaBox;
         public CheckBox cheerComBox;
+        public CheckBox enableGlobalDelayBox;
+        private GroupBox groupBox3;
     }
 }

@@ -385,7 +385,7 @@ namespace UiBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool isBitCostEnabled {
             get {
                 return ((bool)(this["isBitCostEnabled"]));
@@ -632,6 +632,18 @@ namespace UiBot.Properties {
             }
             set {
                 this["isDirectRunEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isGlobalRateDelayEnabled {
+            get {
+                return ((bool)(this["isGlobalRateDelayEnabled"]));
+            }
+            set {
+                this["isGlobalRateDelayEnabled"] = value;
             }
         }
     }
