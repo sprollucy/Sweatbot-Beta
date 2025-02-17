@@ -164,14 +164,13 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Added SoundAlerts integrations
 - Added Tangia Integration. Since tangia doesn't show how many bits are spent on it in chat, you will have to set how much to give to the user
 - Changed how Blerp and SoundAlerts works. The return is now a percent based to allow for more finite control
-  
-1.0.08.01-beta
-- Fix for rate cooldown spamming chat on every message
-
+- Fixed bug where if you !cheer, it would add the bits to the user also
+ 
 1.0.08-beta
 - Added a way to disable storing of user currency allowing commands to only be executed by cheering the exact amount with '!' in front of the cheer
 - Fixed bug with blerp integration where if a user sends a blerp and then 1 bit, it will deduct that bit
 - Adjusted chat settings layout for readability
+- Fix for rate cooldown spamming chat on every message
 
 1.0.07
 - Fixed error in how blerp integration reads the twitch message. Should properly work now!
