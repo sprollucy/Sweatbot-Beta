@@ -161,10 +161,13 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 
 ## **Latest Changelog**
 1.0.09-beta
+- Fixed bug where if you !cheer, it would add the bits to the user also
+- Added check for Per User Cooldown to only check against the bots commands
+- Fixed bug in Per User Cooldown continuing the command even though it shouldn't
+- Fixed bug where chat commands will stay paused after restarting the app
 - Added SoundAlerts integrations
 - Added Tangia Integration. Since tangia doesn't show how many bits are spent on it in chat, you will have to set how much to give to the user
 - Changed how Blerp and SoundAlerts works. The return is now a percent based to allow for more finite control
-- Fixed bug where if you !cheer, it would add the bits to the user also
  
 1.0.08-beta
 - Added a way to disable storing of user currency allowing commands to only be executed by cheering the exact amount with '!' in front of the cheer
