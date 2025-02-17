@@ -622,5 +622,17 @@ namespace UiBot.Properties {
                 this["isTangiaEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isDirectRunEnabled {
+            get {
+                return ((bool)(this["isDirectRunEnabled"]));
+            }
+            set {
+                this["isDirectRunEnabled"] = value;
+            }
+        }
     }
 }

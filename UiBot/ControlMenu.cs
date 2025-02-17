@@ -18,6 +18,7 @@ namespace UiBot
             LoadModWhitelist(); // Load data on startup
 
             this.TopLevel = false;
+            Settings.Default.isCommandsPaused = false;
             enableAutoMessageCheck.Checked = Settings.Default.isAutoMessageEnabled;
             enableTradersCommand.Checked = Settings.Default.isTradersEnabled;
             enableChatBonus.Checked = Settings.Default.isChatBonusEnabled;
@@ -40,6 +41,7 @@ namespace UiBot
             pauseMessageBox.Checked = Settings.Default.isPausedMessage;
             enableCurrency.Checked = Settings.Default.isStoreCurrency;
             tangiaBox.Checked = Settings.Default.isTangiaEnabled;
+            cheerComBox.Checked = Settings.Default.isDirectRunEnabled;
 
             InitializeToolTips();
             this.lstModWhitelist.SelectedIndexChanged += new System.EventHandler(this.lstModWhitelist_SelectedIndexChanged);
@@ -385,6 +387,11 @@ namespace UiBot
         private void pauseMessageBox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.isPausedMessage = pauseMessageBox.Checked;
+            Settings.Default.Save();
+        }
+        private void cheerComBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.isDirectRunEnabled = cheerComBox.Checked;
             Settings.Default.Save();
         }
 

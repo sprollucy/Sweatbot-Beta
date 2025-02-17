@@ -151,7 +151,6 @@ namespace UiBot
                     client.OnMessageReceived += Client_OnMessageReceived;
                     client.OnChatCommandReceived += Client_OnChatCommandReceived;
 
-                    client.AddChatCommandIdentifier('$');
                     client.OnConnected += (sender, e) => isBotConnected = true;
                     client.Connect();
                 }
@@ -347,26 +346,31 @@ namespace UiBot
 
             if (Settings.Default.isRateDelayEnabled && e.ChatMessage.Message.StartsWith("!"))
             {
-                int delayS;
-                if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
-                {
-                    delayS = 1;
-                }
+                string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
 
-                if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
+                if (commandHandler.GetCommand(commandName) != null)
                 {
-                    TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
-
-                    if (timeDifference < TimeSpan.FromSeconds(delayS))
+                    int delayS;
+                    if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
                     {
-                        int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
-                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, You can use another command in {remainingDelayS} seconds!");
-                        await Task.Delay(remainingDelayS);
+                        delayS = 1; // Default delay is 1 second if not set in the box
                     }
-                }
 
-                lastExecutionTimes[e.ChatMessage.DisplayName] = currentTime;
+                    if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
+                    {
+                        TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
+
+                        if (timeDifference < TimeSpan.FromSeconds(delayS))
+                        {
+                            int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
+                            client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, You can use another command in {remainingDelayS} seconds!");
+                            return;
+                        }
+                    }
+                    lastExecutionTimes[e.ChatMessage.DisplayName] = currentTime;
+                }
             }
+
 
             if (bannedUsers.Contains(e.ChatMessage.DisplayName))
             {
@@ -469,8 +473,7 @@ namespace UiBot
                 }
 
                 // Check if the message contains a cheer amount for bit-based commands
-                // Add the check here to prevent processing cheers if the message starts with "!"
-                if (e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0)
+                if (e.ChatMessage.Message.StartsWith("!") && e.ChatMessage.Bits > 0 && Settings.Default.isDirectRunEnabled)
                 {
                     int cheerAmount = e.ChatMessage.Bits;
 
@@ -530,7 +533,7 @@ namespace UiBot
                             else
                             {
                                 // No matching commands found, add the cheer amount to user's bit balance
-                                if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
+                                if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName) && Settings.Default.isStoreCurrency)
                                 {
                                     // Add cheer amount to the user's current bit balance
                                     MainBot.userBits[e.ChatMessage.DisplayName] += cheerAmount;
@@ -560,12 +563,12 @@ namespace UiBot
             }
 
             // Given Bits
-            if (e.ChatMessage.Bits > 0)
+            if (e.ChatMessage.Bits > 0 && Settings.Default.isStoreCurrency)
             {
                 int bitsGiven = e.ChatMessage.Bits;
                 bool bonusApplied = false;
 
-                if (Settings.Default.isBonusMultiplierEnabled && !(Settings.Default.isSubBonusMultiEnabled && isSubscriber) && Settings.Default.isStoreCurrency)
+                if (Settings.Default.isBonusMultiplierEnabled && !(Settings.Default.isSubBonusMultiEnabled && isSubscriber) )
                 {
                     // Apply normal Bonus Multiplier only if subscriber bonus is not enabled
                     ChatCommandMethods.BitMultiplier();
@@ -785,6 +788,11 @@ namespace UiBot
             int lastHow2useTimerDuration = 15;
             TimeSpan timeSinceLastExecution = DateTime.Now - chatCommandMethods.lastStatCommandTimer;
             bool isSubscriber = e.Command.ChatMessage.IsSubscriber;
+
+            if (bannedUsers.Contains(Chatter))
+            {
+                return;
+            }
 
             //Normal Commands
             switch (e.Command.CommandText.ToLower())

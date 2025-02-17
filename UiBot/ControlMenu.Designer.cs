@@ -127,6 +127,7 @@
             label13 = new Label();
             pictureBox6 = new PictureBox();
             soundalertTip = new ToolTip(components);
+            cheerComBox = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -163,6 +164,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(156, 155, 151);
+            panel1.Controls.Add(cheerComBox);
             panel1.Controls.Add(enableCurrency);
             panel1.Controls.Add(pauseMessageBox);
             panel1.Controls.Add(rateDelayBox);
@@ -177,7 +179,7 @@
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(53, 31);
             panel1.Name = "panel1";
-            panel1.Size = new Size(311, 206);
+            panel1.Size = new Size(311, 225);
             panel1.TabIndex = 20;
             // 
             // enableCurrency
@@ -1118,7 +1120,7 @@
             gameIntegrationPanel.Controls.Add(label14);
             gameIntegrationPanel.Controls.Add(pictureBox5);
             gameIntegrationPanel.ForeColor = SystemColors.ControlText;
-            gameIntegrationPanel.Location = new Point(53, 443);
+            gameIntegrationPanel.Location = new Point(53, 462);
             gameIntegrationPanel.Name = "gameIntegrationPanel";
             gameIntegrationPanel.Size = new Size(311, 114);
             gameIntegrationPanel.TabIndex = 149;
@@ -1208,7 +1210,7 @@
             panel6.Controls.Add(bitChanceBox);
             panel6.Controls.Add(label10);
             panel6.ForeColor = SystemColors.ControlText;
-            panel6.Location = new Point(53, 243);
+            panel6.Location = new Point(53, 262);
             panel6.Name = "panel6";
             panel6.Size = new Size(311, 194);
             panel6.TabIndex = 151;
@@ -1235,6 +1237,21 @@
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 120;
             pictureBox6.TabStop = false;
+            // 
+            // cheerComBox
+            // 
+            cheerComBox.AutoSize = true;
+            cheerComBox.BackColor = Color.FromArgb(156, 155, 151);
+            cheerComBox.Checked = true;
+            cheerComBox.CheckState = CheckState.Checked;
+            cheerComBox.ForeColor = SystemColors.ControlText;
+            cheerComBox.Location = new Point(12, 199);
+            cheerComBox.Name = "cheerComBox";
+            cheerComBox.Size = new Size(193, 19);
+            cheerComBox.TabIndex = 151;
+            cheerComBox.Text = "Enable Cheer to use commands";
+            cheerComBox.UseVisualStyleBackColor = false;
+            cheerComBox.CheckedChanged += cheerComBox_CheckedChanged;
             // 
             // ControlMenu
             // 
@@ -1384,5 +1401,6 @@
         private ToolTip soundalertTip;
         private TextBox tangiaTextBox;
         public CheckBox tangiaBox;
+        public CheckBox cheerComBox;
     }
 }
