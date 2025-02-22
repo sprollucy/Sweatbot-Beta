@@ -346,51 +346,54 @@ namespace UiBot
             }
 
             // Given Bits
-            if (e.ChatMessage.Bits > 0 && Settings.Default.isStoreCurrency)
+            if (!e.ChatMessage.Message.StartsWith("!"))
             {
-                int bitsGiven = e.ChatMessage.Bits;
-                bool bonusApplied = false;
-
-                if (Settings.Default.isBonusMultiplierEnabled && !(Settings.Default.isSubBonusMultiEnabled && isSubscriber))
+                if (e.ChatMessage.Bits > 0 && Settings.Default.isStoreCurrency)
                 {
-                    // Apply normal Bonus Multiplier only if subscriber bonus is not enabled
-                    ChatCommandMethods.BitMultiplier();
-                    int bonusMultiplierPercentage = ChatCommandMethods.BitBonusMultiplier;
-                    double bonusMultiplier = 1 + (bonusMultiplierPercentage / 100.0);
-                    bitsGiven = (int)Math.Ceiling(bitsGiven * bonusMultiplier);
+                    int bitsGiven = e.ChatMessage.Bits;
+                    bool bonusApplied = false;
 
-                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+                    if (Settings.Default.isBonusMultiplierEnabled && !(Settings.Default.isSubBonusMultiEnabled && isSubscriber))
+                    {
+                        // Apply normal Bonus Multiplier only if subscriber bonus is not enabled
+                        ChatCommandMethods.BitMultiplier();
+                        int bonusMultiplierPercentage = ChatCommandMethods.BitBonusMultiplier;
+                        double bonusMultiplier = 1 + (bonusMultiplierPercentage / 100.0);
+                        bitsGiven = (int)Math.Ceiling(bitsGiven * bonusMultiplier);
 
-                    Console.WriteLine($"A {bonusMultiplierPercentage}% Multiplier is active, resulting in {bitsGiven} bits given.");
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
+                        LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                        LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    bonusApplied = true;
-                }
-                else if (Settings.Default.isSubBonusMultiEnabled && isSubscriber)
-                {
-                    // Apply Sub Bonus Multiplier
-                    ChatCommandMethods.SubBitMultiplier();
-                    int subMultiplierPercentage = ChatCommandMethods.SubBonusMultiplier;
-                    double subMultiplier = 1 + (subMultiplierPercentage / 100.0);
-                    bitsGiven = (int)Math.Ceiling(bitsGiven * subMultiplier);
+                        Console.WriteLine($"A {bonusMultiplierPercentage}% Multiplier is active, resulting in {bitsGiven} bits given.");
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
 
-                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+                        bonusApplied = true;
+                    }
+                    else if (Settings.Default.isSubBonusMultiEnabled && isSubscriber)
+                    {
+                        // Apply Sub Bonus Multiplier
+                        ChatCommandMethods.SubBitMultiplier();
+                        int subMultiplierPercentage = ChatCommandMethods.SubBonusMultiplier;
+                        double subMultiplier = 1 + (subMultiplierPercentage / 100.0);
+                        bitsGiven = (int)Math.Ceiling(bitsGiven * subMultiplier);
 
-                    Console.WriteLine($"A {subMultiplierPercentage}% Sub Multiplier is active, resulting in {bitsGiven} bits given.");
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
+                        LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                        LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
 
-                    bonusApplied = true;
-                }
+                        Console.WriteLine($"A {subMultiplierPercentage}% Sub Multiplier is active, resulting in {bitsGiven} bits given.");
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {e.ChatMessage.Bits} {userBitName}! Sub Multiplier is active so it counts as {bitsGiven} {userBitName}. You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
 
-                if (!bonusApplied)
-                {
-                    // No multiplier applied, log and thank the user normally
-                    LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
-                    LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+                        bonusApplied = true;
+                    }
 
-                    client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} {userBitName}! You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
+                    if (!bonusApplied)
+                    {
+                        // No multiplier applied, log and thank the user normally
+                        LogHandler.UpdateUserBits(e.ChatMessage.DisplayName, bitsGiven);
+                        LogHandler.LogBits(e.ChatMessage.DisplayName, bitsGiven, timestamp);
+
+                        client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, thank you for the {bitsGiven} {userBitName}! You now have {userBits[e.ChatMessage.DisplayName]} {userBitName}.");
+                    }
                 }
             }
 

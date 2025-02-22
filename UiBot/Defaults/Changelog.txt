@@ -1,4 +1,11 @@
+1.0.10-beta
+-Fixed Given bits bug again
+-Added a way to play sounds through a mic using a virtual cable
+NOTE: To use Voip sound functions, you need to have a virtual audio cable installed, and for your mic to be set as that in your game
+https://vb-audio.com/Cable/
+
 1.0.09-beta
+-Added global cooldown for commands
 -Fixed bug where if you !cheer, it would add the bits to the user also
 -Added check for Per User Cooldown to only check against the bots commands
 -Fixed bug in Per User Cooldown continuing the command even though it shouldn't

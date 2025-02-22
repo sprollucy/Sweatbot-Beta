@@ -203,7 +203,8 @@ namespace UiBot
         private void leftloopButton_Click(object sender, EventArgs e) => AppendCommandText("LCLoop=(dur,Speed) ");
         private void rightloopButton_Click(object sender, EventArgs e) => AppendCommandText("RCLoop=(dur,Speed) ");
         private void turnButton_Click(object sender, EventArgs e) => AppendCommandText("TM=Direction(dur,Speed) ");
-        private void playsoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSOUND=(Speed)filename.wav ");
+        private void playsoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSound=(Speed)filename.wav ");
+        private void voipSoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSoundMic=KeyIn(Speed)filename.wav ");
         private void leftholdButton_Click(object sender, EventArgs e) => AppendCommandText("LCHOLD=dur ");
         private void rightholdButton_Click(object sender, EventArgs e) => AppendCommandText("RCHOLD=dur ");
         private void delayButton_Click(object sender, EventArgs e) => AppendCommandText("Delay=Speed ");
@@ -224,7 +225,8 @@ namespace UiBot
         private void aleftloopButton_Click(object sender, EventArgs e) => AppendCommandText("LCLoopAsync=(dur,Speed) ");
         private void arightloopButton_Click(object sender, EventArgs e) => AppendCommandText("RCLoopAsync=(dur,Speed) ");
         private void aturnButton_Click(object sender, EventArgs e) => AppendCommandText("TMAsync=Direction(dur,Speed) ");
-        private void aplaysoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSOUND=(Speed)filename.wav ");
+        private void aplaysoundButton_Click(object sender, EventArgs e) => AppendCommandText("PSoundAsync=(Speed)filename.wav ");
+        private void voipSoundAsyncButton_Click(object sender, EventArgs e) => AppendCommandText("PSoundMicAsync=KeyIn(Speed)filename.wav ");
         private void aleftholdButton_Click(object sender, EventArgs e) => AppendCommandText("LCHoldAsync=dur ");
         private void arightholdButton_Click(object sender, EventArgs e) => AppendCommandText("RCHoldAsync=dur ");
         private void adelayButton_Click(object sender, EventArgs e) => AppendCommandText("DelayAsync=Speed ");
@@ -849,5 +851,6 @@ namespace UiBot
                 UseShellExecute = true
             });
         }
+
     }
 }

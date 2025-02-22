@@ -73,6 +73,7 @@ public class CustomCommandHandler
         { "mpos", MousePos },
         { "mposloop", MouseLoop },
         { "psound", PlaySoundClip },
+        { "psoundmic", PlaySoundMic },
         { "rchold", RightClickHold },
         { "lchold", LeftClickHold },
         { "mutevol", MuteVolume },
@@ -96,6 +97,7 @@ public class CustomCommandHandler
         { "mposasync", MousePosAsync },
         { "mposloopasync", MouseLoopAsync },
         { "psoundasync", PlaySoundClipAsync },
+        { "psoundmicasync", PlaySoundMicAsync },
         { "rcholdasync", RightClickHoldAsync },
         { "lcholdasync", LeftClickHoldAsync },
         { "mutevolasync", MuteVolumeAsync },
@@ -1622,6 +1624,201 @@ public class CustomCommandHandler
         else
         {
             Console.WriteLine("Invalid command format. Expected format: PSOUND=(Volume)filename.wav");
+        }
+    }
+
+    private void PlaySoundMic(TwitchClient client, string channel, string parameter = null)
+    {
+        if (string.IsNullOrEmpty(parameter))
+        {
+            Console.WriteLine("No parameters specified for PSoundMic.");
+            return;
+        }
+
+        // Adjusted regex to support optional key
+        var match = Regex.Match(parameter, @"^([a-zA-Z0-9]*)\((\d+)\)([^)]+)$");
+        if (!match.Success)
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: PSoundMic=Key(Volume)filename.wav or PSoundMic=(Volume)filename.wav");
+            return;
+        }
+
+        string key = match.Groups[1].Value.ToUpper(); // Extract key (could be empty)
+        bool hasKey = !string.IsNullOrEmpty(key); // Check if key exists
+
+        if (!int.TryParse(match.Groups[2].Value, out int volumePercentage))
+        {
+            Console.WriteLine("Invalid volume specified.");
+            return;
+        }
+
+        string fileName = match.Groups[3].Value.Trim();
+        string filePath = GetSoundFilePath(fileName);
+
+        if (filePath == null)
+        {
+            Console.WriteLine($"Sound file not found: {fileName}");
+            return;
+        }
+
+        float volume = Math.Clamp(volumePercentage / 100.0f, 0.0f, 1.0f);
+
+        try
+        {
+            using (var audioFileReader1 = new AudioFileReader(filePath))
+            using (var audioFileReader2 = new AudioFileReader(filePath))
+            using (var pcOutput = new WaveOutEvent())  // PC speakers
+            using (var virtualMicOutput = new WaveOutEvent { DeviceNumber = GetVirtualCableDeviceId() }) // Virtual mic
+            {
+                audioFileReader1.Volume = volume;
+                audioFileReader2.Volume = volume;
+
+                pcOutput.Init(audioFileReader1);
+                virtualMicOutput.Init(audioFileReader2);
+
+                // Press the key down only if a key is provided
+                int vkCode = hasKey ? ToVirtualKey(key) : 0;
+                if (hasKey)
+                {
+                    keybd_event((byte)vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+                }
+
+                pcOutput.Play();
+                virtualMicOutput.Play();
+
+                if (Settings.Default.isDebugCommands)
+                {
+                    Console.WriteLine($"Playing sound '{fileName}' at volume {volume * 100}% through PC and virtual mic. Key Pressed: {hasKey}");
+                }
+
+                while (pcOutput.PlaybackState == PlaybackState.Playing ||
+                       virtualMicOutput.PlaybackState == PlaybackState.Playing)
+                {
+                    Thread.Sleep(100);
+                }
+
+                if (hasKey)
+                {
+                    keybd_event((byte)vkCode, 0, KEYEVENTF_KEYUP, 0);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error playing sound: {ex.Message}");
+        }
+    }
+
+    private async Task PlaySoundMicAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (string.IsNullOrEmpty(parameter))
+        {
+            Console.WriteLine("No parameters specified for PSoundMicAsync.");
+            return;
+        }
+
+        // Adjusted regex to allow an optional key before ()
+        var match = Regex.Match(parameter, @"^([a-zA-Z0-9]*)\((\d+)\)([^)]+)$");
+        if (!match.Success)
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: PSoundMicAsync=Key(Volume)filename.wav or PSoundMicAsync=(Volume)filename.wav");
+            return;
+        }
+
+        string key = match.Groups[1].Value.ToUpper(); // Extract key (could be empty)
+        bool hasKey = !string.IsNullOrEmpty(key); // Check if key exists
+
+        if (!int.TryParse(match.Groups[2].Value, out int volumePercentage))
+        {
+            Console.WriteLine("Invalid volume specified.");
+            return;
+        }
+
+        string fileName = match.Groups[3].Value.Trim();
+        string filePath = GetSoundFilePath(fileName);
+
+        if (filePath == null)
+        {
+            Console.WriteLine($"Sound file not found: {fileName}");
+            return;
+        }
+
+        float volume = Math.Clamp(volumePercentage / 100.0f, 0.0f, 1.0f);
+
+        try
+        {
+            using (var audioFileReader1 = new AudioFileReader(filePath))
+            using (var audioFileReader2 = new AudioFileReader(filePath))
+            using (var pcOutput = new WaveOutEvent())  // PC speakers
+            using (var virtualMicOutput = new WaveOutEvent { DeviceNumber = GetVirtualCableDeviceId() }) // Virtual mic
+            {
+                audioFileReader1.Volume = volume;
+                audioFileReader2.Volume = volume;
+
+                pcOutput.Init(audioFileReader1);
+                virtualMicOutput.Init(audioFileReader2);
+
+                // Press the key down only if a valid key is provided
+                int vkCode = hasKey ? ToVirtualKey(key) : 0;
+                if (hasKey)
+                {
+                    keybd_event((byte)vkCode, 0, KEYEVENTF_KEYDOWN, 0);
+                }
+
+                // Start playing the sound
+                pcOutput.Play();
+                virtualMicOutput.Play();
+
+                if (Settings.Default.isDebugCommands)
+                {
+                    Console.WriteLine($"Playing sound '{fileName}' at volume {volume * 100}% through PC and virtual mic. Key Pressed: {hasKey}");
+                }
+
+                // Wait until both outputs finish asynchronously
+                while (pcOutput.PlaybackState == PlaybackState.Playing ||
+                       virtualMicOutput.PlaybackState == PlaybackState.Playing)
+                {
+                    await Task.Delay(100);
+                }
+
+                // Release the key after sound finishes (if a key was pressed)
+                if (hasKey)
+                {
+                    keybd_event((byte)vkCode, 0, KEYEVENTF_KEYUP, 0);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error playing sound: {ex.Message}");
+        }
+    }
+
+    private int GetVirtualCableDeviceId()
+    {
+        ListAudioDevices();
+        var devicesCount = WaveOut.DeviceCount;
+        for (int i = 0; i < devicesCount; i++)
+        {
+            var deviceInfo = WaveOut.GetCapabilities(i);
+            if (deviceInfo.ProductName.Contains("CABLE", StringComparison.OrdinalIgnoreCase) ||
+                deviceInfo.ProductName.Contains("Virtual Audio Cable", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine($"Using virtual audio device: {deviceInfo.ProductName} (ID: {i})");
+                return i; // Return the device ID of the virtual cable
+            }
+        }
+        throw new Exception("Virtual Cable not found.");
+    }
+
+    private void ListAudioDevices()
+    {
+        var devicesCount = WaveOut.DeviceCount;
+        Console.WriteLine("Available Audio Devices:");
+        for (int i = 0; i < devicesCount; i++)
+        {
+            var deviceInfo = WaveOut.GetCapabilities(i);
+            Console.WriteLine($"Device {i}: {deviceInfo.ProductName}");
         }
     }
 

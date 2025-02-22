@@ -101,13 +101,13 @@
             panel4 = new Panel();
             orButton = new Button();
             shutdownpcButton = new Button();
+            comingButton = new Button();
             pixelateButton = new Button();
             restartpcButton = new Button();
             apixelateButton = new Button();
             adelayButton = new Button();
             label16 = new Label();
             pictureBox4 = new PictureBox();
-            comingButton = new Button();
             confCheckBox = new CheckBox();
             walkButton = new Button();
             wiggleButton = new Button();
@@ -144,6 +144,10 @@
             usagePanel = new Panel();
             inspectorPanel = new Panel();
             panel12 = new Panel();
+            label27 = new Label();
+            voipSoundAsyncButton = new Button();
+            pictureBox16 = new PictureBox();
+            voipSoundButton = new Button();
             panel10 = new Panel();
             mposLoopButton = new Button();
             amposLoopButton = new Button();
@@ -179,6 +183,7 @@
             usagePanel.SuspendLayout();
             inspectorPanel.SuspendLayout();
             panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
             panel11.SuspendLayout();
@@ -632,7 +637,7 @@
             amuteButton.BackColor = SystemColors.ButtonFace;
             amuteButton.FlatAppearance.BorderSize = 0;
             amuteButton.FlatStyle = FlatStyle.Flat;
-            amuteButton.Location = new Point(84, 47);
+            amuteButton.Location = new Point(11, 47);
             amuteButton.Name = "amuteButton";
             amuteButton.Size = new Size(75, 40);
             amuteButton.TabIndex = 52;
@@ -671,7 +676,7 @@
             muteButton.BackColor = SystemColors.ButtonFace;
             muteButton.FlatAppearance.BorderSize = 0;
             muteButton.FlatStyle = FlatStyle.Flat;
-            muteButton.Location = new Point(84, 19);
+            muteButton.Location = new Point(11, 19);
             muteButton.Name = "muteButton";
             muteButton.Size = new Size(75, 23);
             muteButton.TabIndex = 41;
@@ -684,7 +689,7 @@
             aplaysoundButton.BackColor = SystemColors.ButtonFace;
             aplaysoundButton.FlatAppearance.BorderSize = 0;
             aplaysoundButton.FlatStyle = FlatStyle.Flat;
-            aplaysoundButton.Location = new Point(165, 47);
+            aplaysoundButton.Location = new Point(11, 122);
             aplaysoundButton.Name = "aplaysoundButton";
             aplaysoundButton.Size = new Size(75, 40);
             aplaysoundButton.TabIndex = 40;
@@ -789,7 +794,7 @@
             playsoundButton.BackColor = SystemColors.ButtonFace;
             playsoundButton.FlatAppearance.BorderSize = 0;
             playsoundButton.FlatStyle = FlatStyle.Flat;
-            playsoundButton.Location = new Point(165, 19);
+            playsoundButton.Location = new Point(11, 93);
             playsoundButton.Name = "playsoundButton";
             playsoundButton.Size = new Size(75, 23);
             playsoundButton.TabIndex = 32;
@@ -1044,20 +1049,17 @@
             panel4.BackColor = Color.FromArgb(156, 155, 151);
             panel4.Controls.Add(orButton);
             panel4.Controls.Add(shutdownpcButton);
+            panel4.Controls.Add(comingButton);
             panel4.Controls.Add(pixelateButton);
             panel4.Controls.Add(restartpcButton);
             panel4.Controls.Add(apixelateButton);
             panel4.Controls.Add(adelayButton);
             panel4.Controls.Add(label16);
-            panel4.Controls.Add(playsoundButton);
-            panel4.Controls.Add(aplaysoundButton);
-            panel4.Controls.Add(amuteButton);
             panel4.Controls.Add(delayButton);
-            panel4.Controls.Add(muteButton);
             panel4.Controls.Add(pictureBox4);
             panel4.Location = new Point(636, 23);
             panel4.Name = "panel4";
-            panel4.Size = new Size(309, 136);
+            panel4.Size = new Size(231, 136);
             panel4.TabIndex = 33;
             // 
             // orButton
@@ -1065,9 +1067,9 @@
             orButton.BackColor = SystemColors.ButtonFace;
             orButton.FlatAppearance.BorderSize = 0;
             orButton.FlatStyle = FlatStyle.Flat;
-            orButton.Location = new Point(3, 91);
+            orButton.Location = new Point(165, 19);
             orButton.Name = "orButton";
-            orButton.Size = new Size(75, 39);
+            orButton.Size = new Size(62, 39);
             orButton.TabIndex = 62;
             orButton.Text = "OR Random";
             orButton.UseVisualStyleBackColor = false;
@@ -1078,22 +1080,35 @@
             shutdownpcButton.BackColor = SystemColors.ButtonFace;
             shutdownpcButton.FlatAppearance.BorderSize = 0;
             shutdownpcButton.FlatStyle = FlatStyle.Flat;
-            shutdownpcButton.Location = new Point(165, 91);
+            shutdownpcButton.Location = new Point(84, 47);
             shutdownpcButton.Name = "shutdownpcButton";
-            shutdownpcButton.Size = new Size(75, 39);
+            shutdownpcButton.Size = new Size(75, 40);
             shutdownpcButton.TabIndex = 61;
             shutdownpcButton.Text = "Shutdown PC";
             shutdownpcButton.UseVisualStyleBackColor = false;
             shutdownpcButton.Click += shutdownpcButton_Click;
+            // 
+            // comingButton
+            // 
+            comingButton.BackColor = SystemColors.ActiveCaption;
+            comingButton.FlatAppearance.BorderSize = 0;
+            comingButton.FlatStyle = FlatStyle.Flat;
+            comingButton.Location = new Point(164, 62);
+            comingButton.Name = "comingButton";
+            comingButton.Size = new Size(63, 71);
+            comingButton.TabIndex = 60;
+            comingButton.Text = "More Coming Soon!";
+            comingButton.UseVisualStyleBackColor = false;
+            comingButton.Click += comingButton_Click;
             // 
             // pixelateButton
             // 
             pixelateButton.BackColor = SystemColors.ButtonFace;
             pixelateButton.FlatAppearance.BorderSize = 0;
             pixelateButton.FlatStyle = FlatStyle.Flat;
-            pixelateButton.Location = new Point(246, 18);
+            pixelateButton.Location = new Point(3, 93);
             pixelateButton.Name = "pixelateButton";
-            pixelateButton.Size = new Size(58, 49);
+            pixelateButton.Size = new Size(75, 40);
             pixelateButton.TabIndex = 61;
             pixelateButton.Text = "Pixelate Screen";
             pixelateButton.UseVisualStyleBackColor = false;
@@ -1104,9 +1119,9 @@
             restartpcButton.BackColor = SystemColors.ButtonFace;
             restartpcButton.FlatAppearance.BorderSize = 0;
             restartpcButton.FlatStyle = FlatStyle.Flat;
-            restartpcButton.Location = new Point(84, 91);
+            restartpcButton.Location = new Point(84, 19);
             restartpcButton.Name = "restartpcButton";
-            restartpcButton.Size = new Size(75, 39);
+            restartpcButton.Size = new Size(75, 23);
             restartpcButton.TabIndex = 62;
             restartpcButton.Text = "Restart PC";
             restartpcButton.UseVisualStyleBackColor = false;
@@ -1117,11 +1132,11 @@
             apixelateButton.BackColor = SystemColors.ButtonFace;
             apixelateButton.FlatAppearance.BorderSize = 0;
             apixelateButton.FlatStyle = FlatStyle.Flat;
-            apixelateButton.Location = new Point(246, 73);
+            apixelateButton.Location = new Point(84, 93);
             apixelateButton.Name = "apixelateButton";
-            apixelateButton.Size = new Size(58, 57);
+            apixelateButton.Size = new Size(75, 40);
             apixelateButton.TabIndex = 59;
-            apixelateButton.Text = "Sync Pixelate Screen";
+            apixelateButton.Text = "Sync Pixelate";
             apixelateButton.UseVisualStyleBackColor = false;
             apixelateButton.Click += apixelateButton_Click;
             // 
@@ -1155,23 +1170,10 @@
             pictureBox4.BackgroundImageLayout = ImageLayout.None;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(309, 15);
+            pictureBox4.Size = new Size(231, 15);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 35;
             pictureBox4.TabStop = false;
-            // 
-            // comingButton
-            // 
-            comingButton.BackColor = SystemColors.ActiveCaption;
-            comingButton.FlatAppearance.BorderSize = 0;
-            comingButton.FlatStyle = FlatStyle.Flat;
-            comingButton.Location = new Point(3, 4);
-            comingButton.Name = "comingButton";
-            comingButton.Size = new Size(201, 36);
-            comingButton.TabIndex = 60;
-            comingButton.Text = "More Coming Soon!";
-            comingButton.UseVisualStyleBackColor = false;
-            comingButton.Click += comingButton_Click;
             // 
             // confCheckBox
             // 
@@ -1621,11 +1623,66 @@
             // panel12
             // 
             panel12.BackColor = Color.FromArgb(156, 155, 151);
-            panel12.Controls.Add(comingButton);
-            panel12.Location = new Point(738, 159);
+            panel12.Controls.Add(label27);
+            panel12.Controls.Add(voipSoundAsyncButton);
+            panel12.Controls.Add(pictureBox16);
+            panel12.Controls.Add(voipSoundButton);
+            panel12.Controls.Add(muteButton);
+            panel12.Controls.Add(amuteButton);
+            panel12.Controls.Add(aplaysoundButton);
+            panel12.Controls.Add(playsoundButton);
+            panel12.Location = new Point(873, 24);
             panel12.Name = "panel12";
-            panel12.Size = new Size(207, 46);
+            panel12.Size = new Size(96, 249);
             panel12.TabIndex = 61;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.BackColor = Color.FromArgb(71, 83, 92);
+            label27.ForeColor = SystemColors.ControlLight;
+            label27.Location = new Point(0, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(96, 15);
+            label27.TabIndex = 64;
+            label27.Text = "Sound Functions";
+            // 
+            // voipSoundAsyncButton
+            // 
+            voipSoundAsyncButton.BackColor = SystemColors.ButtonFace;
+            voipSoundAsyncButton.FlatAppearance.BorderSize = 0;
+            voipSoundAsyncButton.FlatStyle = FlatStyle.Flat;
+            voipSoundAsyncButton.Location = new Point(11, 197);
+            voipSoundAsyncButton.Name = "voipSoundAsyncButton";
+            voipSoundAsyncButton.Size = new Size(75, 39);
+            voipSoundAsyncButton.TabIndex = 62;
+            voipSoundAsyncButton.Text = "Sync Voip Sound";
+            voipSoundAsyncButton.UseVisualStyleBackColor = false;
+            voipSoundAsyncButton.Click += voipSoundAsyncButton_Click;
+            // 
+            // pictureBox16
+            // 
+            pictureBox16.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox16.BackgroundImageLayout = ImageLayout.None;
+            pictureBox16.Location = new Point(0, 0);
+            pictureBox16.Name = "pictureBox16";
+            pictureBox16.Size = new Size(96, 15);
+            pictureBox16.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox16.TabIndex = 63;
+            pictureBox16.TabStop = false;
+            // 
+            // voipSoundButton
+            // 
+            voipSoundButton.BackColor = SystemColors.ButtonFace;
+            voipSoundButton.FlatAppearance.BorderSize = 0;
+            voipSoundButton.FlatStyle = FlatStyle.Flat;
+            voipSoundButton.Location = new Point(11, 168);
+            voipSoundButton.Name = "voipSoundButton";
+            voipSoundButton.Size = new Size(75, 23);
+            voipSoundButton.TabIndex = 61;
+            voipSoundButton.Text = "Voip Sound";
+            voipSoundButton.UseVisualStyleBackColor = false;
+            voipSoundButton.Click += voipSoundButton_Click;
             // 
             // panel10
             // 
@@ -1823,6 +1880,8 @@
             usagePanel.PerformLayout();
             inspectorPanel.ResumeLayout(false);
             panel12.ResumeLayout(false);
+            panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
@@ -1961,5 +2020,9 @@
         private Panel panel12;
         private Button orButton;
         private Button showPixFormButton;
+        private Button voipSoundAsyncButton;
+        private Button voipSoundButton;
+        private Label label27;
+        private PictureBox pictureBox16;
     }
 }
