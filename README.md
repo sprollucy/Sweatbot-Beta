@@ -1,4 +1,4 @@
-# **Sweatbot 1.0.09 Beta**
+# **Sweatbot 1.0.10 Beta**
 
 Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -160,6 +160,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.10-beta
+- Fixed Given bits bug again
+- Added a way to play sounds through a mic using a virtual cable
+> *Note*: To use Voip sound functions, you need to have a virtual audio cable installed, and for your mic to be set as that in your game. All files must be in .WAV format https://vb-audio.com/Cable/
+
 1.0.09.03-beta
 - Added global cooldown for commands
 - Fixed bug where if you !cheer, it would add the bits to the user also
