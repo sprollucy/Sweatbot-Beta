@@ -1,3 +1,10 @@
+1.0.11-beta
+-Increased character limit for !bitcost. Now if you excede 500 characters in a single message, it will print the rest of the commands out in a new message
+-Adjusted voip mic to always play volume at 100% through the microphone(does not effect what you hear)
+-Removed list of audio devices printing to console each time voip mic commands are used
+-Removed error "Please select a command to restore." and "Please select a command to disable." The buttons now do nothing if you have nothing selected on the list
+-Updated the Enabled Commands list on the Connect Menu to sort the commands from cheapest to most expensive. Changed it so the list automatically updates when adding or removing commands
+
 1.0.10-beta
 -Fixed Given bits bug again
 -Added a way to play sounds through a mic using a virtual cable

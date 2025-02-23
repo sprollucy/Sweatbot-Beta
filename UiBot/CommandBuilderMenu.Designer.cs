@@ -931,6 +931,7 @@
             restorecommandButton.TabIndex = 28;
             restorecommandButton.Text = "Enable Selected Command";
             restorecommandButton.UseVisualStyleBackColor = false;
+            restorecommandButton.Click += restorecommandButton_Click;
             // 
             // label12
             // 
@@ -1633,7 +1634,7 @@
             panel12.Controls.Add(playsoundButton);
             panel12.Location = new Point(873, 24);
             panel12.Name = "panel12";
-            panel12.Size = new Size(96, 249);
+            panel12.Size = new Size(96, 243);
             panel12.TabIndex = 61;
             // 
             // label27

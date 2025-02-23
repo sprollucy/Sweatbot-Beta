@@ -10,7 +10,6 @@ namespace UiBot
     {
         private static CustomCommandHandler commandHandler;
         PixelateOverlay pixelateOverlay = new PixelateOverlay();
-
         private string _commandsFilePath;
         private readonly string _disabledCommandsFilePath = Path.Combine("Data", "bin", "DisabledCommands.json");
         private int mouseX;
@@ -28,7 +27,6 @@ namespace UiBot
             usagePanel.Top = inspectorPanel.Bottom + 28;
 
             commandHandler = new CustomCommandHandler(_commandsFilePath);
-
 
             // Load commands into the ListBoxes
             LoadCommandsIntoListBox();
@@ -242,7 +240,7 @@ namespace UiBot
 
             if (string.IsNullOrEmpty(selectedCommand))
             {
-                MessageBox.Show("Please select a command to disable.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Please select a command to disable.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -287,7 +285,7 @@ namespace UiBot
 
             if (string.IsNullOrEmpty(selectedCommand))
             {
-                MessageBox.Show("Please select a command to restore.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Please select a command to restore.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -851,6 +849,5 @@ namespace UiBot
                 UseShellExecute = true
             });
         }
-
     }
 }

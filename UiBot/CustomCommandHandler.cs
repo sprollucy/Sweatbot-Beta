@@ -1671,7 +1671,7 @@ public class CustomCommandHandler
             using (var virtualMicOutput = new WaveOutEvent { DeviceNumber = GetVirtualCableDeviceId() }) // Virtual mic
             {
                 audioFileReader1.Volume = volume;
-                audioFileReader2.Volume = volume;
+                audioFileReader2.Volume = 1.0f;
 
                 pcOutput.Init(audioFileReader1);
                 virtualMicOutput.Init(audioFileReader2);
@@ -1753,7 +1753,7 @@ public class CustomCommandHandler
             using (var virtualMicOutput = new WaveOutEvent { DeviceNumber = GetVirtualCableDeviceId() }) // Virtual mic
             {
                 audioFileReader1.Volume = volume;
-                audioFileReader2.Volume = volume;
+                audioFileReader2.Volume = 1.0f;
 
                 pcOutput.Init(audioFileReader1);
                 virtualMicOutput.Init(audioFileReader2);
@@ -1796,7 +1796,6 @@ public class CustomCommandHandler
 
     private int GetVirtualCableDeviceId()
     {
-        ListAudioDevices();
         var devicesCount = WaveOut.DeviceCount;
         for (int i = 0; i < devicesCount; i++)
         {
@@ -1809,17 +1808,6 @@ public class CustomCommandHandler
             }
         }
         throw new Exception("Virtual Cable not found.");
-    }
-
-    private void ListAudioDevices()
-    {
-        var devicesCount = WaveOut.DeviceCount;
-        Console.WriteLine("Available Audio Devices:");
-        for (int i = 0; i < devicesCount; i++)
-        {
-            var deviceInfo = WaveOut.GetCapabilities(i);
-            Console.WriteLine($"Device {i}: {deviceInfo.ProductName}");
-        }
     }
 
     private static string GetSoundFilePath(string soundFileName)

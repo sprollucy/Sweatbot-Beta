@@ -32,7 +32,7 @@
             consoleTextBox = new TextBox();
             connectButton = new Button();
             disconnectButton = new Button();
-            label4 = new Label();
+            enabledLabelRefresh = new Label();
             econoPanel = new Panel();
             printUseButton = new Button();
             economyLastLabel = new Label();
@@ -147,17 +147,17 @@
             disconnectButton.UseVisualStyleBackColor = false;
             disconnectButton.Click += disconnectButton_Click;
             // 
-            // label4
+            // enabledLabelRefresh
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(71, 83, 92);
-            label4.Font = new Font("Constantia", 12F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.ControlLight;
-            label4.Location = new Point(2, 2);
-            label4.Name = "label4";
-            label4.Size = new Size(163, 19);
-            label4.TabIndex = 30;
-            label4.Text = "Enabled Commands";
+            enabledLabelRefresh.AutoSize = true;
+            enabledLabelRefresh.BackColor = Color.FromArgb(71, 83, 92);
+            enabledLabelRefresh.Font = new Font("Constantia", 12F, FontStyle.Bold);
+            enabledLabelRefresh.ForeColor = SystemColors.ControlLight;
+            enabledLabelRefresh.Location = new Point(2, 2);
+            enabledLabelRefresh.Name = "enabledLabelRefresh";
+            enabledLabelRefresh.Size = new Size(163, 19);
+            enabledLabelRefresh.TabIndex = 30;
+            enabledLabelRefresh.Text = "Enabled Commands";
             // 
             // econoPanel
             // 
@@ -682,7 +682,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(label4);
+            panel1.Controls.Add(enabledLabelRefresh);
             panel1.Controls.Add(customCommandBox);
             panel1.Controls.Add(pictureBox4);
             panel1.Location = new Point(827, 30);
@@ -783,8 +783,7 @@
         private Label consoleTab;
         private PictureBox pictureBox2;
         private Button backupButton;
-        private RichTextBox customCommandBox;
-        private Label label4;
+        private Label enabledLabelRefresh;
         private PictureBox pictureBox4;
         private PictureBox pictureBox8;
         private PictureBox pictureBox5;
@@ -828,5 +827,6 @@
         private Label refundTab;
         private Button printUseButton;
         public CheckBox economyCheckBox;
+        public RichTextBox customCommandBox;
     }
 }

@@ -1009,8 +1009,41 @@ namespace UiBot
                                 // Combine the messages with a separator (e.g., " | ")
                                 string combinedMessage = $"{standardCommandsMessage} {customCommandsMessage}".Trim(' ', '|');
 
-                                // Send the combined message
-                                client.SendMessage(channelId, combinedMessage);
+                                // Split and send the message in chunks if necessary
+                                const int maxMessageLength = 499;
+                                if (combinedMessage.Length > maxMessageLength)
+                                {
+                                    List<string> messageChunks = new List<string>();
+                                    StringBuilder currentChunk = new StringBuilder();
+
+                                    foreach (string command in combinedMessage.Split(new[] { ", " }, StringSplitOptions.None))
+                                    {
+                                        if (currentChunk.Length + command.Length + 2 > maxMessageLength)
+                                        {
+                                            messageChunks.Add(currentChunk.ToString().TrimEnd(',', ' '));
+                                            currentChunk.Clear();
+                                        }
+
+                                        if (currentChunk.Length > 0)
+                                            currentChunk.Append(", ");
+
+                                        currentChunk.Append(command);
+                                    }
+
+                                    if (currentChunk.Length > 0)
+                                        messageChunks.Add(currentChunk.ToString());
+
+                                    // Send each chunk separately
+                                    foreach (string chunk in messageChunks)
+                                    {
+                                        client.SendMessage(channelId, chunk);
+                                    }
+                                }
+                                else
+                                {
+                                    client.SendMessage(channelId, combinedMessage);
+                                }
+
                             }
                         }
                     }

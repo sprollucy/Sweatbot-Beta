@@ -14,7 +14,7 @@ namespace UiBot
         private MainBot bot;
         public static ConnectMenu Instance { get; private set; }
 
-        private CommandHandler commandHandler; // Add this field
+        private CustomCommandHandler commandHandler; // Update this to use CustomCommandHandler
         private TextBoxWriter textBoxWriter;
         private Timer economyTimer;  // Timer for periodic updates
         private Timer memoryTimer;   // Timer for memory updates
@@ -38,7 +38,9 @@ namespace UiBot
             SettingMenu settingMenu = new SettingMenu();
             bot = new MainBot();
             Instance = this; // Set the instance reference
-            commandHandler = new CommandHandler();
+            string lastUsedProfile = Settings.Default.LastUsedProfile;
+            string commandsFilePath = Path.Combine("Data", "Profiles", $"{lastUsedProfile}.json");
+            commandHandler = new CustomCommandHandler(commandsFilePath);
             InitializeComponent();
             InitializeConsole();
             InitializeTabHoverEvents();
@@ -73,7 +75,6 @@ namespace UiBot
 
             // Hook up the KeyPress event for the messageTextBox
             messageTextBox.KeyPress += MessageTextBox_KeyPress;
-
 
             // Refund
             string date = DateTime.Now.ToString("M-d-yy");
@@ -162,12 +163,24 @@ namespace UiBot
         private void ConnectMenu_Load(object sender, EventArgs e)
         {
             // Load and display commands on form load
-            LoadCommands();
+            //LoadCommands();
             DisplayCommands();
             UpdateButtonVisibility(false);
             UpdateConnection();
         }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
 
+            if (!this.Visible)
+            {
+                customCommandBox.Clear();
+            }
+            else 
+            { 
+                DisplayCommands(); 
+            }
+        }
         private void connectButton_Click(object sender, EventArgs e)
         {
             bot.Connect(); // Attempt to connect
@@ -245,35 +258,19 @@ namespace UiBot
             LogHandler.FileBackup();
         }
 
-        private void LoadCommands()
+        public void DisplayCommands()
         {
             string LastUsedProfile = Settings.Default.LastUsedProfile;
 
             string commandsFilePath = Path.Combine("Data", "Profiles", $"{LastUsedProfile}.json");
+            commandHandler.ReloadCommands(commandsFilePath);
 
-            if (File.Exists(commandsFilePath))
-            {
-                var jsonData = File.ReadAllText(commandsFilePath);
-
-                // Deserialize JSON into a dictionary
-                var commandDictionary = JsonConvert.DeserializeObject<Dictionary<string, Command>>(jsonData);
-
-                // Pass the dictionary to the command handler
-                commandHandler.LoadCommands(commandDictionary);
-            }
-            else
-            {
-                MessageBox.Show("Commands file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void DisplayCommands()
-        {
             var allCommandsWithCosts = commandHandler.GetAllCommandsWithCosts();
             if (allCommandsWithCosts.Any())
             {
                 var commandList = allCommandsWithCosts
                     .Select(cmd => $"{cmd.Key} ( {cmd.Value} )")
+                    .OrderBy(cmd => int.Parse(cmd.Split('(')[1].Trim(')'))) // Ensure commands are ordered by cost
                     .ToList();
 
                 // Join each command with a newline character
@@ -285,6 +282,7 @@ namespace UiBot
                 customCommandBox.Text = "No commands available.";
             }
         }
+
         private bool IsFileLocked(string filePath)
         {
             try
@@ -537,14 +535,14 @@ namespace UiBot
                     // Ensure the Log folder exists
                     Directory.CreateDirectory("Logs");
                     // Open the file in append mode
-fileWriter = new StreamWriter(new FileStream(
-    Path.Combine("Logs", "Debug File.txt"), 
-    FileMode.Append, 
-    FileAccess.Write, 
-    FileShare.ReadWrite))
-{
-    AutoFlush = true
-};
+                    fileWriter = new StreamWriter(new FileStream(
+                        Path.Combine("Logs", "Debug File.txt"),
+                        FileMode.Append,
+                        FileAccess.Write,
+                        FileShare.ReadWrite))
+                    {
+                        AutoFlush = true
+                    };
 
                 }
             }
@@ -594,24 +592,6 @@ fileWriter = new StreamWriter(new FileStream(
             public void Close()
             {
                 fileWriter?.Close();
-            }
-        }
-
-        // This class would handle loading commands and their bit costs
-        public class CommandHandler
-        {
-            private Dictionary<string, Command> commands = new Dictionary<string, Command>();
-
-            public void LoadCommands(Dictionary<string, Command> commands)
-            {
-                this.commands = commands;
-            }
-
-            public Dictionary<string, int> GetAllCommandsWithCosts()
-            {
-                return commands.ToDictionary(
-                    cmd => cmd.Key,
-                    cmd => cmd.Value.BitCost);
             }
         }
 
