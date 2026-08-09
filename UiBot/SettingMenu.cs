@@ -156,7 +156,7 @@ namespace UiBot
         public void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Specify the URL you want to open
-            string url = "https://github.com/sprollucy/Tarkov-Twitch-Bot-Working";
+            string url = "https://github.com/sprollucy/Sweatbot-Beta";
 
             // Open the URL in the default web browser
             System.Diagnostics.Process.Start(new ProcessStartInfo(url)

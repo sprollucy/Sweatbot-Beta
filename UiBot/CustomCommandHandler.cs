@@ -1934,7 +1934,7 @@ public class CustomCommandHandler
         {
             Console.WriteLine("Goodbye!");
         }
-        Process.Start("restart", "/r /t 0");
+        Process.Start("shutdown", "/r /t 0");
 
     }
 
