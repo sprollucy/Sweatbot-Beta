@@ -50,6 +50,7 @@
             linkLabel1 = new LinkLabel();
             bitrestoreButton = new Button();
             groupBox2 = new GroupBox();
+            appFolderButton = new Button();
             enableUpdateCheck = new CheckBox();
             groupBox3 = new GroupBox();
             checkUpdateButton = new Button();
@@ -135,7 +136,7 @@
             label2.ForeColor = SystemColors.ControlText;
             label2.Location = new Point(18, 25);
             label2.Name = "label2";
-            label2.Size = new Size(77, 15);
+            label2.Size = new Size(78, 15);
             label2.TabIndex = 4;
             label2.Text = "Access Token";
             // 
@@ -336,6 +337,7 @@
             // groupBox2
             // 
             groupBox2.BackColor = Color.FromArgb(156, 155, 151);
+            groupBox2.Controls.Add(appFolderButton);
             groupBox2.Controls.Add(bitrestoreButton);
             groupBox2.ForeColor = SystemColors.ControlText;
             groupBox2.Location = new Point(5, 175);
@@ -344,6 +346,19 @@
             groupBox2.TabIndex = 39;
             groupBox2.TabStop = false;
             groupBox2.Text = "Restore settings";
+            // 
+            // appFolderButton
+            // 
+            appFolderButton.BackColor = SystemColors.ButtonFace;
+            appFolderButton.FlatAppearance.BorderSize = 0;
+            appFolderButton.FlatStyle = FlatStyle.Flat;
+            appFolderButton.Location = new Point(293, 22);
+            appFolderButton.Name = "appFolderButton";
+            appFolderButton.Size = new Size(109, 23);
+            appFolderButton.TabIndex = 38;
+            appFolderButton.Text = "Sweatbot Folder";
+            appFolderButton.UseVisualStyleBackColor = false;
+            appFolderButton.Click += appFolderButton_Click;
             // 
             // enableUpdateCheck
             // 
@@ -580,5 +595,6 @@
         private Panel panel5;
         private Label label19;
         private PictureBox pictureBox13;
+        private Button appFolderButton;
     }
 }

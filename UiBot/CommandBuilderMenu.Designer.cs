@@ -158,6 +158,13 @@
             pictureBox15 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
+            scrollUpButton = new Button();
+            scrollDownButton = new Button();
+            panel13 = new Panel();
+            label28 = new Label();
+            pictureBox17 = new PictureBox();
+            syncScrollDownButton = new Button();
+            syncScrollUpButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -189,6 +196,8 @@
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).BeginInit();
+            panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             SuspendLayout();
             // 
             // nametextBox
@@ -287,7 +296,7 @@
             commanduseBox.Name = "commanduseBox";
             commanduseBox.ReadOnly = true;
             commanduseBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            commanduseBox.Size = new Size(957, 326);
+            commanduseBox.Size = new Size(957, 367);
             commanduseBox.TabIndex = 10;
             commanduseBox.Text = "";
             // 
@@ -440,7 +449,7 @@
             label14.ForeColor = SystemColors.ControlText;
             label14.Location = new Point(4, 181);
             label14.Name = "label14";
-            label14.Size = new Size(230, 15);
+            label14.Size = new Size(229, 15);
             label14.TabIndex = 59;
             label14.Text = "Click box then hit Shift for Mouse Position";
             // 
@@ -526,7 +535,7 @@
             label10.ForeColor = SystemColors.ControlText;
             label10.Location = new Point(45, 84);
             label10.Name = "label10";
-            label10.Size = new Size(170, 15);
+            label10.Size = new Size(169, 15);
             label10.TabIndex = 48;
             label10.Text = "Speed/Delay/Volume(100 max)";
             // 
@@ -1555,7 +1564,7 @@
             label23.ForeColor = Color.Red;
             label23.Location = new Point(18, 84);
             label23.Name = "label23";
-            label23.Size = new Size(158, 30);
+            label23.Size = new Size(159, 30);
             label23.TabIndex = 141;
             label23.Text = "Must Restart To See Changes\r\n On Twitch!";
             label23.TextAlign = ContentAlignment.MiddleCenter;
@@ -1602,13 +1611,14 @@
             usagePanel.Controls.Add(commanduseBox);
             usagePanel.Controls.Add(label6);
             usagePanel.Controls.Add(pictureBox6);
-            usagePanel.Location = new Point(53, 678);
+            usagePanel.Location = new Point(53, 747);
             usagePanel.Name = "usagePanel";
-            usagePanel.Size = new Size(969, 352);
+            usagePanel.Size = new Size(969, 396);
             usagePanel.TabIndex = 58;
             // 
             // inspectorPanel
             // 
+            inspectorPanel.Controls.Add(panel13);
             inspectorPanel.Controls.Add(panel12);
             inspectorPanel.Controls.Add(panel10);
             inspectorPanel.Controls.Add(panel2);
@@ -1618,7 +1628,7 @@
             inspectorPanel.Controls.Add(panel4);
             inspectorPanel.Location = new Point(53, 396);
             inspectorPanel.Name = "inspectorPanel";
-            inspectorPanel.Size = new Size(969, 276);
+            inspectorPanel.Size = new Size(969, 340);
             inspectorPanel.TabIndex = 61;
             // 
             // panel12
@@ -1698,7 +1708,7 @@
             panel10.Controls.Add(aturnButton);
             panel10.Location = new Point(467, 165);
             panel10.Name = "panel10";
-            panel10.Size = new Size(265, 106);
+            panel10.Size = new Size(164, 169);
             panel10.TabIndex = 59;
             // 
             // mposLoopButton
@@ -1706,9 +1716,9 @@
             mposLoopButton.BackColor = SystemColors.ButtonFace;
             mposLoopButton.FlatAppearance.BorderSize = 0;
             mposLoopButton.FlatStyle = FlatStyle.Flat;
-            mposLoopButton.Location = new Point(166, 18);
+            mposLoopButton.Location = new Point(3, 108);
             mposLoopButton.Name = "mposLoopButton";
-            mposLoopButton.Size = new Size(95, 38);
+            mposLoopButton.Size = new Size(69, 55);
             mposLoopButton.TabIndex = 60;
             mposLoopButton.Text = "Lock Mouse to Position";
             mposLoopButton.UseVisualStyleBackColor = false;
@@ -1719,9 +1729,9 @@
             amposLoopButton.BackColor = SystemColors.ButtonFace;
             amposLoopButton.FlatAppearance.BorderSize = 0;
             amposLoopButton.FlatStyle = FlatStyle.Flat;
-            amposLoopButton.Location = new Point(166, 63);
+            amposLoopButton.Location = new Point(78, 108);
             amposLoopButton.Name = "amposLoopButton";
-            amposLoopButton.Size = new Size(95, 38);
+            amposLoopButton.Size = new Size(82, 55);
             amposLoopButton.TabIndex = 59;
             amposLoopButton.Text = "Lock Mouse to Position Sync";
             amposLoopButton.UseVisualStyleBackColor = false;
@@ -1744,7 +1754,7 @@
             pictureBox11.BackgroundImageLayout = ImageLayout.None;
             pictureBox11.Location = new Point(0, 0);
             pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(265, 15);
+            pictureBox11.Size = new Size(268, 15);
             pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox11.TabIndex = 58;
             pictureBox11.TabStop = false;
@@ -1812,6 +1822,90 @@
             buttonTab.SizeMode = PictureBoxSizeMode.StretchImage;
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
+            // 
+            // scrollUpButton
+            // 
+            scrollUpButton.BackColor = SystemColors.ButtonFace;
+            scrollUpButton.FlatAppearance.BorderSize = 0;
+            scrollUpButton.FlatStyle = FlatStyle.Flat;
+            scrollUpButton.Location = new Point(3, 18);
+            scrollUpButton.Name = "scrollUpButton";
+            scrollUpButton.Size = new Size(83, 38);
+            scrollUpButton.TabIndex = 61;
+            scrollUpButton.Text = "Scroll Wheel Up";
+            scrollUpButton.UseVisualStyleBackColor = false;
+            // 
+            // scrollDownButton
+            // 
+            scrollDownButton.BackColor = SystemColors.ButtonFace;
+            scrollDownButton.FlatAppearance.BorderSize = 0;
+            scrollDownButton.FlatStyle = FlatStyle.Flat;
+            scrollDownButton.Location = new Point(3, 62);
+            scrollDownButton.Name = "scrollDownButton";
+            scrollDownButton.Size = new Size(83, 38);
+            scrollDownButton.TabIndex = 62;
+            scrollDownButton.Text = "Scroll Wheel Down";
+            scrollDownButton.UseVisualStyleBackColor = false;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.FromArgb(156, 155, 151);
+            panel13.Controls.Add(syncScrollDownButton);
+            panel13.Controls.Add(syncScrollUpButton);
+            panel13.Controls.Add(scrollDownButton);
+            panel13.Controls.Add(label28);
+            panel13.Controls.Add(scrollUpButton);
+            panel13.Controls.Add(pictureBox17);
+            panel13.Location = new Point(637, 165);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(180, 106);
+            panel13.TabIndex = 63;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.BackColor = Color.FromArgb(71, 83, 92);
+            label28.ForeColor = SystemColors.ControlLight;
+            label28.Location = new Point(0, 0);
+            label28.Name = "label28";
+            label28.Size = new Size(72, 15);
+            label28.TabIndex = 33;
+            label28.Text = "Scroll Wheel";
+            // 
+            // pictureBox17
+            // 
+            pictureBox17.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox17.BackgroundImageLayout = ImageLayout.None;
+            pictureBox17.Location = new Point(0, 0);
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.Size = new Size(180, 15);
+            pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox17.TabIndex = 58;
+            pictureBox17.TabStop = false;
+            // 
+            // syncScrollDownButton
+            // 
+            syncScrollDownButton.BackColor = SystemColors.ButtonFace;
+            syncScrollDownButton.FlatAppearance.BorderSize = 0;
+            syncScrollDownButton.FlatStyle = FlatStyle.Flat;
+            syncScrollDownButton.Location = new Point(92, 62);
+            syncScrollDownButton.Name = "syncScrollDownButton";
+            syncScrollDownButton.Size = new Size(83, 38);
+            syncScrollDownButton.TabIndex = 64;
+            syncScrollDownButton.Text = "Sync Scroll Wheel Down";
+            syncScrollDownButton.UseVisualStyleBackColor = false;
+            // 
+            // syncScrollUpButton
+            // 
+            syncScrollUpButton.BackColor = SystemColors.ButtonFace;
+            syncScrollUpButton.FlatAppearance.BorderSize = 0;
+            syncScrollUpButton.FlatStyle = FlatStyle.Flat;
+            syncScrollUpButton.Location = new Point(92, 18);
+            syncScrollUpButton.Name = "syncScrollUpButton";
+            syncScrollUpButton.Size = new Size(83, 38);
+            syncScrollUpButton.TabIndex = 63;
+            syncScrollUpButton.Text = "Sync Scroll Wheel Up";
+            syncScrollUpButton.UseVisualStyleBackColor = false;
             // 
             // CommandBuilderMenu
             // 
@@ -1890,6 +1984,9 @@
             panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).EndInit();
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2025,5 +2122,12 @@
         private Button voipSoundButton;
         private Label label27;
         private PictureBox pictureBox16;
+        private Button scrollUpButton;
+        private Button scrollDownButton;
+        private Panel panel13;
+        private Button syncScrollDownButton;
+        private Button syncScrollUpButton;
+        private Label label28;
+        private PictureBox pictureBox17;
     }
 }

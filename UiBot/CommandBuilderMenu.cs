@@ -63,7 +63,7 @@ namespace UiBot
             }
             else
             {
-                inspectorPanel.Height = 276;
+                inspectorPanel.Height = 340;
                 usagePanel.Top = inspectorPanel.Bottom + 10;
 
             }

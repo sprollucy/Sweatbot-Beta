@@ -8,6 +8,11 @@ namespace UiBot
     public partial class SettingMenu : Form
     {
         private int clickCount = 0;
+        public string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
+        public string changelogFilePath = Path.Combine("Changelog.txt");
+        public string backupDirectory = Path.Combine("Backup");
+        public string backupFileNamePattern = "user_bits_backup_*.json"; // Wildcard pattern for the backup files
+        public string userBitFilePath = Path.Combine("Data", "user_bits.json");
 
         public SettingMenu()
         {
@@ -39,7 +44,6 @@ namespace UiBot
         // Load the changelog from the file and display it in changelogBox
         private void LoadChangelog()
         {
-            string changelogFilePath = Path.Combine("Changelog.txt");
 
             if (File.Exists(changelogFilePath))
             {
@@ -107,7 +111,6 @@ namespace UiBot
         // Load existing data from the JSON file
         private LoginData LoadCounterData()
         {
-            string jsonFilePath = Path.Combine("Data", "bin", "Logon.json");
             LoginData existingData = new LoginData();
 
             if (File.Exists(jsonFilePath))
@@ -191,10 +194,6 @@ namespace UiBot
 
         private void bitrestoreButton_Click(object sender, EventArgs e)
         {
-            string backupDirectory = Path.Combine("Backup");
-            string backupFileNamePattern = "user_bits_backup_*.json"; // Wildcard pattern for the backup files
-            string jsonFilePath = Path.Combine("Data", "user_bits.json");
-
             Console.WriteLine($"Restoration triggered at {DateTime.Now}");
 
             try
@@ -215,7 +214,7 @@ namespace UiBot
                 string backupContent = File.ReadAllText(latestBackupFile);
 
                 // Write the backup content back to the JSON file
-                File.WriteAllText(jsonFilePath, backupContent);
+                File.WriteAllText(userBitFilePath, backupContent);
 
                 MessageBox.Show($"Restoration completed from {latestBackupFile} to {jsonFilePath} Please restart for changes to take effect.");
             }
@@ -292,6 +291,12 @@ namespace UiBot
                 // Reset the click count
                 clickCount = 0;
             }
+        }
+
+        private void appFolderButton_Click(object sender, EventArgs e)
+        {
+            string appFolder = Application.StartupPath;
+            Process.Start("explorer.exe", appFolder);
         }
     }
 }

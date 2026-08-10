@@ -11,8 +11,8 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>icon2.ico</ApplicationIcon>
     <AssemblyName>Sweat Bot</AssemblyName>
-    <Version>1.0.10-beta</Version>
-    <AssemblyVersion>1.0.10</AssemblyVersion>
+    <Version>1.0.12-beta</Version>
+    <AssemblyVersion>1.0.12</AssemblyVersion>
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <ApplicationManifest>app.manifest</ApplicationManifest>
 	  <Authors>Sprollucy</Authors>

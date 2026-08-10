@@ -16,15 +16,13 @@ public class CustomCommandHandler
     private static SemaphoreSlim _overlayPixelate = new SemaphoreSlim(1, 1);
     private static SemaphoreSlim _screenOverlay = new SemaphoreSlim(1, 1);
 
-    private Random random = new Random();  // Class-level Random object
-    private DateTime _lastCommandExecutionTime = DateTime.Now;  // Tracks when the last command was executed
-    private Random _random = new Random(); // To generate random numbers
+    private Random random = new Random();
+    private DateTime _lastCommandExecutionTime = DateTime.Now;
+    private Random _random = new Random();
 
     string filePath;
     string LastUsedProfile = Settings.Default.LastUsedProfile;
 
-
-    // User32.dll imports for mouse and keyboard events
     [DllImport("user32.dll", SetLastError = true)]
     public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
 
@@ -37,7 +35,6 @@ public class CustomCommandHandler
     [DllImport("user32.dll")]
     public static extern bool SetCursorPos(int X, int Y);
 
-
     private PixelateOverlay pixelateOverlay;
 
     // Event constants for mouse and keyboard actions
@@ -46,11 +43,11 @@ public class CustomCommandHandler
     public const int MOUSEEVENTF_MOVE = 0x0001;
     public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
     public const int MOUSEEVENTF_RIGHTUP = 0x0010;
-    private const int KEYEVENTF_KEYDOWN = 0x0000;
-    private const int KEYEVENTF_KEYUP = 0x0002;
-    private const int VK_VOLUME_MUTE = 0xAD;
-    private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
-
+    public const int KEYEVENTF_KEYDOWN = 0x0000;
+    public const int KEYEVENTF_KEYUP = 0x0002;
+    public const int VK_VOLUME_MUTE = 0xAD;
+    public const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+    public const int MOUSEEVENTF_WHEEL = 0x0800;
 
     public CustomCommandHandler(string filePath)
     {
@@ -83,6 +80,8 @@ public class CustomCommandHandler
         { "pixelatescreen", PixelateScreen },
         { "shutdownpc", ShutDownPC },
         { "restartpc", RestartPC },
+        { "wheelup", MouseWheelUp },
+        { "wheeldown", MouseWheelDown }
     };
 
         // Async method map
@@ -104,7 +103,9 @@ public class CustomCommandHandler
         { "delayasync", DelayAsync },
         { "lcloopasync", LeftClickLoopAsync },
         { "rcloopasync", RightClickLoopAsync },
-        { "pixelatescreenasync", PixelateScreenAsync }
+        { "pixelatescreenasync", PixelateScreenAsync },
+        { "wheelupasync", MouseWheelUpAsync },
+        { "wheeldownasync", MouseWheelDownAsync }
 
     };
     }
@@ -1329,6 +1330,128 @@ public class CustomCommandHandler
         }
     }
 
+    private async Task MouseWheelUpAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MouseWheelUp.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int amount))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Amount.");
+            return;
+        }
+
+        try
+        {
+            if (Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Scrolling mouse wheel up {amount} units.");
+            }
+
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, amount * 120, 0);
+            await Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseWheelUp: {ex.Message}");
+        }
+    }
+
+    private async Task MouseWheelDownAsync(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MouseWheelDown.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int amount))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Amount.");
+            return;
+        }
+
+        try
+        {
+            if (Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Scrolling mouse wheel down {amount} units.");
+            }
+
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -amount * 120, 0);
+            await Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseWheelDown: {ex.Message}");
+        }
+    }
+
+    private void MouseWheelUp(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MouseWheelUp.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int amount))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Amount.");
+            return;
+        }
+
+        try
+        {
+            if (Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Scrolling mouse wheel up {amount} units.");
+            }
+
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, amount * 120, 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseWheelUp: {ex.Message}");
+        }
+    }
+
+    private void MouseWheelDown(TwitchClient client, string channel, string parameter = null)
+    {
+        if (parameter == null)
+        {
+            Console.WriteLine("No parameters specified for MouseWheelDown.");
+            return;
+        }
+
+        var match = Regex.Match(parameter, @"(\d+)");
+        if (!match.Success || !int.TryParse(match.Value, out int amount))
+        {
+            Console.WriteLine("Invalid parameter format. Expected format: Amount.");
+            return;
+        }
+
+        try
+        {
+            if (Settings.Default.isDebugCommands)
+            {
+                Console.WriteLine($"Scrolling mouse wheel down {amount} units.");
+            }
+
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -amount * 120, 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MouseWheelDown: {ex.Message}");
+        }
+    }
+
     private void MuteVolume(TwitchClient client, string channel, string parameter = null)
     {
         if (parameter == null)
@@ -2037,33 +2160,12 @@ public class CustomCommandHandler
             case "NUMPADMULTIPLY": return 0x6A; // VK_MULTIPLY
             case "NUMPADDIVIDE": return 0x6F; // VK_DIVIDE
 
-            // Xbox Mapping
-            case "XBA": return 0x41; // VK_A (Map Xbox A button to 'A')
-            case "XBB": return 0x42; // VK_B (Map Xbox B button to 'B')
-            case "XBX": return 0x58; // VK_X (Map Xbox X button to 'X')
-            case "XBY": return 0x59; // VK_Y (Map Xbox Y button to 'Y')
-
-            case "LB": return 0x10; // VK_SHIFT (Map Xbox Left Bumper to Shift)
-            case "RB": return 0x11; // VK_CONTROL (Map Xbox Right Bumper to Ctrl)
-
-            // Start, Back, and other buttons
-            case "START": return 0x1B; // VK_ESCAPE (Map Xbox Start button to ESC)
-            case "BACK": return 0x0D; // VK_RETURN (Map Xbox Back button to Enter)
-
-            // D-Pad buttons (you can map these to arrow keys or other keys)
-            case "DPAD_UP": return 0x26; // VK_UP (Map D-Pad Up to UP Arrow)
-            case "DPAD_DOWN": return 0x28; // VK_DOWN (Map D-Pad Down to DOWN Arrow)
-            case "DPAD_LEFT": return 0x25; // VK_LEFT (Map D-Pad Left to LEFT Arrow)
-            case "DPAD_RIGHT": return 0x27; // VK_RIGHT (Map D-Pad Right to RIGHT Arrow)
-
-            // Thumbstick buttons (Clicking the sticks)
-            case "LS_CLICK": return 0x5A; // VK_Z (Map Left Stick Button to 'Z')
-            case "RS_CLICK": return 0x5B; // VK_LWIN (Map Right Stick Button to 'WIN')
-
-            // Analog triggers
-            case "LT": return 0xA0; // VK_LBUTTON (Map Left Trigger to Left Mouse Button)
-            case "RT": return 0xA1; // VK_RBUTTON (Map Right Trigger to Right Mouse Button)
-
+            // Mouse Buttons
+            case "MOUSE4": return 0x05;
+            case "MOUSE5": return 0x06;
+            case "MMB": return 0x04;
+            case "MOUSEWHEELUP": return 0x0800;
+            case "MOUSEWHEELDOWN": return 0x0800;
             default:
                 throw new ArgumentException("Unsupported key");
         }
