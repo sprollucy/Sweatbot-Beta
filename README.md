@@ -1,4 +1,4 @@
-# **Sweatbot 1.0.12 Beta**
+# **Sweatbot 1.0.13 Beta**
 
 Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -151,12 +151,14 @@ To add your own sounds:
 
 ## **Support**
 
-Feel free to report issues via [*SweatBot Discord*](https://discord.gg/k4uH6WZTS4)  
 If you enjoy the project and want to support my work, consider donating via [PayPal](https://www.paypal.com/donate/?business=FK2ZHM73QW3FA).
 
 ---
 
 ## **Latest Changelog**
+1.0.13-beta
+- Fixed bug with global cooldown triggering if a user who doesn't have enough points uses a command
+
 1.0.12-beta
 - Fixed restart command not working
 - Removed xbox controller function as its not reliable
