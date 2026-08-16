@@ -1,4 +1,4 @@
-# **Sweatbot 1.0.11 Beta**
+# **Sweatbot 1.0.12 Beta**
 
 Sweatbot is a simple, lightweight and open Twitch bot designed to control and interact with your computer and games through Twitch chat. It’s heavily inspired by Instructbot, but it’s always free and easy to set up and requires no other connections besides Twitch and tarkov.dev. Originally designed for *Escape from Tarkov*, it now includes a **Custom Command Builder**, allowing it to work with any game.
 Feel free to join the [*Sweatbot Discord*](https://discord.gg/k4uH6WZTS4) to keep up with the latest news
@@ -50,7 +50,6 @@ Whenever a user cheers bits in your chat, the bot will track the total and store
 ## **Upcoming/Potential Features**
 *(Not guaranteed, but under consideration)*
 
-- Support for Linux/Mac by switching to another UI framework.
 - Open to suggestions!
 
 ---
@@ -79,8 +78,6 @@ First download .Net 8 runtime from Microsoft
 
 ## **Getting Started with Sweatbot**
 
-
-Watch a basic setup tutorial [here](https://youtu.be/_G8fQeHlMOA).
 
 ### **Step-by-Step Setup**
 
@@ -160,6 +157,11 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 ---
 
 ## **Latest Changelog**
+1.0.12-beta
+- Fixed restart command not working
+- Removed xbox controller function as its not reliable
+- Added Mouse Wheel up and down commands
+
 1.0.11-beta
 - Increased character limit for !bitcost. Now if you exceed 500 characters in a single message, it will print the rest of the commands out in a new message
 - Adjusted VOIP mic to always play volume at 100% through the microphone(does not effect what you hear)
@@ -172,12 +174,6 @@ If you enjoy the project and want to support my work, consider donating via [Pay
 - Fixed Given bits bug again
 - Added a way to play sounds through a mic using a virtual cable
 > *Note*: To use Voip sound functions, you need to have a virtual audio cable installed, and for your mic to be set as that in your game. All files must be in .WAV format https://vb-audio.com/Cable/
-
-1.0.09.03-beta
-- Added global cooldown for commands
-- Fixed bug where if you !cheer, it would add the bits to the user also
-- Added check for Per User Cooldown to only check against the bots commands
-- Fixed bug in Per User Cooldown continuing the command even though it shouldn't
 - Fixed bug where chat commands will stay paused after restarting the app
 - Added SoundAlerts integrations
 - Added Tangia Integration. Since tangia doesn't show how many bits are spent on it in chat, you will have to set how much to give to the user
