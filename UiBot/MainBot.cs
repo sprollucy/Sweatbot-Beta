@@ -403,26 +403,46 @@ namespace UiBot
             {
                 string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
 
-                if (commandHandler.GetCommand(commandName) != null)
+                var command = commandHandler.GetCommand(commandName);
+
+                if (command != null)
                 {
-                    int delayS;
-                    if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
+                    int userBits;
+
+                    if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
                     {
-                        delayS = 1; // Default delay is 1 second if not set in the box
+                        userBits = MainBot.userBits[e.ChatMessage.DisplayName];
+                    }
+                    else
+                    {
+                        userBits = 0;
                     }
 
-                    if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
+                    if (!commandHandler.CanExecuteCommand(commandName, userBits))
                     {
-                        TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
-
-                        if (timeDifference < TimeSpan.FromSeconds(delayS))
+                    }
+                    else
+                    {
+                        int delayS;
+                        if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
                         {
-                            int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
-                            client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, You can use another command in {remainingDelayS} seconds!");
-                            return;
+                            delayS = 1; // Default delay is 1 second if not set in the box
                         }
+
+                        if (lastExecutionTimes.ContainsKey(e.ChatMessage.DisplayName))
+                        {
+                            TimeSpan timeDifference = currentTime - lastExecutionTimes[e.ChatMessage.DisplayName];
+
+                            if (timeDifference < TimeSpan.FromSeconds(delayS))
+                            {
+                                int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
+                                client.SendMessage(channelId, $"{e.ChatMessage.DisplayName}, You can use another command in {remainingDelayS} seconds!");
+                                return;
+                            }
+                        }
+
+                        lastExecutionTimes[e.ChatMessage.DisplayName] = currentTime;
                     }
-                    lastExecutionTimes[e.ChatMessage.DisplayName] = currentTime;
                 }
             }
 
@@ -430,26 +450,46 @@ namespace UiBot
             {
                 string commandName = e.ChatMessage.Message.TrimStart('!').ToLower();
 
-                if (commandHandler.GetCommand(commandName) != null)
+                var command = commandHandler.GetCommand(commandName);
+
+                if (command != null)
                 {
-                    int delayS;
-                    if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
+                    int userBits;
+
+                    if (MainBot.userBits.ContainsKey(e.ChatMessage.DisplayName))
                     {
-                        delayS = 1; // Default delay is 1 second if not set in the box
+                        userBits = MainBot.userBits[e.ChatMessage.DisplayName];
+                    }
+                    else
+                    {
+                        userBits = 0;
                     }
 
-                    if (lastExecutionTime.HasValue)
+                    if (!commandHandler.CanExecuteCommand(commandName, userBits))
                     {
-                        TimeSpan timeDifference = currentTime - lastExecutionTime.Value;
-
-                        if (timeDifference < TimeSpan.FromSeconds(delayS))
+                    }
+                    else
+                    {
+                        int delayS;
+                        if (!int.TryParse(controlMenu.RateDelayBox.Text, out delayS))
                         {
-                            int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
-                            client.SendMessage(channelId, $"Please wait {remainingDelayS} seconds before using another command!");
-                            return;
+                            delayS = 1;
                         }
+
+                        if (lastExecutionTime.HasValue)
+                        {
+                            TimeSpan timeDifference = currentTime - lastExecutionTime.Value;
+
+                            if (timeDifference < TimeSpan.FromSeconds(delayS))
+                            {
+                                int remainingDelayS = (int)(delayS - timeDifference.TotalSeconds);
+                                client.SendMessage(channelId, $"Please wait {remainingDelayS} seconds before using another command!");
+                                return;
+                            }
+                        }
+
+                        lastExecutionTime = currentTime;
                     }
-                    lastExecutionTime = currentTime;
                 }
             }
 

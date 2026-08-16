@@ -233,6 +233,10 @@ namespace UiBot
         private void amposLoopButton_Click(object sender, EventArgs e) => AppendCommandText($"MPosLoopAsync={mouseX},{mouseY}(dur) ");
         private void apixelateButton_Click(object sender, EventArgs e) => AppendCommandText("PixelateScreenAsync=dur ");
 
+        private void scrollUpButton_Click(object sender, EventArgs e) => AppendCommandText("WheelUp(dur) ");
+        private void syncScrollUpButton_Click(object sender, EventArgs e) => AppendCommandText("WheelUpAsync(dur) ");
+        private void scrollDownButton_Click(object sender, EventArgs e) => AppendCommandText("WheelDown(dur) ");
+        private void syncScrollDownButton_Click(object sender, EventArgs e) => AppendCommandText("WheelDownAsync(dur) ");
 
         private void disablecommandButton_Click(object sender, EventArgs e)
         {

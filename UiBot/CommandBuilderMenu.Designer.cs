@@ -143,6 +143,13 @@
             pictureBox7 = new PictureBox();
             usagePanel = new Panel();
             inspectorPanel = new Panel();
+            panel13 = new Panel();
+            syncScrollDownButton = new Button();
+            syncScrollUpButton = new Button();
+            scrollDownButton = new Button();
+            label28 = new Label();
+            scrollUpButton = new Button();
+            pictureBox17 = new PictureBox();
             panel12 = new Panel();
             label27 = new Label();
             voipSoundAsyncButton = new Button();
@@ -158,13 +165,6 @@
             pictureBox15 = new PictureBox();
             showhideInspector = new Button();
             buttonTab = new PictureBox();
-            scrollUpButton = new Button();
-            scrollDownButton = new Button();
-            panel13 = new Panel();
-            label28 = new Label();
-            pictureBox17 = new PictureBox();
-            syncScrollDownButton = new Button();
-            syncScrollUpButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel1.SuspendLayout();
@@ -189,6 +189,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             usagePanel.SuspendLayout();
             inspectorPanel.SuspendLayout();
+            panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel10.SuspendLayout();
@@ -196,8 +198,6 @@
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).BeginInit();
-            panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             SuspendLayout();
             // 
             // nametextBox
@@ -1631,6 +1631,94 @@
             inspectorPanel.Size = new Size(969, 340);
             inspectorPanel.TabIndex = 61;
             // 
+            // panel13
+            // 
+            panel13.BackColor = Color.FromArgb(156, 155, 151);
+            panel13.Controls.Add(syncScrollDownButton);
+            panel13.Controls.Add(syncScrollUpButton);
+            panel13.Controls.Add(scrollDownButton);
+            panel13.Controls.Add(label28);
+            panel13.Controls.Add(scrollUpButton);
+            panel13.Controls.Add(pictureBox17);
+            panel13.Location = new Point(637, 165);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(180, 106);
+            panel13.TabIndex = 63;
+            // 
+            // syncScrollDownButton
+            // 
+            syncScrollDownButton.BackColor = SystemColors.ButtonFace;
+            syncScrollDownButton.FlatAppearance.BorderSize = 0;
+            syncScrollDownButton.FlatStyle = FlatStyle.Flat;
+            syncScrollDownButton.Location = new Point(92, 62);
+            syncScrollDownButton.Name = "syncScrollDownButton";
+            syncScrollDownButton.Size = new Size(83, 38);
+            syncScrollDownButton.TabIndex = 64;
+            syncScrollDownButton.Text = "Sync Scroll Wheel Down";
+            syncScrollDownButton.UseVisualStyleBackColor = false;
+            syncScrollDownButton.Click += syncScrollDownButton_Click;
+            // 
+            // syncScrollUpButton
+            // 
+            syncScrollUpButton.BackColor = SystemColors.ButtonFace;
+            syncScrollUpButton.FlatAppearance.BorderSize = 0;
+            syncScrollUpButton.FlatStyle = FlatStyle.Flat;
+            syncScrollUpButton.Location = new Point(92, 18);
+            syncScrollUpButton.Name = "syncScrollUpButton";
+            syncScrollUpButton.Size = new Size(83, 38);
+            syncScrollUpButton.TabIndex = 63;
+            syncScrollUpButton.Text = "Sync Scroll Wheel Up";
+            syncScrollUpButton.UseVisualStyleBackColor = false;
+            syncScrollUpButton.Click += syncScrollUpButton_Click;
+            // 
+            // scrollDownButton
+            // 
+            scrollDownButton.BackColor = SystemColors.ButtonFace;
+            scrollDownButton.FlatAppearance.BorderSize = 0;
+            scrollDownButton.FlatStyle = FlatStyle.Flat;
+            scrollDownButton.Location = new Point(3, 62);
+            scrollDownButton.Name = "scrollDownButton";
+            scrollDownButton.Size = new Size(83, 38);
+            scrollDownButton.TabIndex = 62;
+            scrollDownButton.Text = "Scroll Wheel Down";
+            scrollDownButton.UseVisualStyleBackColor = false;
+            scrollDownButton.Click += scrollDownButton_Click;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.BackColor = Color.FromArgb(71, 83, 92);
+            label28.ForeColor = SystemColors.ControlLight;
+            label28.Location = new Point(0, 0);
+            label28.Name = "label28";
+            label28.Size = new Size(72, 15);
+            label28.TabIndex = 33;
+            label28.Text = "Scroll Wheel";
+            // 
+            // scrollUpButton
+            // 
+            scrollUpButton.BackColor = SystemColors.ButtonFace;
+            scrollUpButton.FlatAppearance.BorderSize = 0;
+            scrollUpButton.FlatStyle = FlatStyle.Flat;
+            scrollUpButton.Location = new Point(3, 18);
+            scrollUpButton.Name = "scrollUpButton";
+            scrollUpButton.Size = new Size(83, 38);
+            scrollUpButton.TabIndex = 61;
+            scrollUpButton.Text = "Scroll Wheel Up";
+            scrollUpButton.UseVisualStyleBackColor = false;
+            scrollUpButton.Click += scrollUpButton_Click;
+            // 
+            // pictureBox17
+            // 
+            pictureBox17.BackColor = Color.FromArgb(71, 83, 92);
+            pictureBox17.BackgroundImageLayout = ImageLayout.None;
+            pictureBox17.Location = new Point(0, 0);
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.Size = new Size(180, 15);
+            pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox17.TabIndex = 58;
+            pictureBox17.TabStop = false;
+            // 
             // panel12
             // 
             panel12.BackColor = Color.FromArgb(156, 155, 151);
@@ -1823,90 +1911,6 @@
             buttonTab.TabIndex = 63;
             buttonTab.TabStop = false;
             // 
-            // scrollUpButton
-            // 
-            scrollUpButton.BackColor = SystemColors.ButtonFace;
-            scrollUpButton.FlatAppearance.BorderSize = 0;
-            scrollUpButton.FlatStyle = FlatStyle.Flat;
-            scrollUpButton.Location = new Point(3, 18);
-            scrollUpButton.Name = "scrollUpButton";
-            scrollUpButton.Size = new Size(83, 38);
-            scrollUpButton.TabIndex = 61;
-            scrollUpButton.Text = "Scroll Wheel Up";
-            scrollUpButton.UseVisualStyleBackColor = false;
-            // 
-            // scrollDownButton
-            // 
-            scrollDownButton.BackColor = SystemColors.ButtonFace;
-            scrollDownButton.FlatAppearance.BorderSize = 0;
-            scrollDownButton.FlatStyle = FlatStyle.Flat;
-            scrollDownButton.Location = new Point(3, 62);
-            scrollDownButton.Name = "scrollDownButton";
-            scrollDownButton.Size = new Size(83, 38);
-            scrollDownButton.TabIndex = 62;
-            scrollDownButton.Text = "Scroll Wheel Down";
-            scrollDownButton.UseVisualStyleBackColor = false;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.FromArgb(156, 155, 151);
-            panel13.Controls.Add(syncScrollDownButton);
-            panel13.Controls.Add(syncScrollUpButton);
-            panel13.Controls.Add(scrollDownButton);
-            panel13.Controls.Add(label28);
-            panel13.Controls.Add(scrollUpButton);
-            panel13.Controls.Add(pictureBox17);
-            panel13.Location = new Point(637, 165);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(180, 106);
-            panel13.TabIndex = 63;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.BackColor = Color.FromArgb(71, 83, 92);
-            label28.ForeColor = SystemColors.ControlLight;
-            label28.Location = new Point(0, 0);
-            label28.Name = "label28";
-            label28.Size = new Size(72, 15);
-            label28.TabIndex = 33;
-            label28.Text = "Scroll Wheel";
-            // 
-            // pictureBox17
-            // 
-            pictureBox17.BackColor = Color.FromArgb(71, 83, 92);
-            pictureBox17.BackgroundImageLayout = ImageLayout.None;
-            pictureBox17.Location = new Point(0, 0);
-            pictureBox17.Name = "pictureBox17";
-            pictureBox17.Size = new Size(180, 15);
-            pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox17.TabIndex = 58;
-            pictureBox17.TabStop = false;
-            // 
-            // syncScrollDownButton
-            // 
-            syncScrollDownButton.BackColor = SystemColors.ButtonFace;
-            syncScrollDownButton.FlatAppearance.BorderSize = 0;
-            syncScrollDownButton.FlatStyle = FlatStyle.Flat;
-            syncScrollDownButton.Location = new Point(92, 62);
-            syncScrollDownButton.Name = "syncScrollDownButton";
-            syncScrollDownButton.Size = new Size(83, 38);
-            syncScrollDownButton.TabIndex = 64;
-            syncScrollDownButton.Text = "Sync Scroll Wheel Down";
-            syncScrollDownButton.UseVisualStyleBackColor = false;
-            // 
-            // syncScrollUpButton
-            // 
-            syncScrollUpButton.BackColor = SystemColors.ButtonFace;
-            syncScrollUpButton.FlatAppearance.BorderSize = 0;
-            syncScrollUpButton.FlatStyle = FlatStyle.Flat;
-            syncScrollUpButton.Location = new Point(92, 18);
-            syncScrollUpButton.Name = "syncScrollUpButton";
-            syncScrollUpButton.Size = new Size(83, 38);
-            syncScrollUpButton.TabIndex = 63;
-            syncScrollUpButton.Text = "Sync Scroll Wheel Up";
-            syncScrollUpButton.UseVisualStyleBackColor = false;
-            // 
             // CommandBuilderMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1974,6 +1978,9 @@
             usagePanel.ResumeLayout(false);
             usagePanel.PerformLayout();
             inspectorPanel.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
@@ -1984,9 +1991,6 @@
             panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)buttonTab).EndInit();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
